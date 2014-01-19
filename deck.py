@@ -1,0 +1,44 @@
+#!/usr/bin/python
+#
+# deck.py
+#
+# 2014/01/18
+# rg
+#
+# base classes for managing a deck of cards
+
+from random import shuffle
+
+
+class Card:
+
+    # create a new card with given rank and suit. A=1, J=11, Q=12, K=13
+    def __init__(self, rank, suit):
+        self.rank = rank
+        self.suit = suit
+
+
+class Deck:
+
+    def __init__(self):
+        self.cards = []
+        for suit in ('c', 'h', 'd', 's'):
+            for rank in range(1,14):
+                c = Card(rank, suit)
+                self.cards.append(c)
+        self.shuffle()
+
+
+    def shuffle(self):
+        shuffle(self.cards)
+
+    def deal_a_card(self):
+        return self.cards.pop()
+
+    def examine(self):
+        result = []
+        for card in self.cards:
+            result.append([card.rank, card.suit])
+        return result
+
+
