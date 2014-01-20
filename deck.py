@@ -14,6 +14,12 @@ class Card:
 
     # create a new card with given rank and suit. A=1, J=11, Q=12, K=13
     def __init__(self, rank, suit):
+        # sanity checks
+        if rank < 1 or rank > 13:
+            raise(AttributeError("rank out of range: %d" % rank))
+        if suit not in ['c', 'h', 'd', 's']:
+            raise(AttributeError("suit not valid: %s" % suit))
+
         self.rank = rank
         self.suit = suit
 
@@ -27,7 +33,6 @@ class Deck:
                 c = Card(rank, suit)
                 self.cards.append(c)
         self.shuffle()
-
 
     def shuffle(self):
         shuffle(self.cards)
