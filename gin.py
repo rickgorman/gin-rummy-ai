@@ -28,27 +28,47 @@ class GinCard:
 class GinHand:
     def __init__(self):
         self.cards = []
-        pass
+
+    def enumerate_all_melds_and_sets(self):
+        all_melds = []
+        self.sort_hand()
+
+        # First, check for 4 card melds of the same-numbered card
+        for c in self.cards:
+            # When a 4-card meld is found, also add all 4 of the possible 3-card melds
+            if self._is_in_a_4set(c, self.cards):
+                quad_cards = []
+                for s in c.all_suits():
+                    quad_cards.append((c.rank, s))
+
+                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2], quad_cards[3]])
+
+                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2]])
+                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[3]])
+                all_melds.append([quad_cards[1], quad_cards[2], quad_cards[3]])
+                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[3]])
+
+
+        # Next, check for 3 card melds of the same-numbered card
+        for c in self.cards:
+            if self._is_in_a_3set(c, self.cards):
+                set_cards = [x for x in self.cards if x.rank == c.rank]
+                all_melds.append(set_cards)
+
+        # Next, check for 3 card melds in the same suit
+        # Next, 4 card melds
+        # Finally, 5 card melds
+
+        # Lastly, sort each meld by suit. Then, sort all melds against one another.
+
+        return all_melds
 
     # calculate and return deadwood
     def deadwood_count(self):
-
-        # optimization step: we remove all cards not part of a set or a meld
-        specimen = []
-        early_deadwood = []
-        for card in self.cards:
-            if self._is_in_a_meld(card, self.cards) or self._is_in_a_set(card, self.cards):
-                specimen.append(card)
-            else:
-                early_deadwood.append(card)
-
-        # last step: recursion, to determine which remaining cards are deadwood. add result to early_deadwood count
-        return self._deadwood_count(specimen) + sum(card.rank for card in early_deadwood)
+        pass
 
     # our recursive call
     def _deadwood_count(self, cards):
-
-        #
         pass
 
     @staticmethod
@@ -108,23 +128,38 @@ class GinHand:
         else:
             return False
 
-    # determine if a card binds to a set in a given stack of cards. assuming cards is sorted.
-    @staticmethod
-    def _is_in_a_set(card, cards):
-        # we need to find at least two other cards of the same rank
+    # determine if a card is part of a three-of-a-kind
+    def _is_in_a_3set(self, card, cards):
+        self.sort_hand()
+        # we need to find exactly two other cards of the same rank
         matches = [x for x in cards if x.rank == card.rank and x.suit != card.suit]
-        if len(matches) >= 2:
+        if len(matches) == 2:
             return True
         else:
             return False
 
+    # determine if a card is part of a four-of-a-kind
+    @staticmethod
+    def _is_in_a_4set(card, cards):
+        # we need to find at least two other cards of the same rank
+        matches = [x for x in cards if x.rank == card.rank and x.suit != card.suit]
+        if len(matches) == 3:
+            return True
+        else:
+            return False
+
+
     # add a card, then sort the hand
     def add_card(self, card):
         self.cards.append(card)
-        self.cards.sort(key=attrgetter('rank', 'suit'))
+        self.sort_hand()
 
     def discard(self):
         pass
+
+    def sort_hand(self):
+        self.cards.sort(key=attrgetter('rank', 'suit'))
+
 
 
 # the player
