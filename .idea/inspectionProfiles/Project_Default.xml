@@ -9,6 +9,7 @@
           <option value="E226" />
           <option value="E271" />
           <option value="E241" />
+          <option value="E272" />
         </list>
       </option>
     </inspection_tool>

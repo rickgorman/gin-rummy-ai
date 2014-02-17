@@ -23,6 +23,7 @@ class Card:
         self.rank = rank
         self.suit = suit
 
+    @staticmethod
     def all_suits():
         return ['c', 'h', 'd', 's']
 

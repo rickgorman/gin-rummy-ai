@@ -9,14 +9,12 @@
 
 from deck import *
 from random import random
-from operator import attrgetter
+from operator import attrgetter, itemgetter
 
 
-class GinCard:
-    def __init__(self, card):
-        self.card = card
-        self.rank = card.rank
-        self.suit = card.suit
+class GinCard(Card):
+    def __init__(self, rank, suit):
+        Card.__init__(self, rank, suit)
 
         if self.rank < 10:
             self.point_value = self.rank
@@ -29,138 +27,184 @@ class GinHand:
     def __init__(self):
         self.cards = []
 
-    def enumerate_all_melds_and_sets(self):
-        all_melds = []
+    # add a card, then sort the hand
+    def add_card(self, gincard):
+        self.cards.append(gincard)
         self.sort_hand()
 
-        # First, check for 4 card melds of the same-numbered card
-        for c in self.cards:
-            # When a 4-card meld is found, also add all 4 of the possible 3-card melds
-            if self._is_in_a_4set(c, self.cards):
-                quad_cards = []
-                for s in c.all_suits():
-                    quad_cards.append((c.rank, s))
+    # discard a card, if we are holding it
+    def discard(self, gincard):
+        if gincard in self.cards:
+            self.cards.remove(gincard)
 
-                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2], quad_cards[3]])
+    def sort_hand(self):
+        self.cards.sort(key=attrgetter('rank', 'suit'))
 
-                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2]])
-                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[3]])
-                all_melds.append([quad_cards[1], quad_cards[2], quad_cards[3]])
-                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[3]])
-
-
-        # Next, check for 3 card melds of the same-numbered card
-        for c in self.cards:
-            if self._is_in_a_3set(c, self.cards):
-                set_cards = [x for x in self.cards if x.rank == c.rank]
-                all_melds.append(set_cards)
-
-        # Next, check for 3 card melds in the same suit
-        # Next, 4 card melds
-        # Finally, 5 card melds
-
-        # Lastly, sort each meld by suit. Then, sort all melds against one another.
-
-        return all_melds
-
-    # calculate and return deadwood
-    def deadwood_count(self):
-        pass
-
-    # our recursive call
-    def _deadwood_count(self, cards):
-        pass
-
+    # return a list of all possible melds (not sets) that use a particular card
     @staticmethod
-    def _is_in_a_meld(card, cards):
+    def _melds_using_this_card(card):
+
+        return_melds = []
+        all_possible_melds = []
+
+        # generate a list of all possible melds
+        for s in Card.all_suits():
+            # add all 3-card melds
+            for _ in range(1, 12):
+                all_possible_melds.append(((_, s), (_ + 1, s), (_ + 2, s)))
+                # add all 4-card melds
+            for _ in range(1, 11):
+                all_possible_melds.append(((_, s), (_ + 1, s), (_ + 2, s), (_ + 3, s)))
+                # add all 5-card melds
+            for _ in range(1, 10):
+                all_possible_melds.append(((_, s), (_ + 1, s), (_ + 2, s), (_ + 3, s), (_ + 4, s)))
+
+        # for each meld, check to see if this card is in it. if so, mark it for return.
+        for m in all_possible_melds:
+            if (card.rank, card.suit) in m:
+                return_melds.append(m)
+
+        return sorted(return_melds, key=itemgetter(0, 1))
+
+    # check to see if a given card is in a meld that exists in this GinHand. Note that this handles 3, 4 and 5-melds
+    #   as the latter varieties require the existence of the former in order to exist. We must have a 3-meld containing
+    #   a 456 in order to have a 4-meld containing a 4567.
+    def _is_in_a_meld(self, card):
         # must have at least 3 cards to have a set
-        if len(cards) < 3:
+        if len(self.cards) < 3:
             return False
 
         # for aces we must have A23
         if card.rank == 1:    # Ace
-            if self._contains_card(cards, 2, card.suit) and self._contains_card(cards, 3, card.suit):
+            if self._contains_card(2, card.suit) and self._contains_card(3, card.suit):
                 return True
             else:
                 return False
 
         # for deuces we can have A23 or 234
         elif card.rank == 2:  # 2
-            if   self._contains_card(cards, 1, card.suit) and self._contains_card(cards, 3, card.suit):
+            if self._contains_card(1, card.suit) and self._contains_card(3, card.suit):
                 return True
-            elif self._contains_card(cards, 3, card.suit) and self._contains_card(cards, 4, card.suit):
+            elif self._contains_card(3, card.suit) and self._contains_card(4, card.suit):
                 return True
             else:
                 return False
 
         # for kings we must have exactly JQK
         elif card.rank == 13:  # King
-            if self._contains_card(cards, 11, card.suit) and self._contains_card(cards, 12, card.suit):
+            if self._contains_card(11, card.suit) and self._contains_card(12, card.suit):
                 return True
+            else:
+                return False
 
         # for queens we can have JQK or TJQ
         elif card.rank == 12:  # Queen
-            if   self._contains_card(cards, 11, card.suit) and self._contains_card(cards, 13, card.suit):
+            if self._contains_card(11, card.suit) and self._contains_card(13, card.suit):
                 return True
-            elif self._contains_card(cards, 10, card.suit) and self._contains_card(cards, 11, card.suit):
+            elif self._contains_card(10, card.suit) and self._contains_card(11, card.suit):
                 return True
             else:
                 return False
 
         # for all other cards, we can have [card-2,card-1,card], [card-1,card,card+1] or [card,card+1,card+2]
         else:
-            if   self._contains_card(cards, card.rank - 2, card.suit) and self._contains_card(cards, card.rank - 1,
-                                                                                              card.suit):
+            if self._contains_card(card.rank - 2, card.suit) and self._contains_card(card.rank - 1, card.suit):
                 return True
-            elif self._contains_card(cards, card.rank - 1, card.suit) and self._contains_card(cards, card.rank + 1,
-                                                                                              card.suit):
+            elif self._contains_card(card.rank - 1, card.suit) and self._contains_card(card.rank + 1, card.suit):
                 return True
-            elif self._contains_card(cards, card.rank + 1, card.suit) and self._contains_card(cards, card.rank + 2,
-                                                                                              card.suit):
+            elif self._contains_card(card.rank + 1, card.suit) and self._contains_card(card.rank + 2, card.suit):
                 return True
             else:
                 return False
 
-    @staticmethod
-    def _contains_card(cards, rank, suit):
-        if any(c.rank == rank and c.suit == suit for c in cards):
+    def _contains_card(self, rank, suit):
+        if any(c.rank == rank and c.suit == suit for c in self.cards):
             return True
         else:
             return False
 
-    # determine if a card is part of a three-of-a-kind
-    def _is_in_a_3set(self, card, cards):
-        self.sort_hand()
+    # determine if a card is part of a three-of-a-kind (but not a 4-set)
+    def _is_in_a_3set(self, gincard):
         # we need to find exactly two other cards of the same rank
-        matches = [x for x in cards if x.rank == card.rank and x.suit != card.suit]
+        matches = [x for x in self.cards if x.rank == gincard.rank and x.suit != gincard.suit]
         if len(matches) == 2:
             return True
         else:
             return False
 
     # determine if a card is part of a four-of-a-kind
-    @staticmethod
-    def _is_in_a_4set(card, cards):
-        # we need to find at least two other cards of the same rank
-        matches = [x for x in cards if x.rank == card.rank and x.suit != card.suit]
+    def _is_in_a_4set(self, gincard):
+        # we need to find exactly three other cards of the same rank
+        matches = [x for x in self.cards if x.rank == gincard.rank and x.suit != gincard.suit]
         if len(matches) == 3:
             return True
         else:
             return False
 
-
-    # add a card, then sort the hand
-    def add_card(self, card):
-        self.cards.append(card)
+    # return a list of lists of all melds and sets that can be built with the cards in this hand
+    def enumerate_all_melds_and_sets(self):
+        all_melds = []
         self.sort_hand()
 
-    def discard(self):
+        # First, check for 4-sets
+        for c in self.cards:
+            if self._is_in_a_4set(c):
+                quad_cards = []
+                for s in c.all_suits():
+                    quad_cards.append((c.rank, s))
+
+                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2], quad_cards[3]])
+
+                # When a 4-card set is found, also add all 4 of the possible 3-card melds
+                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2]])
+                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[3]])
+                all_melds.append([quad_cards[1], quad_cards[2], quad_cards[3]])
+                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[3]])
+            # Next, check for 3-sets (reminder: here we check for 3sets exclusive of 4sets)
+            elif self._is_in_a_3set(c):
+                set_cards = [x for x in self.cards if x.rank == c.rank]
+                set_cards_list = map(lambda y: (y.rank, y.suit), set_cards)
+                all_melds.append(set_cards_list)
+
+        # Next, check for 3-melds
+        raise NotImplementedError("here it is")
+
+        # Next, check for 4-melds
+
+        # Finally, check for 5-melds
+
+        # de-dupe. O(n^2) but small population so whatever.
+        all_melds_cleaned = []
+        for m in all_melds:
+            if m not in all_melds_cleaned:
+                all_melds_cleaned.append(m)
+
+        # sort each meld by rank,suit
+        for m in all_melds_cleaned:
+            m.sort(key=itemgetter(0, 1))
+
+        # return a sorted list of all melds
+        return all_melds_cleaned.sort()
+
+    def deadwood_count(self):
+
+        # optimization step: we remove all cards not part of a set or a meld
+        specimen = []
+        early_deadwood = []
+        for card in self.cards:
+            if self._is_in_a_meld(card) or self._is_in_a_3set(card) or self._is_in_a_4set(card):
+                specimen.append(card)
+            else:
+                early_deadwood.append(card)
+
+        # last step: recursion, to determine which remaining cards are deadwood. add result to early_deadwood count
+        return self._deadwood_count(specimen) + sum(card.rank for card in early_deadwood)
+
+    # our recursive call
+    def _deadwood_count(self, cards):
+
+        #
         pass
-
-    def sort_hand(self):
-        self.cards.sort(key=attrgetter('rank', 'suit'))
-
-
 
 # the player
 class GinPlayer:
