@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_gin.py" afterPath="$PROJECT_DIR$/test_gin.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -57,7 +56,7 @@
             <file leaf-file-name="test_gin.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_gin.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="196" column="0" selection-start="6844" selection-end="6844" vertical-scroll-proportion="0.80561554" vertical-offset="1879" max-vertical-offset="2805">
+                  <state line="189" column="51" selection-start="6551" selection-end="6551" vertical-scroll-proportion="0.6922246" vertical-offset="1879" max-vertical-offset="2805">
                     <folding>
                       <element signature="e#0#17#0" expanded="true" />
                       <element signature="e#92#651#0" expanded="false" />
@@ -585,7 +584,11 @@
       <created>1392641352026</created>
       <updated>1392641352026</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added test case for quads">
+      <created>1392641626364</created>
+      <updated>1392641626364</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -668,7 +671,8 @@
     <MESSAGE value="began work on test_gin.py. partway through implementing enumerate_all_melds_and_cards" />
     <MESSAGE value="readded vanished functions from prior commit. changed GinCard to inherit from, rather than contain a Card" />
     <MESSAGE value="majority of test_gin cases written and passed. rearranged functions in gin.py by dependency. added inheritance to GinCard." />
-    <option name="LAST_COMMIT_MESSAGE" value="majority of test_gin cases written and passed. rearranged functions in gin.py by dependency. added inheritance to GinCard." />
+    <MESSAGE value="added test case for quads" />
+    <option name="LAST_COMMIT_MESSAGE" value="added test case for quads" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -803,7 +807,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_gin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="196" column="0" selection-start="6844" selection-end="6844" vertical-scroll-proportion="0.80561554" vertical-offset="1879" max-vertical-offset="2805">
+        <state line="189" column="51" selection-start="6551" selection-end="6551" vertical-scroll-proportion="0.6922246" vertical-offset="1879" max-vertical-offset="2805">
           <folding>
             <element signature="e#0#17#0" expanded="true" />
             <element signature="e#92#651#0" expanded="false" />
