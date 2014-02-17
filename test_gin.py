@@ -175,6 +175,25 @@ class TestGinHand(unittest.TestCase):
         print "expected melds:  " + ''.join(str(x) for x in expected_melds)
         print "generated melds: " + ''.join(str(x) for x in generated_melds)
 
+    def test_enumerate_all_melds_and_sets_quads(self):
+        g = self.helper_generate_ginhand_from_card_data(self.card_data2)
+        generated_melds = g.enumerate_all_melds_and_sets()
+        expected_melds = [[(9,  'c'), (9,  'd'), (9,  'h')],
+                          [(9,  'c'), (9,  'd'), (9,  's')],
+                          [(9,  'c'), (9,  'h'), (9,  's')],
+                          [(9,  'd'), (9,  'h'), (9,  's')],
+                          [(9,  's'), (10, 's'), (11, 's')],
+                          [(9,  's'), (10, 's'), (11, 's'), (12, 's')],
+                          [(9,  's'), (10, 's'), (11, 's'), (12, 's'), (13, 's')],
+                          [(10, 's'), (11, 's'), (12, 's')],
+                          [(10, 's'), (11, 's'), (12, 's'), (13, 's')],
+                          [(11, 's'), (12, 's'), (13, 's')],
+                          [(13, 's'), (13, 'c'), (13, 'h')],
+        ]
+
+        self.assertEqual(generated_melds, expected_melds)
+        print "expected melds:  " + ''.join(str(x) for x in expected_melds)
+        print "generated melds: " + ''.join(str(x) for x in generated_melds)
 
     def test_deadwood_count(self):
         g = self.helper_generate_ginhand_from_card_data(self.card_data1)
