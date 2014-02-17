@@ -37,8 +37,11 @@ class GinHand:
         if gincard in self.cards:
             self.cards.remove(gincard)
 
-    def sort_hand(self):
-        self.cards.sort(key=attrgetter('rank', 'suit'))
+    def sort_hand(self, by_suit=False):
+        if by_suit:
+            self.cards.sort(key=attrgetter('suit', 'rank'))
+        else:
+            self.cards.sort(key=attrgetter('rank', 'suit'))
 
     # return a list of all possible melds (not sets) that use a particular card
     @staticmethod

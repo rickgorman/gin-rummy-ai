@@ -114,6 +114,21 @@ class TestGinHand(unittest.TestCase):
         self.assertEqual(13, g.cards[-1].rank)
         self.assertEqual('s', g.cards[-1].suit)
 
+    def test_sort_hand_by_suit(self):
+        g = self.helper_generate_ginhand_from_card_data(self.card_data1)
+        random.shuffle(g.cards)
+
+        g.sort_hand(by_suit=True)
+        # 5c should be first
+        self.assertEqual(5, g.cards[0].rank)
+        self.assertEqual('c', g.cards[0].suit)
+        # 9c should be second
+        self.assertEqual(9, g.cards[1].rank)
+        self.assertEqual('c', g.cards[1].suit)
+        # Ks should be last
+        self.assertEqual(13, g.cards[-1].rank)
+        self.assertEqual('s', g.cards[-1].suit)
+
     def test__melds_using_this_card(self):
         gc = GinCard(5, 'c')
         m = GinHand._melds_using_this_card(gc)
