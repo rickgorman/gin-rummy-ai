@@ -107,6 +107,10 @@ class TestGinHand(unittest.TestCase):
         random.shuffle(g.cards)
 
         g.sort_hand()
+        # 5c should be first
+        self.assertEqual(5, g.cards[0].rank)
+        self.assertEqual('c', g.cards[0].suit)
+        # Kc should be last
         self.assertEqual(13, g.cards[-1].rank)
         self.assertEqual('s', g.cards[-1].suit)
 
