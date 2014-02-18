@@ -101,31 +101,76 @@ class TestGinHand(unittest.TestCase):
         g.discard(gc)
         self.assertEqual(0, len(g.cards))
 
-    def test_sort_hand(self):
+    def test__sort_hand(self):
         g = self.helper_generate_ginhand_from_card_data(self.card_data1)
         # the add_card function sorts after each add. randomize here to bypass it.
         random.shuffle(g.cards)
 
-        g.sort_hand()
-        # 5c should be first
-        self.assertEqual(5, g.cards[0].rank)
-        self.assertEqual('c', g.cards[0].suit)
-        # Kc should be last
-        self.assertEqual(13, g.cards[-1].rank)
-        self.assertEqual('s', g.cards[-1].suit)
-
-    def test_sort_hand_by_suit(self):
-        g = self.helper_generate_ginhand_from_card_data(self.card_data1)
-        random.shuffle(g.cards)
-
-        g.sort_hand(by_suit=True)
+        g._sort_hand()
         # 5c should be first
         self.assertEqual(5, g.cards[0].rank)
         self.assertEqual('c', g.cards[0].suit)
         # 9c should be second
         self.assertEqual(9, g.cards[1].rank)
         self.assertEqual('c', g.cards[1].suit)
-        # Ks should be last
+        # Kc should be third
+        self.assertEqual(9, g.cards[2].rank)
+        self.assertEqual('h', g.cards[2].suit)
+        # Ks should be fourth
+        self.assertEqual(9, g.cards[3].rank)
+        self.assertEqual('s', g.cards[3].suit)
+        # 5c should be fifth
+        self.assertEqual(10, g.cards[4].rank)
+        self.assertEqual('s', g.cards[4].suit)
+        # 9c should be sixth
+        self.assertEqual(11, g.cards[5].rank)
+        self.assertEqual('s', g.cards[5].suit)
+        # Kc should be seventh
+        self.assertEqual(12, g.cards[6].rank)
+        self.assertEqual('s', g.cards[6].suit)
+        # Ks should be eighth
+        self.assertEqual(13, g.cards[7].rank)
+        self.assertEqual('c', g.cards[7].suit)
+        # Kc should be ninth
+        self.assertEqual(13, g.cards[8].rank)
+        self.assertEqual('h', g.cards[8].suit)
+        # Ks should be tenth
+        self.assertEqual(13, g.cards[-1].rank)
+        self.assertEqual('s', g.cards[-1].suit)
+
+    def test__sort_hand_by_suit(self):
+        g = self.helper_generate_ginhand_from_card_data(self.card_data1)
+        random.shuffle(g.cards)
+
+        g._sort_hand(by_suit=True)
+        # 5c should be first
+        self.assertEqual(5, g.cards[0].rank)
+        self.assertEqual('c', g.cards[0].suit)
+        # 9c should be second
+        self.assertEqual(9, g.cards[1].rank)
+        self.assertEqual('c', g.cards[1].suit)
+        # Kc should be third
+        self.assertEqual(13, g.cards[2].rank)
+        self.assertEqual('c', g.cards[2].suit)
+        # Ks should be fourth
+        self.assertEqual(9, g.cards[3].rank)
+        self.assertEqual('h', g.cards[3].suit)
+        # 5c should be fifth
+        self.assertEqual(13, g.cards[4].rank)
+        self.assertEqual('h', g.cards[4].suit)
+        # 9c should be sixth
+        self.assertEqual(9, g.cards[5].rank)
+        self.assertEqual('s', g.cards[5].suit)
+        # Kc should be seventh
+        self.assertEqual(10, g.cards[6].rank)
+        self.assertEqual('s', g.cards[6].suit)
+        # Ks should be eighth
+        self.assertEqual(11, g.cards[7].rank)
+        self.assertEqual('s', g.cards[7].suit)
+        # Kc should be ninth
+        self.assertEqual(12, g.cards[8].rank)
+        self.assertEqual('s', g.cards[8].suit)
+        # Ks should be tenth
         self.assertEqual(13, g.cards[-1].rank)
         self.assertEqual('s', g.cards[-1].suit)
 
@@ -182,22 +227,23 @@ class TestGinHand(unittest.TestCase):
         generated_melds = g.enumerate_all_melds_and_sets()
         expected_melds = [[(9,  'c'), (9,  'h'), (9,  's')],
                           [(9,  's'), (10, 's'), (11, 's')],
-                          [(10, 's'), (11, 's'), (12, 's')],
-                          [(11, 's'), (12, 's'), (13, 's')],
                           [(9,  's'), (10, 's'), (11, 's'), (12, 's')],
-                          [(10, 's'), (11, 's'), (12, 's'), (13, 's')],
                           [(9,  's'), (10, 's'), (11, 's'), (12, 's'), (13, 's')],
-                          [(13, 's'), (13, 'c'), (13, 'h')],
-        ]
+                          [(10, 's'), (11, 's'), (12, 's')],
+                          [(10, 's'), (11, 's'), (12, 's'), (13, 's')],
+                          [(11, 's'), (12, 's'), (13, 's')],
+                          [(13, 'c'), (13, 'h'), (13, 's')],
+                          ]
 
+#        print "expected melds:  " + ''.join(str(x) for x in expected_melds)
+#        print "generated melds: " + ''.join(str(x) for x in generated_melds)
         self.assertEqual(generated_melds, expected_melds)
-        print "expected melds:  " + ''.join(str(x) for x in expected_melds)
-        print "generated melds: " + ''.join(str(x) for x in generated_melds)
 
     def test_enumerate_all_melds_and_sets_quads(self):
         g = self.helper_generate_ginhand_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_melds_and_sets()
         expected_melds = [[(9,  'c'), (9,  'd'), (9,  'h')],
+                          [(9, 'c'),  (9,  'd'), (9,  'h'), (9, 's')],
                           [(9,  'c'), (9,  'd'), (9,  's')],
                           [(9,  'c'), (9,  'h'), (9,  's')],
                           [(9,  'd'), (9,  'h'), (9,  's')],
@@ -207,16 +253,19 @@ class TestGinHand(unittest.TestCase):
                           [(10, 's'), (11, 's'), (12, 's')],
                           [(10, 's'), (11, 's'), (12, 's'), (13, 's')],
                           [(11, 's'), (12, 's'), (13, 's')],
-                          [(13, 's'), (13, 'c'), (13, 'h')],
+                          [(13, 'c'), (13, 'h'), (13, 's')],
         ]
 
+#        print "expected melds:  " + ''.join(str(x) + ",\n" for x in expected_melds)
+#        print "generated melds: " + ''.join(str(x) + ",\n" for x in generated_melds)
         self.assertEqual(generated_melds, expected_melds)
-        print "expected melds:  " + ''.join(str(x) for x in expected_melds)
-        print "generated melds: " + ''.join(str(x) for x in generated_melds)
 
     def test_deadwood_count(self):
-        g = self.helper_generate_ginhand_from_card_data(self.card_data1)
-        self.assertEqual(5, g.deadwood_count())
+        g1 = self.helper_generate_ginhand_from_card_data(self.card_data1)
+        self.assertEqual(5, g1.deadwood_count())
+
+        g2 = self.helper_generate_ginhand_from_card_data(self.card_data2)
+        self.assertEqual(0, g2.deadwood_count())
 
     def test__deadwood_count(self):
         pass

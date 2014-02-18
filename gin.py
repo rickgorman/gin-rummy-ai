@@ -30,14 +30,14 @@ class GinHand:
     # add a card, then sort the hand
     def add_card(self, gincard):
         self.cards.append(gincard)
-        self.sort_hand()
+        self._sort_hand()
 
     # discard a card, if we are holding it
     def discard(self, gincard):
         if gincard in self.cards:
             self.cards.remove(gincard)
 
-    def sort_hand(self, by_suit=False):
+    def _sort_hand(self, by_suit=False):
         if by_suit:
             self.cards.sort(key=attrgetter('suit', 'rank'))
         else:
@@ -146,8 +146,8 @@ class GinHand:
 
     # return a list of lists of all melds and sets that can be built with the cards in this hand
     def enumerate_all_melds_and_sets(self):
-        all_melds = []
-        self.sort_hand()
+        all_melds = list()
+        self._sort_hand()
 
         # First, check for 4-sets
         for c in self.cards:
@@ -160,9 +160,9 @@ class GinHand:
 
                 # When a 4-card set is found, also add all 4 of the possible 3-card melds
                 all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2]])
-                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[3]])
                 all_melds.append([quad_cards[1], quad_cards[2], quad_cards[3]])
-                all_melds.append([quad_cards[0], quad_cards[1], quad_cards[3]])
+                all_melds.append([quad_cards[2], quad_cards[3], quad_cards[0]])
+                all_melds.append([quad_cards[3], quad_cards[0], quad_cards[1]])
             # Next, check for 3-sets (reminder: here we check for 3sets exclusive of 4sets)
             elif self._is_in_a_3set(c):
                 set_cards = [x for x in self.cards if x.rank == c.rank]
@@ -170,14 +170,52 @@ class GinHand:
                 all_melds.append(set_cards_list)
 
         # Next, check for 3-melds
-        raise NotImplementedError("here it is")
+        self._sort_hand(by_suit=True)
+        for i in range(0, 8):
+            first_card = self.cards[i]
+            second_card = self.cards[i + 1]
+            third_card = self.cards[i + 2]
+            if first_card.suit == second_card.suit == third_card.suit:
+                if first_card.rank + 1 == second_card.rank and second_card.rank + 1 == third_card.rank:
+                    all_melds.append([(first_card.rank, first_card.suit),
+                                      (second_card.rank, second_card.suit),
+                                      (third_card.rank, third_card.suit)])
 
         # Next, check for 4-melds
+        for i in range(0, 7):
+            first_card = self.cards[i]
+            second_card = self.cards[i + 1]
+            third_card = self.cards[i + 2]
+            fourth_card = self.cards[i + 3]
+            if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit:
+                if (first_card.rank + 1 == second_card.rank and
+                        second_card.rank + 1 == third_card.rank and
+                        third_card.rank + 1 == fourth_card.rank):
+                    all_melds.append([(first_card.rank, first_card.suit),
+                                      (second_card.rank, second_card.suit),
+                                      (third_card.rank, third_card.suit),
+                                      (fourth_card.rank, fourth_card.suit)])
 
         # Finally, check for 5-melds
+        for i in range(0, 6):
+            first_card = self.cards[i]
+            second_card = self.cards[i + 1]
+            third_card = self.cards[i + 2]
+            fourth_card = self.cards[i + 3]
+            fifth_card = self.cards[i + 4]
+            if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit == fifth_card.suit:
+                if (first_card.rank + 1 == second_card.rank and
+                        second_card.rank + 1 == third_card.rank and
+                        third_card.rank + 1 == fourth_card.rank and
+                        fourth_card.rank + 1 == fifth_card.rank):
+                    all_melds.append([(first_card.rank, first_card.suit),
+                                      (second_card.rank, second_card.suit),
+                                      (third_card.rank, third_card.suit),
+                                      (fourth_card.rank, fourth_card.suit),
+                                      (fifth_card.rank, fifth_card.suit)])
 
         # de-dupe. O(n^2) but small population so whatever.
-        all_melds_cleaned = []
+        all_melds_cleaned = list()
         for m in all_melds:
             if m not in all_melds_cleaned:
                 all_melds_cleaned.append(m)
@@ -187,7 +225,8 @@ class GinHand:
             m.sort(key=itemgetter(0, 1))
 
         # return a sorted list of all melds
-        return all_melds_cleaned.sort()
+        all_melds_cleaned.sort()
+        return all_melds_cleaned
 
     def deadwood_count(self):
 
