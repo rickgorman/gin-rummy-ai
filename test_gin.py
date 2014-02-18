@@ -57,11 +57,25 @@ class TestGinHand(unittest.TestCase):
         (13, 'h')
     ]
 
+    card_data3 = [
+        (2, 'h'),
+        (2, 'c'),
+        (2, 'd'),
+        (3, 'h'),
+        (3, 'c'),
+        (3, 's'),
+        (4, 'c'),
+        (5, 'c'),
+        (11, 's'),
+        (13, 'h')
+    ]
+
+
     @staticmethod
     def helper_generate_ginhand_from_card_data(cdata):
         g = GinHand()
         for c in cdata:
-            g.add_card(Card(c[0], c[1]))
+            g.add_card(GinCard(c[0], c[1]))
         return g
 
     def testNewGinHand(self):
@@ -243,7 +257,7 @@ class TestGinHand(unittest.TestCase):
         g = self.helper_generate_ginhand_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_melds_and_sets()
         expected_melds = [[(9,  'c'), (9,  'd'), (9,  'h')],
-                          [(9, 'c'),  (9,  'd'), (9,  'h'), (9, 's')],
+                          [(9,  'c'), (9,  'd'), (9,  'h'), (9, 's')],
                           [(9,  'c'), (9,  'd'), (9,  's')],
                           [(9,  'c'), (9,  'h'), (9,  's')],
                           [(9,  'd'), (9,  'h'), (9,  's')],
@@ -260,12 +274,24 @@ class TestGinHand(unittest.TestCase):
 #        print "generated melds: " + ''.join(str(x) + ",\n" for x in generated_melds)
         self.assertEqual(generated_melds, expected_melds)
 
+    def test_sum_points(self):
+        g = self.helper_generate_ginhand_from_card_data(self.card_data1)
+        self.assertEqual(92, g._sum_points(g.cards))
+
+        # empty set of cards should have value 0
+        empty_list = list()
+        self.assertEqual(0, g._sum_points(empty_list))
+
     def test_deadwood_count(self):
+        g3 = self.helper_generate_ginhand_from_card_data(self.card_data3)
+        self.assertEqual(26, g3.deadwood_count())
+
         g1 = self.helper_generate_ginhand_from_card_data(self.card_data1)
         self.assertEqual(5, g1.deadwood_count())
 
         g2 = self.helper_generate_ginhand_from_card_data(self.card_data2)
         self.assertEqual(0, g2.deadwood_count())
+
 
     def test__deadwood_count(self):
         pass

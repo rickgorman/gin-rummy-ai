@@ -171,7 +171,7 @@ class GinHand:
 
         # Next, check for 3-melds
         self._sort_hand(by_suit=True)
-        for i in range(0, 8):
+        for i in range(0, len(self.cards) - 3 + 1):
             first_card = self.cards[i]
             second_card = self.cards[i + 1]
             third_card = self.cards[i + 2]
@@ -182,7 +182,7 @@ class GinHand:
                                       (third_card.rank, third_card.suit)])
 
         # Next, check for 4-melds
-        for i in range(0, 7):
+        for i in range(0, len(self.cards) - 4 + 1):
             first_card = self.cards[i]
             second_card = self.cards[i + 1]
             third_card = self.cards[i + 2]
@@ -197,7 +197,7 @@ class GinHand:
                                       (fourth_card.rank, fourth_card.suit)])
 
         # Finally, check for 5-melds
-        for i in range(0, 6):
+        for i in range(0, len(self.cards) - 5 + 1):
             first_card = self.cards[i]
             second_card = self.cards[i + 1]
             third_card = self.cards[i + 2]
@@ -228,6 +228,14 @@ class GinHand:
         all_melds_cleaned.sort()
         return all_melds_cleaned
 
+    # Return the total points in a set of cards
+    @staticmethod
+    def _sum_points(cards):
+        total = 0
+        for card in cards:
+            total += card.point_value
+        return total
+
     def deadwood_count(self):
 
         # optimization step: we remove all cards not part of a set or a meld
@@ -244,9 +252,7 @@ class GinHand:
 
     # our recursive call
     def _deadwood_count(self, cards):
-
-        #
-        pass
+        return 100
 
 # the player
 class GinPlayer:
