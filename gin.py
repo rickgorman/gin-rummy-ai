@@ -135,8 +135,7 @@ class GinCardGroup():
         else:
             return False
 
-
-    # return a list of lists of all melds and sets that can be built with the cards in this hand
+    # return an array of GinCardGroups of all melds and sets that can be built with the cards in this hand
     def enumerate_all_melds_and_sets(self):
         all_melds = list()
 
@@ -222,8 +221,10 @@ class GinCardGroup():
         # return a sorted array of GinCardGroups, one containing each meld
         all_melds_cleaned.sort()
         gin_card_groups  = []
+        for meld in all_melds_cleaned:
+            gin_card_groups.append(GinCardGroup(meld))
 
-        return all_melds_cleaned
+        return gin_card_groups
 
 class GinCard(Card):
     def __init__(self, rank, suit):
