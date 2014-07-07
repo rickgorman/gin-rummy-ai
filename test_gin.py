@@ -205,6 +205,7 @@ class TestGinCardGroup(unittest.TestCase):
         # test a card not in the hand
         self.assertEqual(False, g._is_in_a_4set(GinCard(1, 'c')))
 
+
 class TestGinCard(unittest.TestCase):
     def testNewGinCard(self):
         known_points = [
@@ -431,9 +432,30 @@ class TestGinHand(unittest.TestCase):
         for data in meld_data:
             melds.append(GinCardGroup(data))
 
-        cleaned = GinHand._clean_meld_group(base_meld, melds)
+        cleaned = GinHand._prune_meld_group(base_meld, melds)
 
         self.assertEqual(8, len(cleaned))
+
+    def test__prune_meld_group(self):
+        a = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
+        b = GinCardGroup([(9, 'c'), (9,  'h'), (9,  's')])
+        c = GinCardGroup([(1, 'c'), (2,  'c'), (3,  'c')])
+        p = GinCardGroup([(9, 'c')])
+        melds = [a, b, c]
+
+        pruned = GinHand._prune_meld_group(melds, p)
+        self.assertEqual(1, len(pruned))
+
+    def test__prune_meld_group_empty_pruner(self):
+        a = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
+        b = GinCardGroup([(9, 'c'), (9,  'h'), (9,  's')])
+        c = GinCardGroup([(1, 'c'), (2,  'c'), (3,  'c')])
+        p = GinCardGroup()
+        melds = [a, b, c]
+
+        pruned = GinHand._prune_meld_group(melds, p)
+        self.assertEqual(3, len(pruned))
+
 
     def test_deadwood_count(self):
         g3 = Helper.helper_generate_ginhand_from_card_data(self.card_data3)
@@ -445,6 +467,32 @@ class TestGinHand(unittest.TestCase):
         g2 = Helper.helper_generate_ginhand_from_card_data(self.card_data2)
         self.assertEqual(0, g2.deadwood_count())
 
-
     def test__examine_melds(self):
-        pass
+        # empty hand = 0 deadwood
+        empty_hand = GinHand()
+        self.assertEqual(0, empty_hand._examine_melds(empty_hand.cg))
+
+        # 1c,2d hand = 3 deadwood
+        two_card_hand = GinHand()
+        two_card_hand.add_card(GinCard(1, 'c'))
+        two_card_hand.add_card(GinCard(2, 'd'))
+        self.assertEqual(3, two_card_hand._examine_melds(two_card_hand.cg))
+
+        # 1c,2d,3h hand = 6 deadwood
+        three_card_hand = GinHand()
+        three_card_hand.add_card(GinCard(1, 'c'))
+        three_card_hand.add_card(GinCard(2, 'd'))
+        three_card_hand.add_card(GinCard(3, 'h'))
+        self.assertEqual(6, three_card_hand._examine_melds(three_card_hand.cg))
+
+        # 1c,2d,3h,4h,5h hand = 3 deadwood
+        five_card_hand = GinHand()
+        five_card_hand.add_card(GinCard(1, 'c'))
+        five_card_hand.add_card(GinCard(2, 'd'))
+        five_card_hand.add_card(GinCard(3, 'h'))
+        five_card_hand.add_card(GinCard(4, 'h'))
+        five_card_hand.add_card(GinCard(5, 'h'))
+        self.assertEqual(3, five_card_hand._examine_melds(five_card_hand.cg))
+
+        g = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+        self.assertEqual(5, g._examine_melds(g.cg))
