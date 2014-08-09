@@ -1,0 +1,48 @@
+# helper file to determine where certain methods should be placed
+
+
+actions:
+    draw a card
+    pickup a discard
+    discard a card
+
+
+
+
+The GinGame will:
+    select players for a game
+    call two players to play
+    start a game with selected players
+    play a game with selected players
+        while (game_ending_point_limit has not been reached):
+            while (no player has knocked):
+                for each player
+                    draw_or_pickup_discard
+                    discard_or_knock
+
+            if gin
+                verify gin
+                count and award deadwood points
+                award gin points
+            else (a knock)
+                non-knocking player can play off of knocker's runs
+                determine which player has lowest deadwood in hand
+                award deadwood points to player determined in step above
+                increment player's win counter
+
+            if player1.points > game_ending_point_limit or player2.points > game_ending_point_limit
+                calculate final score
+                determine winner
+
+    return results of said game
+
+The GinPlayer may:
+x    have a GinStrategy
+x    sit at a GinTable
+x    hold a hand
+x    draw a card from the deck
+x    draw a card from the discard pile
+x    discard a card
+x    declare a knock
+x    declare gin
+    mate with other GinPlayers

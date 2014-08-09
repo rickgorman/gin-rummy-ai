@@ -260,6 +260,9 @@ class GinHand:
     def _sort_hand(self, by_suit=False):
         self.cg.sort(by_suit)
 
+    def size(self):
+        return self.cg.size()
+
     # return total points for this hand
     def points(self):
         return self.cg.sum_points()
