@@ -11,7 +11,6 @@ from random import shuffle
 
 
 class Card:
-
     # create a new card with given rank and suit. A=1, J=11, Q=12, K=13
     def __init__(self, rank, suit):
         # sanity checks
@@ -29,7 +28,6 @@ class Card:
 
 
 class Deck:
-
     def __init__(self):
         self.cards = []
         for suit in ('c', 'h', 'd', 's'):

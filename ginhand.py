@@ -9,7 +9,7 @@
 
 from deck import *
 from operator import attrgetter, itemgetter
-
+from gindeck import *
 
 # card organization and management. takes as input an array of card tuples. maintains objects internally as GinCards
 class GinCardGroup():
@@ -224,19 +224,6 @@ class GinCardGroup():
             gin_card_groups.append(GinCardGroup(meld))
 
         return gin_card_groups
-
-
-class GinCard(Card):
-    def __init__(self, rank, suit):
-        Card.__init__(self, rank, suit)
-
-        if self.rank < 10:
-            self.point_value = self.rank
-        else:
-            self.point_value = 10
-
-    def to_s(self):
-        return str(self.rank) + self.suit
 
 
 # the group of cards held by a player
