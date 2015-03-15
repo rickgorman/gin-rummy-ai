@@ -4,6 +4,22 @@ from gintable import *
 import unittest
 
 
+class MockListener:
+    def __init__(self):
+        self.did_it_knock = False
+        self.did_it_knock_gin = False
+        self.knocker = None
+
+    def notify_of_knock(self, knocker):
+        self.did_it_knock = True
+        self.knocker = knocker
+
+    def notify_of_knock_gin(self, knocker):
+        self.did_it_knock_gin = True
+        self.knocker = knocker
+
+
+# noinspection PyProtectedMember
 class TestGinPlayer(unittest.TestCase):
     def test_new_ginplayer(self):
         s = GinStrategy()
@@ -23,6 +39,54 @@ class TestGinPlayer(unittest.TestCase):
 
         # allows other classes to observe potential gin calls
         self.assertIsInstance(p._knock_gin_listeners, list, "Does not implement observer on gins")
+
+    def test__register_knock_listener(self):
+        p = GinPlayer()
+        l = MockListener()
+        p._register_knock_listener(l)
+
+        # verify the register happened
+        self.assertEqual(1, len(p._knock_listeners))
+
+        # verify we cant register a second time
+        p._register_knock_listener(l)
+        self.assertEqual(1, len(p._knock_listeners))
+
+    def test__notify_knock_listeners(self):
+        p = GinPlayer()
+        l = MockListener()
+        p._register_knock_listener(l)
+
+        # verify the knock callback occurs
+        p.knock()
+        self.assertEqual(True, l.did_it_knock)
+
+        # verify we have the correct knocker
+        self.assertEqual(p, l.knocker)
+
+    def test__register_knock_gin_listener(self):
+        p = GinPlayer()
+        l = MockListener()
+        p._register_knock_gin_listener(l)
+
+        # verify the register happened
+        self.assertEqual(1, len(p._knock_gin_listeners))
+
+        # verity we cant register a second time
+        p._register_knock_gin_listener(l)
+        self.assertEqual(1, len(p._knock_gin_listeners))
+
+    def test__notify_knock_gin_listener(self):
+        p = GinPlayer()
+        l = MockListener()
+        p._register_knock_gin_listener(l)
+
+        # verify the knock callback occurs
+        p.knock_gin()
+        self.assertEqual(True, l.did_it_knock_gin)
+
+        # verify we have the correct knocker
+        self.assertEqual(p, l.knocker)
 
     def test_sit_at_table(self):
         p = GinPlayer()
@@ -179,4 +243,5 @@ class TestGinPlayer(unittest.TestCase):
     def test_knock(self):
         pass
 
-
+    def test_knock_gin(self):
+        pass

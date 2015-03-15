@@ -58,7 +58,7 @@ class GinPlayer:
             self._knock_gin_listeners.append(listener)
 
     def _notify_knock_gin_listeners(self):
-        for listener in self._knock_listeners:
+        for listener in self._knock_gin_listeners:
             listener.notify_of_knock_gin(self)
 
     def knock_gin(self):
@@ -104,9 +104,6 @@ class GinPlayer:
                 pass
             elif self.action[0] == 'KNOCK-GIN':
                 pass
-
-
-
 
     # consult the strategy and perform the action suggested
     def take_turn(self):
