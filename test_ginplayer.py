@@ -52,6 +52,7 @@ class TestGinPlayer(unittest.TestCase):
         p._register_knock_listener(l)
         self.assertEqual(1, len(p._knock_listeners))
 
+    # note that this also sufficiently tests knock()
     def test__notify_knock_listeners(self):
         p = GinPlayer()
         l = MockListener()
@@ -76,6 +77,7 @@ class TestGinPlayer(unittest.TestCase):
         p._register_knock_gin_listener(l)
         self.assertEqual(1, len(p._knock_gin_listeners))
 
+    # note that this also sufficiently tests knock_gin()
     def test__notify_knock_gin_listener(self):
         p = GinPlayer()
         l = MockListener()
@@ -116,15 +118,8 @@ class TestGinPlayer(unittest.TestCase):
         self.assertEqual(p.hand.size(), 1)
         p.draw()
         self.assertEqual(p.hand.size(), 2)
-        p.draw()
-        p.draw()
-        p.draw()
-        p.draw()
-        p.draw()
-        p.draw()
-        p.draw()
-        p.draw()
-        p.draw()
+        for i in range(9):
+            p.draw()
         self.assertEqual(p.hand.size(), 11)
 
         # ensure we cannot hold more than 11 cards
@@ -194,10 +189,50 @@ class TestGinPlayer(unittest.TestCase):
         self.assertEqual(49, len(p.table.deck.cards))
 
     def test_execute_strategy_knock(self):
-        pass
+        strat = MockGinStrategy(['KNOCK', 0])
+        p = GinPlayer(strat)
+        p.table = GinTable()
+        l = MockListener()
+        p._register_knock_listener(l)
+
+        # load up a fake hand. note these cards are chosen to be sorted into slots 0 and 1
+        card_0 = Card(4, 'c')
+        card_1 = Card(5, 'd')
+        p.hand.add_card(card_0)
+        p.hand.add_card(card_1)
+
+        # run strategy
+        p.consult_strategy()
+        p.execute_strategy()
+
+        # verify we discard card 0 into the discard pile AND the listener receives a knock
+        self.assertEqual(1, p.hand.size())
+        self.assertEqual(card_1, p.hand[0])
+        self.assertEqual(card_0, p.table.discard_pile[0])
+        self.assertEqual(True, l.did_it_knock)
 
     def test_execute_strategy_knock_gin(self):
-        pass
+        strat = MockGinStrategy(['KNOCK', 0])
+        p = GinPlayer(strat)
+        p.table = GinTable()
+        l = MockListener()
+        p._register_knock_gin_listener(l)
+
+        # load up a fake hand. note these cards are chosen to be sorted into slots 0 and 1
+        card_0 = Card(4, 'c')
+        card_1 = Card(5, 'd')
+        p.hand.add_card(card_0)
+        p.hand.add_card(card_1)
+
+        # run strategy
+        p.consult_strategy()
+        p.execute_strategy()
+
+        # verify we discard card 0 into the discard pile AND the listener receives a knock
+        self.assertEqual(1, p.hand.size())
+        self.assertEqual(card_1, p.hand[0])
+        self.assertEqual(card_0, p.table.discard_pile[0])
+        self.assertEqual(True, l.did_it_knock_gin)
 
     def test_take_turn(self):
         t = GinTable()
@@ -239,9 +274,3 @@ class TestGinPlayer(unittest.TestCase):
         p.discard_card(card)
         self.assertEqual(0, p.hand.size())
         self.assertEqual(card, t.discard_pile.pop())
-
-    def test_knock(self):
-        pass
-
-    def test_knock_gin(self):
-        pass
