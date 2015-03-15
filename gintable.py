@@ -5,15 +5,22 @@
 # 2014/08/08
 # rg
 #
-# base classes for gin rummy table
+# base classes for gin rummy table. helps us sit correct arrangement of players.
 
 from ginplayer import *
+from gindeck import *
 
 
 class GinTable:
     def __init__(self):
         self.player1 = False
         self.player2 = False
+
+        # on instantiation, create a new, shuffled deck
+        self.deck = GinDeck()
+
+        # also create a discard pile
+        self.discard_pile = []
 
     # seat a player at the table. take special care to not let the same player sit at the table twice.
     def seat_player(self, player):

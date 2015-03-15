@@ -11,6 +11,7 @@ from deck import *
 from operator import attrgetter, itemgetter
 from gindeck import *
 
+
 # card organization and management. takes as input an array of card tuples. maintains objects internally as GinCards
 class GinCardGroup():
     def __init__(self, card_list=None):
@@ -249,6 +250,13 @@ class GinHand:
 
     def size(self):
         return self.cg.size()
+
+    # return card at specific index (0-10)
+    def get_card_at_index(self, index):
+        if index > 10 or index < 0:
+            raise Exception
+        else:
+            return self.cg.cards[index]
 
     # return total points for this hand
     def points(self):

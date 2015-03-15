@@ -1,10 +1,16 @@
 <component name="ProjectDictionaryState">
   <dictionary name="me">
     <words>
+      <w>decksize</w>
       <w>gincard</w>
       <w>gincardgroup</w>
       <w>ginhand</w>
+      <w>ginmatch</w>
+      <w>ginplayer</w>
       <w>guid</w>
+      <w>mockaction</w>
+      <w>strat</w>
+      <w>topcard</w>
       <w>trank</w>
     </words>
   </dictionary>

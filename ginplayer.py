@@ -13,12 +13,24 @@ from ginstrategy import *
 from gintable import *
 
 
+# handle invalid draws
+class DrawException(Exception):
+    pass
+
+
+# handle invalid strategies
+class StrategyExecutionException(Exception):
+    pass
+
+
 # the player
 class GinPlayer:
     # begin with empty hand
     def __init__(self, strategy=False):
         # parameter passing
         self.strategy = strategy
+
+        self.action = False
 
         self.table = False
 
@@ -53,7 +65,7 @@ class GinPlayer:
         self._notify_knock_gin_listeners()
 
     # sit at a table
-    def _sit_at_table(self, table):
+    def sit_at_table(self, table):
         try:
             if table.seat_player(self):
                 self.table = table
@@ -65,15 +77,52 @@ class GinPlayer:
         self.hand.add_card(card)
 
     def draw(self):
-        pass
+        if self.hand.size() == 11:
+            raise DrawException
+        else:
+            card = self.table.deck.deal_a_card()
+            self.hand.add_card(card)
+            return card
+
+    def consult_strategy(self):
+        self.action = self.strategy.best_action()
+
+    # here we act on the advice we received from the strategy
+    def execute_strategy(self):
+        if not self.action:
+            raise StrategyExecutionException('no action to execute!')
+        else:
+            if self.action[0] == 'DRAW':
+                self.draw()
+            elif self.action[0] == 'PICKUP-DISCARD':
+                self.pickup_discard()
+            elif self.action[0] == 'DISCARD':
+                index = self.action[1]
+                card = self.hand.get_card_at_index(index)
+                self.hand.discard(card)
+            elif self.action[0] == 'KNOCK':
+                pass
+            elif self.action[0] == 'KNOCK-GIN':
+                pass
+
+
+
+
+    # consult the strategy and perform the action suggested
+    def take_turn(self):
+        self.consult_strategy()
+        self.execute_strategy()
 
     def pickup_discard(self):
-        pass
+        card = self.table.discard_pile.pop()
+        self._add_card(card)
+        return card
 
-    # drop the given card
+    # drop the given card into the discard pile
     def discard_card(self, card):
         try:
             self.hand.discard(card)
+            self.table.discard_pile.append(card)
         except ValueError:
             raise Exception("card not in our hand")
         except AttributeError:

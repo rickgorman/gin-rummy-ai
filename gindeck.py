@@ -10,6 +10,7 @@
 
 from deck import *
 
+
 class GinCard(Card):
     def __init__(self, rank, suit):
         Card.__init__(self, rank, suit)
@@ -27,4 +28,4 @@ class GinDeck(Deck):
     # deal out GinCards, rather than base Cards
     def deal_a_card(self):
         card = super(GinDeck, self).deal_a_card()
-        return GinCard(card)
+        return GinCard(card.rank, card.suit)

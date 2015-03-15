@@ -27,7 +27,7 @@ class Card:
         return ['c', 'h', 'd', 's']
 
 
-class Deck:
+class Deck(object):
     def __init__(self):
         self.cards = []
         for suit in ('c', 'h', 'd', 's'):

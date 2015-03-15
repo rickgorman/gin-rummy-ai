@@ -299,6 +299,12 @@ class TestGinHand(unittest.TestCase):
         g.discard(g.cg.cards.pop())
         self.assertEqual(0, g.size())
 
+    def test_get_card_at_index(self):
+        g = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+
+        target = g.get_card_at_index(0)
+        self.assertEqual(target, g.cg.cards[0])
+
     def test__sort_hand(self):
         g = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
         # the add_card function sorts after each add. randomize here to bypass it.
