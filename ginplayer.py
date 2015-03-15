@@ -22,7 +22,6 @@ class DrawException(Exception):
 class StrategyExecutionException(Exception):
     pass
 
-
 # the player
 class GinPlayer:
     # begin with empty hand
@@ -66,11 +65,8 @@ class GinPlayer:
 
     # sit at a table
     def sit_at_table(self, table):
-        try:
-            if table.seat_player(self):
-                self.table = table
-        except FullTableError:
-            raise RuntimeError("Table is full and so this player cannot be seated.")
+        if table.seat_player(self):
+            self.table = table
 
     # add the given card to this player's hand
     def _add_card(self, card):
