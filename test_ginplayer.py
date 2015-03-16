@@ -1,6 +1,7 @@
 from ginplayer import *
 from ginhand import *
 from gintable import *
+from ginmatch import *
 import unittest
 
 
@@ -237,13 +238,11 @@ class TestGinPlayer(unittest.TestCase):
         self.assertEqual(True, l.did_it_knock_gin)
 
     def test_take_turn(self):
-        t = GinTable()
-        p1 = GinPlayer()
-        p2 = GinPlayer()
-        p1.sit_at_table(t)
-        p2.sit_at_table(t)
-        # a player's hand should change after the first turn
-        pass
+        s = MockGinStrategy(['DRAW'])
+        p = GinPlayer(s)
+
+        # verify we reach an error if we do not have enough cards in hand
+        self.assertRaises(Exception, p.take_turn)
 
     def test_pickup_discard(self):
         t = GinTable()

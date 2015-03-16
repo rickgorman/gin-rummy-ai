@@ -109,8 +109,15 @@ class GinPlayer:
 
     # consult the strategy and perform the action suggested
     def take_turn(self):
-        self.consult_strategy()
-        self.execute_strategy()
+        # if we have 11 cards, we do this once. otherwise, we do it twice.
+        if self.hand.size() == 11:
+            self.consult_strategy()
+            self.execute_strategy()
+        elif self.hand.size() == 10:
+            self.consult_strategy()
+            self.execute_strategy()
+        else:
+            raise Exception('not enough cards in hand to take a turn')
 
     def pickup_discard(self):
         card = self.table.discard_pile.pop()
