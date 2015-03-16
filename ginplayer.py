@@ -95,11 +95,17 @@ class GinPlayer:
             elif self.action[0] == 'DISCARD':
                 index = self.action[1]
                 card = self.hand.get_card_at_index(index)
-                self.hand.discard(card)
+                self.discard_card(card)
             elif self.action[0] == 'KNOCK':
-                pass
+                index = self.action[1]
+                card = self.hand.get_card_at_index(index)
+                self.discard_card(card)
+                self.knock()
             elif self.action[0] == 'KNOCK-GIN':
-                pass
+                index = self.action[1]
+                card = self.hand.get_card_at_index(index)
+                self.discard_card(card)
+                self.knock_gin()
 
     # consult the strategy and perform the action suggested
     def take_turn(self):

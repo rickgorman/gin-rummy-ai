@@ -147,6 +147,7 @@ class TestGinPlayer(unittest.TestCase):
         p.execute_strategy()
         self.assertEqual(0, p.hand.size())
 
+
     def test_execute_strategy_draw(self):
         strat = MockGinStrategy(['DRAW'])
         p = GinPlayer(strat)
@@ -207,12 +208,12 @@ class TestGinPlayer(unittest.TestCase):
 
         # verify we discard card 0 into the discard pile AND the listener receives a knock
         self.assertEqual(1, p.hand.size())
-        self.assertEqual(card_1, p.hand[0])
+        self.assertEqual(card_1, p.hand.cg.cards[0])
         self.assertEqual(card_0, p.table.discard_pile[0])
         self.assertEqual(True, l.did_it_knock)
 
     def test_execute_strategy_knock_gin(self):
-        strat = MockGinStrategy(['KNOCK', 0])
+        strat = MockGinStrategy(['KNOCK-GIN', 0])
         p = GinPlayer(strat)
         p.table = GinTable()
         l = MockListener()
@@ -230,7 +231,8 @@ class TestGinPlayer(unittest.TestCase):
 
         # verify we discard card 0 into the discard pile AND the listener receives a knock
         self.assertEqual(1, p.hand.size())
-        self.assertEqual(card_1, p.hand[0])
+        self.assertEqual(card_1, p.hand.cg.cards[0])
+        self.assertEqual(1, len(p.table.discard_pile))
         self.assertEqual(card_0, p.table.discard_pile[0])
         self.assertEqual(True, l.did_it_knock_gin)
 
