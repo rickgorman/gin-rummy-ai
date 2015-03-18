@@ -110,7 +110,7 @@ class TestGinCardGroup(Helper):
         self.assertEqual(0, cg.sum_points())
 
     def test_enumerate_all_melds_and_sets(self):
-        g = Helper.helper_generate_gincardgroup_from_card_data(self.card_data1)
+        g = self.generate_gincardgroup_from_card_data(self.card_data1)
         generated_melds = g.enumerate_all_melds_and_sets()
         expected_melds_data = [[(9,  'c'), (9,  'h'), (9,  's')],
                                 [(9,  's'), (10, 's'), (11, 's')],
@@ -136,7 +136,7 @@ class TestGinCardGroup(Helper):
                 self.assertEqual(generated_melds[i].cards[j].suit, expected_melds[i].cards[j].suit)
 
     def test_enumerate_all_melds_and_sets_quads(self):
-        g = Helper.helper_generate_gincardgroup_from_card_data(self.card_data2)
+        g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_melds_and_sets()
         expected_melds_data = [[(9,  'c'), (9,  'd'), (9,  'h')],
                           [(9,  'c'), (9,  'd'), (9,  'h'), (9, 's')],
@@ -175,7 +175,7 @@ class TestGinCardGroup(Helper):
                           [(11, 's'), (12, 's'), (13, 's')],
                           ]
 
-        g = Helper.helper_generate_gincardgroup_from_card_data(self.card_data2)
+        g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_melds()
 
         self.assertTrue(self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds))
@@ -189,13 +189,13 @@ class TestGinCardGroup(Helper):
                           [(13, 'c'), (13, 'h'), (13, 's')],
                           ]
 
-        g = Helper.helper_generate_gincardgroup_from_card_data(self.card_data2)
+        g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_sets()
 
         self.assertTrue(self.helper_compare_arrays_of_cardgroups(expected_melds_data, generated_melds))
 
     def test__is_in_a_meld(self):
-        cgroup = Helper.helper_generate_gincardgroup_from_card_data(self.card_data1)
+        cgroup = self.generate_gincardgroup_from_card_data(self.card_data1)
 
         # all cards in card_data1 except for the 5c,9h,9c,Kc,Kh should be marked as being in a meld
         for c in self.card_data1:
@@ -210,7 +210,7 @@ class TestGinCardGroup(Helper):
                 self.assertEqual(True, cgroup._is_in_a_meld(gc), "T-rank: %d, suit: %s" % (gc.rank, gc.suit))
 
     def test__is_in_a_3set(self):
-        g = Helper.helper_generate_gincardgroup_from_card_data(self.card_data2)
+        g = self.generate_gincardgroup_from_card_data(self.card_data2)
 
         self.assertEqual(False, g._is_in_a_3set(GinCard(9, 's')))
         self.assertEqual(False, g._is_in_a_3set(GinCard(10, 's')))
@@ -220,7 +220,7 @@ class TestGinCardGroup(Helper):
         self.assertEqual(False, g._is_in_a_3set(GinCard(1, 's')))
 
     def test__is_in_a_4set(self):
-        g = Helper.helper_generate_gincardgroup_from_card_data(self.card_data2)
+        g = self.generate_gincardgroup_from_card_data(self.card_data2)
         gc_yes = GinCard(9, 'c')
         gc_no = GinCard(10, 'c')
 
@@ -232,47 +232,8 @@ class TestGinCardGroup(Helper):
 
 
 # noinspection PyProtectedMember
-class TestGinHand(unittest.TestCase):
+class TestGinHand(Helper):
     maxDiff = None
-
-    card_data1 = [
-        (9, 'h'),
-        (9, 'c'),
-        (9, 's'),
-        (10, 's'),
-        (11, 's'),
-        (12, 's'),
-        (13, 's'),
-        (13, 'c'),
-        (13, 'h'),
-        (5, 'c'),
-    ]
-
-    card_data2 = [
-        (9, 'h'),
-        (9, 'c'),
-        (9, 's'),
-        (9, 'd'),
-        (10, 's'),
-        (11, 's'),
-        (12, 's'),
-        (13, 's'),
-        (13, 'c'),
-        (13, 'h')
-    ]
-
-    card_data3 = [
-        (2, 'h'),
-        (2, 'c'),
-        (2, 'd'),
-        (3, 'h'),
-        (3, 's'),
-        (3, 'c'),
-        (4, 'c'),
-        (5, 'c'),
-        (5, 's'),
-        (5, 'h')
-    ]
 
     def testNewGinHand(self):
         g = GinHand()
@@ -326,13 +287,13 @@ class TestGinHand(unittest.TestCase):
         self.assertEqual(0, g.size())
 
     def test_get_card_at_index(self):
-        g = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+        g = self.generate_ginhand_from_card_data(self.card_data1)
 
         target = g.get_card_at_index(0)
         self.assertEqual(target, g.cg.cards[0])
 
     def test__sort_hand(self):
-        g = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+        g = self.generate_ginhand_from_card_data(self.card_data1)
         # the add_card function sorts after each add. randomize here to bypass it.
         random.shuffle(g.cg.cards)
 
@@ -369,7 +330,7 @@ class TestGinHand(unittest.TestCase):
         self.assertEqual('s', g.cg.cards[-1].suit)
 
     def test__sort_hand_by_suit(self):
-        g = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+        g = self.generate_ginhand_from_card_data(self.card_data1)
         random.shuffle(g.cg.cards)
 
         g._sort_hand(by_suit=True)
@@ -422,7 +383,7 @@ class TestGinHand(unittest.TestCase):
         self.assertEqual(12, len(m))
 
     def test__contains_card(self):
-        g = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+        g = self.generate_ginhand_from_card_data(self.card_data1)
         self.assertEqual(True, g._contains_card(5, 'c'))
         self.assertEqual(False, g._contains_card(5, 'd'))
 
@@ -472,13 +433,13 @@ class TestGinHand(unittest.TestCase):
         self.assertEqual(3, len(pruned))
 
     def test_deadwood_count(self):
-        g1 = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+        g1 = self.generate_ginhand_from_card_data(self.card_data1)
         self.assertEqual(5, g1.deadwood_count())
 
-        g2 = Helper.helper_generate_ginhand_from_card_data(self.card_data2)
+        g2 = self.generate_ginhand_from_card_data(self.card_data2)
         self.assertEqual(0, g2.deadwood_count())
 
-        g3 = Helper.helper_generate_ginhand_from_card_data(self.card_data3)
+        g3 = self.generate_ginhand_from_card_data(self.card_data3)
         self.assertEqual(26, g3.deadwood_count())
 
     def test__examine_melds(self):
@@ -508,18 +469,18 @@ class TestGinHand(unittest.TestCase):
         five_card_hand.add_card(GinCard(5, 'h'))
         self.assertEqual(3, five_card_hand._examine_melds(five_card_hand.cg))
 
-        g = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+        g = self.generate_ginhand_from_card_data(self.card_data1)
         self.assertEqual(5, g._examine_melds(g.cg))
 
     def test_deadwood_cards(self):
-        gh = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
+        gh = self.generate_ginhand_from_card_data(self.card_data1)
 
         self.assertIsInstance(gh.deadwood_cards(), GinCardGroup)
         self.assertEqual(gh.deadwood_cards().contains(5, 'c'))
 
     def test_process_layoff(self):
-        gh_layer = Helper.helper_generate_ginhand_from_card_data(self.card_data1)
-        gh_winner = Helper.helper_generate_ginhand_from_card_data(self.card_data3)
+        gh_layer = self.generate_ginhand_from_card_data(self.card_data1)
+        gh_winner = self.generate_ginhand_from_card_data(self.card_data3)
 
         # we lay off our single unmatched 5 against a set of 5's and expect a new deadwood count of 0
         self.assertIsInstance(gh_layer.process_layoff(gh_winner), GinHand)

@@ -50,7 +50,7 @@ class GinMatch:
 
         # track game state
         self.gameover = False
-        self.player_knocked = False
+        self.player_who_knocked = False
         self.player_knocked_gin = False
         self.p1_knocked_improperly = False
         self.p2_knocked_improperly = False
@@ -108,7 +108,7 @@ class GinMatch:
         # clear game states
         self.gameover = False
         self.player_knocked_gin = False
-        self.player_knocked = False
+        self.player_who_knocked = False
         self.p1_knocked_improperly = False
         self.p2_knocked_improperly = False
 
@@ -122,12 +122,12 @@ class GinMatch:
                 if not self.gameover:
                     p.take_turn()
 
-                    if self.player_knocked:
+                    if self.player_who_knocked:
                         # validate the knock or reset the knock state and penalize the knocker
                         if p.hand.deadwood_count() <= 10:
                             self.end_with_knock(p)
                         else:
-                            self.player_knocked = False
+                            self.player_who_knocked = False
                             if p == self.p1:
                                 self.p1_knocked_improperly = True
                             elif p == self.p2:
@@ -171,7 +171,7 @@ class GinMatch:
             # finally, handle valid knocks
             else:
                 self.gameover = True
-                self.player_knocked = knocker
+                self.player_who_knocked = knocker
 
     def end_with_knock_gin(self, knocker):
         # first, handle invalid knocks with a penalty of the hand now being played face-up
@@ -185,4 +185,13 @@ class GinMatch:
             self.player_knocked_gin = knocker
 
     def update_score(self):
-        pass
+        p1_score_delta = 0
+        p2_score_delta = 0
+
+        # track the 'defender' of the knock/gin
+        if self.p1 == self.player_who_knocked:
+            player_who_didnt_knock = self.p2
+        else:
+            player_who_didnt_knock = self.p1
+
+        # for knocks, allow lay-offs

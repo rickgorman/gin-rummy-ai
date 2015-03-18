@@ -391,5 +391,31 @@ class GinHand:
             # track lowest deadwood
             minimum_deadwood = min(minimum_deadwood, result)
 
-
         return minimum_deadwood
+
+    # return a GCG containing our deadwood cards
+    def deadwood_cards(self):
+        pass
+
+    # compare our hand against another hand and return
+    def process_layoff(self, knocking_hand):
+        """@type knocking_hand: GinPlayer"""
+
+        # get a list of our deadwood cards
+
+        # We will attempt to lay off each card twice. In the case that we have two connected cards that will layoff on
+        # the same meld (for instance: we hold 4c5c, knocker holds Ac2c3c) we cannot lay off the 5c until we first lay
+        # off the 4c. Sorting does not necessarily fix this, as we may lay off low first or high first. Therefore,
+        # we run the process twice. We do not run the process a third time, as that would imply we held a 3-card meld
+        # of our own (which would not count as deadwood).
+
+        # for each set held by knocker:
+        # - for each deadwood card we hold:
+        #   - if our rank matches knocker's rank, we lay it off
+
+        # for each meld held by knocker:
+        # - for each deadwood card we hold:
+        #   - if our suit matches the meld's suit:
+        #     - if our rank is one less than the lowest rank of the meld, we lay it off
+        #     - if our rank is one more than the highest of the meld, we lay it off
+        pass

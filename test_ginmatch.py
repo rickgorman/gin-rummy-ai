@@ -3,7 +3,7 @@ import unittest
 from test_helpers import *
 
 
-class TestGinMatch(unittest.TestCase):
+class TestGinMatch(Helper):
 
     awful_hand_data = [
         (1, 'd'),
@@ -99,10 +99,10 @@ class TestGinMatch(unittest.TestCase):
         gm = GinMatch(p1, p2)
 
         # morbidly awful hand with deadwood = 55
-        p1.hand = Helper.helper_generate_ginhand_from_card_data(self.awful_hand_data)
+        p1.hand = self.generate_ginhand_from_card_data(self.awful_hand_data)
 
         # knock-worthy hand with deadwood=1
-        p2.hand = Helper.helper_generate_ginhand_from_card_data(self.knock_worthy_hand_data)
+        p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
         # if the knock was INVALID, ensure we penalize the player and that the game continues
         gm.end_with_knock(p1)
@@ -116,10 +116,10 @@ class TestGinMatch(unittest.TestCase):
         gm = GinMatch(p1, p2)
 
         # morbidly awful hand with deadwood = 55
-        p1.hand = Helper.helper_generate_ginhand_from_card_data(self.awful_hand_data)
+        p1.hand = self.generate_ginhand_from_card_data(self.awful_hand_data)
 
         # knock-worthy hand with deadwood=1
-        p2.hand = Helper.helper_generate_ginhand_from_card_data(self.knock_worthy_hand_data)
+        p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
         # if the knock was VALID, ensure we mark the game as over
         gm.end_with_knock(p2)
@@ -133,10 +133,10 @@ class TestGinMatch(unittest.TestCase):
         gm = GinMatch(p1, p2)
 
         # morbidly awful hand with deadwood = 55
-        p1.hand = Helper.helper_generate_ginhand_from_card_data(self.awful_hand_data)
+        p1.hand = self.generate_ginhand_from_card_data(self.awful_hand_data)
 
         # knock-worthy hand with deadwood=1
-        p2.hand = Helper.helper_generate_ginhand_from_card_data(self.knock_worthy_hand_data)
+        p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
         # if the knock was INVALID, ensure we penalize the player and that the game continues
         gm.end_with_knock_gin(p1)
@@ -150,10 +150,10 @@ class TestGinMatch(unittest.TestCase):
         gm = GinMatch(p1, p2)
 
         # morbidly awful hand with deadwood = 55
-        p1.hand = Helper.helper_generate_ginhand_from_card_data(self.awful_hand_data)
+        p1.hand = self.generate_ginhand_from_card_data(self.awful_hand_data)
 
         # gin-worthy hand with deadwood=0
-        p2.hand = Helper.helper_generate_ginhand_from_card_data(self.gin_worthy_hand_data)
+        p2.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
 
         # if the knock was VALID, ensure we penalize the player and that the game continues
         gm.end_with_knock_gin(p2)
@@ -167,10 +167,10 @@ class TestGinMatch(unittest.TestCase):
         gm = GinMatch(p1, p2)
 
         # morbidly awful hand with deadwood = 55
-        p1.hand = Helper.helper_generate_ginhand_from_card_data(self.awful_hand_data)
+        p1.hand = self.generate_ginhand_from_card_data(self.awful_hand_data)
 
         # knock-worthy hand with deadwood=0
-        p2.hand = Helper.helper_generate_ginhand_from_card_data(self.gin_worthy_hand_data)
+        p2.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
 
         gm.update_score()
         self.assertEqual(gm.p1_score, 0)
