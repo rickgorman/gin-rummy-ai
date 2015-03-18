@@ -1,6 +1,3 @@
-from ginplayer import *
-from ginhand import *
-from gintable import *
 from ginmatch import *
 import unittest
 

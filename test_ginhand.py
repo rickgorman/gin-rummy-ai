@@ -1,6 +1,3 @@
-from ginhand import *
-from gindeck import *
-import unittest
 import random
 from test_helpers import *
 
@@ -110,8 +107,6 @@ class TestGinCardGroup(Helper):
         self.assertEqual(0, cg.sum_points())
 
     def test_enumerate_all_melds_and_sets(self):
-        g = self.generate_gincardgroup_from_card_data(self.card_data1)
-        generated_melds = g.enumerate_all_melds_and_sets()
         expected_melds_data = [[(9,  'c'), (9,  'h'), (9,  's')],
                                 [(9,  's'), (10, 's'), (11, 's')],
                                 [(9,  's'), (10, 's'), (11, 's'), (12, 's')],
@@ -122,18 +117,10 @@ class TestGinCardGroup(Helper):
                                 [(13, 'c'), (13, 'h'), (13, 's')],
                                ]
 
-        expected_melds = []
-        for meld in expected_melds_data:
-            expected_melds.append(GinCardGroup(meld))
-        # print "expected melds:  " + ''.join(str(x) for x in expected_melds)
-        # print "generated melds: " + ''.join(str(x) for x in generated_melds)
+        g = self.generate_gincardgroup_from_card_data(self.card_data1)
+        generated_melds = g.enumerate_all_melds_and_sets()
 
-        # compare each expected/generated pair by value
-        self.assertEqual(8, len(generated_melds))
-        for i in range(0, len(generated_melds)):
-            for j in range(0, len(generated_melds[i].cards)):
-                self.assertEqual(generated_melds[i].cards[j].rank, expected_melds[i].cards[j].rank)
-                self.assertEqual(generated_melds[i].cards[j].suit, expected_melds[i].cards[j].suit)
+        self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
 
     def test_enumerate_all_melds_and_sets_quads(self):
         g = self.generate_gincardgroup_from_card_data(self.card_data2)
@@ -152,19 +139,14 @@ class TestGinCardGroup(Helper):
                           [(13, 'c'), (13, 'h'), (13, 's')],
                           ]
 
-        expected_melds = []
-        for meld in expected_melds_data:
-            expected_melds.append(GinCardGroup(meld))
-
 #        print "expected melds:  " + ''.join(str(x.rank) + ",\n" for x in expected_melds[0].cards)
 #        print "generated melds: " + ''.join(str(x.rank) + ",\n" for x in generated_melds[0].cards)
 #        self.assertEqual(generated_melds, expected_melds)
 
-        # compare each expected/generated pair by value
-        for i in range(0, len(generated_melds)):
-            for j in range(0, len(generated_melds[i].cards)):
-                self.assertEqual(generated_melds[i].cards[j].rank, expected_melds[i].cards[j].rank)
-                self.assertEqual(generated_melds[i].cards[j].suit, expected_melds[i].cards[j].suit)
+        g = self.generate_gincardgroup_from_card_data(self.card_data1)
+        generated_melds = g.enumerate_all_melds_and_sets()
+
+        self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
 
     def test_enumerate_all_melds(self):
         expected_melds_data = [[(9,  's'), (10, 's'), (11, 's')],
@@ -178,7 +160,7 @@ class TestGinCardGroup(Helper):
         g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_melds()
 
-        self.assertTrue(self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds))
+        self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
 
     def test_enumerate_all_sets(self):
         expected_melds_data = [[(9,  's'), (10, 's'), (11, 's')],
@@ -192,7 +174,7 @@ class TestGinCardGroup(Helper):
         g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_sets()
 
-        self.assertTrue(self.helper_compare_arrays_of_cardgroups(expected_melds_data, generated_melds))
+        self.helper_compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
 
     def test__is_in_a_meld(self):
         cgroup = self.generate_gincardgroup_from_card_data(self.card_data1)

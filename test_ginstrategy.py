@@ -11,5 +11,4 @@ class TestGinStrategy(unittest.TestCase):
 
         # ensure mock strategy tells us to discard our first card
         actions = mgs.best_action()
-        self.assertEqual(1, len(actions))
-        self.assertEqual(actions[0], 'DISCARD-0')
+        self.assertEqual(actions, ['DISCARD', 0])
