@@ -107,7 +107,7 @@ class TestGinMatch(unittest.TestCase):
         # if the knock was INVALID, ensure we penalize the player and that the game continues
         gm.end_with_knock(p1)
         self.assertTrue(gm.p1_knocked_improperly)
-        self.assertFalse(gm.player_knocked)
+        self.assertFalse(gm.player_who_knocked)
         self.assertFalse(gm.gameover)
 
     def test_end_with_knock_valid(self):
@@ -125,7 +125,7 @@ class TestGinMatch(unittest.TestCase):
         gm.end_with_knock(p2)
         self.assertFalse(gm.p2_knocked_improperly)
         self.assertTrue(gm.gameover)
-        self.assertEqual(gm.player_knocked, p2)
+        self.assertEqual(gm.player_who_knocked, p2)
 
     def test_end_with_knock_gin_invalid(self):
         p1 = GinPlayer()
@@ -141,7 +141,7 @@ class TestGinMatch(unittest.TestCase):
         # if the knock was INVALID, ensure we penalize the player and that the game continues
         gm.end_with_knock_gin(p1)
         self.assertTrue(gm.p1_knocked_improperly)
-        self.assertFalse(gm.player_knocked)
+        self.assertFalse(gm.player_who_knocked)
         self.assertFalse(gm.gameover)
 
     def test_end_with_knock_gin_valid(self):
@@ -161,7 +161,7 @@ class TestGinMatch(unittest.TestCase):
         self.assertEqual(gm.player_knocked_gin, p2)
         self.assertTrue(gm.gameover)
 
-    def test_calculate_score_for_gin(self):
+    def test_update_score_for_gin(self):
         p1 = GinPlayer()
         p2 = GinPlayer()
         gm = GinMatch(p1, p2)
