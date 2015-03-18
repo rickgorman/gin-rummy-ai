@@ -31,10 +31,12 @@ class GinTable:
         # if p1's seat is empty, seat the player here
         elif not self.player1:
             self.player1 = player
+            self.player1.table = self
             return True
         # if p2's seat is empty AND this player is not p1, seat the player here
         elif not self.player2:
             self.player2 = player
+            self.player2.table = self
             return True
         else:
             raise TableSeatingError("gintable is full")

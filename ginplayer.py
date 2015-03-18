@@ -22,6 +22,7 @@ class DrawException(Exception):
 class StrategyExecutionException(Exception):
     pass
 
+
 # the player
 class GinPlayer:
     # begin with empty hand
@@ -37,31 +38,31 @@ class GinPlayer:
         self.hand = GinHand()
 
         self._knock_listeners = []
-        self._knock_gin_listeners  = []
+        self._knock_gin_listeners = []
 
     # listen for knocks
-    def _register_knock_listener(self, listener):
+    def register_knock_listener(self, listener):
         if not listener in self._knock_listeners:
             self._knock_listeners.append(listener)
 
-    def _notify_knock_listeners(self):
+    def notify_knock_listeners(self):
         for listener in self._knock_listeners:
             listener.notify_of_knock(self)
 
     def knock(self):
-        self._notify_knock_listeners()
+        self.notify_knock_listeners()
 
     # listen for gins
-    def _register_knock_gin_listener(self, listener):
+    def register_knock_gin_listener(self, listener):
         if not listener in self._knock_gin_listeners:
             self._knock_gin_listeners.append(listener)
 
-    def _notify_knock_gin_listeners(self):
+    def notify_knock_gin_listeners(self):
         for listener in self._knock_gin_listeners:
             listener.notify_of_knock_gin(self)
 
     def knock_gin(self):
-        self._notify_knock_gin_listeners()
+        self.notify_knock_gin_listeners()
 
     # sit at a table
     def sit_at_table(self, table):
@@ -132,5 +133,5 @@ class GinPlayer:
         except ValueError:
             raise Exception("card not in our hand")
         except AttributeError:
-            raise Exception("cards not behaving like a list")
+            raise Exception("cards not behaving like a list:", AttributeError.message)
         return card

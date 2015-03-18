@@ -33,7 +33,9 @@ from gindeck import *
 
 class GinMatch:
     def __init__(self, player1, player2):
+        """@type p1: GinPlayer"""
         self.p1 = player1
+        """@type p2: GinPlayer"""
         self.p2 = player2
 
         # players may now be seated
@@ -44,6 +46,26 @@ class GinMatch:
         self.p2_score = 0
         self.p1_matches_won = 0
         self.p2_matches_won = 0
+        self.current_player = self.p1
+
+        # track game state
+        self.gameover = False
+        self.player_knocked = False
+        self.player_knocked_gin = False
+        self.p1_knocked_improperly = False
+        self.p2_knocked_improperly = False
+
+        # coordinate knocks with each player
+        self.p1.register_knock_listener(self)
+        self.p1.register_knock_gin_listener(self)
+        self.p2.register_knock_listener(self)
+        self.p2.register_knock_gin_listener(self)
+
+    def notify_of_knock(self):
+        pass
+
+    def notify_of_knock_gin(self):
+        pass
 
     # run the match until a winner is declared
     def run(self):
@@ -75,8 +97,56 @@ class GinMatch:
                 return self.p2
 
     # play one game of gin
+    # - deal cards out
+    # - validate knock/gin
+    #   - if not valid, flip that hand face up
+    #   - if valid,
+    # - determine points of winner and add to match scoreboard
+    # - end
     def play_game(self):
 
+        # clear game states
+        self.gameover = False
+        self.player_knocked_gin = False
+        self.player_knocked = False
+        self.p1_knocked_improperly = False
+        self.p2_knocked_improperly = False
+
+        self.deal_cards()
+
+        # beginning with p1, take turns until a valid knock/gin is called OR we have only two cards remaining
+        while not self.gameover and len(self.table.deck.cards) >= 2:
+            # both players get a chance to play, respecting knocks and end-of-game notifications
+            for p in (self.p1, self.p2):
+                # exit condition
+                if not self.gameover:
+                    p.take_turn()
+
+                    if self.player_knocked:
+                        # validate the knock or reset the knock state and penalize the knocker
+                        if p.hand.deadwood_count() <= 10:
+                            self.end_with_knock(p)
+                        else:
+                            self.player_knocked = False
+                            if p == self.p1:
+                                self.p1_knocked_improperly = True
+                            elif p == self.p2:
+                                self.p2_knocked_improperly = True
+
+                    elif self.player_knocked_gin:
+                        # validate the knock_gin or penalize the knocker and reset the knock state
+                        if p.hand.deadwood_count != 0:
+                            self.end_with_knock_gin(p)
+                        else:
+                            self.player_knocked_gin = False
+                            if p == self.p1:
+                                self.p1_knocked_improperly = True
+                            elif p == self.p2:
+                                self.p2_knocked_improperly = True
+
+        # now that gameplay is over, calculate the score
+
+    def deal_cards(self):
         # deal 10 cards to each player
         for i in range(10):
             self.p1.draw()
@@ -84,4 +154,35 @@ class GinMatch:
 
         # deal an 11th card to first player
         self.p1.draw()
+
+    def end_with_knock(self, knocker):
+        """@type knocker: GinPlayer"""
+
+        # first, handle invalid knocks with a penalty of the hand now being played face-up
+        if knocker.hand.deadwood_count() > 10:
+            if knocker == self.p1:
+                self.p1_knocked_improperly = True
+            elif knocker == self.p2:
+                self.p2_knocked_improperly = True
+        else:
+            # next, handle a knock that is actually a gin (the AI will be dumb about this)
+            if knocker.hand.deadwood_count() == 0:
+                self.end_with_knock_gin(knocker)
+            # finally, handle valid knocks
+            else:
+                self.gameover = True
+                self.player_knocked = knocker
+
+    def end_with_knock_gin(self, knocker):
+        # first, handle invalid knocks with a penalty of the hand now being played face-up
+        if knocker.hand.deadwood_count() != 0:
+            if knocker == self.p1:
+                self.p1_knocked_improperly = True
+            elif knocker == self.p2:
+                self.p2_knocked_improperly = True
+        else:
+            self.gameover = True
+            self.player_knocked_gin = knocker
+
+    def update_score(self):
         pass

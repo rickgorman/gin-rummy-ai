@@ -44,20 +44,20 @@ class TestGinPlayer(unittest.TestCase):
     def test__register_knock_listener(self):
         p = GinPlayer()
         l = MockListener()
-        p._register_knock_listener(l)
+        p.register_knock_listener(l)
 
         # verify the register happened
         self.assertEqual(1, len(p._knock_listeners))
 
         # verify we cant register a second time
-        p._register_knock_listener(l)
+        p.register_knock_listener(l)
         self.assertEqual(1, len(p._knock_listeners))
 
     # note that this also sufficiently tests knock()
     def test__notify_knock_listeners(self):
         p = GinPlayer()
         l = MockListener()
-        p._register_knock_listener(l)
+        p.register_knock_listener(l)
 
         # verify the knock callback occurs
         p.knock()
@@ -69,20 +69,20 @@ class TestGinPlayer(unittest.TestCase):
     def test__register_knock_gin_listener(self):
         p = GinPlayer()
         l = MockListener()
-        p._register_knock_gin_listener(l)
+        p.register_knock_gin_listener(l)
 
         # verify the register happened
         self.assertEqual(1, len(p._knock_gin_listeners))
 
         # verity we cant register a second time
-        p._register_knock_gin_listener(l)
+        p.register_knock_gin_listener(l)
         self.assertEqual(1, len(p._knock_gin_listeners))
 
     # note that this also sufficiently tests knock_gin()
     def test__notify_knock_gin_listener(self):
         p = GinPlayer()
         l = MockListener()
-        p._register_knock_gin_listener(l)
+        p.register_knock_gin_listener(l)
 
         # verify the knock callback occurs
         p.knock_gin()
@@ -139,6 +139,7 @@ class TestGinPlayer(unittest.TestCase):
     def test_execute_strategy_discard(self):
         strat = MockGinStrategy(['DISCARD', 0])
         p = GinPlayer(strat)
+        p.table = GinTable()
 
         # monkey-load a card into the player's hand
         p.hand.add(4, 'c')
@@ -147,7 +148,6 @@ class TestGinPlayer(unittest.TestCase):
         p.consult_strategy()
         p.execute_strategy()
         self.assertEqual(0, p.hand.size())
-
 
     def test_execute_strategy_draw(self):
         strat = MockGinStrategy(['DRAW'])
@@ -195,7 +195,7 @@ class TestGinPlayer(unittest.TestCase):
         p = GinPlayer(strat)
         p.table = GinTable()
         l = MockListener()
-        p._register_knock_listener(l)
+        p.register_knock_listener(l)
 
         # load up a fake hand. note these cards are chosen to be sorted into slots 0 and 1
         card_0 = Card(4, 'c')
@@ -218,7 +218,7 @@ class TestGinPlayer(unittest.TestCase):
         p = GinPlayer(strat)
         p.table = GinTable()
         l = MockListener()
-        p._register_knock_gin_listener(l)
+        p.register_knock_gin_listener(l)
 
         # load up a fake hand. note these cards are chosen to be sorted into slots 0 and 1
         card_0 = Card(4, 'c')

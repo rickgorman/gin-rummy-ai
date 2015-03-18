@@ -2,6 +2,7 @@
   <dictionary name="me">
     <words>
       <w>decksize</w>
+      <w>gameover</w>
       <w>gincard</w>
       <w>gincardgroup</w>
       <w>ginhand</w>

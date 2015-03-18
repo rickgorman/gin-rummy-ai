@@ -16,10 +16,12 @@ class TestGinTable(unittest.TestCase):
         # seat the first player
         t.seat_player(p1)
         self.assertEqual(t.player1, p1)
+        self.assertEqual(p1.table, t)
 
         # seat the second player
         t.seat_player(p2)
         self.assertEqual(t.player2, p2)
+        self.assertEqual(p2.table, t)
 
         # reject the third player
         self.assertRaises(TableSeatingError, t.seat_player, p3)
