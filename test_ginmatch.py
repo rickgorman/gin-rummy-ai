@@ -58,10 +58,10 @@ class TestGinMatch(Helper):
 
     def test_run(self):
         # rig the horse with rockets
-        gm.p1_score = 100
+        self.gm.p1_score = 100
 
         # run the match and return the winner.
-        winner = gm.run()
+        winner = self.gm.run()
 
         # make sure the winner is our horse
         self.assertEqual(winner, self.p1)

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# gin.py
+# ginhand.py
 #
 # 2014/01/18
 # rg

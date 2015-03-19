@@ -8,6 +8,10 @@
 # base neural networking classes
 
 
+# Notes:
+# - we can grow a different neural net for each turn of the game. A game has max 29 moves, so 29 chromosomes.
+
+
 class Node:
     def __init__(self):
         self.value = 0

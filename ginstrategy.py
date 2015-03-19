@@ -12,6 +12,7 @@
 # - inquiring player's hand
 # - list of actions taken thus far in the current game
 
+
 class GinStrategy:
     def __init__(self):
         pass

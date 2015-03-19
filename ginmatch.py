@@ -33,19 +33,26 @@ from gindeck import *
 
 class GinMatch:
     def __init__(self, player1, player2):
-        """@type p1: GinPlayer"""
-        self.p1 = player1
-        """@type p2: GinPlayer"""
-        self.p2 = player2
+        """ @type p1: GinPlayer
+            @type p2: GinPlayer
+        """
 
-        # players may now be seated
-        self.table = GinTable()
-        self.table.seat_player(self.p1)
-        self.table.seat_player(self.p2)
+        # set up score board
         self.p1_score = 0
         self.p2_score = 0
         self.p1_matches_won = 0
         self.p2_matches_won = 0
+
+        # randomly seat players
+        self.table = GinTable()
+        if random() > 0.5:
+            self.p1 = player1
+            self.p2 = player2
+        else:
+            self.p1 = player2
+            self.p2 = player1
+        self.table.seat_player(self.p1)
+        self.table.seat_player(self.p2)
         self.current_player = self.p1
 
         # track game state
@@ -195,3 +202,5 @@ class GinMatch:
             player_who_didnt_knock = self.p1
 
         # for knocks, allow lay-offs
+        # ask the defender to score his hand against his opponent's hand
+        # - something like: defender.score_against(knocker)

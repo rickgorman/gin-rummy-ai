@@ -47,5 +47,3 @@ class Deck(object):
         for card in self.cards:
             result.append([card.rank, card.suit])
         return result
-
-
