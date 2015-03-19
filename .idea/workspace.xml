@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="Moved card_data into Helper&#10;Added stubs for deadwood_cards and process_layoff&#10;Changed all usage of helper generators to be called as inherited members">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginhand.py" afterPath="$PROJECT_DIR$/test_ginhand.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginplayer.py" afterPath="$PROJECT_DIR$/test_ginplayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginstrategy.py" afterPath="$PROJECT_DIR$/test_ginstrategy.py" />
+    <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginmatch.py" afterPath="$PROJECT_DIR$/ginmatch.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginstrategy.py" afterPath="$PROJECT_DIR$/ginstrategy.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neuralnet.py" afterPath="$PROJECT_DIR$/neuralnet.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginmatch.py" afterPath="$PROJECT_DIR$/test_ginmatch.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -29,7 +30,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test__is_in_a_meld.coverage" NAME="Unittest TestGinHand.test__is_in_a_meld Coverage Results" MODIFIED="1392673688726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCard_test_to_s.coverage" NAME="Unittest TestGinCard.test_to_s Coverage Results" MODIFIED="1404801363090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_add_card.coverage" NAME="Unittest TestGinHand.test_add_card Coverage Results" MODIFIED="1392629206174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittests_in_test_ginmatch.coverage" NAME="Unittests in test_ginmatch Coverage Results" MODIFIED="1426674109121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittests_in_test_ginmatch.coverage" NAME="Unittests in test_ginmatch Coverage Results" MODIFIED="1426737485256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test__clean_meld_group.coverage" NAME="Unittest TestGinHand.test__clean_meld_group Coverage Results" MODIFIED="1395250944649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test__add_card.coverage" NAME="Unittest TestGinPlayer.test__add_card Coverage Results" MODIFIED="1407579521590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$ginhand.coverage" NAME="ginhand Coverage Results" MODIFIED="1407577846225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -97,7 +98,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestDeck_testDealACard.coverage" NAME="Unittest TestDeck.testDealACard Coverage Results" MODIFIED="1390372066162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestCard_testNewCardOutOfBounds.coverage" NAME="Unittest TestCard.testNewCardOutOfBounds Coverage Results" MODIFIED="1390198032199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_end_with_knock_gin_valid.coverage" NAME="Unittest TestGinMatch.test_end_with_knock_gin_valid Coverage Results" MODIFIED="1426658070772" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_enumerate_all_melds_and_sets.coverage" NAME="Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets Coverage Results" MODIFIED="1426674601859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_enumerate_all_melds_and_sets.coverage" NAME="Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets Coverage Results" MODIFIED="1426736416165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_add.coverage" NAME="Unittest TestGinHand.test_add Coverage Results" MODIFIED="1395252186261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_calculate_score.coverage" NAME="Unittest TestGinMatch.test_calculate_score Coverage Results" MODIFIED="1426658623385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestGinHand.coverage" NAME="Unittests in TestGinHand Coverage Results" MODIFIED="1401345726179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -145,10 +146,10 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_ginhand.py" pinned="false" current="true" current-in-tab="true">
+            <file leaf-file-name="test_ginhand.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_ginhand.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="116" column="58" selection-start="3217" selection-end="3217" vertical-scroll-proportion="0.24469821" vertical-offset="1440" max-vertical-offset="7110">
+                  <state line="120" column="58" selection-start="3389" selection-end="3389" vertical-scroll-proportion="0.0" vertical-offset="1935" max-vertical-offset="7110">
                     <folding>
                       <element signature="e#0#13#0" expanded="true" />
                     </folding>
@@ -167,10 +168,10 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_ginmatch.py" pinned="false" current="false" current-in-tab="false">
+            <file leaf-file-name="test_ginmatch.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="3" column="0" selection-start="66" selection-end="66" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2745">
+                  <state line="49" column="41" selection-start="882" selection-end="882" vertical-scroll-proportion="0.33278957" vertical-offset="327" max-vertical-offset="2385">
                     <folding>
                       <element signature="e#0#22#0" expanded="true" />
                     </folding>
@@ -243,7 +244,7 @@
       <file leaf-file-name="neuralnet.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/neuralnet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="630">
+            <state line="11" column="109" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
               <folding />
             </state>
           </provider>
@@ -289,10 +290,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ginmatch.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ginmatch.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ginmatch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="167" column="90" selection-start="6163" selection-end="6163" vertical-scroll-proportion="0.0" vertical-offset="2386" max-vertical-offset="3045">
+            <state line="170" column="42" selection-start="6306" selection-end="6306" vertical-scroll-proportion="0.5556818" vertical-offset="2061" max-vertical-offset="3075">
               <folding>
                 <element signature="e#1313#1326#0" expanded="true" />
               </folding>
@@ -303,16 +304,16 @@
       <file leaf-file-name="ginstrategy.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginstrategy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+            <state line="14" column="0" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ginhand.py" pinned="false" current="false" current-in-tab="true">
+      <file leaf-file-name="ginhand.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginhand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="420" column="12" selection-start="16744" selection-end="16744" vertical-scroll-proportion="1.1351085" vertical-offset="5119" max-vertical-offset="6360">
+            <state line="420" column="12" selection-start="16744" selection-end="16744" vertical-scroll-proportion="0.0" vertical-offset="5119" max-vertical-offset="6360">
               <folding />
             </state>
           </provider>
@@ -345,28 +346,28 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/test_gindeck.py.js" />
         <option value="$PROJECT_DIR$/gingame.py" />
         <option value="$PROJECT_DIR$/deck.py" />
         <option value="$PROJECT_DIR$/test_gindeck.py" />
         <option value="$PROJECT_DIR$/gindeck.py" />
-        <option value="$PROJECT_DIR$/ginstrategy.py" />
         <option value="$PROJECT_DIR$/test_gintable.py" />
         <option value="$PROJECT_DIR$/gintable.py" />
         <option value="$PROJECT_DIR$/ginplayer.py" />
-        <option value="$PROJECT_DIR$/ginmatch.py" />
         <option value="$PROJECT_DIR$/ginhand.py" />
-        <option value="$PROJECT_DIR$/test_ginmatch.py" />
         <option value="$PROJECT_DIR$/test_helpers.py" />
         <option value="$PROJECT_DIR$/test_ginstrategy.py" />
         <option value="$PROJECT_DIR$/test_ginplayer.py" />
         <option value="$PROJECT_DIR$/test_ginhand.py" />
+        <option value="$PROJECT_DIR$/ginstrategy.py" />
+        <option value="$PROJECT_DIR$/neuralnet.py" />
+        <option value="$PROJECT_DIR$/ginmatch.py" />
+        <option value="$PROJECT_DIR$/test_ginmatch.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-100" />
-    <option name="y" value="-1889" />
+    <option name="y" value="-1619" />
     <option name="width" value="956" />
     <option name="height" value="1348" />
   </component>
@@ -466,32 +467,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets">
-    <configuration default="false" name="Unittest TestGinCardGroup.test_enumerate_all_sets" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginhand.py" />
-      <option name="CLASS_NAME" value="TestGinCardGroup" />
-      <option name="METHOD_NAME" value="test_enumerate_all_sets" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittests in test_ginmatch">
     <configuration default="false" name="Unittests in test_ginhand" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -583,6 +559,31 @@
       <option name="METHOD_NAME" value="test_enumerate_all_melds_and_sets" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in test_ginmatch" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginmatch.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="PUREUNITTEST" value="true" />
@@ -743,19 +744,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_sets" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginhand" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginplayer" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets" />
+      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginhand" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginplayer" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginmatch" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginhand" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginplayer" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_sets" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginmatch" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginhand" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginplayer" />
       </list>
     </recent_temporary>
   </component>
@@ -891,7 +892,11 @@
       <created>1426673306389</created>
       <updated>1426673306389</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Simplified test_best_action&#10;Standardized enumerate_all_melds_and_sets tests to use new inherited Helper methods">
+      <created>1426674678003</created>
+      <updated>1426674678003</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -915,14 +920,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-100" y="-1889" width="956" height="1348" extended-state="0" />
+    <frame x="-100" y="-1619" width="956" height="1348" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="127" y="-1145" width="501" height="130" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24397905" sideWeight="0.49943882" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299817" sideWeight="0.4995005" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1657545" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27052385" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.3580645" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="157" y="201" width="956" height="536" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29633507" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21875" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
@@ -931,8 +936,8 @@
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.7419355" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17358491" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.117753625" sideWeight="0.6708075" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15824915" sideWeight="0.7256544" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.2281746" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1619" width="956" height="1077" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15794979" sideWeight="0.8342455" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.2281746" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1348" width="956" height="807" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -971,7 +976,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="added test coverage for deck." />
     <MESSAGE value="more work on gin functions" />
     <MESSAGE value="began work on test_gin.py. partway through implementing enumerate_all_melds_and_cards" />
     <MESSAGE value="readded vanished functions from prior commit. changed GinCard to inherit from, rather than contain a Card" />
@@ -996,7 +1000,8 @@
     <MESSAGE value="Added and Passed tests for end_with_knock, end_with_knock_gin, deal_cards&#10;GinPlayer now keeps track of what table it is seated at&#10;Moved Helper (generates CardGroups and GinHands) to its own file&#10;" />
     <MESSAGE value="Added test_enumerate_all_melds and test_enumerate_all_sets&#10;Changed Helper class to be a baseclass so we can inherit its methods and use asserts in them!&#10;Added test_deadwood_cards&#10;Added test_process_layoff&#10;Clarity rename: player_knocked to player_who_knocked&#10;Added Helper.compare_arrays_of_cardgroups" />
     <MESSAGE value="Moved card_data into Helper&#10;Added stubs for deadwood_cards and process_layoff&#10;Changed all usage of helper generators to be called as inherited members" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved card_data into Helper&#10;Added stubs for deadwood_cards and process_layoff&#10;Changed all usage of helper generators to be called as inherited members" />
+    <MESSAGE value="Simplified test_best_action&#10;Standardized enumerate_all_melds_and_sets tests to use new inherited Helper methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplified test_best_action&#10;Standardized enumerate_all_melds_and_sets tests to use new inherited Helper methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1027,29 +1032,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ginstrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharm30/python_stubs/596071422/exceptions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="436" column="8" selection-start="13517" selection-end="13517" vertical-scroll-proportion="0.5203125" vertical-offset="6207" max-vertical-offset="11625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gintable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="13" selection-start="1272" selection-end="1272" vertical-scroll-proportion="0.0" vertical-offset="95" max-vertical-offset="765">
-          <folding>
-            <element signature="e#138#161#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/utrunner.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="108" column="45" selection-start="3225" selection-end="3225" vertical-scroll-proportion="0.3299909" vertical-offset="1228" max-vertical-offset="2325">
@@ -1066,18 +1048,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ginmatch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="90" selection-start="6163" selection-end="6163" vertical-scroll-proportion="0.0" vertical-offset="2386" max-vertical-offset="3045">
-          <folding>
-            <element signature="e#1313#1326#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ginhand.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="420" column="12" selection-start="16744" selection-end="16744" vertical-scroll-proportion="1.1351085" vertical-offset="5119" max-vertical-offset="6360">
+        <state line="420" column="12" selection-start="16744" selection-end="16744" vertical-scroll-proportion="0.0" vertical-offset="5119" max-vertical-offset="6360">
           <folding />
         </state>
       </provider>
@@ -1123,15 +1096,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="66" selection-end="66" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2745">
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_ginstrategy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="49" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
@@ -1152,9 +1116,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_ginhand.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="58" selection-start="3217" selection-end="3217" vertical-scroll-proportion="0.24469821" vertical-offset="1440" max-vertical-offset="7110">
+        <state line="120" column="58" selection-start="3389" selection-end="3389" vertical-scroll-proportion="0.0" vertical-offset="1935" max-vertical-offset="7110">
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginstrategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/neuralnet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="109" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://Python/#/Users/me/PycharmProjects/neural/gin.py">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>Python</ID>
+          <OriginalElement>#/Users/me/PycharmProjects/neural/gin.py</OriginalElement>
+          <nodes>
+            <node x="" y="">gin.GinTable</node>
+            <node x="" y="">gin.GinGame</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="135.5" y="52.5" />
+          <SelectedNodes />
+          <Categories />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginmatch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="170" column="42" selection-start="6306" selection-end="6306" vertical-scroll-proportion="0.5556818" vertical-offset="2061" max-vertical-offset="3075">
+          <folding>
+            <element signature="e#1313#1326#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="41" selection-start="882" selection-end="882" vertical-scroll-proportion="0.33278957" vertical-offset="327" max-vertical-offset="2385">
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
           </folding>
         </state>
       </provider>
