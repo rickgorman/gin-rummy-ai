@@ -52,6 +52,31 @@ class TestGinCardGroup(Helper):
 
         self.assertEqual("1c 2d 3s", gcg.__repr__())
 
+    def test___cmp_(self):
+        card_group_first  = GinCardGroup([(1, 'c'), (1, 'd'), (1, 'h')])
+        card_group_second = GinCardGroup([(1, 'c'), (2, 'c'), (3, 'c')])
+        card_group_third  = GinCardGroup([(2, 'c'), (3, 'c'), (4, 'c')])
+        card_group_fourth = GinCardGroup([(2, 'c'), (3, 'c'), (4, 'c'), (5, 'c')])
+
+        # test equality
+        self.assertEqual(card_group_first.__cmp__(card_group_first), 0)
+
+        # test less than
+        self.assertLessEqual(card_group_first.__cmp__(card_group_second), -1)
+        self.assertLessEqual(card_group_first.__cmp__(card_group_third), -1)
+        self.assertLessEqual(card_group_first.__cmp__(card_group_fourth), -1)
+        self.assertLessEqual(card_group_second.__cmp__(card_group_third), -1)
+        self.assertLessEqual(card_group_second.__cmp__(card_group_fourth), -1)
+        self.assertLessEqual(card_group_third.__cmp__(card_group_fourth), -1)
+
+        # test greater than
+        self.assertGreaterEqual(card_group_second.__cmp__(card_group_first), 1)
+        self.assertGreaterEqual(card_group_third.__cmp__(card_group_first),  1)
+        self.assertGreaterEqual(card_group_third.__cmp__(card_group_second), 1)
+        self.assertGreaterEqual(card_group_fourth.__cmp__(card_group_first), 1)
+        self.assertGreaterEqual(card_group_fourth.__cmp__(card_group_second), 1)
+        self.assertGreaterEqual(card_group_fourth.__cmp__(card_group_third), 1)
+
     def test_new_gincardgroup(self):
         cg = GinCardGroup(self.card_data1)
 
@@ -130,8 +155,6 @@ class TestGinCardGroup(Helper):
         self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
 
     def test_enumerate_all_melds_and_sets_quads(self):
-        g = self.generate_gincardgroup_from_card_data(self.card_data2)
-        generated_melds = g.enumerate_all_melds_and_sets()
         expected_melds_data = [[(9,  'c'), (9,  'd'), (9,  'h')],
                           [(9,  'c'), (9,  'd'), (9,  'h'), (9, 's')],
                           [(9,  'c'), (9,  'd'), (9,  's')],
@@ -146,11 +169,7 @@ class TestGinCardGroup(Helper):
                           [(13, 'c'), (13, 'h'), (13, 's')],
                           ]
 
-#        print "expected melds:  " + ''.join(str(x.rank) + ",\n" for x in expected_melds[0].cards)
-#        print "generated melds: " + ''.join(str(x.rank) + ",\n" for x in generated_melds[0].cards)
-#        self.assertEqual(generated_melds, expected_melds)
-
-        g = self.generate_gincardgroup_from_card_data(self.card_data1)
+        g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_melds_and_sets()
 
         self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
@@ -170,8 +189,8 @@ class TestGinCardGroup(Helper):
         self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
 
     def test_enumerate_all_sets(self):
-        expected_melds_data = [[(9,  's'), (10, 's'), (11, 's')],
-                          [(9,  'c'), (9,  'd'), (9,  'h')],
+        expected_melds_data = [[(9,  'c'), (9,  'd'), (9,  'h')],
+                          [(9,  'c'), (9,  'd'), (9, 'h'), (9, 's')],
                           [(9,  'c'), (9,  'd'), (9,  's')],
                           [(9,  'c'), (9,  'h'), (9,  's')],
                           [(9,  'd'), (9,  'h'), (9,  's')],
@@ -181,7 +200,7 @@ class TestGinCardGroup(Helper):
         g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_sets()
 
-        self.helper_compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
+        self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
 
     def test__is_in_a_meld(self):
         cgroup = self.generate_gincardgroup_from_card_data(self.card_data1)
@@ -261,6 +280,20 @@ class TestGinCardGroup(Helper):
 
         self.compare_arrays_of_cardgroups(expected_melds_data, sorted_melds)
 
+    def test_uniqsort_cardgroups(self):
+        # starting with an unsorted aGCG with a duplicate AND a GCG with an out-of-order cards array
+        agcg = [GinCardGroup([(1, 'c'), (2, 'c'), (3, 'c')]),
+                GinCardGroup([(2, 'd'), (2, 'c'), (2, 'h')]),
+                GinCardGroup([(1, 'c'), (2, 'c'), (3, 'c')])]
+
+        cleaned = GinCardGroup.uniqsort_cardgroups(agcg)
+
+        # ensure we dedupe
+        self.assertEqual(2, len(cleaned))
+
+        # ensure we sort
+        self.assertEqual(cleaned[0].__repr__(), "1c 2c 3c")
+        self.assertEqual(cleaned[1].__repr__(), "2c 2d 2h")
 
 # noinspection PyProtectedMember
 class TestGinHand(Helper):

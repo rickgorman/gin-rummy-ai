@@ -5,6 +5,7 @@
       <w>cardgroups</w>
       <w>cgroup</w>
       <w>decksize</w>
+      <w>dedupe</w>
       <w>gameover</w>
       <w>gcg's</w>
       <w>gincard</w>
@@ -18,6 +19,7 @@
       <w>strat</w>
       <w>topcard</w>
       <w>trank</w>
+      <w>uniqsort</w>
     </words>
   </dictionary>
 </component>
