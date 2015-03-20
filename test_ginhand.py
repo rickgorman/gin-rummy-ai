@@ -361,10 +361,18 @@ class TestGinCardGroup(Helper):
         self.assertEqual(target, g.cards[0])
 
     def test_deadwood_cards(self):
+        # something simple
         gh = self.generate_gincardgroup_from_card_data(self.card_data1)
 
         self.assertIsInstance(gh.deadwood_cards(), GinCardGroup)
-        self.assertEqual(gh.deadwood_cards().contains(5, 'c'))
+        self.assertEqual(1, gh.deadwood_cards().size())
+        self.assertTrue(gh.deadwood_cards().contains(5, 'c'))
+
+        # something bigger
+        gh = self.generate_gincardgroup_from_card_data(self.card_data5)
+
+        self.assertIsInstance(gh.deadwood_cards(), GinCardGroup)
+        self.assertEqual(7, gh.deadwood_cards().size())
 
     def test__prune_meld_group(self):
         a = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])

@@ -280,9 +280,10 @@ class GinCardGroup:
     # return a GCG containing our deadwood cards
     def deadwood_cards(self):
 
-        deadwood = []
+        deadwood = GinCardGroup()
         for c in self.cards:
-            pass
+            if not self._is_in_a_3set(c) and not self._is_in_a_4set(c) and not self._is_in_a_meld(c):
+                deadwood.add_card(c)
 
         return deadwood
 
