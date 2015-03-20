@@ -174,74 +174,65 @@ class GinCardGroup:
 
         return everything
 
+    # return an array of GinCardGroups of all melds that can be built with the cards in this hand
     def enumerate_all_melds(self):
         # easy out. we must have at least 3 cards to have a meld.
         if self.size() < 3:
-            return []
+            return GinCardGroup()
 
-        all_melds = list()
+        agcg_all_melds = list()
 
-        # First, check for 3-melds
+        # First, check for exact 3-melds
         if self.size() >= 3:
             self.sort(by_suit=True)
             for i in range(0, len(self.cards) - 3 + 1):
-                first_card = self.cards[i]
+                first_card  = self.cards[i]
                 second_card = self.cards[i + 1]
-                third_card = self.cards[i + 2]
+                third_card  = self.cards[i + 2]
                 if first_card.suit == second_card.suit == third_card.suit:
                     if first_card.rank + 1 == second_card.rank and second_card.rank + 1 == third_card.rank:
-                        all_melds.append([(first_card.rank, first_card.suit),
+                        agcg_all_melds.append(GinCardGroup([(first_card.rank, first_card.suit),
                                           (second_card.rank, second_card.suit),
-                                          (third_card.rank, third_card.suit)])
+                                          (third_card.rank, third_card.suit)]))
 
-        # Next, check for 4-melds
+        # Next, check for exact 4-melds
         if self.size() >= 4:
             for i in range(0, len(self.cards) - 4 + 1):
-                first_card = self.cards[i]
+                first_card  = self.cards[i]
                 second_card = self.cards[i + 1]
-                third_card = self.cards[i + 2]
+                third_card  = self.cards[i + 2]
                 fourth_card = self.cards[i + 3]
                 if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit:
                     if (first_card.rank + 1 == second_card.rank and
                             second_card.rank + 1 == third_card.rank and
                             third_card.rank + 1 == fourth_card.rank):
-                        all_melds.append([(first_card.rank, first_card.suit),
+                        agcg_all_melds.append(GinCardGroup([(first_card.rank, first_card.suit),
                                           (second_card.rank, second_card.suit),
                                           (third_card.rank, third_card.suit),
-                                          (fourth_card.rank, fourth_card.suit)])
+                                          (fourth_card.rank, fourth_card.suit)]))
 
-        # Finally, check for 5-melds
+        # Finally, check for exact 5-melds
         if self.size() >= 5:
             for i in range(0, len(self.cards) - 5 + 1):
-                first_card = self.cards[i]
+                first_card  = self.cards[i]
                 second_card = self.cards[i + 1]
-                third_card = self.cards[i + 2]
+                third_card  = self.cards[i + 2]
                 fourth_card = self.cards[i + 3]
-                fifth_card = self.cards[i + 4]
+                fifth_card  = self.cards[i + 4]
                 if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit == fifth_card.suit:
                     if (first_card.rank + 1 == second_card.rank and
                             second_card.rank + 1 == third_card.rank and
                             third_card.rank + 1 == fourth_card.rank and
                             fourth_card.rank + 1 == fifth_card.rank):
-                        all_melds.append([(first_card.rank, first_card.suit),
+                        agcg_all_melds.append(GinCardGroup([(first_card.rank, first_card.suit),
                                           (second_card.rank, second_card.suit),
                                           (third_card.rank, third_card.suit),
                                           (fourth_card.rank, fourth_card.suit),
-                                          (fifth_card.rank, fifth_card.suit)])
+                                          (fifth_card.rank, fifth_card.suit)]))
 
-        # de-dupe. O(n^2) but small population so whatever.
-        all_melds_cleaned = list()
-        for m in all_melds:
-            if m not in all_melds_cleaned:
-                all_melds_cleaned.append(m)
+        agcg_all_melds_deduped = GinCardGroup.uniqsort_cardgroups(agcg_all_melds)
 
-        # return a sorted array of GinCardGroups, one containing each meld
-        all_melds_cleaned.sort()
-        gin_card_groups  = []
-        for meld in all_melds_cleaned:
-            gin_card_groups.append(GinCardGroup(meld))
-
-        return gin_card_groups
+        return agcg_all_melds_deduped
 
     # return a sorted array of GinCardGroups, one containing each set
     def enumerate_all_sets(self):
