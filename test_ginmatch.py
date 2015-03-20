@@ -186,3 +186,19 @@ class TestGinMatch(Helper):
         self.gm.update_score()
         self.assertEqual(self.gm.p1_score, 0)
         self.assertEqual(self.gm.p2_score, 54)
+
+    def test_update_score_with_knock_undercut(self):
+        # knock-worthy hand with deadwood=1
+        self.p1.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
+
+        # for whatever reason, p2 decided to bm by not knocking gin
+        self.p2.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
+
+        # p1 knocks, believing he has the best hand
+        self.p1.knock()
+
+        self.gm.update_score()
+
+        # verify that p2 gets the undercut bonus AND the deadwood points
+        self.assertEqual(self.gm.p1_score, 0)
+        self.assertEqual(self.gm.p2_score, 1+25)

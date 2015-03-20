@@ -98,12 +98,6 @@ class GinMatch:
                 return self.p2
 
     # play one game of gin
-    # - deal cards out
-    # - validate knock/gin
-    #   - if not valid, flip that hand face up
-    #   - if valid,
-    # - determine points of winner and add to match scoreboard
-    # - end
     def play_game(self):
 
         # clear game states
@@ -118,6 +112,7 @@ class GinMatch:
         self.take_turns()
         self.update_score()
 
+    # deal out 11 cards to p1 and 10 cards to p2
     def deal_cards(self):
         # deal 10 cards to each player
         for i in range(10):
@@ -127,6 +122,7 @@ class GinMatch:
         # deal an 11th card to first player
         self.p1.draw()
 
+    # alternate play between each player
     def take_turns(self):
         # beginning with p1, take turns until a valid knock/gin is called OR we have only two cards remaining
         while not self.gameover and len(self.table.deck.cards) >= 2:
@@ -158,8 +154,9 @@ class GinMatch:
                             elif p == self.p2:
                                 self.p2_knocked_improperly = True
 
+    # award deadwood scoring and gin bonuses
     def update_score(self):
-        knocker_score_delta = 0
+        score_delta = 0
 
         # track the 'defender' of the knock/gin
         if self.p1 == self.player_who_knocked:
@@ -172,19 +169,36 @@ class GinMatch:
         # for gin, no lay-offs
         if self.player_who_knocked_gin:
             # points for defender's deadwood
-            knocker_score_delta += defender.hand.deadwood_count()
+            score_delta += defender.hand.deadwood_count()
 
             # 25 bonus points for gin
-            knocker_score_delta += 25
+            score_delta += 25
+
+            # update score tallies
+            if knocker == self.p1:
+                self.p1_score += score_delta
+            elif knocker == self.p2:
+                self.p2_score += score_delta
+
         # for knocks, allow lay-offs
         elif self.player_who_knocked:
-            knocker_score_delta += defender.hand.deadwood_count() - knocker.hand.deadwood_count()
+            defender_deadwood = defender.hand.deadwood_count()
+            knocker_deadwood = knocker.hand.deadwood_count()
+            score_delta = abs(knocker_deadwood - defender_deadwood)
 
-        # update score tallies
-        if knocker == self.p1:
-            self.p1_score += knocker_score_delta
-        elif knocker == self.p2:
-            self.p2_score += knocker_score_delta
+            # check for undercuts
+            if defender_deadwood <= knocker_deadwood:
+                score_delta += 25
+                if knocker == self.p1:
+                    self.p2_score += score_delta
+                elif knocker == self.p2:
+                    self.p1_score += score_delta
+            # regular knocks
+            else:
+                if knocker == self.p1:
+                    self.p1_score += score_delta
+                elif knocker == self.p2:
+                    self.p2_score += score_delta
 
     def end_with_knock(self, knocker):
         """@type knocker: GinPlayer"""

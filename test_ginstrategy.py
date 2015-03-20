@@ -12,3 +12,8 @@ class TestGinStrategy(unittest.TestCase):
         # ensure mock strategy tells us to discard our first card
         actions = mgs.best_action()
         self.assertEqual(actions, ['DISCARD', 0])
+
+    def test_accept_improper_knock(self):
+        self.assertEqual(1, 0)
+        # note: we need to allow the strategy to decide whether or not to accept an improper knock.
+        # - see http://ginrummytournaments.com/pdfs/Rules_2012.pdf Rule #10
