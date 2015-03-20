@@ -295,6 +295,7 @@ class TestGinCardGroup(Helper):
         self.assertEqual(cleaned[0].__repr__(), "1c 2c 3c")
         self.assertEqual(cleaned[1].__repr__(), "2c 2d 2h")
 
+
 # noinspection PyProtectedMember
 class TestGinHand(Helper):
     maxDiff = None

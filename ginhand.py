@@ -463,7 +463,12 @@ class GinHand:
 
     # return a GCG containing our deadwood cards
     def deadwood_cards(self):
-        pass
+
+        deadwood = []
+        for c in self.cg.cards:
+            if
+
+        return deadwood
 
     # compare our hand against another hand and return
     def process_layoff(self, knocking_hand):
