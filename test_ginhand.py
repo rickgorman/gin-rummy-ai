@@ -1,5 +1,6 @@
 import random
 from test_helpers import *
+from ginhand import *
 
 
 # noinspection PyProtectedMember
@@ -44,6 +45,12 @@ class TestGinCardGroup(Helper):
         (5, 'd'),
         (5, 'h')
     ]
+
+    def test___repr__(self):
+        card_list = [(1, 'c'), (2, 'd'), (3, 's')]
+        gcg = GinCardGroup(card_list)
+
+        self.assertEqual("1c 2d 3s", gcg.__repr__())
 
     def test_new_gincardgroup(self):
         cg = GinCardGroup(self.card_data1)
@@ -211,6 +218,48 @@ class TestGinCardGroup(Helper):
 
         # test a card not in the hand
         self.assertEqual(False, g._is_in_a_4set(GinCard(1, 'c')))
+
+    def test_sort_melds__only_melds(self):
+        g = self.generate_gincardgroup_from_card_data(self.card_data2)
+
+        expected_melds_data = [[(9,  's'), (10, 's'), (11, 's')],
+                                [(9,  's'), (10, 's'), (11, 's'), (12, 's')],
+                                [(9,  's'), (10, 's'), (11, 's'), (12, 's'), (13, 's')],
+                                [(10, 's'), (11, 's'), (12, 's')],
+                                [(10, 's'), (11, 's'), (12, 's'), (13, 's')],
+                                [(11, 's'), (12, 's'), (13, 's')],
+                               ]
+
+        test_melds = g.enumerate_all_melds()
+        shuffle(test_melds)
+
+        sorted_melds = GinCardGroup.sort_melds(test_melds)
+
+        self.compare_arrays_of_cardgroups(expected_melds_data, sorted_melds)
+
+    def test_sort_melds__melds_and_sets(self):
+        g = self.generate_gincardgroup_from_card_data(self.card_data2)
+
+        expected_melds_data = [[(9,  'c'), (9,  'd'), (9,  'h')],
+                          [(9,  'c'), (9,  'd'), (9,  'h'), (9, 's')],
+                          [(9,  'c'), (9,  'd'), (9,  's')],
+                          [(9,  'c'), (9,  'h'), (9,  's')],
+                          [(9,  'd'), (9,  'h'), (9,  's')],
+                          [(9,  's'), (10, 's'), (11, 's')],
+                          [(9,  's'), (10, 's'), (11, 's'), (12, 's')],
+                          [(9,  's'), (10, 's'), (11, 's'), (12, 's'), (13, 's')],
+                          [(10, 's'), (11, 's'), (12, 's')],
+                          [(10, 's'), (11, 's'), (12, 's'), (13, 's')],
+                          [(11, 's'), (12, 's'), (13, 's')],
+                          [(13, 'c'), (13, 'h'), (13, 's')],
+                          ]
+
+        test_melds = g.enumerate_all_melds_and_sets()
+        shuffle(test_melds)
+
+        sorted_melds = GinCardGroup.sort_melds(test_melds)
+
+        self.compare_arrays_of_cardgroups(expected_melds_data, sorted_melds)
 
 
 # noinspection PyProtectedMember

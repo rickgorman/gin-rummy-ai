@@ -20,6 +20,9 @@ class GinCard(Card):
         else:
             self.point_value = 10
 
+    def __repr__(self):
+        return str(self.rank) + self.suit
+
     def to_s(self):
         return str(self.rank) + self.suit
 

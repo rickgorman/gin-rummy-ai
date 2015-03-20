@@ -25,10 +25,8 @@
 # be other, similar if not identical strategies floating about in the population, so we can safely prune out
 # ties without worrying about a large genetic penalty.
 
-import random
 from gintable import *
 from ginplayer import *
-from gindeck import *
 
 
 class GinMatch:
@@ -43,14 +41,10 @@ class GinMatch:
         self.p1_matches_won = 0
         self.p2_matches_won = 0
 
-        # randomly seat players
+        # seat players (not randomly)
         self.table = GinTable()
-        if random() > 0.5:
-            self.p1 = player1
-            self.p2 = player2
-        else:
-            self.p1 = player2
-            self.p2 = player1
+        self.p1 = player1
+        self.p2 = player2
         self.table.seat_player(self.p1)
         self.table.seat_player(self.p2)
         self.current_player = self.p1

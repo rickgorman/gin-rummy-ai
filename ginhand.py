@@ -13,12 +13,22 @@ from gindeck import *
 
 
 # card organization and management. takes as input an array of card tuples. maintains objects internally as GinCards
-class GinCardGroup():
+class GinCardGroup:
     def __init__(self, card_list=None):
         self.cards = []
         if card_list is not None:
             for card_tuple in card_list:
                 self.add(card_tuple[0], card_tuple[1])
+
+    # display contents while debugging
+    def __repr__(self):
+        description = ""
+        for c in self.cards:
+            description += str(c.rank)
+            description += c.suit
+            description += " "
+
+        return description.strip()
 
     # add a card by value. guarantee sort.
     def add(self, rank, suit):
@@ -225,6 +235,127 @@ class GinCardGroup():
             gin_card_groups.append(GinCardGroup(meld))
 
         return gin_card_groups
+
+    def enumerate_all_melds(self):
+        # easy out. we must have at least 3 cards to have a meld.
+        if self.size() < 3:
+            return []
+
+        all_melds = list()
+
+        # First, check for 3-melds
+        if self.size() >= 3:
+            self.sort(by_suit=True)
+            for i in range(0, len(self.cards) - 3 + 1):
+                first_card = self.cards[i]
+                second_card = self.cards[i + 1]
+                third_card = self.cards[i + 2]
+                if first_card.suit == second_card.suit == third_card.suit:
+                    if first_card.rank + 1 == second_card.rank and second_card.rank + 1 == third_card.rank:
+                        all_melds.append([(first_card.rank, first_card.suit),
+                                          (second_card.rank, second_card.suit),
+                                          (third_card.rank, third_card.suit)])
+
+        # Next, check for 4-melds
+        if self.size() >= 4:
+            for i in range(0, len(self.cards) - 4 + 1):
+                first_card = self.cards[i]
+                second_card = self.cards[i + 1]
+                third_card = self.cards[i + 2]
+                fourth_card = self.cards[i + 3]
+                if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit:
+                    if (first_card.rank + 1 == second_card.rank and
+                            second_card.rank + 1 == third_card.rank and
+                            third_card.rank + 1 == fourth_card.rank):
+                        all_melds.append([(first_card.rank, first_card.suit),
+                                          (second_card.rank, second_card.suit),
+                                          (third_card.rank, third_card.suit),
+                                          (fourth_card.rank, fourth_card.suit)])
+
+        # Finally, check for 5-melds
+        if self.size() >= 5:
+            for i in range(0, len(self.cards) - 5 + 1):
+                first_card = self.cards[i]
+                second_card = self.cards[i + 1]
+                third_card = self.cards[i + 2]
+                fourth_card = self.cards[i + 3]
+                fifth_card = self.cards[i + 4]
+                if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit == fifth_card.suit:
+                    if (first_card.rank + 1 == second_card.rank and
+                            second_card.rank + 1 == third_card.rank and
+                            third_card.rank + 1 == fourth_card.rank and
+                            fourth_card.rank + 1 == fifth_card.rank):
+                        all_melds.append([(first_card.rank, first_card.suit),
+                                          (second_card.rank, second_card.suit),
+                                          (third_card.rank, third_card.suit),
+                                          (fourth_card.rank, fourth_card.suit),
+                                          (fifth_card.rank, fifth_card.suit)])
+
+        # de-dupe. O(n^2) but small population so whatever.
+        all_melds_cleaned = list()
+        for m in all_melds:
+            if m not in all_melds_cleaned:
+                all_melds_cleaned.append(m)
+
+        # sort each meld by rank,suit
+        for m in all_melds_cleaned:
+            m.sort(key=itemgetter(0, 1))
+
+        # return a sorted array of GinCardGroups, one containing each meld
+        all_melds_cleaned.sort()
+        gin_card_groups  = []
+        for meld in all_melds_cleaned:
+            gin_card_groups.append(GinCardGroup(meld))
+
+        return gin_card_groups
+
+    def enumerate_all_sets(self):
+        all_melds = list()
+
+        # First, check for 4-sets
+        if self.size() > 3:
+            for c in self.cards:
+                if self._is_in_a_4set(c):
+                    quad_cards = []
+                    for s in c.all_suits():
+                        quad_cards.append((c.rank, s))
+
+                    all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2], quad_cards[3]])
+
+                    # When a 4-card set is found, also add all 4 of the possible 3-card melds
+                    all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2]])
+                    all_melds.append([quad_cards[1], quad_cards[2], quad_cards[3]])
+                    all_melds.append([quad_cards[2], quad_cards[3], quad_cards[0]])
+                    all_melds.append([quad_cards[3], quad_cards[0], quad_cards[1]])
+                # Next, check for 3-sets (reminder: here we check for 3sets exclusive of 4sets)
+                elif self._is_in_a_3set(c):
+                    set_cards = [x for x in self.cards if x.rank == c.rank]
+                    set_cards_list = map(lambda y: (y.rank, y.suit), set_cards)
+                    all_melds.append(set_cards_list)
+
+        # sort each meld by rank,suit
+        for m in all_melds_cleaned:
+            m.sort(key=itemgetter(0, 1))
+
+        # return a sorted array of GinCardGroups, one containing each meld
+        all_melds_cleaned.sort()
+        gin_card_groups  = []
+        for meld in all_melds_cleaned:
+            gin_card_groups.append(GinCardGroup(meld))
+
+        return gin_card_groups
+
+    # takes in an array of GCG's and returns them in sorted fashion
+    @staticmethod
+    def sort_melds(agcg_to_sort):
+        # sort the contents of each meld
+        for m in agcg_to_sort:
+            m.sort()
+
+        # sort the list of GCG's by the rank,suit of the first card in the GCG
+        agcg_to_sort.sort(key=lambda x: x.cards[0])
+
+        return agcg_to_sort
 
 
 # the group of cards held by a player

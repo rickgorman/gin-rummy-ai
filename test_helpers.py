@@ -82,8 +82,7 @@ class Helper(unittest.TestCase):
             agcg_control.append(GinCardGroup(meld_definition))
 
         # the number of GCG's must be the same
-        if not len(agcg_control) == len(agcg_test):
-            return False
+        self.assertEqual(len(agcg_control), len(agcg_test))
 
         # compare each expected/generated pair by value
         for i in range(0, len(agcg_test)):
