@@ -43,8 +43,8 @@ class GinCardGroup:
         self.cards.append(card)
         self.sort()
 
-    # remove a Card
-    def remove(self, requested):
+    # discard a Card
+    def discard(self, requested):
         for c in self.cards:
             if c.rank == requested.rank and c.suit == requested.suit:
                 self.cards.remove(c)
@@ -63,6 +63,13 @@ class GinCardGroup:
         else:
             return False
 
+    # return card at specific index (0-10)
+    def get_card_at_index(self, index):
+        if index > 10 or index < 0:
+            raise Exception
+        else:
+            return self.cards[index]
+
     # Card-wrapper for contains()
     def contains_card(self, card):
         return self.contains(card.rank, card.suit)
@@ -73,7 +80,7 @@ class GinCardGroup:
             count += 1
         return count
 
-    def sum_points(self):
+    def points(self):
         total = 0
         for card in self.cards:
             total += card.point_value
@@ -270,6 +277,118 @@ class GinCardGroup:
 
         return gin_card_groups
 
+    # return a GCG containing our deadwood cards
+    def deadwood_cards(self):
+
+        deadwood = []
+        for c in self.cards:
+            pass
+
+        return deadwood
+
+    def deadwood_count(self):
+        debug_func = False
+        # begin with worst case: entire hand is deadwood.
+        worst_case = self.points()
+
+        # optimization step: we remove all cards not part of a set or a meld
+        specimen = GinCardGroup()
+        early_deadwood = GinCardGroup()
+        for card in self.cards:
+            if self._is_in_a_meld(card) or self._is_in_a_3set(card) or self._is_in_a_4set(card):
+                specimen.add(card.rank, card.suit)
+            else:
+                early_deadwood.add_card(card)
+
+        if debug_func:
+            print "early_deadwood: " + str(early_deadwood.points())
+            all_melds = specimen.enumerate_all_melds_and_sets()
+            print "all_melds:"
+            for meld in all_melds:
+                print '\t' + ''.join((x.to_s() + '\t') for x in meld.cards)
+
+        # recursion. add smallest discovered deadwood count to early_deadwood count
+        explored_case = self._examine_melds(specimen) + early_deadwood.points()
+
+        lowest_deadwood = min(worst_case, explored_case)
+
+        if debug_func:
+            print "lowest_deadwood: " + str(lowest_deadwood)
+
+        return lowest_deadwood
+
+    # our recursive call for deadwood_count
+    # parameters:
+    #   cg          a GinCardGroup, representing cards to examine
+    @staticmethod
+    def _examine_melds(cg, indent_level=0):
+        debug_func = False
+        if debug_func:
+            print ''.join('\t' for x in range(0, indent_level)) + "examine_melds[d=" + str(indent_level) + "]: " +\
+                  ''.join((str(x.to_s()) + '\t') for x in cg.cards)
+
+        # no cards means we're holding zero deadwood.
+        if cg.size() == 0:
+            return 0
+
+        # holding 1 or 2 cards means we're holding pure deadwood. return the sum.
+        if cg.size() < 3:
+            return sum(card.rank for card in cg.cards)
+
+        # enumeration step: generate all melds possible from our specimen
+        all_melds = cg.enumerate_all_melds_and_sets()
+
+        # ceiling is case where entire hand is deadwood (note that this is only for the subset cg, not a 10 card hand)
+        minimum_deadwood = cg.points()
+
+        # The recursion. One by one, we enumerate through all possible meld combinations we can make using this subset
+        #  of cards, tracking the lowest deadwood value.
+        for excluded_meld in all_melds:
+            if debug_func:
+                print ''.join('\t' for x in range(0, indent_level+1)) + "excluded meld: " +\
+                      ''.join((str(x.to_s()) + '\t') for x in excluded_meld.cards)
+
+            # create a list of cards to examine, excluding cards in the excluded_meld
+            cards_to_examine = GinCardGroup()
+            for card in cg.cards:
+                for excluded_card in excluded_meld.cards:
+                    if card.rank != excluded_card.rank and card.suit != excluded_card.suit:
+                        cards_to_examine.add_card(card)
+                        break
+
+            # recursive call
+            result = GinCardGroup._examine_melds(cards_to_examine, indent_level+1)
+
+            if debug_func:
+                print ''.join('\t' for x in range(0, indent_level+1)) + "deadwood: " + str(result) + "\n"
+
+            # track lowest deadwood
+            minimum_deadwood = min(minimum_deadwood, result)
+
+        return minimum_deadwood
+
+    # Given an array of GinCardGroups as melds, we return all melds not containing cards in a given pruner GinCardGroup.
+    # This allows us to reduce the list of melds we are interested in exploring.
+    @staticmethod
+    def _prune_meld_group(agcg_melds, pruner_meld):
+
+        # if we're given an empty base_meld to prune with, don't do any pruning
+        if len(pruner_meld.cards) == 0:
+            return agcg_melds
+
+        pruned = []
+        for meld in agcg_melds:
+            for card in pruner_meld.cards:
+                # test for the presence of card in meld
+                if meld.contains_card(card):
+                    break
+
+                # record meld, preventing duplicates
+                if meld not in pruned:
+                    pruned.append(meld)
+
+        return pruned
+
     # takes in an array of GCG's and returns them in sorted fashion
     @staticmethod
     def sort_melds(agcg_to_sort):
@@ -295,180 +414,10 @@ class GinCardGroup:
         return agcg_cleaned
 
 
-# the group of cards held by a player
-class GinHand:
+# the group of cards held by a player. used for operations dealing with another player's hand and/or the game object.
+class GinHand(GinCardGroup):
     def __init__(self):
-        self.cg = GinCardGroup()
-
-    # add a card by rank and suit
-    def add(self, rank, suit):
-        self.cg.add(rank, suit)
-
-    # add a Card, then sort the hand
-    def add_card(self, card):
-        self.cg.add_card(card)
-
-    # discard a card
-    def discard(self, gincard):
-        if gincard in self.cg.cards:
-            self.cg.remove(gincard)
-
-    def _sort_hand(self, by_suit=False):
-        self.cg.sort(by_suit)
-
-    def size(self):
-        return self.cg.size()
-
-    # return card at specific index (0-10)
-    def get_card_at_index(self, index):
-        if index > 10 or index < 0:
-            raise Exception
-        else:
-            return self.cg.cards[index]
-
-    # return total points for this hand
-    def points(self):
-        return self.cg.sum_points()
-
-    # return a list of all possible melds (not sets) that use a particular card
-    @staticmethod
-    def _melds_using_this_card(card):
-
-        return_melds = []
-        all_possible_melds = []
-
-        # generate a list of all possible melds
-        for s in Card.all_suits():
-            # add all 3-card melds
-            for _ in range(1, 12):
-                all_possible_melds.append(((_, s), (_ + 1, s), (_ + 2, s)))
-                # add all 4-card melds
-            for _ in range(1, 11):
-                all_possible_melds.append(((_, s), (_ + 1, s), (_ + 2, s), (_ + 3, s)))
-                # add all 5-card melds
-            for _ in range(1, 10):
-                all_possible_melds.append(((_, s), (_ + 1, s), (_ + 2, s), (_ + 3, s), (_ + 4, s)))
-
-        # for each meld, check to see if this card is in it. if so, mark it for return.
-        for m in all_possible_melds:
-            if (card.rank, card.suit) in m:
-                return_melds.append(m)
-
-        return sorted(return_melds, key=itemgetter(0, 1))
-
-    def _contains_card(self, rank, suit):
-        return self.cg.contains(rank, suit)
-
-    # Given an array of GinCardGroups as melds, we return all melds not containing card from a given GinCardGroup.
-    # This allows us to reduce the list of melds we are interested in exploring.
-    @staticmethod
-    def _prune_meld_group(melds, pruner_meld):
-
-        # if we're given an empty base_meld to prune with, don't do any pruning
-        if len(pruner_meld.cards) == 0:
-            return melds
-
-        pruned = []
-        for meld in melds:
-            for card in pruner_meld.cards:
-                # test for the presence of card in meld
-                if meld.contains_card(card):
-                    break
-
-                # record meld, preventing duplicates
-                if meld not in pruned:
-                    pruned.append(meld)
-
-        return pruned
-
-    def deadwood_count(self):
-        debug_func = False
-        # begin with worst case: entire hand is deadwood.
-        worst_case = self.points()
-
-        # optimization step: we remove all cards not part of a set or a meld
-        specimen = GinCardGroup()
-        early_deadwood = GinCardGroup()
-        for card in self.cg.cards:
-            if self.cg._is_in_a_meld(card) or self.cg._is_in_a_3set(card) or self.cg._is_in_a_4set(card):
-                specimen.add(card.rank, card.suit)
-            else:
-                early_deadwood.add_card(card)
-
-        if debug_func:
-            print "early_deadwood: " + str(early_deadwood.sum_points())
-            all_melds = specimen.enumerate_all_melds_and_sets()
-            print "all_melds:"
-            for meld in all_melds:
-                print '\t' + ''.join((x.to_s() + '\t') for x in meld.cards)
-
-        # recursion. add smallest discovered deadwood count to early_deadwood count
-        explored_case = self._examine_melds(specimen) + early_deadwood.sum_points()
-
-        lowest_deadwood = min(worst_case, explored_case)
-
-        if debug_func:
-            print "lowest_deadwood: " + str(lowest_deadwood)
-
-        return lowest_deadwood
-
-    # our recursive call
-    # parameters:
-    #   cg          a GinCardGroup, representing cards to examine
-    def _examine_melds(self, cg, indent_level=0):
-        debug_func = False
-        if debug_func:
-            print ''.join('\t' for x in range(0, indent_level)) + "examine_melds[d=" + str(indent_level) + "]: " +\
-                  ''.join((str(x.to_s()) + '\t') for x in cg.cards)
-
-        # no cards means we're holding zero deadwood.
-        if cg.size() == 0:
-            return 0
-
-        # holding 1 or 2 cards means we're holding pure deadwood. return the sum.
-        if cg.size() < 3:
-            return sum(card.rank for card in cg.cards)
-
-        # enumeration step: generate all melds possible from our specimen
-        all_melds = cg.enumerate_all_melds_and_sets()
-
-        # ceiling is case where entire hand is deadwood (note that this is only for the subset cg, not a 10 card hand)
-        minimum_deadwood = cg.sum_points()
-
-        # The recursion. One by one, we enumerate through all possible meld combinations we can make using this subset
-        #  of cards, tracking the lowest deadwood value.
-        for excluded_meld in all_melds:
-            if debug_func:
-                print ''.join('\t' for x in range(0, indent_level+1)) + "excluded meld: " +\
-                      ''.join((str(x.to_s()) + '\t') for x in excluded_meld.cards)
-
-            # create a list of cards to examine, excluding cards in the excluded_meld
-            cards_to_examine = GinCardGroup()
-            for card in cg.cards:
-                for excluded_card in excluded_meld.cards:
-                    if card.rank != excluded_card.rank and card.suit != excluded_card.suit:
-                        cards_to_examine.add_card(card)
-                        break
-
-            # recursive call
-            result = self._examine_melds(cards_to_examine, indent_level+1)
-
-            if debug_func:
-                print ''.join('\t' for x in range(0, indent_level+1)) + "deadwood: " + str(result) + "\n"
-
-            # track lowest deadwood
-            minimum_deadwood = min(minimum_deadwood, result)
-
-        return minimum_deadwood
-
-    # return a GCG containing our deadwood cards
-    def deadwood_cards(self):
-
-        deadwood = []
-        for c in self.cg.cards:
-            if
-
-        return deadwood
+        GinCardGroup.__init__(self)
 
     # compare our hand against another hand and return
     def process_layoff(self, knocking_hand):

@@ -162,7 +162,7 @@ class TestGinPlayer(unittest.TestCase):
         p.execute_strategy()
 
         self.assertEqual(1, p.hand.size())
-        self.assertTrue(p.hand._contains_card(topcard.rank, topcard.suit))
+        self.assertTrue(p.hand.contains_card(topcard))
         self.assertEqual(51, len(p.table.deck.cards))
 
     def test_execute_strategy_pickup_discard(self):
@@ -184,7 +184,7 @@ class TestGinPlayer(unittest.TestCase):
         p.execute_strategy()
 
         self.assertEqual(1, p.hand.size())
-        self.assertTrue(p.hand._contains_card(topcard.rank, topcard.suit))
+        self.assertTrue(p.hand.contains_card(topcard))
         self.assertEqual(49, len(p.table.deck.cards))
 
     def test_execute_strategy_knock(self):
@@ -206,7 +206,7 @@ class TestGinPlayer(unittest.TestCase):
 
         # verify we discard card 0 into the discard pile AND the listener receives a knock
         self.assertEqual(1, p.hand.size())
-        self.assertEqual(card_1, p.hand.cg.cards[0])
+        self.assertEqual(card_1, p.hand.cards[0])
         self.assertEqual(card_0, p.table.discard_pile[0])
         self.assertEqual(True, l.did_it_knock)
 
@@ -229,7 +229,7 @@ class TestGinPlayer(unittest.TestCase):
 
         # verify we discard card 0 into the discard pile AND the listener receives a knock
         self.assertEqual(1, p.hand.size())
-        self.assertEqual(card_1, p.hand.cg.cards[0])
+        self.assertEqual(card_1, p.hand.cards[0])
         self.assertEqual(1, len(p.table.discard_pile))
         self.assertEqual(card_0, p.table.discard_pile[0])
         self.assertEqual(True, l.did_it_knock_gin)
@@ -254,7 +254,7 @@ class TestGinPlayer(unittest.TestCase):
         p.pickup_discard()
         size_after = p.hand.size()
         self.assertNotEqual(size_before, size_after)
-        self.assertTrue(p.hand._contains_card(4, 'c'))
+        self.assertTrue(p.hand.contains(4, 'c'))
 
     def test_discard_card(self):
         t = GinTable()

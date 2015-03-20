@@ -7,45 +7,6 @@ from ginhand import *
 class TestGinCardGroup(Helper):
     maxDiff = None
 
-    card_data1 = [
-        (9, 'h'),
-        (9, 'c'),
-        (9, 's'),
-        (10, 's'),
-        (11, 's'),
-        (12, 's'),
-        (13, 's'),
-        (13, 'c'),
-        (13, 'h'),
-        (5, 'c'),
-    ]
-
-    card_data2 = [
-        (9, 'h'),
-        (9, 'c'),
-        (9, 's'),
-        (9, 'd'),
-        (10, 's'),
-        (11, 's'),
-        (12, 's'),
-        (13, 's'),
-        (13, 'c'),
-        (13, 'h')
-    ]
-
-    card_data3 = [
-        (1, 'h'),
-        (9, 'c'),
-        (9, 's'),
-        (9, 'd'),
-        (10, 's'),
-        (11, 's'),
-        (12, 's'),
-        (5, 's'),
-        (5, 'd'),
-        (5, 'h')
-    ]
-
     def test___repr__(self):
         card_list = [(1, 'c'), (2, 'd'), (3, 's')]
         gcg = GinCardGroup(card_list)
@@ -101,15 +62,102 @@ class TestGinCardGroup(Helper):
         self.assertEqual(7, cg.cards[0].rank)
         self.assertEqual('h', cg.cards[0].suit)
 
-    def test_remove(self):
-        cg = GinCardGroup(self.card_data1)
-        cg.remove(GinCard(9, 'c'))
-        self.assertEqual(9, len(cg.cards))
+    def test_discard(self):
+        g = GinCardGroup()
+        gc = GinCard(5, 'c')
+        g.add_card(gc)
+        self.assertEqual(1, g.size())
+        g.discard(gc)
+        self.assertEqual(0, g.size())
 
-    def test_remove_non_card(self):
-        cg = GinCardGroup(self.card_data1)
-        cg.remove(GinCard(2, 'c'))
-        self.assertEqual(10, len(cg.cards))
+    def test_discard_not_holding_said_card(self):
+        g = GinCardGroup()
+        gc_yes = GinCard(5, 'c')
+        gc_no = GinCard(7, 'd')
+        g.add_card(gc_yes)
+        self.assertEqual(1, g.size())
+        g.discard(gc_no)
+        self.assertEqual(1, g.size())
+
+    # make sure we handle discarding properly when we have an empty hand
+    def test_discard_empty_hand(self):
+        g = GinCardGroup()
+        gc = GinCard(5, 'c')
+        g.discard(gc)
+        self.assertEqual(0, g.size())
+
+    def test_sort(self):
+        g = self.generate_gincardgroup_from_card_data(self.card_data1)
+        # the add_card function sorts after each add. randomize here to bypass it.
+        random.shuffle(g.cards)
+
+        g.sort()
+        # 5c should be first
+        self.assertEqual(5, g.cards[0].rank)
+        self.assertEqual('c', g.cards[0].suit)
+        # 9c should be second
+        self.assertEqual(9, g.cards[1].rank)
+        self.assertEqual('c', g.cards[1].suit)
+        # Kc should be third
+        self.assertEqual(9, g.cards[2].rank)
+        self.assertEqual('h', g.cards[2].suit)
+        # Ks should be fourth
+        self.assertEqual(9, g.cards[3].rank)
+        self.assertEqual('s', g.cards[3].suit)
+        # 5c should be fifth
+        self.assertEqual(10, g.cards[4].rank)
+        self.assertEqual('s', g.cards[4].suit)
+        # 9c should be sixth
+        self.assertEqual(11, g.cards[5].rank)
+        self.assertEqual('s', g.cards[5].suit)
+        # Kc should be seventh
+        self.assertEqual(12, g.cards[6].rank)
+        self.assertEqual('s', g.cards[6].suit)
+        # Ks should be eighth
+        self.assertEqual(13, g.cards[7].rank)
+        self.assertEqual('c', g.cards[7].suit)
+        # Kc should be ninth
+        self.assertEqual(13, g.cards[8].rank)
+        self.assertEqual('h', g.cards[8].suit)
+        # Ks should be tenth and final card
+        self.assertEqual(13, g.cards[-1].rank)
+        self.assertEqual('s', g.cards[-1].suit)
+
+    def test_sort_by_suit(self):
+        g = self.generate_gincardgroup_from_card_data(self.card_data1)
+        random.shuffle(g.cards)
+
+        g.sort(by_suit=True)
+        # 5c should be first
+        self.assertEqual(5, g.cards[0].rank)
+        self.assertEqual('c', g.cards[0].suit)
+        # 9c should be second
+        self.assertEqual(9, g.cards[1].rank)
+        self.assertEqual('c', g.cards[1].suit)
+        # Kc should be third
+        self.assertEqual(13, g.cards[2].rank)
+        self.assertEqual('c', g.cards[2].suit)
+        # 9h should be fourth
+        self.assertEqual(9, g.cards[3].rank)
+        self.assertEqual('h', g.cards[3].suit)
+        # Kh should be fifth
+        self.assertEqual(13, g.cards[4].rank)
+        self.assertEqual('h', g.cards[4].suit)
+        # 9s should be sixth
+        self.assertEqual(9, g.cards[5].rank)
+        self.assertEqual('s', g.cards[5].suit)
+        # 10c should be seventh
+        self.assertEqual(10, g.cards[6].rank)
+        self.assertEqual('s', g.cards[6].suit)
+        # Js should be eighth
+        self.assertEqual(11, g.cards[7].rank)
+        self.assertEqual('s', g.cards[7].suit)
+        # Qs should be ninth
+        self.assertEqual(12, g.cards[8].rank)
+        self.assertEqual('s', g.cards[8].suit)
+        # Ks should be tenth and final card
+        self.assertEqual(13, g.cards[-1].rank)
+        self.assertEqual('s', g.cards[-1].suit)
 
     def test_size(self):
         cg = GinCardGroup()
@@ -130,13 +178,24 @@ class TestGinCardGroup(Helper):
         self.assertEqual(True, cg.contains_card(card_yes))
         self.assertEqual(False, cg.contains_card(card_no))
 
-    def test_sum_points(self):
-        cg = GinCardGroup(self.card_data1)
-        self.assertEqual(92, cg.sum_points())
+    def test_points(self):
+        # build and test a small hand
+        cg1 = GinCardGroup()
+        self.assertEqual(0, cg1.points())
+
+        cg1.add(9, 'c')
+        self.assertEqual(9, cg1.points())
+
+        cg1.add(11, 'c')
+        self.assertEqual(19, cg1.points())
+
+        # test something bigger
+        cg2 = GinCardGroup(self.card_data1)
+        self.assertEqual(92, cg2.points())
 
     def test_sum_points_zero(self):
         cg = GinCardGroup()
-        self.assertEqual(0, cg.sum_points())
+        self.assertEqual(0, cg.points())
 
     def test_enumerate_all_melds_and_sets(self):
         expected_melds_data = [[(9,  'c'), (9,  'h'), (9,  's')],
@@ -295,164 +354,29 @@ class TestGinCardGroup(Helper):
         self.assertEqual(cleaned[0].__repr__(), "1c 2c 3c")
         self.assertEqual(cleaned[1].__repr__(), "2c 2d 2h")
 
-
-# noinspection PyProtectedMember
-class TestGinHand(Helper):
-    maxDiff = None
-
-    def testNewGinHand(self):
-        g = GinHand()
-        self.assertEqual(0, g.cg.size())
-
-    def test_add(self):
-        g = GinHand()
-        g.add(9, 'c')
-        self.assertEqual(9, g.cg.cards[0].rank)
-        self.assertEqual('c', g.cg.cards[0].suit)
-
-    def test_add_card(self):
-        g = GinHand()
-        self.assertEqual(0,g.cg.size())
-
-        g.add_card(GinCard(5, 'c'))
-        self.assertEqual(1,g.cg.size())
-        self.assertEqual(5, g.cg.cards[0].rank)
-        self.assertEqual('c', g.cg.cards[0].suit)
-
-    def test_discard(self):
-        g = GinHand()
-        gc = GinCard(5, 'c')
-        g.add_card(gc)
-        self.assertEqual(1, g.cg.size())
-        g.discard(gc)
-        self.assertEqual(0, g.cg.size())
-
-    def test_discard_not_holding_said_card(self):
-        g = GinHand()
-        gc_yes = GinCard(5, 'c')
-        gc_no = GinCard(7, 'd')
-        g.add_card(gc_yes)
-        self.assertEqual(1, g.cg.size())
-        g.discard(gc_no)
-        self.assertEqual(1, g.cg.size())
-
-    # make sure we handle discarding properly when we have an empty hand
-    def test_discard_empty_hand(self):
-        g = GinHand()
-        gc = GinCard(5, 'c')
-        g.discard(gc)
-        self.assertEqual(0, g.cg.size())
-
-    def test_size(self):
-        g = GinHand()
-        self.assertEqual(0, g.size())
-        g.add(9, 'c')
-        self.assertEqual(1, g.size())
-        g.discard(g.cg.cards.pop())
-        self.assertEqual(0, g.size())
-
     def test_get_card_at_index(self):
-        g = self.generate_ginhand_from_card_data(self.card_data1)
+        g = self.generate_gincardgroup_from_card_data(self.card_data1)
 
         target = g.get_card_at_index(0)
-        self.assertEqual(target, g.cg.cards[0])
+        self.assertEqual(target, g.cards[0])
 
-    def test__sort_hand(self):
-        g = self.generate_ginhand_from_card_data(self.card_data1)
-        # the add_card function sorts after each add. randomize here to bypass it.
-        random.shuffle(g.cg.cards)
+    def test_deadwood_cards(self):
+        gh = self.generate_gincardgroup_from_card_data(self.card_data1)
 
-        g._sort_hand()
-        # 5c should be first
-        self.assertEqual(5, g.cg.cards[0].rank)
-        self.assertEqual('c', g.cg.cards[0].suit)
-        # 9c should be second
-        self.assertEqual(9, g.cg.cards[1].rank)
-        self.assertEqual('c', g.cg.cards[1].suit)
-        # Kc should be third
-        self.assertEqual(9, g.cg.cards[2].rank)
-        self.assertEqual('h', g.cg.cards[2].suit)
-        # Ks should be fourth
-        self.assertEqual(9, g.cg.cards[3].rank)
-        self.assertEqual('s', g.cg.cards[3].suit)
-        # 5c should be fifth
-        self.assertEqual(10, g.cg.cards[4].rank)
-        self.assertEqual('s', g.cg.cards[4].suit)
-        # 9c should be sixth
-        self.assertEqual(11, g.cg.cards[5].rank)
-        self.assertEqual('s', g.cg.cards[5].suit)
-        # Kc should be seventh
-        self.assertEqual(12, g.cg.cards[6].rank)
-        self.assertEqual('s', g.cg.cards[6].suit)
-        # Ks should be eighth
-        self.assertEqual(13, g.cg.cards[7].rank)
-        self.assertEqual('c', g.cg.cards[7].suit)
-        # Kc should be ninth
-        self.assertEqual(13, g.cg.cards[8].rank)
-        self.assertEqual('h', g.cg.cards[8].suit)
-        # Ks should be tenth
-        self.assertEqual(13, g.cg.cards[-1].rank)
-        self.assertEqual('s', g.cg.cards[-1].suit)
+        self.assertIsInstance(gh.deadwood_cards(), GinCardGroup)
+        self.assertEqual(gh.deadwood_cards().contains(5, 'c'))
 
-    def test__sort_hand_by_suit(self):
-        g = self.generate_ginhand_from_card_data(self.card_data1)
-        random.shuffle(g.cg.cards)
+    def test__prune_meld_group(self):
+        a = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
+        b = GinCardGroup([(9, 'c'), (9,  'h'), (9,  's')])
+        c = GinCardGroup([(1, 'c'), (2,  'c'), (3,  'c')])
+        p = GinCardGroup([(9, 'c')])
+        melds = [a, b, c]
 
-        g._sort_hand(by_suit=True)
-        # 5c should be first
-        self.assertEqual(5, g.cg.cards[0].rank)
-        self.assertEqual('c', g.cg.cards[0].suit)
-        # 9c should be second
-        self.assertEqual(9, g.cg.cards[1].rank)
-        self.assertEqual('c', g.cg.cards[1].suit)
-        # Kc should be third
-        self.assertEqual(13, g.cg.cards[2].rank)
-        self.assertEqual('c', g.cg.cards[2].suit)
-        # Ks should be fourth
-        self.assertEqual(9, g.cg.cards[3].rank)
-        self.assertEqual('h', g.cg.cards[3].suit)
-        # 5c should be fifth
-        self.assertEqual(13, g.cg.cards[4].rank)
-        self.assertEqual('h', g.cg.cards[4].suit)
-        # 9c should be sixth
-        self.assertEqual(9, g.cg.cards[5].rank)
-        self.assertEqual('s', g.cg.cards[5].suit)
-        # Kc should be seventh
-        self.assertEqual(10, g.cg.cards[6].rank)
-        self.assertEqual('s', g.cg.cards[6].suit)
-        # Ks should be eighth
-        self.assertEqual(11, g.cg.cards[7].rank)
-        self.assertEqual('s', g.cg.cards[7].suit)
-        # Kc should be ninth
-        self.assertEqual(12, g.cg.cards[8].rank)
-        self.assertEqual('s', g.cg.cards[8].suit)
-        # Ks should be tenth
-        self.assertEqual(13, g.cg.cards[-1].rank)
-        self.assertEqual('s', g.cg.cards[-1].suit)
+        pruned = GinCardGroup._prune_meld_group(melds, p)
+        self.assertEqual(1, len(pruned))
 
-    def test_sum_points(self):
-        g = GinHand()
-        self.assertEqual(0, g.points())
-
-        g.add(9, 'c')
-        self.assertEqual(9, g.points())
-
-        g.add(11, 'c')
-        self.assertEqual(19, g.points())
-
-    def test__melds_using_this_card(self):
-        gc = GinCard(5, 'c')
-        m = GinHand._melds_using_this_card(gc)
-
-        self.assertEqual(((1, 'c'), (2, 'c'), (3, 'c'), (4, 'c'), (5, 'c')), m[0])
-        self.assertEqual(12, len(m))
-
-    def test__contains_card(self):
-        g = self.generate_ginhand_from_card_data(self.card_data1)
-        self.assertEqual(True, g._contains_card(5, 'c'))
-        self.assertEqual(False, g._contains_card(5, 'd'))
-
-    def test__clean_meld_group(self):
+        # something bigger
         pruner_meld = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
 
         meld_data = [[(9,  'c'), (9,  'd'), (9,  'h')],
@@ -473,19 +397,9 @@ class TestGinHand(Helper):
         for data in meld_data:
             melds.append(GinCardGroup(data))
 
-        cleaned = GinHand._prune_meld_group(melds, pruner_meld)
+        cleaned = GinCardGroup._prune_meld_group(melds, pruner_meld)
 
         self.assertEqual(8, len(cleaned))
-
-    def test__prune_meld_group(self):
-        a = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
-        b = GinCardGroup([(9, 'c'), (9,  'h'), (9,  's')])
-        c = GinCardGroup([(1, 'c'), (2,  'c'), (3,  'c')])
-        p = GinCardGroup([(9, 'c')])
-        melds = [a, b, c]
-
-        pruned = GinHand._prune_meld_group(melds, p)
-        self.assertEqual(1, len(pruned))
 
     def test__prune_meld_group_empty_pruner(self):
         a = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
@@ -494,7 +408,7 @@ class TestGinHand(Helper):
         p = GinCardGroup()
         melds = [a, b, c]
 
-        pruned = GinHand._prune_meld_group(melds, p)
+        pruned = GinCardGroup._prune_meld_group(melds, p)
         self.assertEqual(3, len(pruned))
 
     def test_deadwood_count(self):
@@ -504,44 +418,47 @@ class TestGinHand(Helper):
         g2 = self.generate_ginhand_from_card_data(self.card_data2)
         self.assertEqual(0, g2.deadwood_count())
 
-        g3 = self.generate_ginhand_from_card_data(self.card_data3)
-        self.assertEqual(26, g3.deadwood_count())
+        g4 = self.generate_ginhand_from_card_data(self.card_data4)
+        self.assertEqual(26, g4.deadwood_count())
 
     def test__examine_melds(self):
         # empty hand = 0 deadwood
-        empty_hand = GinHand()
-        self.assertEqual(0, empty_hand._examine_melds(empty_hand.cg))
+        empty_hand = GinCardGroup()
+        self.assertEqual(0, empty_hand._examine_melds(empty_hand))
 
         # 1c,2d hand = 3 deadwood
-        two_card_hand = GinHand()
+        two_card_hand = GinCardGroup()
         two_card_hand.add_card(GinCard(1, 'c'))
         two_card_hand.add_card(GinCard(2, 'd'))
-        self.assertEqual(3, two_card_hand._examine_melds(two_card_hand.cg))
+        self.assertEqual(3, two_card_hand._examine_melds(two_card_hand))
 
         # 1c,2d,3h hand = 6 deadwood
-        three_card_hand = GinHand()
+        three_card_hand = GinCardGroup()
         three_card_hand.add_card(GinCard(1, 'c'))
         three_card_hand.add_card(GinCard(2, 'd'))
         three_card_hand.add_card(GinCard(3, 'h'))
-        self.assertEqual(6, three_card_hand._examine_melds(three_card_hand.cg))
+        self.assertEqual(6, three_card_hand._examine_melds(three_card_hand))
 
         # 1c,2d,3h,4h,5h hand = 3 deadwood
-        five_card_hand = GinHand()
+        five_card_hand = GinCardGroup()
         five_card_hand.add_card(GinCard(1, 'c'))
         five_card_hand.add_card(GinCard(2, 'd'))
         five_card_hand.add_card(GinCard(3, 'h'))
         five_card_hand.add_card(GinCard(4, 'h'))
         five_card_hand.add_card(GinCard(5, 'h'))
-        self.assertEqual(3, five_card_hand._examine_melds(five_card_hand.cg))
+        self.assertEqual(3, five_card_hand._examine_melds(five_card_hand))
 
         g = self.generate_ginhand_from_card_data(self.card_data1)
-        self.assertEqual(5, g._examine_melds(g.cg))
+        self.assertEqual(5, g._examine_melds(g))
 
-    def test_deadwood_cards(self):
-        gh = self.generate_ginhand_from_card_data(self.card_data1)
 
-        self.assertIsInstance(gh.deadwood_cards(), GinCardGroup)
-        self.assertEqual(gh.deadwood_cards().contains(5, 'c'))
+# noinspection PyProtectedMember
+class TestGinHand(Helper):
+    maxDiff = None
+
+    def testNewGinHand(self):
+        g = GinHand()
+        self.assertEqual(0, g.size())
 
     def test_process_layoff(self):
         gh_layer = self.generate_ginhand_from_card_data(self.card_data1)
