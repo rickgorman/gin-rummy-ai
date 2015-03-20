@@ -19,6 +19,21 @@ class TestCard(unittest.TestCase):
         with self.assertRaises(AttributeError):
             Card(100, 'c')
 
+    def test___cmp__(self):
+        card1 = Card(5, 'd')
+        card2 = Card(6, 'c')
+        card3 = Card(6, 's')
+
+        self.assertLessEqual(card1.__cmp__(card2), -1)
+        self.assertLessEqual(card1.__cmp__(card3), -1)
+        self.assertEqual(card1.__cmp__(card1), 0)
+
+        self.assertGreaterEqual(card2.__cmp__(card1), 1)
+        self.assertLessEqual(card2.__cmp__(card3), -1)
+
+        self.assertGreaterEqual(card3.__cmp__(card1), 1)
+        self.assertGreaterEqual(card3.__cmp__(card2), 1)
+
 
 class TestDeck(unittest.TestCase):
     def testNewDeck(self):

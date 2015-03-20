@@ -26,6 +26,18 @@ class Card:
     def all_suits():
         return ['c', 'h', 'd', 's']
 
+    # compare by rank. if equal, then compare by suit
+    def __cmp__(self, other):
+
+        suit_rankings = ['c', 'd', 'h', 's']
+
+        r = self.rank.__cmp__(other.rank)
+        # if rank is equal
+        if not r:
+            return suit_rankings.index(self.suit) - suit_rankings.index(other.suit)
+        else:
+            return r
+
 
 class Deck(object):
     def __init__(self):
