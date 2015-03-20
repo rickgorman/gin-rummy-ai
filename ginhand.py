@@ -429,12 +429,25 @@ class GinHand(GinCardGroup):
     def __init__(self):
         GinCardGroup.__init__(self)
 
-    # compare our hand against another hand and return
+    # compare our hand against another hand and modify our hand in place, removing all cards that have been layed off
     def process_layoff(self, knocking_hand):
         """@type knocking_hand: GinHand"""
 
         # get a list of our deadwood cards
         gcg_deadwood = self.deadwood_cards()
+
+        agcg_knocker_sets = knocking_hand.enumerate_all_sets()
+        agcg_knocker_melds = knocking_hand.enumerate_all_melds()
+
+        # We will lay off against our opponent's sets.
+
+        # for each deadwood card we hold:
+        for c in gcg_deadwood:
+            # for each set held by knocker:
+            for gcg in agcg_knocker_sets:
+                # if our rank matches knocker's rank, we lay it off
+                if gcg.cards[0].rank == c.rank:
+                    self.discard(c)
 
         # We will attempt to lay off each card twice. In the case that we have two connected cards that will layoff on
         # the same meld (for instance: we hold 4c5c, knocker holds Ac2c3c) we cannot lay off the 5c until we first lay
@@ -442,17 +455,17 @@ class GinHand(GinCardGroup):
         # we run the process twice. We do not run the process a third time, as that would imply we held a 3-card meld
         # of our own (which would not count as deadwood).
 
-        # for each set held by knocker:
-        # - for each deadwood card we hold:
-        #   - if our rank matches knocker's rank, we lay it off
-        agcg_knocker_sets = knocking_hand.enumerate_all_sets()
-        for gcg in agcg_knocker_sets:
+        for i in range(2):
+            # for each deadwood card we hold:
             for c in gcg_deadwood:
-                if gcg.cards[0].rank == c.rank:
-                    gcg_deadwood.discard(c)
+                # for each meld held by knocker:
+                for gcg in agcg_knocker_melds:
+                    # if our suit matches the meld's suit:
+                    if c.suit == gcg.cards[0].suit:
+                        # if our rank is one less than the lowest rank of the meld, we lay it off
+                        if c.rank == gcg.cards[0].rank - 1:
+                            self.discard(c)
+                        # if our rank is one more than the highest of the meld, we lay it off
+                        elif c.rank == gcg.cards[-1].rank + 1:
+                            self.discard(c)
 
-        # for each meld held by knocker:
-        # - for each deadwood card we hold:
-        #   - if our suit matches the meld's suit:
-        #     - if our rank is one less than the lowest rank of the meld, we lay it off
-        #     - if our rank is one more than the highest of the meld, we lay it off

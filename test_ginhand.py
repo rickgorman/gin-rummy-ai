@@ -481,10 +481,20 @@ class TestGinHand(Helper):
         g = GinHand()
         self.assertEqual(0, g.size())
 
-    def test_process_layoff(self):
+    def test_process_layoff_single_set(self):
         gh_layer = self.generate_ginhand_from_card_data(self.card_data1)
         gh_winner = self.generate_ginhand_from_card_data(self.card_data3)
 
+        gh_layer.process_layoff(gh_winner)
+
         # we lay off our single unmatched 5 against a set of 5's and expect a new deadwood count of 0
-        self.assertIsInstance(gh_layer.process_layoff(gh_winner), GinHand)
-        self.assertEqual(gh_layer.process_layoff(gh_winner).deadwood_count(), 0)
+        self.assertEqual(gh_layer.deadwood_count(), 0)
+
+    def test_process_layoff_single_meld(self):
+        gh_layer = self.generate_ginhand_from_card_data(self.card_data6_layoff)
+        gh_winner = self.generate_ginhand_from_card_data(self.card_data6)
+
+        gh_layer.process_layoff(gh_winner)
+
+        # we lay off our 2d, 4c, 8c, and 9h. this gives us an expected deadwood count of 14
+        self.assertEqual(gh_layer.deadwood_count(), 14)
