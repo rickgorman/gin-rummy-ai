@@ -38,6 +38,19 @@ class TestGinCardGroup(Helper):
         self.assertGreaterEqual(card_group_fourth.__cmp__(card_group_second), 1)
         self.assertGreaterEqual(card_group_fourth.__cmp__(card_group_third), 1)
 
+    def test_iterable(self):
+        gcg_catcher = GinCardGroup()
+        gcg_control = GinCardGroup(self.card_data1)
+        for c in gcg_control:
+            gcg_catcher.add_card(c)
+
+        self.assertEqual(10, gcg_catcher.size())
+
+        # verify that catcher matches card_data1 card-by-card (rank/suit as well as order)
+        for index in range(9):
+            card = Card(gcg_control.cards[index].rank, gcg_control.cards[index].suit)
+            self.assertEqual(0, gcg_catcher.cards[index].__cmp__(card))
+
     def test_new_gincardgroup(self):
         cg = GinCardGroup(self.card_data1)
 
