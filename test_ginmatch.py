@@ -56,6 +56,14 @@ class TestGinMatch(Helper):
         except Exception:
             self.fail("Ginmatch() raised Exception unexpectedly!")
 
+    def test_notify_of_knock(self):
+        self.p1.knock()
+        self.assertEqual(self.gm.player_who_knocked, self.p1)
+
+    def test_notify_of_knock_gin(self):
+        self.p1.knock_gin()
+        self.assertEqual(self.gm.player_who_knocked_gin, self.p1)
+
     def test_run(self):
         # rig the horse with rockets
         self.gm.p1_score = 100
@@ -138,15 +146,18 @@ class TestGinMatch(Helper):
         # if the knock was VALID, ensure we penalize the player and that the game continues
         self.gm.end_with_knock_gin(self.p2)
         self.assertFalse(self.gm.p2_knocked_improperly)
-        self.assertEqual(self.gm.player_knocked_gin, self.p2)
+        self.assertEqual(self.gm.player_who_knocked_gin, self.p2)
         self.assertTrue(self.gm.gameover)
 
     def test_update_score_for_gin(self):
         # morbidly awful hand with deadwood = 55
         self.p1.hand = self.generate_ginhand_from_card_data(self.awful_hand_data)
 
-        # knock-worthy hand with deadwood=0
+        # gin-worthy hand with deadwood=0
         self.p2.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
+
+        # knock
+        self.p2.knock_gin()
 
         self.gm.update_score()
         self.assertEqual(self.gm.p1_score, 0)

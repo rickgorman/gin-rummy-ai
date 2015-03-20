@@ -52,7 +52,8 @@ class GinMatch:
         # track game state
         self.gameover = False
         self.player_who_knocked = False
-        self.player_knocked_gin = False
+        self.player_knocked = False
+        self.player_who_knocked_gin = False
         self.p1_knocked_improperly = False
         self.p2_knocked_improperly = False
 
@@ -62,11 +63,11 @@ class GinMatch:
         self.p2.register_knock_listener(self)
         self.p2.register_knock_gin_listener(self)
 
-    def notify_of_knock(self):
-        pass
+    def notify_of_knock(self, knocker):
+        self.player_who_knocked = knocker
 
-    def notify_of_knock_gin(self):
-        pass
+    def notify_of_knock_gin(self, knocker):
+        self.player_who_knocked_gin = knocker
 
     # run the match until a winner is declared
     def run(self):
@@ -108,7 +109,7 @@ class GinMatch:
 
         # clear game states
         self.gameover = False
-        self.player_knocked_gin = False
+        self.player_who_knocked_gin = False
         self.player_who_knocked = False
         self.p1_knocked_improperly = False
         self.p2_knocked_improperly = False
@@ -123,8 +124,8 @@ class GinMatch:
                 if not self.gameover:
                     p.take_turn()
 
+                    # validate the knock or reset the knock state and penalize the knocker
                     if self.player_who_knocked:
-                        # validate the knock or reset the knock state and penalize the knocker
                         if p.hand.deadwood_count() <= 10:
                             self.end_with_knock(p)
                         else:
@@ -134,12 +135,12 @@ class GinMatch:
                             elif p == self.p2:
                                 self.p2_knocked_improperly = True
 
-                    elif self.player_knocked_gin:
-                        # validate the knock_gin or penalize the knocker and reset the knock state
+                    # validate the knock_gin or penalize the knocker and reset the knock state
+                    elif self.player_who_knocked_gin:
                         if p.hand.deadwood_count != 0:
                             self.end_with_knock_gin(p)
                         else:
-                            self.player_knocked_gin = False
+                            self.player_who_knocked_gin = False
                             if p == self.p1:
                                 self.p1_knocked_improperly = True
                             elif p == self.p2:
@@ -183,18 +184,28 @@ class GinMatch:
                 self.p2_knocked_improperly = True
         else:
             self.gameover = True
-            self.player_knocked_gin = knocker
+            self.player_who_knocked_gin = knocker
 
     def update_score(self):
-        p1_score_delta = 0
-        p2_score_delta = 0
+        knocker_score_delta = 0
 
         # track the 'defender' of the knock/gin
         if self.p1 == self.player_who_knocked:
-            player_who_didnt_knock = self.p2
+            defender = self.p2
         else:
-            player_who_didnt_knock = self.p1
+            defender = self.p1
 
+        # for gin, no lay-offs
+        if self.player_who_knocked_gin:
+            # points for defender's deadwood
+            knocker_score_delta += defender.hand.deadwood_count()
+
+            # 25 bonus points for gin
+            knocker_score_delta += 25
         # for knocks, allow lay-offs
-        # ask the defender to score his hand against his opponent's hand
-        # - something like: defender.score_against(knocker)
+
+        # update score tallies
+        if self.p1 == self.player_who_knocked:
+            self.p1_score += knocker_score_delta
+        elif self.p2 == self.player_who_knocked:
+            self.p2_score += knocker_score_delta
