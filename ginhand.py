@@ -245,46 +245,35 @@ class GinCardGroup:
 
     # return a sorted array of GinCardGroups, one containing each set
     def enumerate_all_sets(self):
-        all_melds = list()
+        agcg_all_sets = list()
 
-        # First, check for 4-sets
-        if self.size() > 3:
+        # we need at least 3 cards to make a set
+        if self.size() >= 3:
             for c in self.cards:
+                # First, check for 4-sets
                 if self._is_in_a_4set(c):
                     quad_cards = []
+                    # enumerate all cards in the 4-set for ease of use
                     for s in c.all_suits():
                         quad_cards.append((c.rank, s))
 
-                    all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2], quad_cards[3]])
+                    # store the 4-set
+                    agcg_all_sets.append(GinCardGroup([quad_cards[0], quad_cards[1], quad_cards[2], quad_cards[3]]))
 
-                    # When a 4-card set is found, also add all 4 of the possible 3-card melds
-                    all_melds.append([quad_cards[0], quad_cards[1], quad_cards[2]])
-                    all_melds.append([quad_cards[1], quad_cards[2], quad_cards[3]])
-                    all_melds.append([quad_cards[2], quad_cards[3], quad_cards[0]])
-                    all_melds.append([quad_cards[3], quad_cards[0], quad_cards[1]])
+                    # When a 4-card set is found, also store all 4 of the possible 3-card melds
+                    agcg_all_sets.append(GinCardGroup([quad_cards[0], quad_cards[1], quad_cards[2]]))
+                    agcg_all_sets.append(GinCardGroup([quad_cards[1], quad_cards[2], quad_cards[3]]))
+                    agcg_all_sets.append(GinCardGroup([quad_cards[2], quad_cards[3], quad_cards[0]]))
+                    agcg_all_sets.append(GinCardGroup([quad_cards[3], quad_cards[0], quad_cards[1]]))
                 # Next, check for 3-sets (reminder: here we check for 3sets exclusive of 4sets)
                 elif self._is_in_a_3set(c):
                     set_cards = [x for x in self.cards if x.rank == c.rank]
                     set_cards_list = map(lambda y: (y.rank, y.suit), set_cards)
-                    all_melds.append(set_cards_list)
+                    agcg_all_sets.append(GinCardGroup(set_cards_list))
 
-        # de-dupe. O(n^2) but small population so whatever.
-        all_melds_cleaned = list()
-        for m in all_melds:
-            if m not in all_melds_cleaned:
-                all_melds_cleaned.append(m)
+        agcg_all_sets_deduped = GinCardGroup.uniqsort_cardgroups(agcg_all_sets)
 
-        # sort each meld by rank,suit
-        for m in all_melds_cleaned:
-            m.sort(key=itemgetter(0, 1))
-
-        # return a sorted array of GinCardGroups, one containing each set
-        all_melds_cleaned.sort()
-        gin_card_groups  = []
-        for meld in all_melds_cleaned:
-            gin_card_groups.append(GinCardGroup(meld))
-
-        return gin_card_groups
+        return agcg_all_sets_deduped
 
     # return a GCG containing our deadwood cards
     def deadwood_cards(self):
