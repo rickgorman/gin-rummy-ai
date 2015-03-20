@@ -45,7 +45,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_enumerate_all_melds_and_sets_quads.coverage" NAME="Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads Coverage Results" MODIFIED="1426858089401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_discard_card.coverage" NAME="Unittest TestGinPlayer.test_discard_card Coverage Results" MODIFIED="1426465544941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestCard.coverage" NAME="Unittests in TestCard Coverage Results" MODIFIED="1390372880624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$All_Unittests_in_neural.coverage" NAME="All Unittests in neural Coverage Results" MODIFIED="1426858136447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/neural$All_Unittests_in_neural.coverage" NAME="All Unittests in neural Coverage Results" MODIFIED="1426859854532" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_contains.coverage" NAME="Unittest TestGinCardGroup.test_contains Coverage Results" MODIFIED="1395248903917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_enumerate_all_sets.coverage" NAME="Unittest TestGinCardGroup.test_enumerate_all_sets Coverage Results" MODIFIED="1426857953638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_end_with_knock_valid.coverage" NAME="Unittest TestGinMatch.test_end_with_knock_valid Coverage Results" MODIFIED="1426657799816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -118,6 +118,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestGinHand.coverage" NAME="Unittests in TestGinHand Coverage Results" MODIFIED="1401345726179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test__is_in_a_4set.coverage" NAME="Unittest TestGinCardGroup.test__is_in_a_4set Coverage Results" MODIFIED="1426674097628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestDeck_testShuffle.coverage" NAME="Unittest TestDeck.testShuffle Coverage Results" MODIFIED="1390199317952" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_update_score_for_knock.coverage" NAME="Unittest TestGinMatch.test_update_score_for_knock Coverage Results" MODIFIED="1426859958656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test__prune_meld_group_empty_pruner.coverage" NAME="Unittest TestGinHand.test__prune_meld_group_empty_pruner Coverage Results" MODIFIED="1404697303806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestGinPlayer.coverage" NAME="Unittests in TestGinPlayer Coverage Results" MODIFIED="1426485982497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_discard.coverage" NAME="Unittest TestGinHand.test_discard Coverage Results" MODIFIED="1392629779002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -162,7 +163,9 @@
               <entry file="file://$PROJECT_DIR$/test_ginhand.py">
                 <provider selected="true" editor-type-id="text-editor">
                   <state line="207" column="0" selection-start="7542" selection-end="7542" vertical-scroll-proportion="0.0" vertical-offset="2935" max-vertical-offset="7545">
-                    <folding />
+                    <folding>
+                      <marker date="1426858082000" expanded="true" signature="19395:20296" placeholder="..." />
+                    </folding>
                   </state>
                 </provider>
               </entry>
@@ -176,10 +179,10 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_ginmatch.py" pinned="false" current="false" current-in-tab="true">
+            <file leaf-file-name="test_ginmatch.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="60" column="37" selection-start="1196" selection-end="1196" vertical-scroll-proportion="0.5261011" vertical-offset="240" max-vertical-offset="2520">
+                  <state line="177" column="46" selection-start="5732" selection-end="5732" vertical-scroll-proportion="0.92659056" vertical-offset="1504" max-vertical-offset="2730">
                     <folding />
                   </state>
                 </provider>
@@ -259,10 +262,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ginmatch.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ginmatch.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ginmatch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="0" selection-start="2559" selection-end="2559" vertical-scroll-proportion="0.5368" vertical-offset="364" max-vertical-offset="3225">
+            <state line="207" column="97" selection-start="7680" selection-end="7680" vertical-scroll-proportion="0.8530612" vertical-offset="2045" max-vertical-offset="3270">
               <folding />
             </state>
           </provider>
@@ -434,32 +437,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittest TestGinMatch.test_notify_of_knock_gin">
-    <configuration default="false" name="Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginhand.py" />
-      <option name="CLASS_NAME" value="TestGinCardGroup" />
-      <option name="METHOD_NAME" value="test_enumerate_all_melds_and_sets_quads" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittest TestGinMatch.test_update_score_for_knock">
     <configuration default="false" name="Unittest TestGinMatch.test_update_score_for_gin" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -551,6 +529,31 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginmatch.py" />
       <option name="CLASS_NAME" value="TestGinMatch" />
       <option name="METHOD_NAME" value="test_notify_of_knock" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestGinMatch.test_update_score_for_knock" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginmatch.py" />
+      <option name="CLASS_NAME" value="TestGinMatch" />
+      <option name="METHOD_NAME" value="test_update_score_for_knock" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -741,19 +744,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python tests.All Unittests in neural" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_update_score_for_gin" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_end_with_knock_gin_valid" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_notify_of_knock_gin" />
-      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_notify_of_knock" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_update_score_for_gin" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_end_with_knock_gin_valid" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_notify_of_knock_gin" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_notify_of_knock" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_update_score_for_knock" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_notify_of_knock_gin" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_notify_of_knock" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_update_score_for_gin" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_end_with_knock_gin_valid" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_update_score_for_knock" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_notify_of_knock_gin" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_notify_of_knock" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_update_score_for_gin" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_end_with_knock_gin_valid" />
       </list>
     </recent_temporary>
   </component>
@@ -941,7 +944,11 @@
       <created>1426858124512</created>
       <updated>1426858124512</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Added and Passed test_notify_of_knock and test_notify_of_knock_gin">
+      <created>1426859494614</created>
+      <updated>1426859494614</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1022,7 +1029,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="split gin.py into ginplayer.py and ginhand.py, along with respective test files.&#10;added debug printouts to deadwood_count and _examine_melds&#10;corrected deadwood_count for g3 case" />
     <MESSAGE value="Added GinHand.size()&#10;Moved GinPlayer into its own file&#10;Added test scaffolds for GinPlayer&#10;Added second knock listener: one for knocking, one for knocking gin&#10;Created GinStrategy&#10;Create GinTable, added scaffold seating method" />
     <MESSAGE value="Derived child class of Deck, GinDeck, to allow the Deck class to be reused in other projects&#10;" />
     <MESSAGE value="Changed Deck to be new class type (meaning it now inherits from object) to fix a super() call from a child class&#10;Fixed a GinDeck.deal_a_card()&#10;Added GinHand.get_card_at_index()&#10;Began implementation of GinMatch&#10;Added DrawException and StrategyExecutionException&#10;GinPlayer now has an action member to handle the advice provided from GinStrategy&#10;Implemented GinPlayer.draw(), consult_strategy(), pickup_discard()&#10;Began implementing GinPlayer.execute_strategy() -- 3/5 cases done&#10;We now hold discarded cards in GinTable's discard_pile&#10;Created a parameter-driven MockGinStrategy&#10;GinTable now holds the active deck&#10;Added many test cases for GinPlayer&#10;" />
@@ -1047,7 +1053,8 @@
     <MESSAGE value="Passed all cases of test_process_layoff&#10;Added some new card_dataX cases for test_process_layoff" />
     <MESSAGE value="Refactored enumerate_all_sets to use uniqsort_cardgroups(). Added clarity in comments." />
     <MESSAGE value="Refactored enumerate_all_melds to use uniqsort_cardgroups(). Added clarity in comments." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored enumerate_all_melds to use uniqsort_cardgroups(). Added clarity in comments." />
+    <MESSAGE value="Added and Passed test_notify_of_knock and test_notify_of_knock_gin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added and Passed test_notify_of_knock and test_notify_of_knock_gin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1063,14 +1070,14 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/ginmatch.py</url>
-          <line>192</line>
-          <option name="timeStamp" value="96" />
+          <line>210</line>
+          <option name="timeStamp" value="97" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="97" />
+      <option name="time" value="98" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1126,7 +1133,9 @@
     <entry file="file://$PROJECT_DIR$/test_ginhand.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="207" column="0" selection-start="7542" selection-end="7542" vertical-scroll-proportion="0.0" vertical-offset="2935" max-vertical-offset="7545">
-          <folding />
+          <folding>
+            <marker date="1426858082000" expanded="true" signature="19395:20296" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1185,16 +1194,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
+    <entry file="file://$PROJECT_DIR$/ginmatch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="37" selection-start="1196" selection-end="1196" vertical-scroll-proportion="0.5261011" vertical-offset="240" max-vertical-offset="2520">
+        <state line="207" column="97" selection-start="7680" selection-end="7680" vertical-scroll-proportion="0.8530612" vertical-offset="2045" max-vertical-offset="3270">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ginmatch.py">
+    <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="0" selection-start="2559" selection-end="2559" vertical-scroll-proportion="0.5368" vertical-offset="364" max-vertical-offset="3225">
+        <state line="177" column="46" selection-start="5732" selection-end="5732" vertical-scroll-proportion="0.92659056" vertical-offset="1504" max-vertical-offset="2730">
           <folding />
         </state>
       </provider>

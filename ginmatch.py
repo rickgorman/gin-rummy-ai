@@ -52,7 +52,6 @@ class GinMatch:
         # track game state
         self.gameover = False
         self.player_who_knocked = False
-        self.player_knocked = False
         self.player_who_knocked_gin = False
         self.p1_knocked_improperly = False
         self.p2_knocked_improperly = False
@@ -192,8 +191,10 @@ class GinMatch:
         # track the 'defender' of the knock/gin
         if self.p1 == self.player_who_knocked:
             defender = self.p2
+            knocker = self.p1
         else:
             defender = self.p1
+            knocker = self.p2
 
         # for gin, no lay-offs
         if self.player_who_knocked_gin:
@@ -203,9 +204,11 @@ class GinMatch:
             # 25 bonus points for gin
             knocker_score_delta += 25
         # for knocks, allow lay-offs
+        elif self.player_who_knocked:
+            knocker_score_delta += defender.hand.deadwood_count() - knocker.hand.deadwood_count()
 
         # update score tallies
-        if self.p1 == self.player_who_knocked:
+        if knocker == self.p1:
             self.p1_score += knocker_score_delta
-        elif self.p2 == self.player_who_knocked:
+        elif knocker == self.p2:
             self.p2_score += knocker_score_delta

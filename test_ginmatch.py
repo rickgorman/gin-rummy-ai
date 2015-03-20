@@ -162,3 +162,17 @@ class TestGinMatch(Helper):
         self.gm.update_score()
         self.assertEqual(self.gm.p1_score, 0)
         self.assertEqual(self.gm.p2_score, 55+25)
+
+    def test_update_score_for_knock(self):
+        # morbidly awful hand with deadwood = 55
+        self.p1.hand = self.generate_ginhand_from_card_data(self.awful_hand_data)
+
+        # knock-worthy hand with deadwood=1
+        self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
+
+        # knock
+        self.p2.knock()
+
+        self.gm.update_score()
+        self.assertEqual(self.gm.p1_score, 0)
+        self.assertEqual(self.gm.p2_score, 54)
