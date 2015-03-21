@@ -47,7 +47,6 @@ class GinMatch:
         self.p2 = player2
         self.table.seat_player(self.p1)
         self.table.seat_player(self.p2)
-        self.current_player = self.p1
 
         # track game state
         self.gameover = False
@@ -80,6 +79,8 @@ class GinMatch:
             self.p1_score += 100
         elif self.p2_score >= 100:
             self.p2_score += 100
+        else:
+            raise ValueError("score must be 100+ for endgame. scores are p1:%s p2:%s" % self.p1_score, self.p2_score)
 
         # - calculate line bonus
         self.p1_score += 20 * self.p1_matches_won

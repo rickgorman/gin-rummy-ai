@@ -75,6 +75,7 @@ class TestGinMatch(Helper):
         self.assertEqual(winner, self.p1)
 
     def test_play_game(self):
+        # all play_game does is reset some flags and call other methods. leaving it blank.
         pass
 
     def test_deal_cards(self):

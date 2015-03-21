@@ -102,48 +102,52 @@ class GinCardGroup:
         if len(self.cards) < 3:
             return False
 
+        answer = False
+
         # for aces we must have A23
         if card.rank == 1:    # Ace
             if self.contains(2, card.suit) and self.contains(3, card.suit):
-                return True
+                answer = True
             else:
-                return False
+                answer = False
 
         # for deuces we can have A23 or 234
         elif card.rank == 2:  # 2
             if self.contains(1, card.suit) and self.contains(3, card.suit):
-                return True
+                answer = True
             elif self.contains(3, card.suit) and self.contains(4, card.suit):
-                return True
+                answer = True
             else:
-                return False
+                answer = False
 
         # for kings we must have exactly JQK
         elif card.rank == 13:  # King
             if self.contains(11, card.suit) and self.contains(12, card.suit):
-                return True
+                answer = True
             else:
-                return False
+                answer = False
 
         # for queens we can have JQK or TJQ
         elif card.rank == 12:  # Queen
             if self.contains(11, card.suit) and self.contains(13, card.suit):
-                return True
+                answer = True
             elif self.contains(10, card.suit) and self.contains(11, card.suit):
-                return True
+                answer = True
             else:
-                return False
+                answer = False
 
         # for all other cards, we can have [card-2,card-1,card], [card-1,card,card+1] or [card,card+1,card+2]
         else:
             if self.contains(card.rank - 2, card.suit) and self.contains(card.rank - 1, card.suit):
-                return True
+                answer = True
             elif self.contains(card.rank - 1, card.suit) and self.contains(card.rank + 1, card.suit):
-                return True
+                answer = True
             elif self.contains(card.rank + 1, card.suit) and self.contains(card.rank + 2, card.suit):
-                return True
+                answer = True
             else:
-                return False
+                answer = False
+
+        return answer
 
     # determine if a card is part of a three-of-a-kind (but not a 4-set)
     def _is_in_a_3set(self, gincard):
