@@ -9,32 +9,19 @@
 
 
 # Notes:
-# - we can grow a different neural net for each turn of the game. A game has max 29 moves, so 29 chromosomes.
+# - we can grow one net for normal play and a second net for handling the invalid knock scenario
 
-
-class Node:
+class Neuron:
     def __init__(self):
-        self.value = 0
-        self.children = []
+        self.dendrite_tree = []
+        self.axon = None
 
+    # connect this neuron to the dendrite tree of target neuron
+    def attach_my_axon(self, target):
+        self.axon = target
+        target.attach_my_dendrite(self)
 
-class Layer:
-    # instantiate a new Layer with a given number of nodes
-    def __init__(self, node_count=20):
-        self.nodes = []
-        for _ in range(node_count):
-            self.nodes.append(Node())
-
-
-class MultiInputSingleHiddenSingleOutputNeuralNet:
-    hidden_layer_size = 100
-
-    def __init__(self, num_inputs=10, num_outputs=10):
-        self.input_layer  = Layer(num_inputs)
-        self.hidden_layer = Layer(self.hidden_layer_size)
-        self.output = None
-
-
-
-
-
+    # connect a neuron to our dendrite tree
+    def attach_my_dendrite(self, target):
+        if self not in target.dendrite_tree:
+            self.dendrite_tree.append(target)
