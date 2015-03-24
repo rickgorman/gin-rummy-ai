@@ -14,6 +14,19 @@ from utility import indent_print
 # - we need to punish a network for doing something bad, i.e discarding at 10 cards or drawing at 11 cards.
 
 
+class Sensor:
+    def __init__(self):
+        pass
+
+
+class Sensable:
+    def __init__(self):
+        pass
+
+    def accept_sense(self):
+        pass
+
+
 class Perceptron(object):
     def __init__(self, myid=None):
         self.inputs = {}
@@ -41,17 +54,24 @@ class Perceptron(object):
 
     # return the sigmoid of: the sum of our inputs multiplied by their respective weights
     def generate_output(self, indent_level=0):
+        func_debug = 0
         multiplied = 0
-        indent_print(indent_level, "running generate_output() for: " + self.id)
+        sigmoided = 0
+
+        if func_debug:
+            indent_print(indent_level, "running generate_output() for: " + self.id)
+
         for each_input in self.inputs.keys():
             output = each_input.generate_output(indent_level=indent_level+1)
             multiplied += self.inputs[each_input] * output
             sigmoided = Perceptron.sigmoid(multiplied)
-            indent_print(indent_level+1, "looking at connection from " + each_input.id + " to " + self.id)
-            indent_print(indent_level+2, "input weight: " + str(self.inputs[each_input]))
-            indent_print(indent_level+2, "output: " + str(output))
-            indent_print(indent_level+2, "multiplied: " + str(multiplied))
-            indent_print(indent_level+2, "sigmoided: " + str(round(sigmoided, 4)))
+            # debug output
+            if func_debug:
+                indent_print(indent_level+1, "looking at connection from " + each_input.id + " to " + self.id)
+                indent_print(indent_level+2, "input weight: " + str(self.inputs[each_input]))
+                indent_print(indent_level+2, "output: " + str(output))
+                indent_print(indent_level+2, "multiplied: " + str(multiplied))
+                indent_print(indent_level+2, "sigmoided: " + str(round(sigmoided, 4)))
 
         return sigmoided
 
@@ -62,8 +82,12 @@ class InputPerceptron(Perceptron):
         Perceptron.__init__(self, myid)
 
     def generate_output(self, indent_level=0):
+        func_debug = 0
         sensed = self.sensor.sense()
         sigmoided = Perceptron.sigmoid(sensed)
-        indent_print(indent_level, "running generate_output() for: " + self.id)
-        indent_print(indent_level+1, "sigmoid(" + self.id + ".sense()) = " + str(round(sigmoided, 4)))
+
+        if func_debug:
+            indent_print(indent_level, "running generate_output() for: " + self.id)
+            indent_print(indent_level+1, "sigmoid(" + self.id + ".sense()) = " + str(round(sigmoided, 4)))
+
         return sigmoided

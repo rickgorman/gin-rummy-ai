@@ -2,6 +2,24 @@ import unittest
 from neuralnet import *
 
 
+# noinspection PyMissingConstructor
+class MockSensor(Sensor):
+    def __init__(self, target):
+        self.target = target
+
+    def sense(self):
+        return self.target.accept_sense()
+
+
+# noinspection PyMissingConstructor
+class MockSensable(Sensable):
+    def __init__(self, value):
+        self.value = value
+
+    def accept_sense(self):
+        return self.value
+
+
 class TestPerceptron(unittest.TestCase):
 
     def setUp(self):
@@ -60,14 +78,17 @@ class TestPerceptron(unittest.TestCase):
         # - output layer: 1 neuron
         # we'll verify that the output value matches a hand-calculated value
 
-        es1_val = 5
-        es2_val = 8
+        ms1_val = 5
+        ms2_val = 8
 
-        es1 = MockEnvironmentSensor(es1_val)
-        es2 = MockEnvironmentSensor(es2_val)
+        sensable_1 = MockSensable(ms1_val)
+        sensable_2 = MockSensable(ms2_val)
 
-        input1 = InputPerceptron(es1, myid='input1')
-        input2 = InputPerceptron(es2, myid='input2')
+        ms1 = MockSensor(sensable_1)
+        ms2 = MockSensor(sensable_2)
+
+        input1 = InputPerceptron(ms1, myid='input1')
+        input2 = InputPerceptron(ms2, myid='input2')
         hidden1 = Perceptron(myid='hidden1')
         hidden2 = Perceptron(myid='hidden2')
         output1 = Perceptron(myid='output1')
@@ -89,39 +110,27 @@ class TestPerceptron(unittest.TestCase):
         hidden2.add_input(input2, i2_h2_weight)
 
         # calculate this by hand. did on paper as well, same value of 0.5539 for weights given on 2015/03/23 commit
-        h1_step = Perceptron.sigmoid(Perceptron.sigmoid(es1_val)*i1_h1_weight +
-                                     Perceptron.sigmoid(es2_val)*i2_h1_weight)
-        h2_step = Perceptron.sigmoid(Perceptron.sigmoid(es1_val)*i1_h2_weight +
-                                     Perceptron.sigmoid(es2_val)*i2_h2_weight)
+        h1_step = Perceptron.sigmoid(Perceptron.sigmoid(ms1_val)*i1_h1_weight +
+                                     Perceptron.sigmoid(ms2_val)*i2_h1_weight)
+        h2_step = Perceptron.sigmoid(Perceptron.sigmoid(ms1_val)*i1_h2_weight +
+                                     Perceptron.sigmoid(ms2_val)*i2_h2_weight)
         expected = Perceptron.sigmoid(h1_step*h1_o1_weight + h2_step*h2_o1_weight)
 
         generated = output1.generate_output()
         self.assertAlmostEqual(expected, generated, 3)
 
 
-class EnvironmentSensor:
-    def __init__(self):
-        pass
-
-
-class MockEnvironmentSensor(EnvironmentSensor):
-    def __init__(self, value):
-        self.value = value
-
-    def sense(self):
-        return self.value
-
-
 class TestInputPerceptron(unittest.TestCase):
     def setUp(self):
         self.some_value = 5
-        self.es = MockEnvironmentSensor(self.some_value)
+        self.sensable = MockSensable(self.some_value)
+        self.es = MockSensor(self.sensable)
         self.ip = InputPerceptron(self.es, myid='self.ip')
 
     def test__init__(self):
         # ensure we store our sensor
         self.assertEqual(self.ip.sensor, self.es)
-        self.assertIsInstance(self.ip.sensor, EnvironmentSensor)
+        self.assertIsInstance(self.ip.sensor, Sensor)
 
     def test_sense(self):
         # ensure we sense an input properly
@@ -130,3 +139,12 @@ class TestInputPerceptron(unittest.TestCase):
     def test_generate_output(self):
         # ensure we consult our environment sensor
         self.assertEqual(Perceptron.sigmoid(self.some_value), self.ip.generate_output())
+
+
+class TestSensor(unittest.TestCase):
+    def test_sense(self):
+        someval = 10
+        eo = MockSensable(someval)
+        es = MockSensor(eo)
+
+        self.assertEqual(someval, es.sense())
