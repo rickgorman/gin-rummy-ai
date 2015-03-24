@@ -10,6 +10,7 @@
 from deck import *
 from operator import attrgetter, itemgetter
 from gindeck import *
+from utility import indent_print
 
 
 # card organization and management. takes as input an array of card tuples. maintains objects internally as GinCards
@@ -190,49 +191,49 @@ class GinCardGroup:
         if self.size() >= 3:
             self.sort(by_suit=True)
             for i in range(0, len(self.cards) - 3 + 1):
-                first_card  = self.cards[i]
+                first_card = self.cards[i]
                 second_card = self.cards[i + 1]
-                third_card  = self.cards[i + 2]
+                third_card = self.cards[i + 2]
                 if first_card.suit == second_card.suit == third_card.suit:
                     if first_card.rank + 1 == second_card.rank and second_card.rank + 1 == third_card.rank:
                         agcg_all_melds.append(GinCardGroup([(first_card.rank, first_card.suit),
-                                          (second_card.rank, second_card.suit),
-                                          (third_card.rank, third_card.suit)]))
+                                                            (second_card.rank, second_card.suit),
+                                                            (third_card.rank, third_card.suit)]))
 
         # Next, check for exact 4-melds
         if self.size() >= 4:
             for i in range(0, len(self.cards) - 4 + 1):
-                first_card  = self.cards[i]
+                first_card = self.cards[i]
                 second_card = self.cards[i + 1]
-                third_card  = self.cards[i + 2]
+                third_card = self.cards[i + 2]
                 fourth_card = self.cards[i + 3]
                 if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit:
                     if (first_card.rank + 1 == second_card.rank and
-                            second_card.rank + 1 == third_card.rank and
-                            third_card.rank + 1 == fourth_card.rank):
+                                    second_card.rank + 1 == third_card.rank and
+                                    third_card.rank + 1 == fourth_card.rank):
                         agcg_all_melds.append(GinCardGroup([(first_card.rank, first_card.suit),
-                                          (second_card.rank, second_card.suit),
-                                          (third_card.rank, third_card.suit),
-                                          (fourth_card.rank, fourth_card.suit)]))
+                                                            (second_card.rank, second_card.suit),
+                                                            (third_card.rank, third_card.suit),
+                                                            (fourth_card.rank, fourth_card.suit)]))
 
         # Finally, check for exact 5-melds
         if self.size() >= 5:
             for i in range(0, len(self.cards) - 5 + 1):
-                first_card  = self.cards[i]
+                first_card = self.cards[i]
                 second_card = self.cards[i + 1]
-                third_card  = self.cards[i + 2]
+                third_card = self.cards[i + 2]
                 fourth_card = self.cards[i + 3]
-                fifth_card  = self.cards[i + 4]
+                fifth_card = self.cards[i + 4]
                 if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit == fifth_card.suit:
                     if (first_card.rank + 1 == second_card.rank and
-                            second_card.rank + 1 == third_card.rank and
-                            third_card.rank + 1 == fourth_card.rank and
-                            fourth_card.rank + 1 == fifth_card.rank):
+                                    second_card.rank + 1 == third_card.rank and
+                                    third_card.rank + 1 == fourth_card.rank and
+                                    fourth_card.rank + 1 == fifth_card.rank):
                         agcg_all_melds.append(GinCardGroup([(first_card.rank, first_card.suit),
-                                          (second_card.rank, second_card.suit),
-                                          (third_card.rank, third_card.suit),
-                                          (fourth_card.rank, fourth_card.suit),
-                                          (fifth_card.rank, fifth_card.suit)]))
+                                                            (second_card.rank, second_card.suit),
+                                                            (third_card.rank, third_card.suit),
+                                                            (fourth_card.rank, fourth_card.suit),
+                                                            (fifth_card.rank, fifth_card.suit)]))
 
         agcg_all_melds_deduped = GinCardGroup.uniqsort_cardgroups(agcg_all_melds)
 
@@ -318,8 +319,8 @@ class GinCardGroup:
     def _examine_melds(cg, indent_level=0):
         debug_func = False
         if debug_func:
-            print ''.join('\t' for x in range(0, indent_level)) + "examine_melds[d=" + str(indent_level) + "]: " +\
-                  ''.join((str(x.to_s()) + '\t') for x in cg.cards)
+            indent_print(indent_level, "examine_melds[d=" + str(indent_level) + "]: " + \
+                                       ''.join((str(x.to_s()) + '\t') for x in cg.cards))
 
         # no cards means we're holding zero deadwood.
         if cg.size() == 0:
@@ -339,8 +340,7 @@ class GinCardGroup:
         #  of cards, tracking the lowest deadwood value.
         for excluded_meld in all_melds:
             if debug_func:
-                print ''.join('\t' for x in range(0, indent_level+1)) + "excluded meld: " +\
-                      ''.join((str(x.to_s()) + '\t') for x in excluded_meld.cards)
+                indent_print(indent_level, "excluded meld: ".join((str(x.to_s()) + '\t') for x in excluded_meld.cards))
 
             # create a list of cards to examine, excluding cards in the excluded_meld
             cards_to_examine = GinCardGroup()
@@ -351,10 +351,10 @@ class GinCardGroup:
                         break
 
             # recursive call
-            result = GinCardGroup._examine_melds(cards_to_examine, indent_level+1)
+            result = GinCardGroup._examine_melds(cards_to_examine, indent_level + 1)
 
             if debug_func:
-                print ''.join('\t' for x in range(0, indent_level+1)) + "deadwood: " + str(result) + "\n"
+                indent_print(indent_level, "deadwood: " + str(result) + "\n")
 
             # track lowest deadwood
             minimum_deadwood = min(minimum_deadwood, result)

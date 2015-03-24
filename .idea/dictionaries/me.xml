@@ -15,13 +15,20 @@
       <w>ginmatch</w>
       <w>ginplayer</w>
       <w>guid</w>
+      <w>lastval</w>
       <w>layed</w>
       <w>meld's</w>
       <w>mockaction</w>
+      <w>myid</w>
+      <w>perceptron</w>
+      <w>perceptrons</w>
+      <w>sigmoided</w>
       <w>strat</w>
       <w>topcard</w>
       <w>trank</w>
       <w>uniqsort</w>
+      <w>uplink</w>
+      <w>uplinks</w>
     </words>
   </dictionary>
 </component>
