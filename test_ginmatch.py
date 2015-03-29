@@ -56,6 +56,27 @@ class TestGinMatch(Helper):
         except Exception:
             self.fail("Ginmatch() raised Exception unexpectedly!")
 
+    def test_knock(self):
+        self.gm.deal_cards()
+        self.assertEqual(11, self.p1.hand.size())
+
+        card_to_discard = self.p1.hand.cards[0]
+
+        self.p1.knock(card_to_discard)
+        self.assertEqual(10, self.p1.hand.size())
+        self.assertFalse(self.p1.hand.contains_card(card_to_discard))
+
+    # duplicate of test_knock
+    def test_knock_gin(self):
+        self.gm.deal_cards()
+        self.assertEqual(11, self.p1.hand.size())
+
+        card_to_discard = self.p1.hand.cards[0]
+
+        self.p1.knock_gin(card_to_discard)
+        self.assertEqual(10, self.p1.hand.size())
+        self.assertFalse(self.p1.hand.contains_card(card_to_discard))
+
     def test_notify_of_knock(self):
         self.p1.knock()
         self.assertEqual(self.gm.player_who_knocked, self.p1)

@@ -6,13 +6,13 @@ from operator import attrgetter
 
 class TestCard(unittest.TestCase):
 
-    def testNewCard(self):
+    def test_new_card(self):
         c = Card(1, 'c')
 
         self.assertEqual(c.rank, 1)
         self.assertEqual(c.suit, 'c')
 
-    def testSanity(self):
+    def test_sanity(self):
         with self.assertRaises(AttributeError):
             Card(10, 'x')
 
@@ -36,25 +36,25 @@ class TestCard(unittest.TestCase):
 
 
 class TestDeck(unittest.TestCase):
-    def testNewDeck(self):
+    def test_new_deck(self):
         d = Deck()
         self.assertEqual(len(d.cards), 52)
 
-    def testShuffle(self):
+    def test_shuffle(self):
         d = Deck()
         d.cards.sort(key=attrgetter('rank', 'suit'))
-        before = d.examine()
+        before = list(d.cards)
         d.shuffle()
-        self.assertNotEqual(before, d.examine())
+        self.assertNotEqual(before, d.cards)
 
-    def testDealACard(self):
+    def test_deal_a_card(self):
         d = Deck()
         topcard = d.cards[51]
         c = d.deal_a_card()
         self.assertEqual(51, len(d.cards))
         self.assertEqual(topcard, c)
 
-    def testExamine(self):
+    def test_examine(self):
         d = Deck()
         d.cards.sort(key=attrgetter('rank', 'suit'))
         top_card_rank = d.cards[0].rank

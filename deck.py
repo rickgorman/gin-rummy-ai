@@ -42,8 +42,8 @@ class Card:
 class Deck(object):
     def __init__(self):
         self.cards = []
-        for suit in ('c', 'h', 'd', 's'):
-            for rank in range(1,14):
+        for suit in ('c', 'd', 'h', 's'):
+            for rank in range(1, 14):
                 c = Card(rank, suit)
                 self.cards.append(c)
         self.shuffle()
@@ -53,9 +53,3 @@ class Deck(object):
 
     def deal_a_card(self):
         return self.cards.pop()
-
-    def examine(self):
-        result = []
-        for card in self.cards:
-            result.append([card.rank, card.suit])
-        return result

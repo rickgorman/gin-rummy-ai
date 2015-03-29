@@ -49,7 +49,9 @@ class GinPlayer:
         for listener in self._knock_listeners:
             listener.notify_of_knock(self)
 
-    def knock(self):
+    # discard one card and knock
+    def knock(self, card):
+        self.discard_card(card)
         self.notify_knock_listeners()
 
     # listen for gins
@@ -61,7 +63,9 @@ class GinPlayer:
         for listener in self._knock_gin_listeners:
             listener.notify_of_knock_gin(self)
 
-    def knock_gin(self):
+    # discard one card and knock
+    def knock_gin(self, card):
+        self.discard_card(card)
         self.notify_knock_gin_listeners()
 
     # sit at a table

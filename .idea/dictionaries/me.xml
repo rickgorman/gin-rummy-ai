@@ -2,6 +2,7 @@
   <dictionary name="me">
     <words>
       <w>agcg</w>
+      <w>attribs</w>
       <w>cardgroups</w>
       <w>cgroup</w>
       <w>decksize</w>
@@ -22,7 +23,9 @@
       <w>myid</w>
       <w>perceptron</w>
       <w>perceptrons</w>
+      <w>recurse</w>
       <w>sensable</w>
+      <w>sensables</w>
       <w>sigmoided</w>
       <w>someval</w>
       <w>strat</w>
