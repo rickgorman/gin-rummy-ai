@@ -1,4 +1,4 @@
-from utility import *
+from observer import *
 import unittest
 from gindeck import GinCard
 

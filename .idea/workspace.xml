@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/utility.py" line="42" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="Cleaned up ordering of suits in deal prior to shuffle (cosmetic)&#10;Changed (with passed Tests) Player.knock() and .knock_gin() to discard a given card.&#10;Fixed TestDeck.testShuffle()&#10;Removed last vestiges of camel-casing&#10;Added setUp to TestGintable">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deck.py" afterPath="$PROJECT_DIR$/deck.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gintable.py" afterPath="$PROJECT_DIR$/gintable.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/observer.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test_utility.py" afterPath="$PROJECT_DIR$/test_observer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neuralnet.py" afterPath="$PROJECT_DIR$/neuralnet.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_neuralnet.py" afterPath="$PROJECT_DIR$/test_neuralnet.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utility.py" afterPath="$PROJECT_DIR$/utility.py" />
@@ -198,18 +195,18 @@
             <file leaf-file-name="test_neuralnet.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_neuralnet.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="75" column="44" selection-start="2548" selection-end="2548" vertical-scroll-proportion="0.0" vertical-offset="619" max-vertical-offset="2070">
+                  <state line="66" column="42" selection-start="2239" selection-end="2239" vertical-scroll-proportion="0.0" vertical-offset="619" max-vertical-offset="2070">
                     <folding />
                   </state>
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_utility.py" pinned="false" current="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/test_utility.py">
+            <file leaf-file-name="test_observer.py" pinned="false" current="true" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/test_observer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="32" column="41" selection-start="751" selection-end="751" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+                  <state line="5" column="16" selection-start="85" selection-end="85" vertical-scroll-proportion="0.061174553" vertical-offset="0" max-vertical-offset="1226">
                     <folding>
-                      <element signature="e#0#21#0" expanded="true" />
+                      <element signature="e#0#22#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -236,10 +233,10 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_gintable.py" pinned="false" current="false" current-in-tab="true">
+            <file leaf-file-name="test_gintable.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_gintable.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="35" column="60" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.41598696" vertical-offset="0" max-vertical-offset="1226">
+                  <state line="35" column="73" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
                     <folding />
                   </state>
                 </provider>
@@ -292,12 +289,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gintable.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="gintable.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gintable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="53" selection-start="980" selection-end="980" vertical-scroll-proportion="0.39151713" vertical-offset="0" max-vertical-offset="1226">
+            <state line="30" column="53" selection-start="932" selection-end="932" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
               <folding>
-                <element signature="e#138#161#0" expanded="true" />
+                <marker date="1427703028000" expanded="true" signature="138:183" placeholder="import ..." />
+                <marker date="1427703028000" expanded="true" signature="233:447" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -306,7 +304,7 @@
       <file leaf-file-name="neuralnet.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/neuralnet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="145" selection-end="145" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1305">
+            <state line="8" column="0" selection-start="0" selection-end="90" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1305">
               <folding>
                 <element signature="e#91#111#0" expanded="true" />
               </folding>
@@ -317,7 +315,16 @@
       <file leaf-file-name="utility.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utility.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="32" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1575">
+            <state line="11" column="0" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="observer.py" pinned="false" current="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/observer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="50" column="0" selection-start="1401" selection-end="1401" vertical-scroll-proportion="0.61174554" vertical-offset="0" max-vertical-offset="1226">
               <folding />
             </state>
           </provider>
@@ -386,8 +393,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/ginmatch.py" />
-        <option value="$PROJECT_DIR$/test_helpers.py" />
         <option value="$PROJECT_DIR$/ginhand.py" />
         <option value="$PROJECT_DIR$/test_gintable.py" />
         <option value="$PROJECT_DIR$/test_deck.py" />
@@ -397,11 +402,13 @@
         <option value="$PROJECT_DIR$/test_neuralnet.py" />
         <option value="$PROJECT_DIR$/deck.py" />
         <option value="$PROJECT_DIR$/test_utility.py" />
-        <option value="$PROJECT_DIR$/utility.py" />
         <option value="$PROJECT_DIR$/sensable.py" />
         <option value="$PROJECT_DIR$/neuralnet.py" />
         <option value="$PROJECT_DIR$/test_sensable.py" />
         <option value="$PROJECT_DIR$/gintable.py" />
+        <option value="$PROJECT_DIR$/test_observer.py" />
+        <option value="$PROJECT_DIR$/utility.py" />
+        <option value="$PROJECT_DIR$/observer.py" />
       </list>
     </option>
   </component>
@@ -606,7 +613,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="neural" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_utility.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
       <option name="CLASS_NAME" value="TestWrapper" />
       <option name="METHOD_NAME" value="test___setattr__" />
       <option name="FOLDER_NAME" value="" />
@@ -631,7 +638,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="neural" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_utility.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
       <option name="CLASS_NAME" value="TestWrapper" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
@@ -656,7 +663,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="neural" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_utility.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
       <option name="CLASS_NAME" value="TestWrapper" />
       <option name="METHOD_NAME" value="test_add_callback" />
       <option name="FOLDER_NAME" value="" />
@@ -1091,7 +1098,11 @@
       <created>1427702466106</created>
       <updated>1427702466107</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Card, GinTable now inherit from object&#10;">
+      <created>1427703029194</created>
+      <updated>1427703029194</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1174,7 +1185,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Added test_enumerate_all_melds and test_enumerate_all_sets&#10;Changed Helper class to be a baseclass so we can inherit its methods and use asserts in them!&#10;Added test_deadwood_cards&#10;Added test_process_layoff&#10;Clarity rename: player_knocked to player_who_knocked&#10;Added Helper.compare_arrays_of_cardgroups" />
     <MESSAGE value="Moved card_data into Helper&#10;Added stubs for deadwood_cards and process_layoff&#10;Changed all usage of helper generators to be called as inherited members" />
     <MESSAGE value="Simplified test_best_action&#10;Standardized enumerate_all_melds_and_sets tests to use new inherited Helper methods" />
     <MESSAGE value="Moved repetitive setup code into setUp()" />
@@ -1199,7 +1209,8 @@
     <MESSAGE value="Renamed EnvironmentObject to Sensable -- intent is to make this a Base class that Card, Hand, etc can inherit from.&#10;Renamed EnvironmentSensor to Sensor&#10;Added MockSensable and MockSensor&#10;Fixed broken tests in TestInputPerceptron" />
     <MESSAGE value="Cleaned up ordering of suits in deal prior to shuffle (cosmetic)&#10;Changed (with passed Tests) Player.knock() and .knock_gin() to discard a given card.&#10;Fixed TestDeck.testShuffle()&#10;Removed last vestiges of camel-casing&#10;Added setUp to TestGintable" />
     <MESSAGE value="Added and Passed tests for Wrapper class for the purpose of an Observer pattern" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added and Passed tests for Wrapper class for the purpose of an Observer pattern" />
+    <MESSAGE value="Card, GinTable now inherit from object&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Card, GinTable now inherit from object&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1217,11 +1228,6 @@
           <url>file://$PROJECT_DIR$/test_neuralnet.py</url>
           <line>100</line>
           <option name="timeStamp" value="101" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/utility.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="107" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1283,13 +1289,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_neuralnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="44" selection-start="2548" selection-end="2548" vertical-scroll-proportion="0.0" vertical-offset="619" max-vertical-offset="2070">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_ginhand.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="280" column="33" selection-start="11191" selection-end="11191" vertical-scroll-proportion="0.0" vertical-offset="4200" max-vertical-offset="7575">
@@ -1304,43 +1303,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utility.py">
+    <entry file="file://$PROJECT_DIR$/gintable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="32" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1575">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_utility.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="41" selection-start="751" selection-end="751" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+        <state line="30" column="53" selection-start="932" selection-end="932" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/neuralnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="145" selection-end="145" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1305">
-          <folding>
-            <element signature="e#91#111#0" expanded="true" />
+            <marker date="1427703028000" expanded="true" signature="138:183" placeholder="import ..." />
+            <marker date="1427703028000" expanded="true" signature="233:447" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_gintable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="60" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.41598696" vertical-offset="0" max-vertical-offset="1226">
+        <state line="35" column="73" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gintable.py">
+    <entry file="file://$PROJECT_DIR$/test_neuralnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="53" selection-start="980" selection-end="980" vertical-scroll-proportion="0.39151713" vertical-offset="0" max-vertical-offset="1226">
+        <state line="66" column="42" selection-start="2239" selection-end="2239" vertical-scroll-proportion="0.0" vertical-offset="619" max-vertical-offset="2070">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/neuralnet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="0" selection-end="90" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1305">
           <folding>
-            <element signature="e#138#161#0" expanded="true" />
+            <element signature="e#91#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/observer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="0" selection-start="1401" selection-end="1401" vertical-scroll-proportion="0.61174554" vertical-offset="0" max-vertical-offset="1226">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_observer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="16" selection-start="85" selection-end="85" vertical-scroll-proportion="0.061174553" vertical-offset="0" max-vertical-offset="1226">
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
           </folding>
         </state>
       </provider>
