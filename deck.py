@@ -26,6 +26,12 @@ class Card(object):
     def all_suits():
         return ['c', 'h', 'd', 's']
 
+    def __repr__(self):
+        return str(self.rank) + self.suit
+
+    def to_s(self):
+        return str(self.rank) + self.suit
+
     # compare by rank. if equal, then compare by suit
     def __cmp__(self, other):
 
@@ -37,6 +43,15 @@ class Card(object):
             return suit_rankings.index(self.suit) - suit_rankings.index(other.suit)
         else:
             return r
+
+    # return a ranking of 1-52
+    # - Ac=1, 2c=2, ..., Ad=14, 2d=15, ..., Qs=51, Ks=52
+    def ranking(self):
+        suit_value = {'c': 0,
+                      'd': 13,
+                      'h': 26,
+                      's': 39}
+        return self.rank + suit_value[self.suit]
 
 
 class Deck(object):

@@ -27,10 +27,6 @@ class TestGinCard(unittest.TestCase):
             expected_points = k[0]
             self.assertEqual(expected_points, g.point_value)
 
-    def test_to_s(self):
-        g = GinCard(9, 'c')
-        self.assertEqual('9c', g.to_s())
-
 
 class TestGinDeck(unittest.TestCase):
     def test_deal_a_card(self):

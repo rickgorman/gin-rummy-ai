@@ -34,6 +34,17 @@ class TestCard(unittest.TestCase):
         self.assertGreaterEqual(card3.__cmp__(card1), 1)
         self.assertGreaterEqual(card3.__cmp__(card2), 1)
 
+    def test_to_s(self):
+        c = Card(9, 'c')
+        self.assertEqual('9c', c.to_s())
+
+    def test_ranking(self):
+        # sort the deck and ensure that each card returns its proper ranking.
+        d = Deck()
+        d.cards.sort(key=lambda c: (c.suit, c.rank))
+        for i in range(51):
+            self.assertEqual(d.cards[i].ranking(), i+1)
+
 
 class TestDeck(unittest.TestCase):
     def test_new_deck(self):

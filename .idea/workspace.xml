@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="Settled on an Observer paradigm using Observer.observe() and .register() and Observable.register_observer()&#10;Added and Passed Observer.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/me.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/me.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deck.py" afterPath="$PROJECT_DIR$/deck.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gindeck.py" afterPath="$PROJECT_DIR$/gindeck.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neuralnet.py" afterPath="$PROJECT_DIR$/neuralnet.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/observer.py" afterPath="$PROJECT_DIR$/observer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_deck.py" afterPath="$PROJECT_DIR$/test_deck.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_gindeck.py" afterPath="$PROJECT_DIR$/test_gindeck.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_neuralnet.py" afterPath="$PROJECT_DIR$/test_neuralnet.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_observer.py" afterPath="$PROJECT_DIR$/test_observer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -54,7 +56,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestNeuron_test_attach.coverage" NAME="Unittest TestNeuron.test_attach Coverage Results" MODIFIED="1427149744732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_enumerate_all_melds_and_sets_quads.coverage" NAME="Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets_quads Coverage Results" MODIFIED="1426858089401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_discard_card.coverage" NAME="Unittest TestGinPlayer.test_discard_card Coverage Results" MODIFIED="1426465544941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittests_in_TestCard.coverage" NAME="Unittests in TestCard Coverage Results" MODIFIED="1427267871335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittests_in_TestCard.coverage" NAME="Unittests in TestCard Coverage Results" MODIFIED="1427711000330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$All_Unittests_in_neural.coverage" NAME="All Unittests in neural Coverage Results" MODIFIED="1426888137507" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_contains.coverage" NAME="Unittest TestGinCardGroup.test_contains Coverage Results" MODIFIED="1395248903917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_enumerate_all_sets.coverage" NAME="Unittest TestGinCardGroup.test_enumerate_all_sets Coverage Results" MODIFIED="1426857953638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -136,6 +138,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_deadwood_cards.coverage" NAME="Unittest TestGinCardGroup.test_deadwood_cards Coverage Results" MODIFIED="1426853112512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_test_deck.coverage" NAME="Unittests in test_deck Coverage Results" MODIFIED="1426674105493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestDeck_testDealACard.coverage" NAME="Unittest TestDeck.testDealACard Coverage Results" MODIFIED="1390372066162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestCard_test_ranking.coverage" NAME="Unittest TestCard.test_ranking Coverage Results" MODIFIED="1427710486170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestWrapper.coverage" NAME="Unittests in TestWrapper Coverage Results" MODIFIED="1427698496008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestCard_testNewCardOutOfBounds.coverage" NAME="Unittest TestCard.testNewCardOutOfBounds Coverage Results" MODIFIED="1390198032199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_knock.coverage" NAME="Unittest TestGinMatch.test_knock Coverage Results" MODIFIED="1427595317894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -208,12 +211,20 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_observer.py" pinned="false" current="true" current-in-tab="true">
+            <file leaf-file-name="test_observer.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_observer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="66" column="51" selection-start="1758" selection-end="1758" vertical-scroll-proportion="0.80750406" vertical-offset="0" max-vertical-offset="1226">
+                  <state line="81" column="58" selection-start="2227" selection-end="2227" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="1305">
                     <folding>
                       <element signature="e#0#22#0" expanded="true" />
+                      <marker date="1427709679000" expanded="true" signature="128:340" placeholder="..." />
+                      <marker date="1427709679000" expanded="true" signature="152:182" placeholder="..." />
+                      <marker date="1427709679000" expanded="true" signature="216:271" placeholder="..." />
+                      <marker date="1427709679000" expanded="true" signature="1204:1758" placeholder="..." />
+                      <marker date="1427709679000" expanded="true" signature="1523:1758" placeholder="..." />
+                      <marker date="1427709679000" expanded="true" signature="1838:2227" placeholder="..." />
+                      <marker date="1427709679000" expanded="true" signature="1859:1972" placeholder="..." />
+                      <marker date="1427709679000" expanded="true" signature="2001:2227" placeholder="..." />
                     </folding>
                   </state>
                 </provider>
@@ -249,7 +260,7 @@
             <file leaf-file-name="test_gindeck.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_gindeck.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="9" column="24" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="675">
+                  <state line="28" column="0" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
                     <folding />
                   </state>
                 </provider>
@@ -264,10 +275,10 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_deck.py" pinned="false" current="false" current-in-tab="false">
+            <file leaf-file-name="test_deck.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_deck.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="61" column="59" selection-start="1680" selection-end="1680" vertical-scroll-proportion="0.0" vertical-offset="915" max-vertical-offset="1005">
+                  <state line="47" column="0" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.55057096" vertical-offset="0" max-vertical-offset="1226">
                     <folding />
                   </state>
                 </provider>
@@ -284,10 +295,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="deck.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="deck.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/deck.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="35" selection-start="253" selection-end="253" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
+            <state line="32" column="41" selection-start="742" selection-end="742" vertical-scroll-proportion="0.5962733" vertical-offset="0" max-vertical-offset="1110">
               <folding />
             </state>
           </provider>
@@ -325,11 +336,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="observer.py" pinned="false" current="false" current-in-tab="true">
+      <file leaf-file-name="observer.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/observer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="0" selection-start="1416" selection-end="1416" vertical-scroll-proportion="0.61174554" vertical-offset="0" max-vertical-offset="1226">
-              <folding />
+            <state line="50" column="0" selection-start="1416" selection-end="1416" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+              <folding>
+                <marker date="1427708315000" expanded="true" signature="1536:1860" placeholder="..." />
+                <marker date="1427708315000" expanded="true" signature="1824:1860" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -346,7 +360,7 @@
       <file leaf-file-name="ginhand.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginhand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="79" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="6870">
+            <state line="15" column="79" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6870">
               <folding />
             </state>
           </provider>
@@ -355,7 +369,7 @@
       <file leaf-file-name="gindeck.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gindeck.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="0" selection-start="349" selection-end="349" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+            <state line="22" column="0" selection-start="350" selection-end="350" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
               <folding />
             </state>
           </provider>
@@ -364,7 +378,7 @@
       <file leaf-file-name="ginplayer.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginplayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="35" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2160">
+            <state line="83" column="35" selection-start="1989" selection-end="1989" vertical-scroll-proportion="0.0" vertical-offset="932" max-vertical-offset="2160">
               <folding />
             </state>
           </provider>
@@ -388,14 +402,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/ginhand.py" />
-        <option value="$PROJECT_DIR$/test_gintable.py" />
-        <option value="$PROJECT_DIR$/test_deck.py" />
         <option value="$PROJECT_DIR$/test_ginplayer.py" />
         <option value="$PROJECT_DIR$/test_ginmatch.py" />
         <option value="$PROJECT_DIR$/ginplayer.py" />
         <option value="$PROJECT_DIR$/test_neuralnet.py" />
-        <option value="$PROJECT_DIR$/deck.py" />
         <option value="$PROJECT_DIR$/test_utility.py" />
         <option value="$PROJECT_DIR$/sensable.py" />
         <option value="$PROJECT_DIR$/neuralnet.py" />
@@ -404,6 +414,10 @@
         <option value="$PROJECT_DIR$/utility.py" />
         <option value="$PROJECT_DIR$/observer.py" />
         <option value="$PROJECT_DIR$/test_observer.py" />
+        <option value="$PROJECT_DIR$/gindeck.py" />
+        <option value="$PROJECT_DIR$/deck.py" />
+        <option value="$PROJECT_DIR$/test_gindeck.py" />
+        <option value="$PROJECT_DIR$/test_deck.py" />
       </list>
     </option>
   </component>
@@ -544,59 +558,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittest TestObserver.test_register">
-    <configuration default="false" name="Unittests in TestPlayerObserver" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
-      <option name="CLASS_NAME" value="TestPlayerObserver" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_CLASS" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestWrapper.test_register_callback" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
-      <option name="CLASS_NAME" value="TestWrapper" />
-      <option name="METHOD_NAME" value="test_register_callback" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittests in TestCard">
     <configuration default="false" name="Unittests in TestObserver" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -669,6 +631,60 @@
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
       <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestCard.test_ranking" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_deck.py" />
+      <option name="CLASS_NAME" value="TestCard" />
+      <option name="METHOD_NAME" value="test_ranking" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in TestCard" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_deck.py" />
+      <option name="CLASS_NAME" value="TestCard" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -851,19 +867,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python tests.All Unittests in neural" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in TestPlayerObserver" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestWrapper.test_register_callback" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestObserver" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestObservable.test_register_callback" />
-      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittest TestObserver.test_register" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in TestObserver" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestObservable.test_register_callback" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestObserver.test_register" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestCard.test_ranking" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittests in TestCard" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestObserver.test_register" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestObservable.test_register_callback" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in TestObserver" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestPlayerObserver" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestWrapper.test_register_callback" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in TestCard" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestCard.test_ranking" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestObserver.test_register" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestObservable.test_register_callback" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in TestObserver" />
       </list>
     </recent_temporary>
   </component>
@@ -1099,7 +1115,11 @@
       <created>1427703294338</created>
       <updated>1427703294339</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Renamed 'Wrapper' to 'Observable'&#10;Settled on an Observer paradigm using Observer.observe() and .register() and Observable.register_observer()&#10;Added and Passed tests for Observer.register(), Observable.register_observer()">
+      <created>1427709007898</created>
+      <updated>1427709007898</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1129,7 +1149,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24397905" sideWeight="0.49943882" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299817" sideWeight="0.4995005" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291634" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3291634" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="-100" y="-2160" width="1917" height="536" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29632527" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21875" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
@@ -1182,7 +1202,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Simplified test_best_action&#10;Standardized enumerate_all_melds_and_sets tests to use new inherited Helper methods" />
     <MESSAGE value="Moved repetitive setup code into setUp()" />
     <MESSAGE value="deleted gin.py -- better code existed elsewhere.&#10;comment typo and whitespace cleanup.&#10;randomly seat players" />
     <MESSAGE value="Added __repr__() to GinCard and GinCardGroup for better debugging&#10;Removed random seating from GinMatch class: it was breaking tests that depended on specific players going first.&#10;Added and Passed two test_sort_melds tests&#10;Improved assertion in test_helpers" />
@@ -1207,7 +1226,8 @@
     <MESSAGE value="Added and Passed tests for Wrapper class for the purpose of an Observer pattern" />
     <MESSAGE value="Card, GinTable now inherit from object&#10;" />
     <MESSAGE value="Moved Wrapper out of utility and into observer.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved Wrapper out of utility and into observer.py" />
+    <MESSAGE value="Renamed 'Wrapper' to 'Observable'&#10;Settled on an Observer paradigm using Observer.observe() and .register() and Observable.register_observer()&#10;Added and Passed tests for Observer.register(), Observable.register_observer()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed 'Wrapper' to 'Observable'&#10;Settled on an Observer paradigm using Observer.observe() and .register() and Observable.register_observer()&#10;Added and Passed tests for Observer.register(), Observable.register_observer()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1230,48 +1250,13 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="109" />
+      <option name="time" value="110" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ginmatch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="41" selection-start="3234" selection-end="3234" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3540">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ginhand.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="79" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="6870">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ginstrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="12" selection-start="378" selection-end="378" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="585">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="35" selection-start="253" selection-end="253" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_ginhand.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="280" column="33" selection-start="11191" selection-end="11191" vertical-scroll-proportion="0.0" vertical-offset="4200" max-vertical-offset="7575">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gindeck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="349" selection-end="349" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
           <folding />
         </state>
       </provider>
@@ -1323,13 +1308,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ginplayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="35" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2160">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utility.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="44" selection-start="620" selection-end="620" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
@@ -1339,17 +1317,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/observer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1416" selection-end="1416" vertical-scroll-proportion="0.61174554" vertical-offset="0" max-vertical-offset="1226">
-          <folding />
+        <state line="50" column="0" selection-start="1416" selection-end="1416" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+          <folding>
+            <marker date="1427708315000" expanded="true" signature="1536:1860" placeholder="..." />
+            <marker date="1427708315000" expanded="true" signature="1824:1860" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_observer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="51" selection-start="1758" selection-end="1758" vertical-scroll-proportion="0.80750406" vertical-offset="0" max-vertical-offset="1226">
+        <state line="81" column="58" selection-start="2227" selection-end="2227" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="1305">
           <folding>
             <element signature="e#0#22#0" expanded="true" />
+            <marker date="1427709679000" expanded="true" signature="128:340" placeholder="..." />
+            <marker date="1427709679000" expanded="true" signature="152:182" placeholder="..." />
+            <marker date="1427709679000" expanded="true" signature="216:271" placeholder="..." />
+            <marker date="1427709679000" expanded="true" signature="1204:1758" placeholder="..." />
+            <marker date="1427709679000" expanded="true" signature="1523:1758" placeholder="..." />
+            <marker date="1427709679000" expanded="true" signature="1838:2227" placeholder="..." />
+            <marker date="1427709679000" expanded="true" signature="1859:1972" placeholder="..." />
+            <marker date="1427709679000" expanded="true" signature="2001:2227" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginhand.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="79" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="6870">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginplayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="83" column="35" selection-start="1989" selection-end="1989" vertical-scroll-proportion="0.0" vertical-offset="932" max-vertical-offset="2160">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gindeck.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="350" selection-end="350" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_gindeck.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="0" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deck.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="41" selection-start="742" selection-end="742" vertical-scroll-proportion="0.5962733" vertical-offset="0" max-vertical-offset="1110">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_deck.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="0" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.55057096" vertical-offset="0" max-vertical-offset="1226">
+          <folding />
         </state>
       </provider>
     </entry>
