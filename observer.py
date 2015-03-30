@@ -8,53 +8,35 @@
 # classes to implement observer pattern and observe changes that occur in specific classes
 
 
-# provide an Observable wrapper for any class
-# borrowed from http://stackoverflow.com/questions/13528213
+# Provide an Observable base class for any class meeting this criteria:
+# - must contain a organize_data() function which prepares and returns an array of ints
+#
+# For future improvement (garbage collection), look towards: https://github.com/DanielSank/observed
+
+# decorator to be used on methods that affect the state of the game. subscribes the observer to all changes made
+#  to methods in the Observable class
+def notify_observers(func):
+    def func_wrapper(self, *args, **kwargs):
+        func(self, *args, **kwargs)
+        for observer in self._observers:
+            observer.observe(self.organize_data())
+    return func_wrapper
+
+
 class Observable(object):
-    __initialized = False
 
-    def __init__(self, wrapped):
+    def __init__(self):
+        self._observers = []
 
-        self.wrapped = wrapped
-        self._callbacks = []
-        self.__initialized = True
-
-    def __getattr__(self, name):
-        if self.__initialized:
-            res = self.wrapped.__getattribute__(name)
-            if not callable(res):
-                return res
-
-            def wrap(*args, **kwargs):
-                for callback in self._callbacks:
-                    callback(self.wrapped, *args, **kwargs)
-                return res(*args, **kwargs)
-            return wrap
-        else:
-            return object.__getattribute__(self, name)
-
-    def __setattr__(self, key, value):
-        if self.__initialized:
-            for callback in self._callbacks:
-                callback(self.wrapped)
-
-            # assume that __setattr__ is the same in our wrapped class as it is in object
-            object.__setattr__(self.wrapped, key, value)
-        else:
-            object.__setattr__(self, key, value)
-
-    def __str__(self):
-        return self.wrapped.__str__()
-
-    # add a callback to obj's observe() method
     def register_observer(self, obj):
-        if obj.observe not in self._callbacks:
-            self._callbacks.append(obj.observe)
+        if obj not in self._observers:
+            self._observers.append(obj)
 
 
 class Observer(object):
     def __init__(self, obj):
         self._observed = obj
+        self.buffer = None
         self.register(obj)
 
     # called by observed object. provides the observer with a list of integers
@@ -67,7 +49,9 @@ class Observer(object):
 
 class PlayerObserver(Observer):
     def __init__(self, player):
-        super(Observer, self).__init__(player)
+        super(PlayerObserver, self).__init__(player)
 
+    # store a copy of the integer list passed our way
     def observe(self, int_list):
-        pass
+        print "from observe: i see this int_list: " + str(int_list)
+        self.buffer = list(int_list)

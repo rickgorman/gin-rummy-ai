@@ -106,6 +106,18 @@ class TestGinPlayer(unittest.TestCase):
         p._add_card(GinCard(9, 'c'))
         self.assertEqual(p.hand.size(), 1)
 
+    def test_organize_data(self):
+        p = GinPlayer()
+        c1 = GinCard(2, 'c')
+        c2 = GinCard(3, 'd')
+
+        p._add_card(c1)
+        p._add_card(c2)
+        data = p.organize_data()
+
+        self.assertIn(c1, data)
+        self.assertIn(c2, data)
+
     def test_draw(self):
         t = GinTable()
         p = GinPlayer()

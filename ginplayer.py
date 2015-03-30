@@ -11,6 +11,7 @@ from random import random
 from ginhand import *
 from ginstrategy import *
 from gintable import *
+from observer import *
 
 
 # handle invalid draws
@@ -24,9 +25,10 @@ class StrategyExecutionException(Exception):
 
 
 # the player
-class GinPlayer:
+class GinPlayer(Observable):
     # begin with empty hand
     def __init__(self, strategy=False):
+        super(GinPlayer, self).__init__()
         # parameter passing
         self.strategy = strategy
 
@@ -74,8 +76,13 @@ class GinPlayer:
             self.table = table
 
     # add the given card to this player's hand
+    @notify_observers
     def _add_card(self, card):
         self.hand.add_card(card)
+
+    # implement the Observable criteria. return a list of ints representing our hand
+    def organize_data(self):
+        return [c.ranking() for c in self.hand.cards]
 
     def draw(self):
         if self.hand.size() == 11:
