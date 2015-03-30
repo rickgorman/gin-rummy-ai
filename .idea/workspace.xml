@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="Cleaned up ordering of suits in deal prior to shuffle (cosmetic)&#10;Changed (with passed Tests) Player.knock() and .knock_gin() to discard a given card.&#10;Fixed TestDeck.testShuffle()&#10;Removed last vestiges of camel-casing&#10;Added setUp to TestGintable">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/observer.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test_utility.py" afterPath="$PROJECT_DIR$/test_observer.py" />
+    <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="Settled on an Observer paradigm using Observer.observe() and .register() and Observable.register_observer()&#10;Added and Passed Observer.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/me.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/me.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neuralnet.py" afterPath="$PROJECT_DIR$/neuralnet.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/observer.py" afterPath="$PROJECT_DIR$/observer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_neuralnet.py" afterPath="$PROJECT_DIR$/test_neuralnet.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utility.py" afterPath="$PROJECT_DIR$/utility.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_observer.py" afterPath="$PROJECT_DIR$/test_observer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -32,6 +32,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test__is_in_a_meld.coverage" NAME="Unittest TestGinHand.test__is_in_a_meld Coverage Results" MODIFIED="1392673688726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_test_gin.coverage" NAME="Unittests in test_gin Coverage Results" MODIFIED="1395241178874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_sort_melds__melds_and_sets.coverage" NAME="Unittest TestGinCardGroup.test_sort_melds__melds_and_sets Coverage Results" MODIFIED="1426833705484" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittests_in_TestObserver.coverage" NAME="Unittests in TestObserver Coverage Results" MODIFIED="1427707928311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_add_card.coverage" NAME="Unittest TestGinHand.test_add_card Coverage Results" MODIFIED="1392629206174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCard_test_to_s.coverage" NAME="Unittest TestGinCard.test_to_s Coverage Results" MODIFIED="1404801363090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestCard_test___cmp__.coverage" NAME="Unittest TestCard.test___cmp__ Coverage Results" MODIFIED="1426840699499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -40,6 +41,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestPerceptron.coverage" NAME="Unittests in TestPerceptron Coverage Results" MODIFIED="1427182823817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test__add_card.coverage" NAME="Unittest TestGinPlayer.test__add_card Coverage Results" MODIFIED="1407579521590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$ginhand.coverage" NAME="ginhand Coverage Results" MODIFIED="1407577846225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestPlayerObserver_test_register_callback.coverage" NAME="Unittest TestPlayerObserver.test_register_callback Coverage Results" MODIFIED="1427705328919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_is_in_a_4set.coverage" NAME="Unittest TestGinHand.test_is_in_a_4set Coverage Results" MODIFIED="1392613042437" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_testEnumerateAllMelds.coverage" NAME="Unittest TestGinHand.testEnumerateAllMelds Coverage Results" MODIFIED="1390374809017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_sum_points.coverage" NAME="Unittest TestGinHand.test_sum_points Coverage Results" MODIFIED="1395255120443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -82,9 +84,11 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestPerceptron_test_add_uplink.coverage" NAME="Unittest TestPerceptron.test_add_uplink Coverage Results" MODIFIED="1427173995538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_Helper.coverage" NAME="Unittests in Helper Coverage Results" MODIFIED="1426674107678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_size.coverage" NAME="Unittest TestGinHand.test_size Coverage Results" MODIFIED="1407577786769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestWrapper_test_register_callback.coverage" NAME="Unittest TestWrapper.test_register_callback Coverage Results" MODIFIED="1427707712638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test___cmp_.coverage" NAME="Unittest TestGinCardGroup.test___cmp_ Coverage Results" MODIFIED="1426841848240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_test_gindeck.coverage" NAME="Unittests in test_gindeck Coverage Results" MODIFIED="1426674101901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinTable_test_seat_player_twice.coverage" NAME="Unittest TestGinTable.test_seat_player_twice Coverage Results" MODIFIED="1426674100456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestObserver_test_register.coverage" NAME="Unittest TestObserver.test_register Coverage Results" MODIFIED="1427708854749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_draw.coverage" NAME="Unittest TestGinPlayer.test_draw Coverage Results" MODIFIED="1426460397382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_test_neuralnet.coverage" NAME="Unittests in test_neuralnet Coverage Results" MODIFIED="1427193758583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestGinCard.coverage" NAME="Unittests in TestGinCard Coverage Results" MODIFIED="1426391549524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -137,6 +141,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_knock.coverage" NAME="Unittest TestGinMatch.test_knock Coverage Results" MODIFIED="1427595317894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_end_with_knock_gin_valid.coverage" NAME="Unittest TestGinMatch.test_end_with_knock_gin_valid Coverage Results" MODIFIED="1426858854036" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_sort.coverage" NAME="Unittest TestGinHand.test_sort Coverage Results" MODIFIED="1426846274584" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestObservable_test_register_callback.coverage" NAME="Unittest TestObservable.test_register_callback Coverage Results" MODIFIED="1427708315630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_enumerate_all_melds_and_sets.coverage" NAME="Unittest TestGinCardGroup.test_enumerate_all_melds_and_sets Coverage Results" MODIFIED="1426858084341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_add.coverage" NAME="Unittest TestGinHand.test_add Coverage Results" MODIFIED="1395252186261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_calculate_score.coverage" NAME="Unittest TestGinMatch.test_calculate_score Coverage Results" MODIFIED="1426658623385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -153,10 +158,12 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_get_card_at_index.coverage" NAME="Unittest TestGinHand.test_get_card_at_index Coverage Results" MODIFIED="1426416528046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_sort_hand.coverage" NAME="Unittest TestGinHand.test_sort_hand Coverage Results" MODIFIED="1392680224333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_new_ginplayer.coverage" NAME="Unittest TestGinPlayer.test_new_ginplayer Coverage Results" MODIFIED="1426674099219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittests_in_TestPlayerObserver.coverage" NAME="Unittests in TestPlayerObserver Coverage Results" MODIFIED="1427707771322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestPerceptron_test_generate_output.coverage" NAME="Unittest TestPerceptron.test_generate_output Coverage Results" MODIFIED="1427189872107" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestGinTable.coverage" NAME="Unittests in TestGinTable Coverage Results" MODIFIED="1407651161169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_discard_not_holding_said_card.coverage" NAME="Unittest TestGinHand.test_discard_not_holding_said_card Coverage Results" MODIFIED="1392629809570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_testDeadwoodCount.coverage" NAME="Unittest TestGinHand.testDeadwoodCount Coverage Results" MODIFIED="1390373776661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittests_in_TestPlayerObserver__1_.coverage" NAME="Unittests in TestPlayerObserver (1) Coverage Results" MODIFIED="1427706926243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test__examine_melds.coverage" NAME="Unittest TestGinHand.test__examine_melds Coverage Results" MODIFIED="1404699639500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestGinMatch.coverage" NAME="Unittests in TestGinMatch Coverage Results" MODIFIED="1427595090516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test__prune_meld_group.coverage" NAME="Unittest TestGinHand.test__prune_meld_group Coverage Results" MODIFIED="1404697048278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -204,7 +211,7 @@
             <file leaf-file-name="test_observer.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_observer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="5" column="16" selection-start="85" selection-end="85" vertical-scroll-proportion="0.061174553" vertical-offset="0" max-vertical-offset="1226">
+                  <state line="66" column="51" selection-start="1758" selection-end="1758" vertical-scroll-proportion="0.80750406" vertical-offset="0" max-vertical-offset="1226">
                     <folding>
                       <element signature="e#0#22#0" expanded="true" />
                     </folding>
@@ -215,11 +222,8 @@
             <file leaf-file-name="test_ginmatch.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="71" column="44" selection-start="1543" selection-end="1543" vertical-scroll-proportion="0.0" vertical-offset="658" max-vertical-offset="3450">
-                    <folding>
-                      <marker date="1427595382000" expanded="true" signature="1120:1408" placeholder="..." />
-                      <marker date="1427595382000" expanded="true" signature="1469:1761" placeholder="..." />
-                    </folding>
+                  <state line="71" column="44" selection-start="1543" selection-end="1543" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3450">
+                    <folding />
                   </state>
                 </provider>
               </entry>
@@ -315,7 +319,7 @@
       <file leaf-file-name="utility.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utility.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
+            <state line="18" column="44" selection-start="620" selection-end="620" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
               <folding />
             </state>
           </provider>
@@ -324,7 +328,7 @@
       <file leaf-file-name="observer.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/observer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="0" selection-start="1401" selection-end="1401" vertical-scroll-proportion="0.61174554" vertical-offset="0" max-vertical-offset="1226">
+            <state line="50" column="0" selection-start="1416" selection-end="1416" vertical-scroll-proportion="0.61174554" vertical-offset="0" max-vertical-offset="1226">
               <folding />
             </state>
           </provider>
@@ -360,16 +364,7 @@
       <file leaf-file-name="ginplayer.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginplayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="0" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0" vertical-offset="508" max-vertical-offset="2160">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_ginplayer.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="103" column="0" selection-start="3134" selection-end="3134" vertical-scroll-proportion="0.0" vertical-offset="1365" max-vertical-offset="4170">
+            <state line="7" column="35" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2160">
               <folding />
             </state>
           </provider>
@@ -406,9 +401,9 @@
         <option value="$PROJECT_DIR$/neuralnet.py" />
         <option value="$PROJECT_DIR$/test_sensable.py" />
         <option value="$PROJECT_DIR$/gintable.py" />
-        <option value="$PROJECT_DIR$/test_observer.py" />
         <option value="$PROJECT_DIR$/utility.py" />
         <option value="$PROJECT_DIR$/observer.py" />
+        <option value="$PROJECT_DIR$/test_observer.py" />
       </list>
     </option>
   </component>
@@ -549,8 +544,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in TestWrapper">
-    <configuration default="false" name="Unittest TestGinMatch.test_knock_gin" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Unittest TestObserver.test_register">
+    <configuration default="false" name="Unittests in TestPlayerObserver" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -561,33 +556,8 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="neural" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginmatch.py" />
-      <option name="CLASS_NAME" value="TestGinMatch" />
-      <option name="METHOD_NAME" value="test_knock_gin" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittests in TestInputPerceptron" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_neuralnet.py" />
-      <option name="CLASS_NAME" value="TestInputPerceptron" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
+      <option name="CLASS_NAME" value="TestPlayerObserver" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_CLASS" />
@@ -602,7 +572,7 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Unittest TestWrapper.test___setattr__" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="Unittest TestWrapper.test_register_callback" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -615,7 +585,7 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
       <option name="CLASS_NAME" value="TestWrapper" />
-      <option name="METHOD_NAME" value="test___setattr__" />
+      <option name="METHOD_NAME" value="test_register_callback" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -627,7 +597,7 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Unittests in TestWrapper" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="Unittests in TestObserver" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -639,7 +609,7 @@
       <module name="neural" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
-      <option name="CLASS_NAME" value="TestWrapper" />
+      <option name="CLASS_NAME" value="TestObserver" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_CLASS" />
@@ -652,7 +622,7 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Unittest TestWrapper.test_add_callback" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="Unittest TestObservable.test_register_callback" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -664,8 +634,8 @@
       <module name="neural" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
-      <option name="CLASS_NAME" value="TestWrapper" />
-      <option name="METHOD_NAME" value="test_add_callback" />
+      <option name="CLASS_NAME" value="TestObservable" />
+      <option name="METHOD_NAME" value="test_register_callback" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -673,9 +643,32 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestObserver.test_register" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_observer.py" />
+      <option name="CLASS_NAME" value="TestObserver" />
+      <option name="METHOD_NAME" value="test_register" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -858,19 +851,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python tests.All Unittests in neural" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_knock_gin" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in TestInputPerceptron" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestWrapper.test___setattr__" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in TestWrapper" />
-      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittest TestWrapper.test_add_callback" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in TestPlayerObserver" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestWrapper.test_register_callback" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestObserver" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestObservable.test_register_callback" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittest TestObserver.test_register" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in TestWrapper" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestWrapper.test_add_callback" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestWrapper.test___setattr__" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestInputPerceptron" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_knock_gin" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestObserver.test_register" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestObservable.test_register_callback" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in TestObserver" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestPlayerObserver" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestWrapper.test_register_callback" />
       </list>
     </recent_temporary>
   </component>
@@ -1102,7 +1095,11 @@
       <created>1427703029194</created>
       <updated>1427703029194</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Moved Wrapper out of utility and into observer.py">
+      <created>1427703294338</created>
+      <updated>1427703294339</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1141,7 +1138,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17358491" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.117753625" sideWeight="0.6708075" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15794979" sideWeight="0.67083657" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.22595778" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1619" width="956" height="807" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.22595778" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1619" width="956" height="807" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="127" y="-1145" width="501" height="130" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1185,7 +1182,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Moved card_data into Helper&#10;Added stubs for deadwood_cards and process_layoff&#10;Changed all usage of helper generators to be called as inherited members" />
     <MESSAGE value="Simplified test_best_action&#10;Standardized enumerate_all_melds_and_sets tests to use new inherited Helper methods" />
     <MESSAGE value="Moved repetitive setup code into setUp()" />
     <MESSAGE value="deleted gin.py -- better code existed elsewhere.&#10;comment typo and whitespace cleanup.&#10;randomly seat players" />
@@ -1210,7 +1206,8 @@
     <MESSAGE value="Cleaned up ordering of suits in deal prior to shuffle (cosmetic)&#10;Changed (with passed Tests) Player.knock() and .knock_gin() to discard a given card.&#10;Fixed TestDeck.testShuffle()&#10;Removed last vestiges of camel-casing&#10;Added setUp to TestGintable" />
     <MESSAGE value="Added and Passed tests for Wrapper class for the purpose of an Observer pattern" />
     <MESSAGE value="Card, GinTable now inherit from object&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Card, GinTable now inherit from object&#10;" />
+    <MESSAGE value="Moved Wrapper out of utility and into observer.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved Wrapper out of utility and into observer.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1233,34 +1230,10 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="108" />
+      <option name="time" value="109" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="0" selection-start="3134" selection-end="3134" vertical-scroll-proportion="0.0" vertical-offset="1365" max-vertical-offset="4170">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="44" selection-start="1543" selection-end="1543" vertical-scroll-proportion="0.0" vertical-offset="658" max-vertical-offset="3450">
-          <folding>
-            <marker date="1427595382000" expanded="true" signature="1120:1408" placeholder="..." />
-            <marker date="1427595382000" expanded="true" signature="1469:1761" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ginplayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0" vertical-offset="508" max-vertical-offset="2160">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ginmatch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="89" column="41" selection-start="3234" selection-end="3234" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3540">
@@ -1327,13 +1300,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utility.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/neuralnet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="0" selection-start="0" selection-end="90" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1305">
@@ -1343,16 +1309,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="44" selection-start="1543" selection-end="1543" vertical-scroll-proportion="0.0" vertical-offset="658" max-vertical-offset="3450">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="0" selection-start="3134" selection-end="3134" vertical-scroll-proportion="0.13458401" vertical-offset="1365" max-vertical-offset="4170">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginplayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="35" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2160">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="44" selection-start="620" selection-end="620" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/observer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1401" selection-end="1401" vertical-scroll-proportion="0.61174554" vertical-offset="0" max-vertical-offset="1226">
+        <state line="50" column="0" selection-start="1416" selection-end="1416" vertical-scroll-proportion="0.61174554" vertical-offset="0" max-vertical-offset="1226">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_observer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="16" selection-start="85" selection-end="85" vertical-scroll-proportion="0.061174553" vertical-offset="0" max-vertical-offset="1226">
+        <state line="66" column="51" selection-start="1758" selection-end="1758" vertical-scroll-proportion="0.80750406" vertical-offset="0" max-vertical-offset="1226">
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
