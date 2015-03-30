@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/utility.py" line="41" />
+    <bookmark url="file://$PROJECT_DIR$/utility.py" line="42" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="Cleaned up ordering of suits in deal prior to shuffle (cosmetic)&#10;Changed (with passed Tests) Player.knock() and .knock_gin() to discard a given card.&#10;Fixed TestDeck.testShuffle()&#10;Removed last vestiges of camel-casing&#10;Added setUp to TestGintable">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sensable.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_sensable.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_utility.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deck.py" afterPath="$PROJECT_DIR$/deck.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gintable.py" afterPath="$PROJECT_DIR$/gintable.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/me.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/me.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neuralnet.py" afterPath="$PROJECT_DIR$/neuralnet.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_neuralnet.py" afterPath="$PROJECT_DIR$/test_neuralnet.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utility.py" afterPath="$PROJECT_DIR$/utility.py" />
@@ -240,22 +236,10 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_gintable.py" pinned="false" current="false" current-in-tab="false">
+            <file leaf-file-name="test_gintable.py" pinned="false" current="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_gintable.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="29" column="0" selection-start="313" selection-end="796" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="615">
-                    <folding>
-                      <marker date="1427194650000" expanded="true" signature="107:120" placeholder="..." />
-                      <marker date="1427194650000" expanded="true" signature="142:260" placeholder="..." />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="test_sensable.py" pinned="false" current="true" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/test_sensable.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state line="21" column="38" selection-start="498" selection-end="498" vertical-scroll-proportion="0.24469821" vertical-offset="0" max-vertical-offset="1226">
+                  <state line="35" column="60" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.41598696" vertical-offset="0" max-vertical-offset="1226">
                     <folding />
                   </state>
                 </provider>
@@ -308,11 +292,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gintable.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="gintable.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gintable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="24" selection-start="1059" selection-end="1059" vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="780">
-              <folding />
+            <state line="32" column="53" selection-start="980" selection-end="980" vertical-scroll-proportion="0.39151713" vertical-offset="0" max-vertical-offset="1226">
+              <folding>
+                <element signature="e#138#161#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -320,25 +306,18 @@
       <file leaf-file-name="neuralnet.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/neuralnet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="8" selection-start="2028" selection-end="2028" vertical-scroll-proportion="0.0" vertical-offset="604" max-vertical-offset="1290">
-              <folding />
+            <state line="11" column="0" selection-start="145" selection-end="145" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1305">
+              <folding>
+                <element signature="e#91#111#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sensable.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sensable.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="809" selection-end="809" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utility.py" pinned="false" current="false" current-in-tab="true">
+      <file leaf-file-name="utility.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utility.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="0" selection-start="792" selection-end="792" vertical-scroll-proportion="0.3425775" vertical-offset="0" max-vertical-offset="1560">
+            <state line="18" column="32" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1575">
               <folding />
             </state>
           </provider>
@@ -412,17 +391,17 @@
         <option value="$PROJECT_DIR$/ginhand.py" />
         <option value="$PROJECT_DIR$/test_gintable.py" />
         <option value="$PROJECT_DIR$/test_deck.py" />
-        <option value="$PROJECT_DIR$/test_sensable.py" />
         <option value="$PROJECT_DIR$/test_ginplayer.py" />
-        <option value="$PROJECT_DIR$/gintable.py" />
         <option value="$PROJECT_DIR$/test_ginmatch.py" />
         <option value="$PROJECT_DIR$/ginplayer.py" />
-        <option value="$PROJECT_DIR$/neuralnet.py" />
-        <option value="$PROJECT_DIR$/sensable.py" />
         <option value="$PROJECT_DIR$/test_neuralnet.py" />
         <option value="$PROJECT_DIR$/deck.py" />
-        <option value="$PROJECT_DIR$/utility.py" />
         <option value="$PROJECT_DIR$/test_utility.py" />
+        <option value="$PROJECT_DIR$/utility.py" />
+        <option value="$PROJECT_DIR$/sensable.py" />
+        <option value="$PROJECT_DIR$/neuralnet.py" />
+        <option value="$PROJECT_DIR$/test_sensable.py" />
+        <option value="$PROJECT_DIR$/gintable.py" />
       </list>
     </option>
   </component>
@@ -486,7 +465,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -497,7 +476,29 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="neural" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="neural" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="neural" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="32" />
@@ -1086,7 +1087,11 @@
       <created>1427595713919</created>
       <updated>1427595713919</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Added and Passed tests for Wrapper class for the purpose of an Observer pattern">
+      <created>1427702466106</created>
+      <updated>1427702466107</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1116,7 +1121,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24397905" sideWeight="0.49943882" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299817" sideWeight="0.4995005" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291634" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="-100" y="-2160" width="1917" height="536" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29632527" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21875" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
@@ -1124,7 +1129,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.49944383" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17358491" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.117753625" sideWeight="0.6708075" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15794979" sideWeight="0.72947615" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15794979" sideWeight="0.67083657" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.22595778" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1619" width="956" height="807" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="127" y="-1145" width="501" height="130" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1169,7 +1174,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Added and Passed tests for end_with_knock, end_with_knock_gin, deal_cards&#10;GinPlayer now keeps track of what table it is seated at&#10;Moved Helper (generates CardGroups and GinHands) to its own file&#10;" />
     <MESSAGE value="Added test_enumerate_all_melds and test_enumerate_all_sets&#10;Changed Helper class to be a baseclass so we can inherit its methods and use asserts in them!&#10;Added test_deadwood_cards&#10;Added test_process_layoff&#10;Clarity rename: player_knocked to player_who_knocked&#10;Added Helper.compare_arrays_of_cardgroups" />
     <MESSAGE value="Moved card_data into Helper&#10;Added stubs for deadwood_cards and process_layoff&#10;Changed all usage of helper generators to be called as inherited members" />
     <MESSAGE value="Simplified test_best_action&#10;Standardized enumerate_all_melds_and_sets tests to use new inherited Helper methods" />
@@ -1194,7 +1198,8 @@
     <MESSAGE value="Added utility debugging function indent_print for easier recursive debugging&#10;Added Perceptron and InputPerceptron classes with respective tests&#10;Passed respective tests" />
     <MESSAGE value="Renamed EnvironmentObject to Sensable -- intent is to make this a Base class that Card, Hand, etc can inherit from.&#10;Renamed EnvironmentSensor to Sensor&#10;Added MockSensable and MockSensor&#10;Fixed broken tests in TestInputPerceptron" />
     <MESSAGE value="Cleaned up ordering of suits in deal prior to shuffle (cosmetic)&#10;Changed (with passed Tests) Player.knock() and .knock_gin() to discard a given card.&#10;Fixed TestDeck.testShuffle()&#10;Removed last vestiges of camel-casing&#10;Added setUp to TestGintable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up ordering of suits in deal prior to shuffle (cosmetic)&#10;Changed (with passed Tests) Player.knock() and .knock_gin() to discard a given card.&#10;Fixed TestDeck.testShuffle()&#10;Removed last vestiges of camel-casing&#10;Added setUp to TestGintable" />
+    <MESSAGE value="Added and Passed tests for Wrapper class for the purpose of an Observer pattern" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added and Passed tests for Wrapper class for the purpose of an Observer pattern" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1214,13 +1219,8 @@
           <option name="timeStamp" value="101" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/sensable.py</url>
-          <line>34</line>
-          <option name="timeStamp" value="104" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/utility.py</url>
-          <line>19</line>
+          <line>20</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
       </breakpoints>
@@ -1238,13 +1238,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gintable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="24" selection-start="1059" selection-end="1059" vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="780">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="71" column="44" selection-start="1543" selection-end="1543" vertical-scroll-proportion="0.0" vertical-offset="658" max-vertical-offset="3450">
@@ -1258,13 +1251,6 @@
     <entry file="file://$PROJECT_DIR$/ginplayer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="41" column="0" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0" vertical-offset="508" max-vertical-offset="2160">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/neuralnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="8" selection-start="2028" selection-end="2028" vertical-scroll-proportion="0.0" vertical-offset="604" max-vertical-offset="1290">
           <folding />
         </state>
       </provider>
@@ -1318,6 +1304,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utility.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="32" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1575">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test_utility.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="41" selection-start="751" selection-end="751" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
@@ -1327,24 +1320,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sensable.py">
+    <entry file="file://$PROJECT_DIR$/neuralnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="809" selection-end="809" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
+        <state line="11" column="0" selection-start="145" selection-end="145" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1305">
+          <folding>
+            <element signature="e#91#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_gintable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="60" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.41598696" vertical-offset="0" max-vertical-offset="1226">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utility.py">
+    <entry file="file://$PROJECT_DIR$/gintable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="792" selection-end="792" vertical-scroll-proportion="0.3425775" vertical-offset="0" max-vertical-offset="1560">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_sensable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="38" selection-start="498" selection-end="498" vertical-scroll-proportion="0.24469821" vertical-offset="0" max-vertical-offset="1226">
-          <folding />
+        <state line="32" column="53" selection-start="980" selection-end="980" vertical-scroll-proportion="0.39151713" vertical-offset="0" max-vertical-offset="1226">
+          <folding>
+            <element signature="e#138#161#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

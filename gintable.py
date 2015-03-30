@@ -11,7 +11,7 @@ from ginplayer import *
 from gindeck import *
 
 
-class GinTable:
+class GinTable(object):
     def __init__(self):
         self.player1 = False
         self.player2 = False

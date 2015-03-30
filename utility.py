@@ -11,6 +11,7 @@ def flatten(items, seqtypes=(list, tuple)):
     return items
 
 
+# provide an Observer wrapper for any class
 # borrowed from http://stackoverflow.com/questions/13528213
 class Wrapper(object):
     __initialized = False

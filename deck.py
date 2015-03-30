@@ -10,7 +10,7 @@
 from random import shuffle
 
 
-class Card:
+class Card(object):
     # create a new card with given rank and suit. A=1, J=11, Q=12, K=13
     def __init__(self, rank, suit):
         # sanity checks
