@@ -7,6 +7,7 @@
 #
 # classes to implement observer pattern and observe changes that occur in specific classes
 
+import uuid
 
 # Provide an Observable base class for any class meeting this criteria:
 # - must contain a organize_data() function which prepares and returns an array of ints
@@ -27,6 +28,7 @@ class Observable(object):
 
     def __init__(self):
         self._observers = []
+        self.id = uuid.uuid4()
 
     def register_observer(self, obj):
         if obj not in self._observers:
@@ -43,6 +45,7 @@ class Observer(object):
         self._observed = obj
         self.register(obj)
         self.buffer = None
+        self.id = uuid.uuid4()
 
         # fill the buffer
         self._observed.noop_notify()
@@ -52,7 +55,10 @@ class Observer(object):
 
     # store a copy of the integer dict passed our way
     def observe(self, int_dict):
-        self.buffer = dict(int_dict)
+        if not int_dict:
+            self.buffer = None
+        else:
+            self.buffer = dict(int_dict)
 
     # return the ith member of the buffer. This is useful for assigning 10 neurons to the same Observer, each with id
     def get_value_by_index(self, index):

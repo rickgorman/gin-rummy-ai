@@ -7,7 +7,6 @@
 #
 # base classes for gin rummy player
 
-from random import random
 from ginhand import *
 from ginstrategy import *
 from gintable import *
@@ -36,7 +35,6 @@ class GinPlayer(Observable):
 
         self.table = False
 
-        self.id = int(random() * 2 ** 128)  # guid
         self.hand = GinHand()
 
         self._knock_listeners = []

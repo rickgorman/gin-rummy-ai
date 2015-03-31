@@ -29,11 +29,12 @@ from gintable import *
 from ginplayer import *
 
 
-class GinMatch:
+class GinMatch(Observable):
     def __init__(self, player1, player2):
         """ @type p1: GinPlayer
             @type p2: GinPlayer
         """
+        super(GinMatch, self).__init__()
 
         # set up score board
         self.p1_score = 0
@@ -66,6 +67,11 @@ class GinMatch:
 
     def notify_of_knock_gin(self, knocker):
         self.player_who_knocked_gin = knocker
+
+    # implement the Observable criteria. return a list of ints representing our game state
+    def organize_data(self):
+        data = []
+
 
     # run the match until a winner is declared
     def run(self):

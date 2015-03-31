@@ -10,8 +10,8 @@ class MockSensor(Observer):
         super(MockSensor, self).__init__(obj)
         self.buffer = [obj.value]
 
-    def sense(self):
-        return self.target.value
+    # def sense(self):
+    #     return self.target.value
 
 
 class MockObservable(Observable):
@@ -19,9 +19,109 @@ class MockObservable(Observable):
         self.value = val
         super(MockObservable, self).__init__()
 
+    def organize_data(self):
+        pass
+
+
+# noinspection PyDictCreation
+class TestNeuralNet(unittest.TestCase):
+    def setUp(self):
+        self.p = GinPlayer()
+        self.t = GinTable()
+        self.p.table = self.t
+        for _ in range(11):
+            self.p.draw()
+        self.pobs = PlayerObserver(self.p)
+
+        self.sensors = [self.pobs]
+        self.outputs = ['action', 'rank', 'surrender']
+        self.weights = {'input': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97],
+                        'hidden': [],
+                        'output': []}
+        # set up the same set of weights for each hidden neuron (9 neurons, 11 weights per neuron)
+        for _ in range(9):
+            self.weights['hidden'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.96, 0.97])
+
+        # set up the same set of weights for each output neuron (3 neurons, 9 weights per neuron)
+        for _ in range(3):
+            self.weights['output'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
+
+    def test___init__(self):
+        invalid_weights = {'input': [0.5], 'output': []}
+        # require at least one sensor, one weight and one output
+        self.assertRaises(AssertionError, NeuralNet, [], invalid_weights, self.outputs)
+        self.assertRaises(AssertionError, NeuralNet, self.sensors, {}, self.outputs)
+        self.assertRaises(AssertionError, NeuralNet, self.sensors, invalid_weights, [])
+
+    def test_validate_weights(self):
+        self.nn = NeuralNet(self.sensors, self.weights, self.outputs)
+        self.assertTrue(self.nn.validate_weights())
+
+        # remove an input weight
+        self.weights['input'].pop()
+        self.assertRaises(AssertionError, self.nn.validate_weights)
+
+        # add it back, remove a whole hidden neuron of weights
+        self.weights['input'].append(0.97)
+        self.assertTrue(self.nn.validate_weights())
+        borrow = self.weights['hidden'].pop()
+        self.assertRaises(AssertionError, self.nn.validate_weights)
+
+        # add it back, remove a single weight from one hidden
+        self.weights['hidden'].append(borrow)
+        self.assertTrue(self.nn.validate_weights())
+        borrow = self.weights['hidden'][0].pop()
+        self.assertRaises(AssertionError, self.nn.validate_weights)
+
+        # add it back, remove the entire output list
+        self.weights['hidden'][0].append(borrow)
+        self.assertTrue(self.nn.validate_weights())
+        borrow = self.weights.pop('output', None)
+        self.assertRaises(AssertionError, self.nn.validate_weights)
+
+        # add it back, remove a single weight from one output neuron
+        self.weights['output'] = borrow
+        self.assertTrue(self.nn.validate_weights())
+        self.weights['output'][0].pop()
+        with self.assertRaises(AssertionError):
+            self.nn.validate_weights()
+
+    def test_calculate_hidden_count(self):
+        # one example should be good enough to test the math
+        self.nn = NeuralNet(self.sensors, self.weights, self.outputs)
+        self.assertEqual(9, self.nn.calculate_hidden_count())
+
+    def test_create_input_layer(self):
+        self.nn = NeuralNet(self.sensors, self.weights, self.outputs)
+        # wipe the input_layer and ensure it has been recreated with the correct number of input neurons
+        self.nn.input_layer = []
+
+        self.nn.create_input_layer()
+        self.assertEqual(len(self.nn.input_layer), sum([len(s.buffer.keys()) for s in self.sensors]))
+
+    def test_create_hidden_layer(self):
+        self.test_create_input_layer()
+        self.nn.create_hidden_layer()
+        # make sure we have the right number of hidden neurons
+        self.assertEqual(len(self.nn.hidden_layer), int((len(self.nn.input_layer) + len(self.outputs)) * 2/3))
+
+        # ensure that each hidden neuron has each input neuron in its inputs
+        for hn in self.nn.hidden_layer:
+            found = {}
+            for n in hn.inputs.keys():
+                found[n] = True
+            self.assertEqual(len(found), len(self.pobs.buffer))
+
+    def test_create_output_layer(self):
+        self.test_create_hidden_layer()
+        self.nn.create_output_layer()
+        self.assertEqual(len(nn.output_layer), len(self.outputs))
+
+    def test_pulse(self):
+        self.fail()
+
 
 class TestPerceptron(unittest.TestCase):
-
     def setUp(self):
         self.p1 = Perceptron(myid='self.p1')
         self.p2 = Perceptron(myid='self.p2')
@@ -62,10 +162,10 @@ class TestPerceptron(unittest.TestCase):
 
     def test_sigmoid(self):
         # input/output values for the sigmoid function
-        reference = {0:   0.5,
-                     1:   0.731058578,
-                     10:  0.999954602,
-                     -1:  0.268941421,
+        reference = {0: 0.5,
+                     1: 0.731058578,
+                     10: 0.999954602,
+                     -1: 0.268941421,
                      -10: 0.000045397}
 
         for key in reference.keys():
@@ -107,11 +207,11 @@ class TestPerceptron(unittest.TestCase):
         hidden2.add_input(input2, i2_h2_weight)
 
         # calculate this by hand. did on paper as well, same value of 0.5539 for weights given on 2015/03/23 commit
-        h1_step = Perceptron.sigmoid(Perceptron.sigmoid(mo1_val)*i1_h1_weight +
-                                     Perceptron.sigmoid(mo2_val)*i2_h1_weight)
-        h2_step = Perceptron.sigmoid(Perceptron.sigmoid(mo1_val)*i1_h2_weight +
-                                     Perceptron.sigmoid(mo2_val)*i2_h2_weight)
-        expected = Perceptron.sigmoid(h1_step*h1_o1_weight + h2_step*h2_o1_weight)
+        h1_step = Perceptron.sigmoid(Perceptron.sigmoid(mo1_val) * i1_h1_weight +
+                                     Perceptron.sigmoid(mo2_val) * i2_h1_weight)
+        h2_step = Perceptron.sigmoid(Perceptron.sigmoid(mo1_val) * i1_h2_weight +
+                                     Perceptron.sigmoid(mo2_val) * i2_h2_weight)
+        expected = Perceptron.sigmoid(h1_step * h1_o1_weight + h2_step * h2_o1_weight)
 
         generated = output1.generate_output()
         self.assertAlmostEqual(expected, generated, 3)
@@ -123,7 +223,8 @@ class TestInputPerceptron(unittest.TestCase):
         self.c = GinCard(5, 'd')
         self.p = GinPlayer()
         self.sensor = PlayerObserver(self.p)
-        self.ip = InputPerceptron(self.sensor, myid='self.ip', index=0)
+        self.weight = 0.2
+        self.ip = InputPerceptron(self.sensor, weight=self.weight, myid='self.ip', index=0)
 
     def test__init__(self):
         # ensure we store our sensor
@@ -138,4 +239,25 @@ class TestInputPerceptron(unittest.TestCase):
     def test_generate_output(self):
         # ensure we output the sigmoided sense
         self.p._add_card(self.c)
-        self.assertEqual(Perceptron.sigmoid(self.p.hand.cards[self.ip.index].ranking()), self.ip.generate_output())
+        expected = Perceptron.sigmoid(self.p.hand.cards[self.ip.index].ranking() * self.weight)
+        self.assertEqual(expected, self.ip.generate_output())
+
+
+# noinspection PyTypeChecker
+class TestMultiInputPerceptron(unittest.TestCase):
+    def setUp(self):
+        self.p = GinPlayer()
+        self.sensor = PlayerObserver(self.p)
+        self.neuron_weights = [0.5, 0.3]
+        self.ip1 = InputPerceptron(self.sensor, weight=self.neuron_weights[0], myid='self.ip1', index=0)
+        self.ip2 = InputPerceptron(self.sensor, weight=self.neuron_weights[1], myid='self.ip2', index=1)
+
+    def test__init__(self):
+        # ensure that both self.ip1 and self.ip2 are in our inputs
+        self.mip = MultiInputPerceptron((self.ip1, self.ip2), self.neuron_weights)
+        self.assertIn(self.ip1, self.mip.inputs)
+        self.assertIn(self.ip2, self.mip.inputs)
+
+        # ensure that we require equal numbers of inputs and weights
+        with self.assertRaises(AssertionError):
+            MultiInputPerceptron([self.ip1], ())
