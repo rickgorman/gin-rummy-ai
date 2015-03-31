@@ -42,11 +42,19 @@ class TestObservable(unittest.TestCase):
 
         # ensure we call the observe method
         self.p._add_card(self.c2)
-        self.assertEqual(1, self.mobs.times_called)
+        self.assertEqual(2, self.mobs.times_called) # once during init, once during _add_card
 
         # and that we pass the int_list to the observer
         self.assertIn(self.c1.ranking(), self.mobs.buffer)
         self.assertIn(self.c2.ranking(), self.mobs.buffer)
+
+    def test_noop_notify(self):
+        mobs = MockObserver(self.p)
+
+        self.p.noop_notify()
+        self.assertEqual(2, mobs.times_called) # once during init, once during noop_notify
+        self.p.noop_notify()
+        self.assertEqual(3, mobs.times_called)
 
 
 # noinspection PyProtectedMember

@@ -32,12 +32,20 @@ class Observable(object):
         if obj not in self._observers:
             self._observers.append(obj)
 
+    # trigger a notification of observers without changing state
+    @notify_observers
+    def noop_notify(self):
+        pass
+
 
 class Observer(object):
     def __init__(self, obj):
         self._observed = obj
-        self.buffer = None
         self.register(obj)
+        self.buffer = None
+
+        # fill the buffer
+        self._observed.noop_notify()
 
     def register(self, obj):
         obj.register_observer(self)
