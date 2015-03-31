@@ -64,10 +64,3 @@ class TestDeck(unittest.TestCase):
         c = d.deal_a_card()
         self.assertEqual(51, len(d.cards))
         self.assertEqual(topcard, c)
-
-    def test_examine(self):
-        d = Deck()
-        d.cards.sort(key=attrgetter('rank', 'suit'))
-        top_card_rank = d.cards[0].rank
-        examined_card_rank = d.examine()[0][0]
-        self.assertEqual(top_card_rank, examined_card_rank)

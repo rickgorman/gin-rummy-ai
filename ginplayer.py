@@ -112,13 +112,11 @@ class GinPlayer(Observable):
             elif self.action[0] == 'KNOCK':
                 index = self.action[1]
                 card = self.hand.get_card_at_index(index)
-                self.discard_card(card)
-                self.knock()
+                self.knock(card)
             elif self.action[0] == 'KNOCK-GIN':
                 index = self.action[1]
                 card = self.hand.get_card_at_index(index)
-                self.discard_card(card)
-                self.knock_gin()
+                self.knock_gin(card)
 
     # consult the strategy and perform the action suggested
     def take_turn(self):
@@ -145,5 +143,5 @@ class GinPlayer(Observable):
         except ValueError:
             raise Exception("card not in our hand")
         except AttributeError:
-            raise Exception("cards not behaving like a list:", AttributeError.message)
+            raise Exception("cards not behaving like a list: " + AttributeError.message)
         return card

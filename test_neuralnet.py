@@ -4,6 +4,22 @@ from observer import *
 from ginplayer import *
 
 
+# noinspection PyMissingConstructor
+class MockSensor(Observer):
+    def __init__(self, obj):
+        super(MockSensor, self).__init__(obj)
+        self.buffer = [obj.value]
+
+    def sense(self):
+        return self.target.value
+
+
+class MockObservable(Observable):
+    def __init__(self, val):
+        self.value = val
+        super(MockObservable, self).__init__()
+
+
 class TestPerceptron(unittest.TestCase):
 
     def setUp(self):
@@ -62,17 +78,14 @@ class TestPerceptron(unittest.TestCase):
         # - output layer: 1 neuron
         # we'll verify that the output value matches a hand-calculated value
 
-        ms1_val = 5
-        ms2_val = 8
+        mo1_val = 5
+        mo2_val = 8
 
-        sensable_1 = MockSensable(ms1_val)
-        sensable_2 = MockSensable(ms2_val)
+        ms1 = MockSensor(MockObservable(mo1_val))
+        ms2 = MockSensor(MockObservable(mo2_val))
 
-        ms1 = Sensor(sensable_1)
-        ms2 = Sensor(sensable_2)
-
-        input1 = InputPerceptron(ms1, myid='input1')
-        input2 = InputPerceptron(ms2, myid='input2')
+        input1 = InputPerceptron(ms1, myid='input1', index=0)
+        input2 = InputPerceptron(ms2, myid='input2', index=0)
         hidden1 = Perceptron(myid='hidden1')
         hidden2 = Perceptron(myid='hidden2')
         output1 = Perceptron(myid='output1')
@@ -94,22 +107,23 @@ class TestPerceptron(unittest.TestCase):
         hidden2.add_input(input2, i2_h2_weight)
 
         # calculate this by hand. did on paper as well, same value of 0.5539 for weights given on 2015/03/23 commit
-        h1_step = Perceptron.sigmoid(Perceptron.sigmoid(ms1_val)*i1_h1_weight +
-                                     Perceptron.sigmoid(ms2_val)*i2_h1_weight)
-        h2_step = Perceptron.sigmoid(Perceptron.sigmoid(ms1_val)*i1_h2_weight +
-                                     Perceptron.sigmoid(ms2_val)*i2_h2_weight)
+        h1_step = Perceptron.sigmoid(Perceptron.sigmoid(mo1_val)*i1_h1_weight +
+                                     Perceptron.sigmoid(mo2_val)*i2_h1_weight)
+        h2_step = Perceptron.sigmoid(Perceptron.sigmoid(mo1_val)*i1_h2_weight +
+                                     Perceptron.sigmoid(mo2_val)*i2_h2_weight)
         expected = Perceptron.sigmoid(h1_step*h1_o1_weight + h2_step*h2_o1_weight)
 
         generated = output1.generate_output()
         self.assertAlmostEqual(expected, generated, 3)
 
 
+# noinspection PyProtectedMember
 class TestInputPerceptron(unittest.TestCase):
     def setUp(self):
-        self.some_value = 5
-        self.player = GinPlayer()
-        self.sensor = PlayerObserver(self.player)
-        self.ip = InputPerceptron(self.sensor, myid='self.ip')
+        self.c = GinCard(5, 'd')
+        self.p = GinPlayer()
+        self.sensor = PlayerObserver(self.p)
+        self.ip = InputPerceptron(self.sensor, myid='self.ip', index=0)
 
     def test__init__(self):
         # ensure we store our sensor
@@ -118,14 +132,10 @@ class TestInputPerceptron(unittest.TestCase):
 
     def test_sense(self):
         # ensure we sense an input properly
-        self.assertEqual(self.some_value, self.sensor.sense())
+        self.p._add_card(self.c)
+        self.assertEqual(self.ip.sense(), self.p.hand.cards[self.ip.index].ranking())
 
     def test_generate_output(self):
-        # ensure we consult our environment sensor
-        self.assertEqual(Perceptron.sigmoid(self.some_value), self.ip.generate_output())
-
-
-class TestSensor(unittest.TestCase):
-    def test_current(self):
-        pass
-        # ensure we're getting a correct value from the Observed object
+        # ensure we output the sigmoided sense
+        self.p._add_card(self.c)
+        self.assertEqual(Perceptron.sigmoid(self.p.hand.cards[self.ip.index].ranking()), self.ip.generate_output())

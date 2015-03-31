@@ -2,6 +2,7 @@ from ginmatch import *
 from test_helpers import *
 
 
+# noinspection PyProtectedMember
 class TestGinMatch(Helper):
 
     awful_hand_data = [
@@ -48,6 +49,7 @@ class TestGinMatch(Helper):
         self.p1 = GinPlayer()
         self.p2 = GinPlayer()
         self.gm = GinMatch(self.p1, self.p2)
+        self.c = GinCard(2, 'c')
 
     def test__init__(self):
         # assign them to a match
@@ -78,11 +80,11 @@ class TestGinMatch(Helper):
         self.assertFalse(self.p1.hand.contains_card(card_to_discard))
 
     def test_notify_of_knock(self):
-        self.p1.knock()
+        self.p1.knock(self.c)
         self.assertEqual(self.gm.player_who_knocked, self.p1)
 
     def test_notify_of_knock_gin(self):
-        self.p1.knock_gin()
+        self.p1.knock_gin(self.c)
         self.assertEqual(self.gm.player_who_knocked_gin, self.p1)
 
     def test_run(self):
@@ -188,8 +190,12 @@ class TestGinMatch(Helper):
         # gin-worthy hand with deadwood=0
         self.p2.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
 
+        # add a card to discard
+        dummy_card = GinCard(2, 'd')
+        self.p2._add_card(dummy_card)
+
         # knock
-        self.p2.knock_gin()
+        self.p2.knock_gin(dummy_card)
 
         self.gm.update_score()
         self.assertEqual(self.gm.p1_score, 0)
@@ -202,8 +208,12 @@ class TestGinMatch(Helper):
         # knock-worthy hand with deadwood=1
         self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
+        # add a card to discard
+        dummy_card = GinCard(2, 'd')
+        self.p2._add_card(dummy_card)
+
         # knock
-        self.p2.knock()
+        self.p2.knock(dummy_card)
 
         self.gm.update_score()
         self.assertEqual(self.gm.p1_score, 0)
@@ -212,12 +222,14 @@ class TestGinMatch(Helper):
     def test_update_score_with_knock_undercut(self):
         # knock-worthy hand with deadwood=1
         self.p1.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
+        dummy_card = GinCard(2, 'd')
+        self.p1._add_card(dummy_card)
 
         # for whatever reason, p2 decided to bm by not knocking gin
         self.p2.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
 
         # p1 knocks, believing he has the best hand
-        self.p1.knock()
+        self.p1.knock(dummy_card)
 
         self.gm.update_score()
 

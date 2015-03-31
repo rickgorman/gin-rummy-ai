@@ -53,11 +53,14 @@ class TestGinPlayer(unittest.TestCase):
     # note that this also sufficiently tests knock()
     def test__notify_knock_listeners(self):
         p = GinPlayer()
+        p.table = GinTable()
         l = MockListener()
         p.register_knock_listener(l)
+        dummy_card = GinCard(2, 'd')
+        p._add_card(dummy_card)
 
         # verify the knock callback occurs
-        p.knock()
+        p.knock(dummy_card)
         self.assertEqual(True, l.did_it_knock)
 
         # verify we have the correct knocker
@@ -78,11 +81,14 @@ class TestGinPlayer(unittest.TestCase):
     # note that this also sufficiently tests knock_gin()
     def test__notify_knock_gin_listener(self):
         p = GinPlayer()
+        p.table = GinTable()
         l = MockListener()
         p.register_knock_gin_listener(l)
+        dummy_card = GinCard(2, 'd')
+        p._add_card(dummy_card)
 
         # verify the knock callback occurs
-        p.knock_gin()
+        p.knock_gin(dummy_card)
         self.assertEqual(True, l.did_it_knock_gin)
 
         # verify we have the correct knocker
@@ -115,8 +121,8 @@ class TestGinPlayer(unittest.TestCase):
         p._add_card(c2)
         data = p.organize_data()
 
-        self.assertIn(c1, data)
-        self.assertIn(c2, data)
+        self.assertIn(c1.ranking(), data)
+        self.assertIn(c2.ranking(), data)
 
     def test_draw(self):
         t = GinTable()

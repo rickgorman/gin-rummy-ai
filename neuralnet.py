@@ -62,18 +62,26 @@ class Perceptron(object):
 
 
 class InputPerceptron(Perceptron):
-    def __init__(self, environment_sensor, myid=None):
+    def __init__(self, environment_sensor, myid=None, index=None):
         self.sensor = environment_sensor
+        if not index:
+            self.index = index
+        else:
+            self.index = 0
         Perceptron.__init__(self, myid)
 
     def generate_output(self, indent_level=0):
         func_debug = 0
 
         # ask the sensor for its current sense of the world and run it through the sigmoid
-        sigmoided = Perceptron.sigmoid(self.sensor.get_value_by_index(self.index))
+        sigmoided = Perceptron.sigmoid(self.sense())
 
         if func_debug:
             indent_print(indent_level, "running generate_output() for: " + self.id)
             indent_print(indent_level+1, "sigmoid(" + self.id + ".sense()) = " + str(round(sigmoided, 4)))
 
         return sigmoided
+
+    # probe the sensor
+    def sense(self):
+        return self.sensor.get_value_by_index(self.index)
