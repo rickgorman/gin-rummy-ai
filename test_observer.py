@@ -9,9 +9,9 @@ class MockObserver(Observer):
         self.times_called = 0
         super(MockObserver, self).__init__(obj)
 
-    def observe(self, int_list):
+    def observe(self, int_dict):
         self.times_called += 1
-        self.buffer = int_list
+        self.buffer = dict(int_dict)
 
 
 # noinspection PyProtectedMember
@@ -44,9 +44,9 @@ class TestObservable(unittest.TestCase):
         self.p._add_card(self.c2)
         self.assertEqual(2, self.mobs.times_called) # once during init, once during _add_card
 
-        # and that we pass the int_list to the observer
-        self.assertIn(self.c1.ranking(), self.mobs.buffer)
-        self.assertIn(self.c2.ranking(), self.mobs.buffer)
+        # and that we pass the int_dict to the observer
+        self.assertIn(self.c1.ranking(), self.mobs.buffer.values())
+        self.assertIn(self.c2.ranking(), self.mobs.buffer.values())
 
     def test_noop_notify(self):
         mobs = MockObserver(self.p)
@@ -90,12 +90,16 @@ class TestObserver(unittest.TestCase):
     def test_observe(self):
         # we expect the PlayerObserver's buffer to hold an array of ints representing the player's cards
         self.p._add_card(self.c1)
-        self.assertIn(self.c1.ranking(), self.pobs.buffer)
+        self.assertIn(self.c1.ranking(), self.pobs.buffer.values())
 
         self.p._add_card(self.c2)
-        self.assertIn(self.c1.ranking(), self.pobs.buffer)
-        self.assertIn(self.c2.ranking(), self.pobs.buffer)
+        self.assertIn(self.c1.ranking(), self.pobs.buffer.values())
+        self.assertIn(self.c2.ranking(), self.pobs.buffer.values())
 
 
 class TestPlayerObserver(unittest.TestCase):
+    pass
+
+
+class TestMatchObserver(unittest.TestCase):
     pass

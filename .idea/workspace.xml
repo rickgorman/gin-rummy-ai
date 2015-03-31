@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="Changed knock/knock_gin behavior to discard and notify listeners.&#10;Reinstated MockSensor and MockObservable to once again pass the big TestPerceptron.test_generate_output() call&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginmatch.py" afterPath="$PROJECT_DIR$/ginmatch.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginplayer.py" afterPath="$PROJECT_DIR$/ginplayer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/observer.py" afterPath="$PROJECT_DIR$/observer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginplayer.py" afterPath="$PROJECT_DIR$/test_ginplayer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_neuralnet.py" afterPath="$PROJECT_DIR$/test_neuralnet.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_observer.py" afterPath="$PROJECT_DIR$/test_observer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -143,7 +146,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestWrapper.coverage" NAME="Unittests in TestWrapper Coverage Results" MODIFIED="1427698496008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestCard_testNewCardOutOfBounds.coverage" NAME="Unittest TestCard.testNewCardOutOfBounds Coverage Results" MODIFIED="1390198032199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_knock.coverage" NAME="Unittest TestGinMatch.test_knock Coverage Results" MODIFIED="1427595317894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittests_in_test_observer__1_.coverage" NAME="Unittests in test_observer (1) Coverage Results" MODIFIED="1427769693173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittests_in_test_observer__1_.coverage" NAME="Unittests in test_observer (1) Coverage Results" MODIFIED="1427773770987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_end_with_knock_gin_valid.coverage" NAME="Unittest TestGinMatch.test_end_with_knock_gin_valid Coverage Results" MODIFIED="1426858854036" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_sort.coverage" NAME="Unittest TestGinHand.test_sort Coverage Results" MODIFIED="1426846274584" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestObservable_test_register_callback.coverage" NAME="Unittest TestObservable.test_register_callback Coverage Results" MODIFIED="1427708315630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -210,7 +213,7 @@
             <file leaf-file-name="test_neuralnet.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_neuralnet.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="27" column="0" selection-start="618" selection-end="618" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2400">
+                  <state line="43" column="0" selection-start="1117" selection-end="1117" vertical-scroll-proportion="0.0" vertical-offset="1120" max-vertical-offset="2370">
                     <folding>
                       <element signature="e#0#15#0" expanded="true" />
                     </folding>
@@ -221,7 +224,7 @@
             <file leaf-file-name="test_observer.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_observer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="44" column="93" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.528" vertical-offset="0" max-vertical-offset="1605">
+                  <state line="4" column="0" selection-start="99" selection-end="99" vertical-scroll-proportion="0.048" vertical-offset="0" max-vertical-offset="1650">
                     <folding>
                       <element signature="e#0#22#0" expanded="true" />
                     </folding>
@@ -232,10 +235,8 @@
             <file leaf-file-name="test_ginplayer.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="124" column="34" selection-start="3760" selection-end="3760" vertical-scroll-proportion="0.0" vertical-offset="979" max-vertical-offset="4440">
-                    <folding>
-                      <marker date="1427766677000" expanded="true" signature="2136:2472" placeholder="..." />
-                    </folding>
+                  <state line="121" column="19" selection-start="3669" selection-end="3669" vertical-scroll-proportion="0.0" vertical-offset="979" max-vertical-offset="4440">
+                    <folding />
                   </state>
                 </provider>
               </entry>
@@ -296,10 +297,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="observer.py" pinned="false" current="false" current-in-tab="true">
+      <file leaf-file-name="observer.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/observer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="0" selection-start="1318" selection-end="1318" vertical-scroll-proportion="0.576" vertical-offset="0" max-vertical-offset="1250">
+            <state line="21" column="0" selection-start="713" selection-end="713" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="1065">
               <folding />
             </state>
           </provider>
@@ -308,7 +309,7 @@
       <file leaf-file-name="ginhand.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginhand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="191" column="17" selection-start="6204" selection-end="6204" vertical-scroll-proportion="0.0" vertical-offset="2027" max-vertical-offset="6870">
+            <state line="191" column="17" selection-start="6204" selection-end="6204" vertical-scroll-proportion="0.0" vertical-offset="347" max-vertical-offset="6870">
               <folding />
             </state>
           </provider>
@@ -325,10 +326,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ginplayer.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ginmatch.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ginmatch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="73" column="0" selection-start="2677" selection-end="2677" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="3630">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ginplayer.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ginplayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="8" selection-start="2082" selection-end="2082" vertical-scroll-proportion="0.0" vertical-offset="1030" max-vertical-offset="2280">
+            <state line="82" column="0" selection-start="1989" selection-end="1989" vertical-scroll-proportion="0.484" vertical-offset="625" max-vertical-offset="2310">
               <folding>
                 <element signature="e#94#119#0" expanded="true" />
               </folding>
@@ -366,7 +376,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/test_utility.py" />
         <option value="$PROJECT_DIR$/sensable.py" />
         <option value="$PROJECT_DIR$/test_sensable.py" />
         <option value="$PROJECT_DIR$/gintable.py" />
@@ -377,11 +386,12 @@
         <option value="$PROJECT_DIR$/neuralnet.py" />
         <option value="$PROJECT_DIR$/test_deck.py" />
         <option value="$PROJECT_DIR$/test_ginmatch.py" />
-        <option value="$PROJECT_DIR$/ginplayer.py" />
-        <option value="$PROJECT_DIR$/test_ginplayer.py" />
         <option value="$PROJECT_DIR$/test_neuralnet.py" />
+        <option value="$PROJECT_DIR$/ginmatch.py" />
+        <option value="$PROJECT_DIR$/test_ginplayer.py" />
         <option value="$PROJECT_DIR$/observer.py" />
         <option value="$PROJECT_DIR$/test_observer.py" />
+        <option value="$PROJECT_DIR$/ginplayer.py" />
       </list>
     </option>
   </component>
@@ -646,7 +656,9 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -1101,7 +1113,11 @@
       <created>1427766884194</created>
       <updated>1427766884195</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Added Observer.noop_notify to fill the buffer during Observer.__init__">
+      <created>1427769732545</created>
+      <updated>1427769732545</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1184,7 +1200,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Added GinHand.deadwood_cards()" />
     <MESSAGE value="Refactored GinHand to derive from GinCardGroup. All tests pass." />
     <MESSAGE value="Passed deadwood_cards()&#10;Moved all declarations of card_dataX into Helper class" />
     <MESSAGE value="Made GinCardGroup iterable" />
@@ -1209,7 +1224,8 @@
     <MESSAGE value="Added notify_observer decorators to GinPlayer" />
     <MESSAGE value="Removed Sensor and Sensable classes&#10;Introduced ability for one Observer to connect to multiple InputPerceptrons (via id and index lookups)&#10;Moved observe implementation into Observer. This leaves PlayerObserver fairly empty for now." />
     <MESSAGE value="Changed knock/knock_gin behavior to discard and notify listeners.&#10;Reinstated MockSensor and MockObservable to once again pass the big TestPerceptron.test_generate_output() call&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed knock/knock_gin behavior to discard and notify listeners.&#10;Reinstated MockSensor and MockObservable to once again pass the big TestPerceptron.test_generate_output() call&#10;" />
+    <MESSAGE value="Added Observer.noop_notify to fill the buffer during Observer.__init__" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Observer.noop_notify to fill the buffer during Observer.__init__" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1228,28 +1244,19 @@
           <line>76</line>
           <option name="timeStamp" value="132" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_observer.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="134" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="133" />
+      <option name="time" value="135" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/tcunittest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="9" selection-start="4685" selection-end="4685" vertical-scroll-proportion="0.22920065" vertical-offset="1849" max-vertical-offset="3075">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/suite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="0" selection-start="2712" selection-end="2712" vertical-scroll-proportion="0.5904" vertical-offset="582" max-vertical-offset="4590">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_gintable.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="73" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.41598696" vertical-offset="0" max-vertical-offset="1226">
@@ -1304,24 +1311,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ginplayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="8" selection-start="2082" selection-end="2082" vertical-scroll-proportion="0.0" vertical-offset="1030" max-vertical-offset="2280">
-          <folding>
-            <element signature="e#94#119#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="34" selection-start="3760" selection-end="3760" vertical-scroll-proportion="0.0" vertical-offset="979" max-vertical-offset="4440">
-          <folding>
-            <marker date="1427766677000" expanded="true" signature="2136:2472" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_ginstrategy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="64" selection-start="583" selection-end="583" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
@@ -1338,25 +1327,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ginhand.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="191" column="17" selection-start="6204" selection-end="6204" vertical-scroll-proportion="0.0" vertical-offset="347" max-vertical-offset="6870">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test_neuralnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="618" selection-end="618" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2400">
+        <state line="43" column="0" selection-start="1117" selection-end="1117" vertical-scroll-proportion="0.0" vertical-offset="1120" max-vertical-offset="2370">
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ginmatch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="0" selection-start="2677" selection-end="2677" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="3630">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="121" column="19" selection-start="3669" selection-end="3669" vertical-scroll-proportion="0.0" vertical-offset="979" max-vertical-offset="4440">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/observer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1318" selection-end="1318" vertical-scroll-proportion="0.576" vertical-offset="0" max-vertical-offset="1250">
+        <state line="21" column="0" selection-start="713" selection-end="713" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="1065">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginplayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="0" selection-start="1989" selection-end="1989" vertical-scroll-proportion="0.484" vertical-offset="625" max-vertical-offset="2310">
+          <folding>
+            <element signature="e#94#119#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_observer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="93" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.528" vertical-offset="0" max-vertical-offset="1605">
+        <state line="4" column="0" selection-start="99" selection-end="99" vertical-scroll-proportion="0.048" vertical-offset="0" max-vertical-offset="1650">
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>

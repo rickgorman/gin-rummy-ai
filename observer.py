@@ -50,9 +50,9 @@ class Observer(object):
     def register(self, obj):
         obj.register_observer(self)
 
-    # store a copy of the integer list passed our way
-    def observe(self, int_list):
-        self.buffer = list(int_list)
+    # store a copy of the integer dict passed our way
+    def observe(self, int_dict):
+        self.buffer = dict(int_dict)
 
     # return the ith member of the buffer. This is useful for assigning 10 neurons to the same Observer, each with id
     def get_value_by_index(self, index):

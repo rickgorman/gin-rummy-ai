@@ -80,9 +80,11 @@ class GinPlayer(Observable):
     def _add_card(self, card):
         self.hand.add_card(card)
 
-    # implement the Observable criteria. return a list of ints representing our hand
+    # implement the Observable criteria. return a dict of ints representing our hand. key corresponds to hand.cards idx
     def organize_data(self):
-        return [c.ranking() for c in self.hand.cards]
+        indexes = range(len(self.hand.cards))
+        rankings = [c.ranking() for c in self.hand.cards]
+        return dict(zip(indexes, rankings))
 
     def draw(self):
         if self.hand.size() == 11:

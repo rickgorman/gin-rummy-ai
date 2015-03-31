@@ -121,8 +121,8 @@ class TestGinPlayer(unittest.TestCase):
         p._add_card(c2)
         data = p.organize_data()
 
-        self.assertIn(c1.ranking(), data)
-        self.assertIn(c2.ranking(), data)
+        self.assertIn(c1.ranking(), data.values())
+        self.assertIn(c2.ranking(), data.values())
 
     def test_draw(self):
         t = GinTable()
