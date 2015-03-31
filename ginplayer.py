@@ -76,7 +76,7 @@ class GinPlayer(Observable):
             self.table = table
 
     # add the given card to this player's hand
-    @notify_observers
+    @notify_observers  # here mostly to satisfy unit tests
     def _add_card(self, card):
         self.hand.add_card(card)
 
@@ -96,6 +96,7 @@ class GinPlayer(Observable):
         self.action = self.strategy.best_action()
 
     # here we act on the advice we received from the strategy
+    @notify_observers
     def execute_strategy(self):
         if not self.action:
             raise StrategyExecutionException('no action to execute!')
