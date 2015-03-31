@@ -55,32 +55,39 @@ class TestObserver(unittest.TestCase):
         self.p = GinPlayer()
         self.obs = Observer(self.p)
 
+        self.pobs = PlayerObserver(self.p)
+        self.c1 = GinCard(9, 'c')
+        self.c2 = GinCard(5, 'd')
+
     def test____init__(self):
-        # ensure we have registered our callback with the observed player
-        self.assertEqual(1, len(self.p._observers))
+        # ensure we have registered both of our callbacks with the observed player
+        self.assertEqual(2, len(self.p._observers))
 
     def test_register(self):
-        # remove callback which was added during obs.__init__()
-        self.p._observers.pop()
+        # remove callbacks which were added during obs.__init__()
+        self.p._observers = []
+
         self.assertEqual(0, len(self.p._observers))
 
         self.obs.register(self.p)
         self.assertEqual(1, len(self.p._observers))
 
-
-# noinspection PyProtectedMember
-class TestPlayerObserver(unittest.TestCase):
-    def setUp(self):
-        self.player = GinPlayer()
-        self.pobs = PlayerObserver(self.player)
-        self.c1 = GinCard(9, 'c')
-        self.c2 = GinCard(5, 'd')
+    def test_get_value_by_index(self):
+        # draw a few cards and ensure we can get the ith card's ranking
+        cards = [GinCard(2, 'd'), GinCard(3, 'h'), GinCard(5, 'c')]
+        for i in range(3):
+            self.p._add_card(cards[i])
+            self.assertEqual(self.pobs.get_value_by_index(i), self.p.hand.cards[i].ranking())
 
     def test_observe(self):
         # we expect the PlayerObserver's buffer to hold an array of ints representing the player's cards
-        self.player._add_card(self.c1)
+        self.p._add_card(self.c1)
         self.assertIn(self.c1.ranking(), self.pobs.buffer)
 
-        self.player._add_card(self.c2)
+        self.p._add_card(self.c2)
         self.assertIn(self.c1.ranking(), self.pobs.buffer)
         self.assertIn(self.c2.ranking(), self.pobs.buffer)
+
+
+class TestPlayerObserver(unittest.TestCase):
+    pass

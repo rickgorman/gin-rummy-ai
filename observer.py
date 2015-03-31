@@ -39,19 +39,19 @@ class Observer(object):
         self.buffer = None
         self.register(obj)
 
-    # called by observed object. provides the observer with a list of integers
-    def observe(self, int_list):
-        raise NotImplementedError("must implement observe")
-
     def register(self, obj):
         obj.register_observer(self)
+
+    # store a copy of the integer list passed our way
+    def observe(self, int_list):
+        self.buffer = list(int_list)
+
+    # return the ith member of the buffer. This is useful for assigning 10 neurons to the same Observer, each with id
+    def get_value_by_index(self, index):
+        return self.buffer[index]
 
 
 class PlayerObserver(Observer):
     def __init__(self, player):
         super(PlayerObserver, self).__init__(player)
 
-    # store a copy of the integer list passed our way
-    def observe(self, int_list):
-        print "from observe: i see this int_list: " + str(int_list)
-        self.buffer = list(int_list)

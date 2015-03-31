@@ -1,23 +1,7 @@
 import unittest
 from neuralnet import *
-
-
-# noinspection PyMissingConstructor
-class MockSensor(Sensor):
-    def __init__(self, target):
-        self.target = target
-
-    def sense(self):
-        return self.target.accept_sense()
-
-
-# noinspection PyMissingConstructor
-class MockSensable(Sensable):
-    def __init__(self, value):
-        self.value = value
-
-    def accept_sense(self):
-        return self.value
+from observer import *
+from ginplayer import *
 
 
 class TestPerceptron(unittest.TestCase):
@@ -84,8 +68,8 @@ class TestPerceptron(unittest.TestCase):
         sensable_1 = MockSensable(ms1_val)
         sensable_2 = MockSensable(ms2_val)
 
-        ms1 = MockSensor(sensable_1)
-        ms2 = MockSensor(sensable_2)
+        ms1 = Sensor(sensable_1)
+        ms2 = Sensor(sensable_2)
 
         input1 = InputPerceptron(ms1, myid='input1')
         input2 = InputPerceptron(ms2, myid='input2')
@@ -123,18 +107,18 @@ class TestPerceptron(unittest.TestCase):
 class TestInputPerceptron(unittest.TestCase):
     def setUp(self):
         self.some_value = 5
-        self.sensable = MockSensable(self.some_value)
-        self.es = MockSensor(self.sensable)
-        self.ip = InputPerceptron(self.es, myid='self.ip')
+        self.player = GinPlayer()
+        self.sensor = PlayerObserver(self.player)
+        self.ip = InputPerceptron(self.sensor, myid='self.ip')
 
     def test__init__(self):
         # ensure we store our sensor
-        self.assertEqual(self.ip.sensor, self.es)
-        self.assertIsInstance(self.ip.sensor, Sensor)
+        self.assertEqual(self.ip.sensor, self.sensor)
+        self.assertIsInstance(self.ip.sensor, Observer)
 
     def test_sense(self):
         # ensure we sense an input properly
-        self.assertEqual(self.some_value, self.es.sense())
+        self.assertEqual(self.some_value, self.sensor.sense())
 
     def test_generate_output(self):
         # ensure we consult our environment sensor
@@ -142,9 +126,6 @@ class TestInputPerceptron(unittest.TestCase):
 
 
 class TestSensor(unittest.TestCase):
-    def test_sense(self):
-        someval = 10
-        eo = MockSensable(someval)
-        es = MockSensor(eo)
-
-        self.assertEqual(someval, es.sense())
+    def test_current(self):
+        pass
+        # ensure we're getting a correct value from the Observed object

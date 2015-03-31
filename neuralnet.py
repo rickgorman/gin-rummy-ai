@@ -10,21 +10,7 @@
 from math import exp
 from utility import indent_print
 
-# Notes:
-# - we need to punish a network for doing something bad, i.e discarding at 10 cards or drawing at 11 cards.
-
-
-class Sensor:
-    def __init__(self):
-        pass
-
-
-class Sensable:
-    def __init__(self):
-        pass
-
-    def accept_sense(self):
-        pass
+# TODO: we need to punish a network for doing something bad, i.e discarding at 10 cards or drawing at 11 cards.
 
 
 class Perceptron(object):
@@ -46,7 +32,6 @@ class Perceptron(object):
     # aggregate input weights
     def step_function(self):
         return sum(self.inputs.values())
-
 
     @staticmethod
     def sigmoid(num):
@@ -83,8 +68,9 @@ class InputPerceptron(Perceptron):
 
     def generate_output(self, indent_level=0):
         func_debug = 0
-        sensed = self.sensor.sense()
-        sigmoided = Perceptron.sigmoid(sensed)
+
+        # ask the sensor for its current sense of the world and run it through the sigmoid
+        sigmoided = Perceptron.sigmoid(self.sensor.get_value_by_index(self.index))
 
         if func_debug:
             indent_print(indent_level, "running generate_output() for: " + self.id)
