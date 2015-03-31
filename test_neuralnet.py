@@ -117,6 +117,13 @@ class TestNeuralNet(unittest.TestCase):
         self.nn.create_output_layer()
         self.assertEqual(len(nn.output_layer), len(self.outputs))
 
+        # ensure that each output neuron has each hidden neuron in its inputs
+        for o in self.nn.output_layer:
+            found = {}
+            for n in o.inputs.keys():
+                found[n] = True
+            self.assertEqual(len(found), len(self.pobs.buffer))
+
     def test_pulse(self):
         self.fail()
 
@@ -184,19 +191,21 @@ class TestPerceptron(unittest.TestCase):
         ms1 = MockSensor(MockObservable(mo1_val))
         ms2 = MockSensor(MockObservable(mo2_val))
 
-        input1 = InputPerceptron(ms1, myid='input1', index=0)
-        input2 = InputPerceptron(ms2, myid='input2', index=0)
-        hidden1 = Perceptron(myid='hidden1')
-        hidden2 = Perceptron(myid='hidden2')
-        output1 = Perceptron(myid='output1')
-
         # arbitrary weights
+        i1_weight = 1       # the by-hand calculations below rely on a weight of 1.0 for inputs.
+        i2_weight = 1       # TODO: add the sensor-input weight into the by-hand calculations
         i1_h1_weight = 0.3
         i1_h2_weight = 0.4
         i2_h1_weight = 0.5
         i2_h2_weight = 0.6
         h1_o1_weight = 0.1
         h2_o1_weight = 0.2
+
+        input1 = InputPerceptron(ms1, i1_weight, myid='input1', index=0)
+        input2 = InputPerceptron(ms2, i2_weight, myid='input2', index=0)
+        hidden1 = Perceptron(myid='hidden1')
+        hidden2 = Perceptron(myid='hidden2')
+        output1 = Perceptron(myid='output1')
 
         # link weights up to inputs
         output1.add_input(hidden1, h1_o1_weight)

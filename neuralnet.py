@@ -81,6 +81,7 @@ class NeuralNet(object):
         count = self.calculate_hidden_count()
         for i in range(count):
             hp = HiddenPerceptron(self.input_layer, self.weights['hidden'][i])
+            self.hidden_layer.append(hp)
 
 
 class Perceptron(object):
