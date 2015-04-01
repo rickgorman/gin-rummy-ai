@@ -115,14 +115,14 @@ class TestNeuralNet(unittest.TestCase):
     def test_create_output_layer(self):
         self.test_create_hidden_layer()
         self.nn.create_output_layer()
-        self.assertEqual(len(nn.output_layer), len(self.outputs))
+        self.assertEqual(len(self.nn.output_layer), len(self.outputs))
 
         # ensure that each output neuron has each hidden neuron in its inputs
         for o in self.nn.output_layer:
             found = {}
             for n in o.inputs.keys():
                 found[n] = True
-            self.assertEqual(len(found), len(self.pobs.buffer))
+            self.assertEqual(len(found), len(self.nn.hidden_layer))
 
     def test_pulse(self):
         self.fail()

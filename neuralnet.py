@@ -83,6 +83,13 @@ class NeuralNet(object):
             hp = HiddenPerceptron(self.input_layer, self.weights['hidden'][i])
             self.hidden_layer.append(hp)
 
+    # create output neurons and attach them to each of our hidden neurons using the weights in weights['hidden']
+    def create_output_layer(self):
+        count = len(self.output_keys)
+        for i in range(count):
+            op = OutputPerceptron(self.hidden_layer, self.weights['output'][i])
+            self.output_layer.append(op)
+
 
 class Perceptron(object):
     def __init__(self, myid=None):
@@ -171,4 +178,8 @@ class MultiInputPerceptron(Perceptron):
 
 
 class HiddenPerceptron(MultiInputPerceptron):
+    pass
+
+
+class OutputPerceptron(MultiInputPerceptron):
     pass
