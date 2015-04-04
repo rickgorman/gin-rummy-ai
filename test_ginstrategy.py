@@ -14,6 +14,6 @@ class TestGinStrategy(unittest.TestCase):
         self.assertEqual(actions, ['DISCARD', 0])
 
     def test_accept_improper_knock(self):
-        self.assertEqual(1, 0)
+        self.fail("test not yet written!")
         # note: we need to allow the strategy to decide whether or not to accept an improper knock.
         # - see http://ginrummytournaments.com/pdfs/Rules_2012.pdf Rule #10

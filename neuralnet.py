@@ -9,6 +9,7 @@
 
 from math import exp
 from utility import indent_print
+from texttable import *
 
 # TODO: we need to punish a network for doing something bad, i.e discarding at 10 cards or drawing at 11 cards.
 
@@ -24,15 +25,17 @@ class NeuralNet(object):
 
         self.sensors = sensors
         self.weights = weights
-        self.output_keys = output_keys
+        self.outputs = {}
+        for key in output_keys:
+            self.outputs[key] = None
 
         self.input_layer = []
         self.hidden_layer = []
         self.output_layer = []
 
-        self.create_input_layer()
-#        self.create_hidden_layer()
-#        self.create_output_layer()
+        self.create_input_layer()     # a list of Perceptrons
+        self.create_hidden_layer()    # a list of Perceptrons
+        self.create_output_layer()    # a list of {output_key:Perceptron} dicts
 
     def validate_weights(self):
         # ensure we have an input, hidden and output key
@@ -55,17 +58,17 @@ class NeuralNet(object):
             assert len(self.weights['hidden'][i]) == expected_input_count, "hidden weight count mismatch"
 
         # ensure we have exactly one output list per output
-        assert len(self.output_keys) == len(self.weights['output']), "output weight key mismatch"
+        assert len(self.outputs) == len(self.weights['output']), "output weight key mismatch"
 
         # ensure each output list has length equal to number of hidden neurons
-        for i in range(len(self.output_keys)):
+        for i in range(len(self.outputs)):
             assert len(self.weights['output'][i]) == self.calculate_hidden_count(), "output weight count mismatch"
 
         # as long as we made it this far, we're good
         return True
 
     def calculate_hidden_count(self):
-        return int((len(self.input_layer) + len(self.output_keys)) * 2/3)
+        return int((len(self.input_layer) + len(self.outputs)) * 2/3)
 
     def create_input_layer(self):
         for sensor in self.sensors:
@@ -85,10 +88,103 @@ class NeuralNet(object):
 
     # create output neurons and attach them to each of our hidden neurons using the weights in weights['hidden']
     def create_output_layer(self):
-        count = len(self.output_keys)
+        count = len(self.outputs)
         for i in range(count):
-            op = OutputPerceptron(self.hidden_layer, self.weights['output'][i])
-            self.output_layer.append(op)
+            key = self.outputs.keys()[i]
+            op = OutputPerceptron(self.hidden_layer, self.weights['output'][i], key)
+            self.output_layer.append({key: op})
+
+    # pulse the neural net and store the output for later use
+    def pulse(self):
+        # fire each output neuron
+        for item in self.output_layer:
+            output_key = item.keys()[0]
+            output_neuron = item[output_key]
+            self.outputs[output_key] = output_neuron.generate_output()
+
+    # print a representation of the neural net
+    def print_me(self):
+        # Table 1: print input layer
+        input_table = Texttable()
+        input_table.set_deco(Texttable.HEADER | Texttable.BORDER)
+        rows = []
+        # header row
+        rows.append(["Index", "Weight"])
+
+        # data rows
+        for i in range(len(self.input_layer)):
+            rows.append(["in-" + str(i), self.input_layer[i].weight])
+
+        input_table.add_rows(rows)
+        print "\n" + "-- INPUT LAYER --"
+        print input_table.draw()
+
+        # other layers
+        self.print_layer('HIDDEN')
+        self.print_layer('OUTPUT')
+
+        # ---------------------
+        # Table 4: print current outputs
+        output_table = Texttable()
+        output_table.set_deco(Texttable.HEADER | Texttable.BORDER)
+        rows = []
+        # header row
+        rows.append(["Output", "Value"])
+
+        # data rows
+        for key in self.outputs.keys():
+            rows.append([key, self.outputs[key]])
+
+        output_table.add_rows(rows)
+        print "\n" + "-- OUTPUT DATA --"
+        print output_table.draw()
+
+    # layer is either hidden or output
+    def print_layer(self, name):
+        assert name == 'HIDDEN' or name == 'OUTPUT', "name must be HIDDEN or OUTPUT"
+        if name == 'HIDDEN':
+            our_inputs = self.input_layer
+            our_layer  = self.hidden_layer
+            our_input_prefix = "in-"
+        elif name == 'OUTPUT':
+            our_inputs = self.hidden_layer
+            our_layer  = self.output_layer
+            our_input_prefix = "hi-"
+
+        rows = []
+        table = Texttable()
+        table.set_deco(Texttable.HEADER | Texttable.BORDER)
+
+        # header row consists of each (relative) input neuron
+        input_row = ["Index"]
+        for i in range(len(our_inputs)):
+            input_row.append(our_input_prefix + str(i))
+        rows.append(input_row)
+
+        # set column widths
+        col_widths = [8]
+        for i in range(len(input_row)-1):
+            col_widths.append(5)
+        table.set_cols_width(col_widths)
+
+        # each row shows the weight between the row's hidden neuron and each input neuron
+        for i in range(len(our_layer)):
+            if name == 'HIDDEN':
+                neuron_to_print = our_layer[i]
+                row = ['hi-' + str(i)]
+            elif name == 'OUTPUT':
+                output_key = our_layer[i].keys()[0]
+                neuron_to_print = our_layer[i][output_key]
+                row = [output_key[:8]]
+
+            for key in neuron_to_print.inputs.keys():
+                weight = neuron_to_print.inputs[key]
+                row.append(weight)
+            rows.append(row)
+
+        table.add_rows(rows)
+        print "\n" + "-- " + name + " LAYER --"
+        print table.draw()
 
 
 class Perceptron(object):
@@ -182,4 +278,6 @@ class HiddenPerceptron(MultiInputPerceptron):
 
 
 class OutputPerceptron(MultiInputPerceptron):
-    pass
+    def __init__(self, input_neurons, neuron_weights, output_key, myid=None):
+        super(OutputPerceptron, self).__init__(input_neurons, neuron_weights, myid=myid)
+        self.output_key = output_key

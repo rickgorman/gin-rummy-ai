@@ -2,6 +2,7 @@ import unittest
 from neuralnet import *
 from observer import *
 from ginplayer import *
+from gintable import *
 
 
 # noinspection PyMissingConstructor
@@ -25,6 +26,14 @@ class MockObservable(Observable):
 
 # noinspection PyDictCreation
 class TestNeuralNet(unittest.TestCase):
+
+    @staticmethod
+    def clear_all_layers(nn):
+        assert isinstance(nn, NeuralNet)
+        nn.input_layer = []
+        nn.hidden_layer = []
+        nn.output_layer = []
+
     def setUp(self):
         self.p = GinPlayer()
         self.t = GinTable()
@@ -34,7 +43,7 @@ class TestNeuralNet(unittest.TestCase):
         self.pobs = PlayerObserver(self.p)
 
         self.sensors = [self.pobs]
-        self.outputs = ['action', 'rank', 'surrender']
+        self.output_keys = ['action', 'index', 'accept-improper-knock']
         self.weights = {'input': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97],
                         'hidden': [],
                         'output': []}
@@ -49,12 +58,12 @@ class TestNeuralNet(unittest.TestCase):
     def test___init__(self):
         invalid_weights = {'input': [0.5], 'output': []}
         # require at least one sensor, one weight and one output
-        self.assertRaises(AssertionError, NeuralNet, [], invalid_weights, self.outputs)
-        self.assertRaises(AssertionError, NeuralNet, self.sensors, {}, self.outputs)
+        self.assertRaises(AssertionError, NeuralNet, [], invalid_weights, self.output_keys)
+        self.assertRaises(AssertionError, NeuralNet, self.sensors, {}, self.output_keys)
         self.assertRaises(AssertionError, NeuralNet, self.sensors, invalid_weights, [])
 
     def test_validate_weights(self):
-        self.nn = NeuralNet(self.sensors, self.weights, self.outputs)
+        self.nn = NeuralNet(self.sensors, self.weights, self.output_keys)
         self.assertTrue(self.nn.validate_weights())
 
         # remove an input weight
@@ -88,14 +97,13 @@ class TestNeuralNet(unittest.TestCase):
 
     def test_calculate_hidden_count(self):
         # one example should be good enough to test the math
-        self.nn = NeuralNet(self.sensors, self.weights, self.outputs)
+        self.nn = NeuralNet(self.sensors, self.weights, self.output_keys)
         self.assertEqual(9, self.nn.calculate_hidden_count())
 
     def test_create_input_layer(self):
-        self.nn = NeuralNet(self.sensors, self.weights, self.outputs)
+        self.nn = NeuralNet(self.sensors, self.weights, self.output_keys)
         # wipe the input_layer and ensure it has been recreated with the correct number of input neurons
-        self.nn.input_layer = []
-
+        TestNeuralNet.clear_all_layers(self.nn)
         self.nn.create_input_layer()
         self.assertEqual(len(self.nn.input_layer), sum([len(s.buffer.keys()) for s in self.sensors]))
 
@@ -103,7 +111,7 @@ class TestNeuralNet(unittest.TestCase):
         self.test_create_input_layer()
         self.nn.create_hidden_layer()
         # make sure we have the right number of hidden neurons
-        self.assertEqual(len(self.nn.hidden_layer), int((len(self.nn.input_layer) + len(self.outputs)) * 2/3))
+        self.assertEqual(len(self.nn.hidden_layer), int((len(self.nn.input_layer) + len(self.output_keys)) * 2/3))
 
         # ensure that each hidden neuron has each input neuron in its inputs
         for hn in self.nn.hidden_layer:
@@ -115,17 +123,46 @@ class TestNeuralNet(unittest.TestCase):
     def test_create_output_layer(self):
         self.test_create_hidden_layer()
         self.nn.create_output_layer()
-        self.assertEqual(len(self.nn.output_layer), len(self.outputs))
+        self.assertEqual(len(self.nn.output_layer), len(self.output_keys))
 
         # ensure that each output neuron has each hidden neuron in its inputs
         for o in self.nn.output_layer:
             found = {}
-            for n in o.inputs.keys():
-                found[n] = True
+
+            output_key = o.keys()[0]
+            output_neuron = o[output_key]
+
+            for input_neuron in output_neuron.inputs.keys():
+                found[input_neuron] = True
             self.assertEqual(len(found), len(self.nn.hidden_layer))
 
     def test_pulse(self):
-        self.fail()
+        # create invalid values for outputs
+        self.test_create_output_layer()
+        for key in self.output_keys:
+            self.nn.outputs[key] = -1
+
+        # change the first input weight of each output neuron to make each final output value unique
+        new_values = [0.02, 0.08, 0.55]
+        for item in self.nn.output_layer:
+            neuron = item[item.keys()[0]]
+            first_input = neuron.inputs.keys()[0]
+            neuron.inputs[first_input] = new_values.pop()
+
+        self.nn.pulse()
+        self.nn.print_me()
+        found_outputs = {}
+        for key in self.nn.outputs:
+            # ensure we don't have duplicate outputs
+            value = self.nn.outputs[key]
+            if value in found_outputs.keys():
+                self.fail()
+            found_outputs[str(value)] = True
+
+            # ensure our output buffers have new values in (0, 1)
+            self.assertGreaterEqual(value, 0)
+            self.assertLessEqual(value, 1)
+
 
 
 class TestPerceptron(unittest.TestCase):
@@ -260,13 +297,29 @@ class TestMultiInputPerceptron(unittest.TestCase):
         self.neuron_weights = [0.5, 0.3]
         self.ip1 = InputPerceptron(self.sensor, weight=self.neuron_weights[0], myid='self.ip1', index=0)
         self.ip2 = InputPerceptron(self.sensor, weight=self.neuron_weights[1], myid='self.ip2', index=1)
+        self.inputs = [self.ip1, self.ip2]
 
-    def test__init__(self):
+    def test___init__(self):
         # ensure that both self.ip1 and self.ip2 are in our inputs
-        self.mip = MultiInputPerceptron((self.ip1, self.ip2), self.neuron_weights)
+        self.mip = MultiInputPerceptron(self.inputs, self.neuron_weights)
         self.assertIn(self.ip1, self.mip.inputs)
         self.assertIn(self.ip2, self.mip.inputs)
 
         # ensure that we require equal numbers of inputs and weights
         with self.assertRaises(AssertionError):
             MultiInputPerceptron([self.ip1], ())
+
+
+class TestOutputPerceptron(unittest.TestCase):
+    def setUp(self):
+        self.p = GinPlayer()
+        self.sensor = PlayerObserver(self.p)
+        self.neuron_weights = [0.5]
+        self.ip1 = InputPerceptron(self.sensor, weight=self.neuron_weights[0], myid='self.ip1', index=0)
+        self.inputs = [self.ip1]
+
+    def test___init__(self):
+        # ensure our key gets stored
+        output_key = 'testing'
+        self.op = OutputPerceptron(self.inputs, self.neuron_weights, output_key)
+        self.assertEqual(self.op.output_key, output_key)
