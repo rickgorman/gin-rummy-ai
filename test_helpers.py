@@ -2,6 +2,7 @@ from ginhand import *
 import unittest
 
 
+# noinspection PyMethodMayBeStatic
 class Helper(unittest.TestCase):
 
     card_data1 = [
@@ -128,3 +129,9 @@ class Helper(unittest.TestCase):
             for j in range(0, len(agcg_test[i].cards)):
                 self.assertEqual(agcg_test[i].cards[j].rank, agcg_control[i].cards[j].rank)
                 self.assertEqual(agcg_test[i].cards[j].suit, agcg_control[i].cards[j].suit)
+
+    def return_false(self):
+        return False
+
+    def return_true(self):
+        return True

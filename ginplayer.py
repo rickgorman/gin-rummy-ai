@@ -120,15 +120,16 @@ class GinPlayer(Observable):
 
     # consult the strategy and perform the action suggested
     def take_turn(self):
-        # if we have 11 cards, we do this once. otherwise, we do it twice.
-        if self.hand.size() == 11:
+        # ensure we have enough cards to take a turn
+        assert self.hand.size() >= 10, "Not enough cards in hand"
+
+        # if we have 10 cards, we do this twice. otherwise (we have 11 cards), we do it once.
+        if self.hand.size() == 10:
             self.consult_strategy()
             self.execute_strategy()
-        elif self.hand.size() == 10:
-            self.consult_strategy()
-            self.execute_strategy()
-        else:
-            raise Exception('not enough cards in hand to take a turn')
+
+        self.consult_strategy()
+        self.execute_strategy()
 
     def pickup_discard(self):
         card = self.table.discard_pile.pop()
@@ -145,3 +146,6 @@ class GinPlayer(Observable):
         except AttributeError:
             raise Exception("cards not behaving like a list: " + AttributeError.message)
         return card
+
+    def accept_improper_knock(self):
+        return self.strategy.consider_accepting_improper_knock()

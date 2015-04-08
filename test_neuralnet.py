@@ -24,6 +24,14 @@ class MockObservable(Observable):
         pass
 
 
+class MockNeuralNetwork(object):
+    def __init__(self, action, index, accept_improper_knock):
+        self.outputs = {'action': action, 'index': index, 'accept_improper_knock': accept_improper_knock}
+
+    def pulse(self):
+        pass
+
+
 # noinspection PyDictCreation
 class TestNeuralNet(unittest.TestCase):
 
@@ -150,7 +158,6 @@ class TestNeuralNet(unittest.TestCase):
             neuron.inputs[first_input] = new_values.pop()
 
         self.nn.pulse()
-        self.nn.print_me()
         found_outputs = {}
         for key in self.nn.outputs:
             # ensure we don't have duplicate outputs
@@ -162,7 +169,6 @@ class TestNeuralNet(unittest.TestCase):
             # ensure our output buffers have new values in (0, 1)
             self.assertGreaterEqual(value, 0)
             self.assertLessEqual(value, 1)
-
 
 
 class TestPerceptron(unittest.TestCase):

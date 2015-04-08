@@ -36,6 +36,9 @@ class GinMatch(Observable):
         """
         super(GinMatch, self).__init__()
 
+        # rules
+        self.knocking_point = 10
+
         # set up score board
         self.p1_score = 0
         self.p2_score = 0
@@ -214,8 +217,10 @@ class GinMatch(Observable):
         if knocker.hand.deadwood_count() > 10:
             if knocker == self.p1:
                 self.p1_knocked_improperly = True
+                self.offer_to_accept_improper_knock(self.p2)
             elif knocker == self.p2:
                 self.p2_knocked_improperly = True
+                self.offer_to_accept_improper_knock(self.p1)
         else:
             # next, handle a knock that is actually a gin (the AI will be dumb about this)
             if knocker.hand.deadwood_count() == 0:
@@ -230,8 +235,17 @@ class GinMatch(Observable):
         if knocker.hand.deadwood_count() != 0:
             if knocker == self.p1:
                 self.p1_knocked_improperly = True
+                self.offer_to_accept_improper_knock(self.p2)
             elif knocker == self.p2:
                 self.p2_knocked_improperly = True
+                self.offer_to_accept_improper_knock(self.p1)
         else:
             self.gameover = True
             self.player_who_knocked_gin = knocker
+
+    # we offer the accepter a chance to accept an improper knock (provided they have a knock-worthy hand themselves)
+    def offer_to_accept_improper_knock(self, accepter):
+        assert isinstance(accepter, GinPlayer)
+        if accepter.hand.deadwood_count() <= self.knocking_point:
+            if accepter.accept_improper_knock():
+                self.gameover = True

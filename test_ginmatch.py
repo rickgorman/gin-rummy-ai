@@ -1,5 +1,6 @@
 from ginmatch import *
 from test_helpers import *
+from test_ginstrategy import MockGinStrategy
 
 
 # noinspection PyProtectedMember
@@ -50,6 +51,8 @@ class TestGinMatch(Helper):
         self.p2 = GinPlayer()
         self.gm = GinMatch(self.p1, self.p2)
         self.c = GinCard(2, 'c')
+
+        self.p2.strategy = MockGinStrategy(['DRAW'])
 
     def test__init__(self):
         # assign them to a match
@@ -110,9 +113,10 @@ class TestGinMatch(Helper):
 
     def test_take_turns(self):
         # set up the match. we'll give p1 a gin-worthy hand and p2 a knock-worth hand (deadwood=1)
-        self.p1 = GinPlayer(MockGinStrategy(['KNOCK', 10]))
+        self.p1 = GinPlayer()
         self.p2 = GinPlayer()
         self.gm = GinMatch(self.p1, self.p2)
+        self.p1.strategy = MockGinStrategy(['KNOCK', 10])
 
         self.p1.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
         # give p1 an 11th card for discarding
@@ -134,11 +138,10 @@ class TestGinMatch(Helper):
         # knock-worthy hand with deadwood=1
         self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
-        # if the knock was INVALID, ensure we penalize the player and that the game continues
+        # if the knock was INVALID, ensure we penalize the player by exposing his cards
         self.gm.end_with_knock(self.p1)
         self.assertTrue(self.gm.p1_knocked_improperly)
         self.assertFalse(self.gm.player_who_knocked)
-        self.assertFalse(self.gm.gameover)
 
     def test_end_with_knock_valid(self):
         self.p1 = GinPlayer()
@@ -164,11 +167,10 @@ class TestGinMatch(Helper):
         # knock-worthy hand with deadwood=1
         self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
-        # if the knock was INVALID, ensure we penalize the player and that the game continues
+        # if the knock was INVALID, ensure we penalize the player by exposing the cards (also, gameover is not yet set)
         self.gm.end_with_knock_gin(self.p1)
         self.assertTrue(self.gm.p1_knocked_improperly)
         self.assertFalse(self.gm.player_who_knocked)
-        self.assertFalse(self.gm.gameover)
 
     def test_end_with_knock_gin_valid(self):
         # morbidly awful hand with deadwood = 55
@@ -236,3 +238,44 @@ class TestGinMatch(Helper):
         # verify that p2 gets the undercut bonus AND the deadwood points
         self.assertEqual(self.gm.p1_score, 0)
         self.assertEqual(self.gm.p2_score, 1+25)
+
+    def test_offer_to_accept_improper_knock(self):
+        # set up the improper knock conditions (here p1 knocks with deadwood=55, while p2 holds deadwood=1)
+        self.test_end_with_knock_gin_invalid()
+
+        # we force p2 to ACCEPT the knock
+        self.p2.strategy.accept_improper_knock = self.return_true
+        self.gm.offer_to_accept_improper_knock(self.p2)
+
+        # ensure the game has been marked as over
+        self.assertTrue(self.gm.gameover)
+
+    def test_offer_to_accept_improper_knock_ineligible_accepter(self):
+        # set up the improper knock conditions (here p1 knocks with deadwood=55, while p2 holds deadwood=37)
+        self.test_end_with_knock_gin_invalid()
+        self.p2.hand = self.generate_ginhand_from_card_data(self.card_data6_layoff)
+        self.assertTrue(self.p2.hand.deadwood_count() > 10)
+        self.gm.gameover = False
+
+        # we instruct p2 to REJECT the knock
+        self.p2.strategy.accept_improper_knock = self.return_false
+        self.gm.offer_to_accept_improper_knock(self.p2)
+
+        # ensure the game has NOT been marked as over
+        self.assertFalse(self.gm.gameover)
+
+    # note: while this looks similar to test_offer_to_accept_improper_knock_invalid, in this case we expect the
+    # rejection to actually take place, whereas in the prior test, there is no option to reject due to p2's high
+    # deadwood count.
+    def test_offer_to_accept_improper_knock_decline(self):
+        # set up the improper knock conditions (here p1 knocks with deadwood=55, while p2 holds deadwood=1)
+        self.test_end_with_knock_gin_invalid()
+        self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
+        self.gm.gameover = False
+
+        # we instruct p2 to REJECT the knock
+        self.p2.accept_improper_knock = self.return_false
+        self.gm.offer_to_accept_improper_knock(self.p2)
+
+        # ensure the game has NOT been marked as over
+        self.assertFalse(self.gm.gameover)
