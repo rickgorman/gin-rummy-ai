@@ -158,6 +158,7 @@ class TestNeuralNet(unittest.TestCase):
             neuron.inputs[first_input] = new_values.pop()
 
         self.nn.pulse()
+
         found_outputs = {}
         for key in self.nn.outputs:
             # ensure we don't have duplicate outputs

@@ -16,16 +16,25 @@ import uuid
 
 # decorator to be used on methods that affect the state of the game. subscribes the observer to all changes made
 #  to methods in the Observable class
-def notify_observers(func):
+def notify_observers_after(func):
     def func_wrapper(self, *args, **kwargs):
         func(self, *args, **kwargs)
         for observer in self._observers:
             observer.observe(self.organize_data())
+
+    return func_wrapper
+
+
+def notify_observers_before(func):
+    def func_wrapper(self, *args, **kwargs):
+        for observer in self._observers:
+            observer.observe(self.organize_data())
+        func(self, *args, **kwargs)
+
     return func_wrapper
 
 
 class Observable(object):
-
     def __init__(self):
         self._observers = []
         self.id = uuid.uuid4()
@@ -35,7 +44,7 @@ class Observable(object):
             self._observers.append(obj)
 
     # trigger a notification of observers without changing state
-    @notify_observers
+    @notify_observers_after
     def noop_notify(self):
         pass
 
@@ -63,9 +72,3 @@ class Observer(object):
     # return the ith member of the buffer. This is useful for assigning 10 neurons to the same Observer, each with id
     def get_value_by_index(self, index):
         return self.buffer[index]
-
-
-class PlayerObserver(Observer):
-    def __init__(self, player):
-        super(PlayerObserver, self).__init__(player)
-

@@ -90,6 +90,21 @@ class TestGinMatch(Helper):
         self.p1.knock_gin(self.c)
         self.assertEqual(self.gm.player_who_knocked_gin, self.p1)
 
+    def test_organize_data(self):
+        data = self.gm.organize_data()
+
+        # we expect 5 values: player scores (p1,2p), player matches won (p1, p2) and knock point
+        self.assertEqual(5, len(data.keys()))
+
+        # knock point initializes as 10
+        self.assertEqual(10, data[0])
+
+        # scores and matches won initialize as 0
+        self.assertEqual(0, data[1])
+        self.assertEqual(0, data[2])
+        self.assertEqual(0, data[3])
+        self.assertEqual(0, data[4])
+
     def test_run(self):
         # rig the horse with rockets
         self.gm.p1_score = 100

@@ -2,6 +2,7 @@ from observer import *
 import unittest
 from gindeck import GinCard
 from ginplayer import GinPlayer
+from ginmatch import *
 
 
 class MockObserver(Observer):
@@ -95,11 +96,3 @@ class TestObserver(unittest.TestCase):
         self.p._add_card(self.c2)
         self.assertIn(self.c1.ranking(), self.pobs.buffer.values())
         self.assertIn(self.c2.ranking(), self.pobs.buffer.values())
-
-
-class TestPlayerObserver(unittest.TestCase):
-    pass
-
-
-class TestMatchObserver(unittest.TestCase):
-    pass

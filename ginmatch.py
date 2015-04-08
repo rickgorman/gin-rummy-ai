@@ -65,6 +65,9 @@ class GinMatch(Observable):
         self.p2.register_knock_listener(self)
         self.p2.register_knock_gin_listener(self)
 
+        # initial update for listeners
+        self.noop_notify()
+
     def notify_of_knock(self, knocker):
         self.player_who_knocked = knocker
 
@@ -73,8 +76,11 @@ class GinMatch(Observable):
 
     # implement the Observable criteria. return a list of ints representing our game state
     def organize_data(self):
-        data = []
-
+        return {0: self.knocking_point,
+                1: self.p1_score,
+                2: self.p2_score,
+                3: self.p1_matches_won,
+                4: self.p2_matches_won}
 
     # run the match until a winner is declared
     def run(self):
@@ -165,6 +171,7 @@ class GinMatch(Observable):
                                 self.p2_knocked_improperly = True
 
     # award deadwood scoring and gin bonuses
+    @notify_observers_after
     def update_score(self):
         score_delta = 0
 
