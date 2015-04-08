@@ -60,6 +60,18 @@ class GinTable(Observable):
 
         return data
 
+    # pop a card from the deck and return it
+    def deal_a_card(self):
+        return self.deck.deal_a_card()
+
+    def add_card_to_discard_pile(self, card):
+        """ @type card: Card """
+        self.discard_pile.append(card)
+
+    # pop a card from the discard pile and return it
+    def pickup_from_discard_pile(self):
+        return self.discard_pile.pop()
+
 
 class TableSeatingError(Exception):
     pass

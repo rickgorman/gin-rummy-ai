@@ -88,7 +88,7 @@ class GinPlayer(Observable):
         if self.hand.size() == 11:
             raise DrawException
         else:
-            card = self.table.deck.deal_a_card()
+            card = self.table.deal_a_card()
             self.hand.add_card(card)
             return card
 
@@ -132,7 +132,7 @@ class GinPlayer(Observable):
         self.execute_strategy()
 
     def pickup_discard(self):
-        card = self.table.discard_pile.pop()
+        card = self.table.pickup_from_discard_pile()
         self._add_card(card)
         return card
 
@@ -140,7 +140,7 @@ class GinPlayer(Observable):
     def discard_card(self, card):
         try:
             self.hand.discard(card)
-            self.table.discard_pile.append(card)
+            self.table.add_card_to_discard_pile(card)
         except ValueError:
             raise Exception("card not in our hand")
         except AttributeError:

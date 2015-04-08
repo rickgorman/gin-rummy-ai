@@ -48,9 +48,9 @@ class TestNeuralNet(unittest.TestCase):
         self.p.table = self.t
         for _ in range(11):
             self.p.draw()
-        self.pobs = PlayerObserver(self.p)
+        self.obs = Observer(self.p)
 
-        self.sensors = [self.pobs]
+        self.sensors = [self.obs]
         self.output_keys = ['action', 'index', 'accept-improper-knock']
         self.weights = {'input': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97],
                         'hidden': [],
@@ -126,7 +126,7 @@ class TestNeuralNet(unittest.TestCase):
             found = {}
             for n in hn.inputs.keys():
                 found[n] = True
-            self.assertEqual(len(found), len(self.pobs.buffer))
+            self.assertEqual(len(found), len(self.obs.buffer))
 
     def test_create_output_layer(self):
         self.test_create_hidden_layer()
@@ -275,7 +275,7 @@ class TestInputPerceptron(unittest.TestCase):
     def setUp(self):
         self.c = GinCard(5, 'd')
         self.p = GinPlayer()
-        self.sensor = PlayerObserver(self.p)
+        self.sensor = Observer(self.p)
         self.weight = 0.2
         self.ip = InputPerceptron(self.sensor, weight=self.weight, myid='self.ip', index=0)
 
@@ -300,7 +300,7 @@ class TestInputPerceptron(unittest.TestCase):
 class TestMultiInputPerceptron(unittest.TestCase):
     def setUp(self):
         self.p = GinPlayer()
-        self.sensor = PlayerObserver(self.p)
+        self.sensor = Observer(self.p)
         self.neuron_weights = [0.5, 0.3]
         self.ip1 = InputPerceptron(self.sensor, weight=self.neuron_weights[0], myid='self.ip1', index=0)
         self.ip2 = InputPerceptron(self.sensor, weight=self.neuron_weights[1], myid='self.ip2', index=1)
@@ -320,7 +320,7 @@ class TestMultiInputPerceptron(unittest.TestCase):
 class TestOutputPerceptron(unittest.TestCase):
     def setUp(self):
         self.p = GinPlayer()
-        self.sensor = PlayerObserver(self.p)
+        self.sensor = Observer(self.p)
         self.neuron_weights = [0.5]
         self.ip1 = InputPerceptron(self.sensor, weight=self.neuron_weights[0], myid='self.ip1', index=0)
         self.inputs = [self.ip1]

@@ -62,9 +62,9 @@ class TestObservable(unittest.TestCase):
 class TestObserver(unittest.TestCase):
     def setUp(self):
         self.p = GinPlayer()
-        self.obs = Observer(self.p)
+        self.obs  = Observer(self.p)
+        self.obs2 = Observer(self.p)
 
-        self.pobs = PlayerObserver(self.p)
         self.c1 = GinCard(9, 'c')
         self.c2 = GinCard(5, 'd')
 
@@ -86,13 +86,13 @@ class TestObserver(unittest.TestCase):
         cards = [GinCard(2, 'd'), GinCard(3, 'h'), GinCard(5, 'c')]
         for i in range(3):
             self.p._add_card(cards[i])
-            self.assertEqual(self.pobs.get_value_by_index(i), self.p.hand.cards[i].ranking())
+            self.assertEqual(self.obs.get_value_by_index(i), self.p.hand.cards[i].ranking())
 
     def test_observe(self):
         # we expect the PlayerObserver's buffer to hold an array of ints representing the player's cards
         self.p._add_card(self.c1)
-        self.assertIn(self.c1.ranking(), self.pobs.buffer.values())
+        self.assertIn(self.c1.ranking(), self.obs.buffer.values())
 
         self.p._add_card(self.c2)
-        self.assertIn(self.c1.ranking(), self.pobs.buffer.values())
-        self.assertIn(self.c2.ranking(), self.pobs.buffer.values())
+        self.assertIn(self.c1.ranking(), self.obs.buffer.values())
+        self.assertIn(self.c2.ranking(), self.obs.buffer.values())

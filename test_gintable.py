@@ -60,3 +60,25 @@ class TestGinTable(unittest.TestCase):
         # here we ensure the values are tightly contained within [0,52]
         self.assertTrue(min(found.keys()) >= 0)
         self.assertTrue(max(found.keys()) <= 52)
+
+    def test_deal_a_card(self):
+        card = self.t.deal_a_card()
+        self.assertIsInstance(card, GinCard)
+        self.assertTrue(card.ranking() not in [x.ranking() for x in self.t.deck.cards])
+
+    def test_add_card_to_discard_pile(self):
+        card = self.t.deal_a_card()
+        self.t.add_card_to_discard_pile(card)
+        self.assertTrue(card.ranking() in [x.ranking() for x in self.t.discard_pile])
+
+    def test_pickup_from_discard_pile(self):
+        # first, from empty discard pile
+        with self.assertRaises(IndexError):
+            card = self.t.pickup_from_discard_pile()
+
+        # now, safely
+        self.t.add_card_to_discard_pile(self.t.deal_a_card())
+        card = self.t.pickup_from_discard_pile()
+
+        self.assertIsInstance(card, GinCard)
+        self.assertTrue(card.ranking() not in [x.ranking() for x in self.t.discard_pile])
