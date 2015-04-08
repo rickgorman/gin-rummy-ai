@@ -44,31 +44,19 @@ class TestGinTable(unittest.TestCase):
 
         data = self.t.organize_data()
 
-        # we expect 52 entries for deck and 52 for discard pile
-        self.assertEqual(104, len(data))
-
-        # we should find a total of 52 0's, where 0 means there is no card there.
-        zeroes = 0
+        # we expect one entry representing our deck size and 32 for discard pile
+        self.assertEqual(33, len(data))
 
         # record uniqueness of each card
         found = {}
-        for i in range(104):
+        zeroes = 0
+        for i in range(1,33):
             if data[i] is 0:
                 zeroes += 1
             else:
                 self.assertTrue(data[i] not in found.keys())
-
             found[data[i]] = True
-
-        # ensure we found 53 unique items
-        self.assertEqual(53, len(found))
-        # in all, 52 zeroes should be found between the deck and the discard pile.
-        self.assertEqual(52, zeroes)
-
-        ordered = sorted(found.keys())
-        for i in range(0, len(found.keys())):
-            self.assertEqual(i, ordered[i])
 
         # here we ensure the values are tightly contained within [0,52]
         self.assertTrue(min(found.keys()) >= 0)
-        self.assertTrue(max(found.keys()) == 52)
+        self.assertTrue(max(found.keys()) <= 52)

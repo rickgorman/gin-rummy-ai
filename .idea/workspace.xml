@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginmatch.py" afterPath="$PROJECT_DIR$/ginmatch.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gintable.py" afterPath="$PROJECT_DIR$/gintable.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_gintable.py" afterPath="$PROJECT_DIR$/test_gintable.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -139,7 +140,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_discard_card.coverage" NAME="Unittest TestGinPlayer.test_discard_card Coverage Results" MODIFIED="1426465544941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_contains.coverage" NAME="Unittest TestGinCardGroup.test_contains Coverage Results" MODIFIED="1395248903917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_enumerate_all_sets.coverage" NAME="Unittest TestGinCardGroup.test_enumerate_all_sets Coverage Results" MODIFIED="1426857953638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittest_TestGinTable_test_organize_data.coverage" NAME="Unittest TestGinTable.test_organize_data Coverage Results" MODIFIED="1428489387807" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestGinTable_test_organize_data.coverage" NAME="Unittest TestGinTable.test_organize_data Coverage Results" MODIFIED="1428490211732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinStrategy_test_best_actions.coverage" NAME="Unittest TestGinStrategy.test_best_actions Coverage Results" MODIFIED="1426409983626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test__examine_melds__1_.coverage" NAME="Unittest TestGinHand.test__examine_melds (1) Coverage Results" MODIFIED="1404800154508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinDeck_test_deal_a_card.coverage" NAME="Unittest TestGinDeck.test_deal_a_card Coverage Results" MODIFIED="1426413449263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -282,7 +283,7 @@
             <file leaf-file-name="test_gintable.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_gintable.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="40" column="0" selection-start="1204" selection-end="1204" vertical-scroll-proportion="0.4771615" vertical-offset="0" max-vertical-offset="1226">
+                  <state line="60" column="0" selection-start="1898" selection-end="1898" vertical-scroll-proportion="0.7218597" vertical-offset="0" max-vertical-offset="1226">
                     <folding />
                   </state>
                 </provider>
@@ -367,10 +368,8 @@
       <file leaf-file-name="ginmatch.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginmatch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="0" selection-start="2965" selection-end="2965" vertical-scroll-proportion="0.0" vertical-offset="409" max-vertical-offset="3930">
-              <folding>
-                <marker date="1428485604000" expanded="true" signature="1431:2480" placeholder="..." />
-              </folding>
+            <state line="125" column="0" selection-start="4278" selection-end="4278" vertical-scroll-proportion="0.0" vertical-offset="1665" max-vertical-offset="3960">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -387,7 +386,7 @@
       <file leaf-file-name="gintable.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gintable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="23" selection-start="2162" selection-end="2162" vertical-scroll-proportion="0.74632955" vertical-offset="0" max-vertical-offset="1226">
+            <state line="53" column="95" selection-start="1778" selection-end="1778" vertical-scroll-proportion="0.64845026" vertical-offset="0" max-vertical-offset="1226">
               <folding>
                 <element signature="e#138#161#0" expanded="true" />
               </folding>
@@ -1188,7 +1187,11 @@
       <created>1428485714421</created>
       <updated>1428485714421</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Added and passed tests for GinTable.organize_data()">
+      <created>1428489410338</created>
+      <updated>1428489410338</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1271,7 +1274,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Refactored play_game into 3 parts: deal_cards(), take_turns() and update_score()&#10;Passed tests for all three" />
     <MESSAGE value="Added and Passed test_update_score_with_knock_undercut" />
     <MESSAGE value="Refactored _is_in_a_meld to use fewer return statements&#10;Added sanity check to run()&#10;Decided to axe the test_play_game() test" />
     <MESSAGE value="Began implementation of neural component.&#10;Added Neuron and passed tests: test_attach_my_axon and test_attach_my_dendrite" />
@@ -1296,7 +1298,8 @@
     <MESSAGE value="Cleaned up test_ginplayer, moving lots of things into setUp()&#10;Fixed a bug in GinPlayer.take_turn() where we weren't consulting the strategy twice when we had 10 cards.&#10;Added GinPlayer.accept_improper_knock&#10;Added NeuralGinStrategy class&#10;Added NeuralGinStrategy.consider_accepting_improper_knock() to communicate between neural net and player action&#10;Added and passed tests for handling the acceptance of improper knocking&#10;Added and passed testss for GinStrategy.decode_signal()&#10;Added some true/false return functions to Helper that can be monkey patched in&#10;Added MockNeuralNetwork&#10;Moved some mocks around and updated import statements" />
     <MESSAGE value="Fixed bug in decode_signal() where we were returning an out of bounds index for signal = 1.0&#10;Clarified action name to 'PICKUP-FROM-DISCARD'&#10;Added and passed tests for decode_best_action" />
     <MESSAGE value="Added and passed tests for GinMatch.organize_data()&#10;Added @notify_observers_after (also renamed existing @notify_observers to a higher-clarity @notify_observers_before)&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added and passed tests for GinMatch.organize_data()&#10;Added @notify_observers_after (also renamed existing @notify_observers to a higher-clarity @notify_observers_before)&#10;" />
+    <MESSAGE value="Added and passed tests for GinTable.organize_data()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added and passed tests for GinTable.organize_data()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1396,15 +1399,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ginmatch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="0" selection-start="2965" selection-end="2965" vertical-scroll-proportion="0.0" vertical-offset="409" max-vertical-offset="3930">
-          <folding>
-            <marker date="1428485604000" expanded="true" signature="1431:2480" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ginplayer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="0" selection-start="450" selection-end="492" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295">
@@ -1435,9 +1429,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ginmatch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="0" selection-start="4278" selection-end="4278" vertical-scroll-proportion="0.0" vertical-offset="1665" max-vertical-offset="3960">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/gintable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="23" selection-start="2162" selection-end="2162" vertical-scroll-proportion="0.74632955" vertical-offset="0" max-vertical-offset="1226">
+        <state line="53" column="95" selection-start="1778" selection-end="1778" vertical-scroll-proportion="0.64845026" vertical-offset="0" max-vertical-offset="1226">
           <folding>
             <element signature="e#138#161#0" expanded="true" />
           </folding>
@@ -1446,7 +1447,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_gintable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="0" selection-start="1204" selection-end="1204" vertical-scroll-proportion="0.4771615" vertical-offset="0" max-vertical-offset="1226">
+        <state line="60" column="0" selection-start="1898" selection-end="1898" vertical-scroll-proportion="0.7218597" vertical-offset="0" max-vertical-offset="1226">
           <folding />
         </state>
       </provider>

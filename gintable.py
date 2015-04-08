@@ -44,21 +44,18 @@ class GinTable(Observable):
             raise TableSeatingError("gintable is full")
 
     def organize_data(self):
-        data = {}
+        # we start with the current height of the drawing deck
+        data = {0: len(self.deck.cards)}
 
-        # we start with the deck cards. data[0] holds the bottom card of the deck. we pad data[] with 0's once we
-        #   run out of cards to ensure we return 52 items for the deck
-        deck_size = len(self.deck.cards)
-        for i in range(deck_size):
-            data[i] = self.deck.cards[i].ranking()
-        for i in range(deck_size, 52):
-            data[i] = 0
+        # we now add on the discard pile
+        for i in range(len(self.discard_pile)):
+            data[i] = self.discard_pile[i].ranking()
 
-        # we do the same for the discard pile. the bottommost card is loaded first.
+        # we then add 0's up to 32 possible discards -- 32 = 52 - 10(cards per hand) X 2(hands)
         discard_size = len(self.discard_pile)
-        for i in range(deck_size, deck_size + discard_size):
-            data[i] = self.discard_pile[i-deck_size].ranking()
-        for i in range(deck_size + discard_size, 104):
+        for i in range(1, discard_size):
+            data[i] = self.discard_pile[i-1].ranking()
+        for i in range(discard_size, 1+32):
             data[i] = 0
 
         return data
