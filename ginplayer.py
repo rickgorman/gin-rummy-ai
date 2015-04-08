@@ -13,9 +13,11 @@ from gintable import *
 from observer import *
 
 
-# handle invalid draws
+# handle invalid draws. retain who did it so we can weed them out of existence.
 class DrawException(Exception):
-    pass
+    def __init__(self, who):
+        super(DrawException, self).__init__(self)
+        self.who = who
 
 
 # handle invalid strategies
@@ -86,7 +88,7 @@ class GinPlayer(Observable):
 
     def draw(self):
         if self.hand.size() == 11:
-            raise DrawException
+            raise DrawException(self)
         else:
             card = self.table.deal_a_card()
             self.hand.add_card(card)

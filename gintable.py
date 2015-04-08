@@ -61,14 +61,18 @@ class GinTable(Observable):
         return data
 
     # pop a card from the deck and return it
+    @notify_observers_after
     def deal_a_card(self):
-        return self.deck.deal_a_card()
+        card = self.deck.deal_a_card()
+        return card
 
+    @notify_observers_after
     def add_card_to_discard_pile(self, card):
         """ @type card: Card """
         self.discard_pile.append(card)
 
     # pop a card from the discard pile and return it
+    @notify_observers_after
     def pickup_from_discard_pile(self):
         return self.discard_pile.pop()
 

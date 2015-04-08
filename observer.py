@@ -18,10 +18,10 @@ import uuid
 #  to methods in the Observable class
 def notify_observers_after(func):
     def func_wrapper(self, *args, **kwargs):
-        func(self, *args, **kwargs)
+        ret_value = func(self, *args, **kwargs)
         for observer in self._observers:
             observer.observe(self.organize_data())
-
+        return ret_value
     return func_wrapper
 
 
@@ -29,7 +29,7 @@ def notify_observers_before(func):
     def func_wrapper(self, *args, **kwargs):
         for observer in self._observers:
             observer.observe(self.organize_data())
-        func(self, *args, **kwargs)
+        return func(self, *args, **kwargs)
 
     return func_wrapper
 
