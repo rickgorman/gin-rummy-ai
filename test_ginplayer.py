@@ -182,7 +182,7 @@ class TestGinPlayer(unittest.TestCase):
         self.assertEqual(51, len(self.p.table.deck.cards))
 
     def test_execute_strategy_pickup_discard(self):
-        strat = MockGinStrategy(['PICKUP-DISCARD'])
+        strat = MockGinStrategy(['PICKUP-FROM-DISCARD'])
         self.p.strategy = strat
 
         # monkey-patching in a table and a discard pile of depth 3
@@ -284,5 +284,5 @@ class TestGinPlayer(unittest.TestCase):
 
     def test_accept_improper_knock(self):
         # verify that we return whatever the mock strategy says to return
-        self.p.strategy = MockGinStrategy(['ACCEPT-IMPROPER-KNOCK'])
+        self.p.strategy = MockGinStrategy(['WHATEVER'])
         self.assertTrue(self.p.accept_improper_knock())

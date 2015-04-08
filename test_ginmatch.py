@@ -247,7 +247,7 @@ class TestGinMatch(Helper):
         self.p2.strategy.accept_improper_knock = self.return_true
         self.gm.offer_to_accept_improper_knock(self.p2)
 
-        # ensure the game has been marked as over
+        # ensure the game HAS been marked as over
         self.assertTrue(self.gm.gameover)
 
     def test_offer_to_accept_improper_knock_ineligible_accepter(self):

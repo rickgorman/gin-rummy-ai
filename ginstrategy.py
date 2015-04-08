@@ -12,6 +12,8 @@
 # - inquiring player's hand
 # - list of actions taken thus far in the current game
 
+import math
+
 
 class GinStrategy(object):
     def __init__(self, us, opponent, ginmatch):
@@ -20,13 +22,8 @@ class GinStrategy(object):
         self.ginmatch = ginmatch
         assert us != opponent, "we can't play against ourselves"
 
-    def best_action(self):
+    def determine_best_action(self):
         pass
-
-    # split a given a signal in [0, 1] into n buckets, returning the index of the bucket (starting at 1)
-    @staticmethod
-    def decode_signal(signal, buckets=1):
-        return float(signal) * float(buckets) - 1
 
 
 class NeuralGinStrategy(GinStrategy):
@@ -42,3 +39,19 @@ class NeuralGinStrategy(GinStrategy):
     def consider_accepting_improper_knock(self):
         self.nn.pulse()
         return self.nn.outputs['accept_improper_knock']
+
+    # split a given a signal in [0, 1] into n buckets, returning the index of the bucket (starting at 1)
+    @staticmethod
+    def decode_signal(signal, buckets):
+        if signal == 1:
+            return buckets - 1
+        else:
+            return int(float(signal) * float(buckets))
+
+    # step function for the output neuron
+    def decode_best_action(self):
+        actions = ['DISCARD', 'DRAW', 'KNOCK', 'KNOCK-GIN', 'PICKUP-FROM-DISCARD']
+
+        index = NeuralGinStrategy.decode_signal(self.nn.outputs['action'], len(actions))
+
+        return actions[index]

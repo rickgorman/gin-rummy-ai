@@ -93,7 +93,7 @@ class GinPlayer(Observable):
             return card
 
     def consult_strategy(self):
-        self.action = self.strategy.best_action()
+        self.action = self.strategy.determine_best_action()
 
     # here we act on the advice we received from the strategy
     @notify_observers
@@ -103,7 +103,7 @@ class GinPlayer(Observable):
         else:
             if self.action[0] == 'DRAW':
                 self.draw()
-            elif self.action[0] == 'PICKUP-DISCARD':
+            elif self.action[0] == 'PICKUP-FROM-DISCARD':
                 self.pickup_discard()
             elif self.action[0] == 'DISCARD':
                 index = self.action[1]

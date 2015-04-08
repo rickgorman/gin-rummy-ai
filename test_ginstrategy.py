@@ -14,7 +14,7 @@ class MockGinStrategy(GinStrategy):
         else:
             self.action = mockaction
 
-    def best_action(self):
+    def determine_best_action(self):
         # by default, we discard the first card
         return self.action
 
@@ -40,17 +40,7 @@ class TestGinStrategy(Helper):
         strat = MockGinStrategy(['DISCARD', 0])
 
         # ensure mock strategy tells us to discard our first card
-        self.assertEqual(strat.best_action(), ['DISCARD', 0])
-
-    def test_decode_signal(self):
-        # ensure we are returning the proper signal for a given neural network's output.
-        # silly smell: this code duplicates the implementation code
-        signal_range = [x * 0.05 for x in range(0, 20)]
-        bucket_range = range(2, 10)
-        for signal in signal_range:
-            for bucket in bucket_range:
-                decoded = GinStrategy.decode_signal(signal, buckets=bucket)
-                self.assertEqual(decoded, signal * float(bucket) - 1)
+        self.assertEqual(strat.determine_best_action(), ['DISCARD', 0])
 
 
 class TestNeuralGinStrategy(Helper):
@@ -65,3 +55,42 @@ class TestNeuralGinStrategy(Helper):
     def test_consider_accepting_improper_knock(self):
         # verify that we return the mock's output
         self.assertTrue(self.strat.consider_accepting_improper_knock())
+
+    def test_decode_signal(self):
+        # ensure we are returning the proper signal for a given neural network's output.
+        # signals[n] = [input, #buckets, expected output]
+        signals = [[0.0, 3, 0],
+                   [0.1, 3, 0],
+                   [0.2, 3, 0],
+                   [0.4, 3, 1],
+                   [0.6, 3, 1],
+                   [0.7, 3, 2],
+                   [1.0, 3, 2],
+                   [0.0, 4, 0],
+                   [0.10, 4, 0],
+                   [0.24, 4, 0],
+                   [0.26, 4, 1],
+                   [0.51, 4, 2],
+                   [0.76, 4, 3],
+                   [1.00, 4, 3],
+                   [0.00, 10, 0],
+                   [0.11, 10, 1],
+                   [0.21, 10, 2],
+                   [0.41, 10, 4],
+                   [0.61, 10, 6],
+                   [0.71, 10, 7],
+                   [1.00, 10, 9]]
+
+        for signal in signals:
+            invalue = signal[0]
+            num_buckets = signal[1]
+            expected = signal[2]
+            decoded = NeuralGinStrategy.decode_signal(invalue, buckets=num_buckets)
+            self.assertEqual(expected, decoded)
+
+    def test_decode_best_action(self):
+        signals = {'DISCARD': 0.1, 'DRAW': 0.3, 'KNOCK': 0.5, 'KNOCK-GIN': 0.7, 'PICKUP-FROM-DISCARD': 0.9}
+
+        for action, signal_strength in signals.items():
+            self.strat.nn.outputs['action'] = signal_strength
+            self.assertEqual(action, self.strat.decode_best_action())
