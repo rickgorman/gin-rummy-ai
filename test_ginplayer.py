@@ -2,6 +2,7 @@ from ginmatch import *
 import unittest
 from test_ginstrategy import MockGinStrategy
 
+
 class MockListener:
     def __init__(self):
         self.did_it_knock = False
