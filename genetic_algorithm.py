@@ -14,14 +14,30 @@ from ginmatch import *
 from neuralnet import *
 from ginstrategy import *
 
+# static seed for repeatability
+random.seed(0)
+
 
 class GeneSet(object):
     def __init__(self, genes=None):
         if isinstance(genes, int):
-            # create genome of the requested size with random values in [0,1]
+            # create genome of the requested size.
+            # for the random seed values, we want to try to pick smart values.
+            # let's make 10% of the weights significant and the rest small randoms
             self.genes = []
             default_length = genes
-            [self.genes.append(random.random()) for _ in range(default_length)]
+            possible_means = [0.0, 0.05, 0.1, 0.2]
+            shuffle(possible_means)
+            mean = possible_means[0]
+
+            [self.genes.append(abs(random.gauss(0.3, 0.2))) for _ in range(int(0.05 * default_length))]
+            [self.genes.append(abs(random.gauss(mean, 0.01))) for _ in range(int(0.95 * default_length))]
+            shuffle(self.genes)
+
+            # make sure the integer rounding doesn't lose us a gene or two
+            for _ in range(genes - len(self.genes)):
+                self.genes.append(abs(random.gauss(0.0, 0.01)))
+
         elif isinstance(genes, list):
             # store genome, ensuring genes are valid
             for gene in genes:

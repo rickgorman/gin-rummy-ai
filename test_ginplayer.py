@@ -1,6 +1,7 @@
 from ginmatch import *
 import unittest
 from test_ginstrategy import MockGinStrategy
+from test_helpers import *
 
 
 class MockListener:
@@ -24,7 +25,7 @@ class MockGinMatch(object):
 
 
 # noinspection PyProtectedMember
-class TestGinPlayer(unittest.TestCase):
+class TestGinPlayer(Helper):
     def setUp(self):
         self.p = GinPlayer()
         self.p2 = GinPlayer()
@@ -40,7 +41,7 @@ class TestGinPlayer(unittest.TestCase):
         self.assertNotEqual(123456, self.p.id)
 
         # has a GinStrategy
-#        self.assertIsInstance(self.p.strategy, GinStrategy, "Does not contain a GinStrategy")
+        #        self.assertIsInstance(self.p.strategy, GinStrategy, "Does not contain a GinStrategy")
 
         # has a GinHand
         self.assertIsInstance(self.p.hand, GinHand, "Does not contain a GinHand")
@@ -168,7 +169,7 @@ class TestGinPlayer(unittest.TestCase):
         self.p.strategy = strat
 
         # monkey-patching in a table
-#        self.p.table = GinTable()
+        #        self.p.table = GinTable()
 
         # ensure the player picks up the card from the top of the deck.
         topcard = self.p.table.deck.cards[-1]
@@ -187,7 +188,7 @@ class TestGinPlayer(unittest.TestCase):
         self.p.strategy = strat
 
         # monkey-patching in a table and a discard pile of depth 3
-#        p.table = GinTable()
+        #        p.table = GinTable()
         self.p.table.discard_pile.append(self.p.table.deck.cards.pop())
         self.p.table.discard_pile.append(self.p.table.deck.cards.pop())
         self.p.table.discard_pile.append(self.p.table.deck.cards.pop())
@@ -259,7 +260,6 @@ class TestGinPlayer(unittest.TestCase):
         self.assertRaises(AssertionError, self.p.take_turn)
 
     def test_pickup_discard(self):
-
         # monkey-patch a card into the discard pile
         self.t.discard_pile.append(GinCard(4, 'c'))
 
@@ -287,3 +287,8 @@ class TestGinPlayer(unittest.TestCase):
         # verify that we return whatever the mock strategy says to return
         self.p.strategy = MockGinStrategy(['WHATEVER'])
         self.assertTrue(self.p.accept_improper_knock())
+
+    def test_empty_hand(self):
+        self.p.hand = self.generate_ginhand_from_card_data(self.card_data1)
+        self.p.empty_hand()
+        self.assertEqual(0, len(self.p.hand.cards))

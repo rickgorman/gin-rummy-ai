@@ -8,10 +8,8 @@
 # base neural networking classes
 
 from math import exp
-from utility import indent_print, flatten
+from utility import *
 from texttable import *
-
-# TODO: we need to punish a network for doing something bad, i.e discarding at 10 cards or drawing at 11 cards.
 
 
 class NeuralNet(object):
@@ -91,6 +89,7 @@ class NeuralNet(object):
 
     # print a representation of the neural net
     def print_me(self):
+        output = ""
         # Table 1: print input layer
         input_table = Texttable()
         input_table.set_deco(Texttable.HEADER | Texttable.BORDER)
@@ -103,12 +102,12 @@ class NeuralNet(object):
             rows.append(["in-" + str(i), self.input_layer[i].weight])
 
         input_table.add_rows(rows)
-        print "\n" + "-- INPUT LAYER --"
-        print input_table.draw()
+        output += "\n" + "-- INPUT LAYER --"
+        output += input_table.draw()
 
         # other layers
-        self.print_layer('HIDDEN')
-        self.print_layer('OUTPUT')
+        output += self.print_layer('HIDDEN')
+        output += self.print_layer('OUTPUT')
 
         # ---------------------
         # Table 4: print current outputs
@@ -123,11 +122,14 @@ class NeuralNet(object):
             rows.append([key, self.outputs[key]])
 
         output_table.add_rows(rows)
-        print "\n" + "-- OUTPUT DATA --"
-        print output_table.draw()
+        output += "\n" + "-- OUTPUT DATA --"
+        output += output_table.draw()
+
+        return output
 
     # layer is either hidden or output
     def print_layer(self, name):
+        output = ""
         assert name == 'HIDDEN' or name == 'OUTPUT', "name must be HIDDEN or OUTPUT"
         if name == 'HIDDEN':
             our_inputs = self.input_layer
@@ -170,8 +172,10 @@ class NeuralNet(object):
             rows.append(row)
 
         table.add_rows(rows)
-        print "\n" + "-- " + name + " LAYER --"
-        print table.draw()
+        output += "\n" + "-- " + name + " LAYER --"
+        output += table.draw()
+
+        return output
 
 
 class Perceptron(object):

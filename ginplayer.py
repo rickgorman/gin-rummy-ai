@@ -84,9 +84,16 @@ class GinPlayer(Observable):
         self.hand.add_card(card)
 
     # implement the Observable criteria. return a dict of ints representing our hand. key corresponds to hand.cards idx
+    # note that we have 11 "slots". One may be empty at times. We use 0 as the empty encoding.
     def organize_data(self):
         indexes = range(len(self.hand.cards))
         rankings = [c.ranking() for c in self.hand.cards]
+
+        # make sure we return 11 values. 0 means no card.
+        if len(self.hand.cards) == 10:
+            indexes.append(10)
+            rankings.append(0)
+
         return dict(zip(indexes, rankings))
 
     def draw(self):
@@ -124,7 +131,7 @@ class GinPlayer(Observable):
                 card = self.hand.get_card_at_index(index)
                 self.knock_gin(card)
 
-        logging.debug("\t\t{0}  \t{1}".format(self.action[0], card))
+        logging.debug("\t\tAction taken: {0}  \t{1}".format(self.action[0], card))
 
     # consult the strategy and perform the action suggested
     def take_turn(self):
@@ -154,6 +161,10 @@ class GinPlayer(Observable):
         except AttributeError:
             raise Exception("cards not behaving like a list: " + AttributeError.message)
         return card
+
+    # empty the player's hand
+    def empty_hand(self):
+        self.hand = GinHand()
 
     def accept_improper_knock(self):
         return self.strategy.consider_accepting_improper_knock()

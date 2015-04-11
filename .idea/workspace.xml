@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/neuralnet.py" line="261" />
+    <bookmark url="file://$PROJECT_DIR$/neuralnet.py" line="265" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="Changed naming for 'sensors' to 'observers' for clarity">
+    <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/genetic_algorithm.py" afterPath="$PROJECT_DIR$/genetic_algorithm.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginhand.py" afterPath="$PROJECT_DIR$/ginhand.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginmatch.py" afterPath="$PROJECT_DIR$/ginmatch.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginplayer.py" afterPath="$PROJECT_DIR$/ginplayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginstrategy.py" afterPath="$PROJECT_DIR$/ginstrategy.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gintable.py" afterPath="$PROJECT_DIR$/gintable.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/me.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/me.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neuralnet.py" afterPath="$PROJECT_DIR$/neuralnet.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/observer.py" afterPath="$PROJECT_DIR$/observer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_genetic_algorithm.py" afterPath="$PROJECT_DIR$/test_genetic_algorithm.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginmatch.py" afterPath="$PROJECT_DIR$/test_ginmatch.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/playground.py" afterPath="$PROJECT_DIR$/playground.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginplayer.py" afterPath="$PROJECT_DIR$/test_ginplayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginstrategy.py" afterPath="$PROJECT_DIR$/test_ginstrategy.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_gintable.py" afterPath="$PROJECT_DIR$/test_gintable.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_neuralnet.py" afterPath="$PROJECT_DIR$/test_neuralnet.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_observer.py" afterPath="$PROJECT_DIR$/test_observer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utility.py" afterPath="$PROJECT_DIR$/utility.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -34,6 +27,7 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_deadwood_cards.coverage" NAME="Unittest TestGinHand.test_deadwood_cards Coverage Results" MODIFIED="1426663436750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestGinTable_test_refresh_deck.coverage" NAME="Unittest TestGinTable.test_refresh_deck Coverage Results" MODIFIED="1428750746079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_test_observer.coverage" NAME="Unittests in test_observer Coverage Results" MODIFIED="1428732573806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test__is_in_a_3set.coverage" NAME="Unittest TestGinHand.test__is_in_a_3set Coverage Results" MODIFIED="1392636783376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_execute_strategy_pickup_discard.coverage" NAME="Unittest TestGinPlayer.test_execute_strategy_pickup_discard Coverage Results" MODIFIED="1426417580401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -65,19 +59,20 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestMultiInputPerceptron_test__init__.coverage" NAME="Unittest TestMultiInputPerceptron.test__init__ Coverage Results" MODIFIED="1427793533941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestNeuralNet_test_validate_weights.coverage" NAME="Unittest TestNeuralNet.test_validate_weights Coverage Results" MODIFIED="1428717062952" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestCard.coverage" NAME="Unittests in TestCard Coverage Results" MODIFIED="1427711000330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$All_Unittests_in_neural.coverage" NAME="All Unittests in neural Coverage Results" MODIFIED="1428740918458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/neural$All_Unittests_in_neural.coverage" NAME="All Unittests in neural Coverage Results" MODIFIED="1428742518527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinMatch_test_end_with_knock_valid.coverage" NAME="Unittest TestGinMatch.test_end_with_knock_valid Coverage Results" MODIFIED="1426657799816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_sort_melds.coverage" NAME="Unittest TestGinCardGroup.test_sort_melds Coverage Results" MODIFIED="1426826775614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestHiddenPerceptron.coverage" NAME="Unittests in TestHiddenPerceptron Coverage Results" MODIFIED="1427792725974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_TestGinCardGroup.coverage" NAME="Unittests in test_gin.py Coverage Results" MODIFIED="1397893724227" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_sum_points.coverage" NAME="Unittest TestGinCardGroup.test_sum_points Coverage Results" MODIFIED="1395253601728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_take_turn.coverage" NAME="Unittest TestGinPlayer.test_take_turn Coverage Results" MODIFIED="1428473148038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_empty_hand.coverage" NAME="Unittest TestGinPlayer.test_empty_hand Coverage Results" MODIFIED="1428751170756" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_consult_strategy.coverage" NAME="Unittest TestGinPlayer.test_consult_strategy Coverage Results" MODIFIED="1426410081736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestNeuralNet_test_print_me.coverage" NAME="Unittest TestNeuralNet.test_print_me Coverage Results" MODIFIED="1428141650823" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_size.coverage" NAME="Unittest TestGinCardGroup.test_size Coverage Results" MODIFIED="1395246097530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinCardGroup_test_contains_card.coverage" NAME="Unittest TestGinCardGroup.test_contains_card Coverage Results" MODIFIED="1395249322206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestPerceptron_test_sigmoid.coverage" NAME="Unittest TestPerceptron.test_sigmoid Coverage Results" MODIFIED="1427177255361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittest_TestNeuralGinStrategy_test_decode_index.coverage" NAME="Unittest TestNeuralGinStrategy.test_decode_index Coverage Results" MODIFIED="1428736435829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestNeuralGinStrategy_test_decode_index.coverage" NAME="Unittest TestNeuralGinStrategy.test_decode_index Coverage Results" MODIFIED="1428742507304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_test_genetic_algorithm.coverage" NAME="Unittests in test_genetic_algorithm Coverage Results" MODIFIED="1428727891624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_execute_strategy_knock.coverage" NAME="Unittest TestGinPlayer.test_execute_strategy_knock Coverage Results" MODIFIED="1426851178461" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGeneSet_test_mutate.coverage" NAME="Unittest TestGeneSet.test_mutate Coverage Results" MODIFIED="1428669555132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -144,7 +139,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_clean_meld_group.coverage" NAME="Unittest TestGinHand.test_clean_meld_group Coverage Results" MODIFIED="1395242103171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_get_card_at_index.coverage" NAME="Unittest TestGinHand.test_get_card_at_index Coverage Results" MODIFIED="1426416528046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_new_ginplayer.coverage" NAME="Unittest TestGinPlayer.test_new_ginplayer Coverage Results" MODIFIED="1428472442098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittest_TestPopulation_test_fitness_test.coverage" NAME="Unittest TestPopulation.test_fitness_test Coverage Results" MODIFIED="1428739362767" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestPopulation_test_fitness_test.coverage" NAME="Unittest TestPopulation.test_fitness_test Coverage Results" MODIFIED="1428752029590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestPerceptron_test_generate_output.coverage" NAME="Unittest TestPerceptron.test_generate_output Coverage Results" MODIFIED="1427808414635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_discard_not_holding_said_card.coverage" NAME="Unittest TestGinHand.test_discard_not_holding_said_card Coverage Results" MODIFIED="1392629809570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_testDeadwoodCount.coverage" NAME="Unittest TestGinHand.testDeadwoodCount Coverage Results" MODIFIED="1390373776661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -260,45 +255,6 @@
     <disable_hints />
   </component>
   <component name="DockManager">
-    <window id="2">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="genetic_algorithm.py" pinned="false" current="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state line="25" column="52" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3195">
-                    <folding>
-                      <element signature="e#168#181#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="gintable.py" pinned="false" current="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/gintable.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state line="80" column="0" selection-start="2553" selection-end="2566" vertical-scroll-proportion="0.8248" vertical-offset="169" max-vertical-offset="1455">
-                    <folding>
-                      <element signature="e#138#161#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="ginstrategy.py" pinned="false" current="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/ginstrategy.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state line="72" column="36" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
     <window id="1">
       <content type="file-editors">
         <state>
@@ -306,7 +262,7 @@
             <file leaf-file-name="test_ginstrategy.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_ginstrategy.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="42" column="64" selection-start="1301" selection-end="1301" vertical-scroll-proportion="0.0" vertical-offset="64" max-vertical-offset="1710">
+                  <state line="55" column="49" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="1800">
                     <folding />
                   </state>
                 </provider>
@@ -315,7 +271,16 @@
             <file leaf-file-name="test_neuralnet.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_neuralnet.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="120" column="0" selection-start="4675" selection-end="4675" vertical-scroll-proportion="0.0" vertical-offset="1707" max-vertical-offset="6270">
+                  <state line="264" column="25" selection-start="10111" selection-end="10111" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6195">
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state line="117" column="0" selection-start="4119" selection-end="4249" vertical-scroll-proportion="0.0" vertical-offset="1339" max-vertical-offset="3090">
                     <folding>
                       <element signature="e#0#15#0" expanded="true" />
                     </folding>
@@ -323,13 +288,11 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="true" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
+            <file leaf-file-name="playground.py" pinned="false" current="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/playground.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="198" column="0" selection-start="7067" selection-end="7067" vertical-scroll-proportion="0.9388254" vertical-offset="1819" max-vertical-offset="3090">
-                    <folding>
-                      <element signature="e#0#15#0" expanded="true" />
-                    </folding>
+                  <state line="20" column="0" selection-start="422" selection-end="422" vertical-scroll-proportion="0.24469821" vertical-offset="0" max-vertical-offset="1226">
+                    <folding />
                   </state>
                 </provider>
               </entry>
@@ -337,11 +300,8 @@
             <file leaf-file-name="test_observer.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_observer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="75" column="30" selection-start="2256" selection-end="2256" vertical-scroll-proportion="0.0" vertical-offset="379" max-vertical-offset="1605">
-                    <folding>
-                      <element signature="e#0#22#0" expanded="true" />
-                      <marker date="1428732819000" expanded="true" signature="1836:3308" placeholder="..." />
-                    </folding>
+                  <state line="75" column="30" selection-start="2256" selection-end="2256" vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="1605">
+                    <folding />
                   </state>
                 </provider>
               </entry>
@@ -349,7 +309,7 @@
             <file leaf-file-name="test_ginplayer.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="219" column="43" selection-start="7371" selection-end="7371" vertical-scroll-proportion="0.0" vertical-offset="2577" max-vertical-offset="4410">
+                  <state line="293" column="51" selection-start="10211" selection-end="10211" vertical-scroll-proportion="0.0" vertical-offset="3229" max-vertical-offset="4485">
                     <folding>
                       <element signature="e#0#22#0" expanded="true" />
                     </folding>
@@ -360,10 +320,8 @@
             <file leaf-file-name="test_ginmatch.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="150" column="31" selection-start="4419" selection-end="4419" vertical-scroll-proportion="0.0" vertical-offset="945" max-vertical-offset="4605">
-                    <folding>
-                      <element signature="e#0#22#0" expanded="true" />
-                    </folding>
+                  <state line="141" column="0" selection-start="3975" selection-end="3975" vertical-scroll-proportion="0.0" vertical-offset="2115" max-vertical-offset="4605">
+                    <folding />
                   </state>
                 </provider>
               </entry>
@@ -371,8 +329,10 @@
             <file leaf-file-name="test_gintable.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_gintable.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="77" column="0" selection-start="2601" selection-end="2601" vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="1335">
-                    <folding />
+                  <state line="87" column="23" selection-start="2978" selection-end="2978" vertical-scroll-proportion="0.0" vertical-offset="229" max-vertical-offset="1500">
+                    <folding>
+                      <marker date="1428750733000" expanded="true" signature="79:3343" placeholder="..." />
+                    </folding>
                   </state>
                 </provider>
               </entry>
@@ -397,13 +357,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="observer.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/observer.py">
+      <file leaf-file-name="ginhand.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ginhand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1245">
-              <folding>
-                <element signature="e#148#159#0" expanded="true" />
-              </folding>
+            <state line="68" column="35" selection-start="1828" selection-end="1828" vertical-scroll-proportion="0.0" vertical-offset="334" max-vertical-offset="6855">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="35" selection-start="807" selection-end="807" vertical-scroll-proportion="0.0" vertical-offset="2134" max-vertical-offset="3360">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -411,16 +378,61 @@
       <file leaf-file-name="ginplayer.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginplayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="102" column="0" selection-start="2787" selection-end="2787" vertical-scroll-proportion="0.0" vertical-offset="1105" max-vertical-offset="2370">
+            <state line="123" column="39" selection-start="3644" selection-end="3644" vertical-scroll-proportion="0.0" vertical-offset="1352" max-vertical-offset="2580">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ginhand.py" pinned="false" current="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ginhand.py">
+      <file leaf-file-name="observer.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/observer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="0" selection-start="2083" selection-end="2083" vertical-scroll-proportion="0.888" vertical-offset="0" max-vertical-offset="6870">
+            <state line="22" column="0" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1230">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ginmatch.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ginmatch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="185" column="25" selection-start="6671" selection-end="6671" vertical-scroll-proportion="0.0" vertical-offset="2537" max-vertical-offset="4920">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ginstrategy.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ginstrategy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="47" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="neuralnet.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/neuralnet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="252" column="4" selection-start="8899" selection-end="8899" vertical-scroll-proportion="0.9755302" vertical-offset="2554" max-vertical-offset="5175">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gintable.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gintable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="0" selection-start="1519" selection-end="1519" vertical-scroll-proportion="0.0" vertical-offset="274" max-vertical-offset="1500">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utility.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utility.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="25" column="9" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1050">
               <folding />
             </state>
           </provider>
@@ -444,27 +456,27 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/fitness_test.py" />
-        <option value="$PROJECT_DIR$/test_ginmatch.py" />
         <option value="$PROJECT_DIR$/utility.py" />
         <option value="$PROJECT_DIR$/test_neuralnet.py" />
         <option value="$PROJECT_DIR$/test_observer.py" />
-        <option value="$PROJECT_DIR$/ginmatch.py" />
-        <option value="$PROJECT_DIR$/genetic_algorithm.py" />
         <option value="$PROJECT_DIR$/test_genetic_algorithm.py" />
-        <option value="$PROJECT_DIR$/neuralnet.py" />
         <option value="$PROJECT_DIR$/observer.py" />
-        <option value="$PROJECT_DIR$/test_ginstrategy.py" />
-        <option value="$PROJECT_DIR$/ginplayer.py" />
         <option value="$PROJECT_DIR$/ginstrategy.py" />
-        <option value="$PROJECT_DIR$/test_ginplayer.py" />
+        <option value="$PROJECT_DIR$/test_ginstrategy.py" />
         <option value="$PROJECT_DIR$/gintable.py" />
         <option value="$PROJECT_DIR$/test_gintable.py" />
+        <option value="$PROJECT_DIR$/ginhand.py" />
+        <option value="$PROJECT_DIR$/test_ginplayer.py" />
+        <option value="$PROJECT_DIR$/genetic_algorithm.py" />
+        <option value="$PROJECT_DIR$/ginmatch.py" />
+        <option value="$PROJECT_DIR$/ginplayer.py" />
+        <option value="$PROJECT_DIR$/playground.py" />
+        <option value="$PROJECT_DIR$/neuralnet.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1823" />
+    <option name="x" value="-100" />
     <option name="y" value="-1619" />
     <option name="width" value="956" />
     <option name="height" value="1348" />
@@ -583,7 +595,7 @@
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="options.lastSelected" value="preferences.toDoOptions" />
+    <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
   </component>
@@ -600,107 +612,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.All Unittests in neural">
-    <configuration default="false" name="Unittest TestNeuralGinStrategy.test_decode_best_action_start_hand" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginstrategy.py" />
-      <option name="CLASS_NAME" value="TestNeuralGinStrategy" />
-      <option name="METHOD_NAME" value="test_decode_best_action_start_hand" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestNeuralGinStrategy.test_decode_best_action_end_hand" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginstrategy.py" />
-      <option name="CLASS_NAME" value="TestNeuralGinStrategy" />
-      <option name="METHOD_NAME" value="test_decode_best_action_end_hand" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestGinPlayer.test_execute_strategy_discard" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginplayer.py" />
-      <option name="CLASS_NAME" value="TestGinPlayer" />
-      <option name="METHOD_NAME" value="test_execute_strategy_discard" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittest TestGinPlayer.test_execute_strategy_draw" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="neural" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginplayer.py" />
-      <option name="CLASS_NAME" value="TestGinPlayer" />
-      <option name="METHOD_NAME" value="test_execute_strategy_draw" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittest TestPopulation.test_fitness_test">
     <configuration default="false" name="Unittests in test_ginstrategy" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -717,6 +629,108 @@
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestPopulation.test_fitness_test" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_genetic_algorithm.py" />
+      <option name="CLASS_NAME" value="TestPopulation" />
+      <option name="METHOD_NAME" value="test_fitness_test" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestNeuralGinStrategy.test_decode_index" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginstrategy.py" />
+      <option name="CLASS_NAME" value="TestNeuralGinStrategy" />
+      <option name="METHOD_NAME" value="test_decode_index" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestGinTable.test_refresh_deck" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_gintable.py" />
+      <option name="CLASS_NAME" value="TestGinTable" />
+      <option name="METHOD_NAME" value="test_refresh_deck" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest TestGinPlayer.test_empty_hand" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="neural" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_ginplayer.py" />
+      <option name="CLASS_NAME" value="TestGinPlayer" />
+      <option name="METHOD_NAME" value="test_empty_hand" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="PUREUNITTEST" value="true" />
@@ -905,19 +919,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python tests.All Unittests in neural" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestNeuralGinStrategy.test_decode_best_action_start_hand" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestNeuralGinStrategy.test_decode_best_action_end_hand" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestGinPlayer.test_execute_strategy_discard" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinPlayer.test_execute_strategy_draw" />
-      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginstrategy" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginstrategy" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_fitness_test" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestNeuralGinStrategy.test_decode_index" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinTable.test_refresh_deck" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Unittest TestGinPlayer.test_empty_hand" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginstrategy" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinPlayer.test_execute_strategy_draw" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestGinPlayer.test_execute_strategy_discard" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestNeuralGinStrategy.test_decode_best_action_end_hand" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestNeuralGinStrategy.test_decode_best_action_start_hand" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_fitness_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestGinPlayer.test_empty_hand" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestGinTable.test_refresh_deck" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestNeuralGinStrategy.test_decode_index" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_ginstrategy" />
       </list>
     </recent_temporary>
   </component>
@@ -1245,7 +1259,15 @@
       <created>1428723527515</created>
       <updated>1428723527516</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Changed naming for 'sensors' to 'observers' for clarity&#10;Modified consult_strategy() to take a phase parameter to split potential actions between phases of turn. We could evolve smartness about this, but it makes testing rougher. It also allows the start/end strategies to more finely tune their own weights.&#10;Added an observable_width requirement to Observables in order to more accurately line up weights&#10;Changed the player's draw() to use a method that will notify observers&#10;Added InvalidPlayError for when a player tries to pickup on the first turn with 11 cards&#10;Added Population.cull(), .add_member(), .cross_over(), .get_top_members(), .fitness_test(). Passed all but .fitness_test()&#10;Added GinStrategy.decode_index&#10;Began observing the gc">
+      <created>1428741343568</created>
+      <updated>1428741343568</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Cleaned up some logging messages">
+      <created>1428743704716</created>
+      <updated>1428743704716</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1269,26 +1291,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1823" y="-1619" width="956" height="1348" extended-state="0" />
+    <frame x="-100" y="-1619" width="956" height="1348" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24397905" sideWeight="0.49943882" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299817" sideWeight="0.4995005" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291634" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="-100" y="-2160" width="1917" height="536" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29632527" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21861924" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17696334" sideWeight="0.49944383" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.49944383" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23221266" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291634" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.117154814" sideWeight="0.6708075" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15794979" sideWeight="0.67083657" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.22513089" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1619" width="956" height="1348" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="-100" y="-2160" width="1917" height="536" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21861924" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29632527" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.22513089" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1619" width="956" height="1348" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17696334" sideWeight="0.49944383" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="127" y="-1145" width="501" height="130" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.49944383" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.7419355" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1328,8 +1350,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Card, GinTable now inherit from object&#10;" />
-    <MESSAGE value="Moved Wrapper out of utility and into observer.py" />
     <MESSAGE value="Renamed 'Wrapper' to 'Observable'&#10;Settled on an Observer paradigm using Observer.observe() and .register() and Observable.register_observer()&#10;Added and Passed tests for Observer.register(), Observable.register_observer()" />
     <MESSAGE value="Moved __repr__() and ranking() from GinCard into Card&#10;Added GinCard.ranking()" />
     <MESSAGE value="Added test for Player.organize_data()&#10;Changed behavior of Observable to now be a base class. notify_observer() is now a decorator which will wrap a method with notifications to observers.&#10;Removed __getattr__ and __setattr__ wrapper behavior&#10;Passed all tests." />
@@ -1353,7 +1373,9 @@
     <MESSAGE value="Created WeightSet to handling how we offer a GeneSet to a NeuralNet&#10;Refactored NeuralNet to use WeightSet, rather than raw weights" />
     <MESSAGE value="Added Population function to act as holder/controller of our population and genetic algorithm&#10;Passed test for __init__&#10;Added draw function" />
     <MESSAGE value="Added debug logging for GinMatch to watch a game.&#10;Added get_player_string" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added debug logging for GinMatch to watch a game.&#10;Added get_player_string" />
+    <MESSAGE value="Changed naming for 'sensors' to 'observers' for clarity&#10;Modified consult_strategy() to take a phase parameter to split potential actions between phases of turn. We could evolve smartness about this, but it makes testing rougher. It also allows the start/end strategies to more finely tune their own weights.&#10;Added an observable_width requirement to Observables in order to more accurately line up weights&#10;Changed the player's draw() to use a method that will notify observers&#10;Added InvalidPlayError for when a player tries to pickup on the first turn with 11 cards&#10;Added Population.cull(), .add_member(), .cross_over(), .get_top_members(), .fitness_test(). Passed all but .fitness_test()&#10;Added GinStrategy.decode_index&#10;Began observing the gc" />
+    <MESSAGE value="Cleaned up some logging messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up some logging messages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1372,144 +1394,155 @@
           <line>14</line>
           <option name="timeStamp" value="134" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/neuralnet.py</url>
+          <line>121</line>
+          <option name="timeStamp" value="255" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/ginmatch.py</url>
+          <line>257</line>
+          <option name="timeStamp" value="257" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_ginplayer.py</url>
+          <option name="timeStamp" value="258" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/ginstrategy.py</url>
+          <line>60</line>
+          <option name="timeStamp" value="259" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
       <default-breakpoints>
         <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
+          <properties notifyAlways="true" exception="BaseException">
+            <option name="notifyAlways" value="true" />
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="238" />
+      <option name="time" value="260" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/pycharm_run_utils.py">
+    <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="718" selection-end="718" vertical-scroll-proportion="0.324" vertical-offset="0" max-vertical-offset="1250">
+        <state line="141" column="0" selection-start="3975" selection-end="3975" vertical-scroll-proportion="0.0" vertical-offset="2115" max-vertical-offset="4605">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/suite.py">
+    <entry file="file://$PROJECT_DIR$/utility.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="0" selection-start="2796" selection-end="2796" vertical-scroll-proportion="0.3328" vertical-offset="979" max-vertical-offset="4590">
+        <state line="25" column="9" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1050">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
+    <entry file="file://$PROJECT_DIR$/test_neuralnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="52" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3195">
+        <state line="264" column="25" selection-start="10111" selection-end="10111" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6195">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_gintable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="23" selection-start="2978" selection-end="2978" vertical-scroll-proportion="0.0" vertical-offset="229" max-vertical-offset="1500">
           <folding>
-            <element signature="e#168#181#0" expanded="true" />
+            <marker date="1428750733000" expanded="true" signature="79:3343" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/neuralnet.py">
+    <entry file="file://$PROJECT_DIR$/gintable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="249" column="59" selection-start="8978" selection-end="8978" vertical-scroll-proportion="0.8488" vertical-offset="2674" max-vertical-offset="5145">
-          <folding>
-            <element signature="e#91#111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="121" column="17" selection-start="3518" selection-end="3518" vertical-scroll-proportion="0.18597063" vertical-offset="1542" max-vertical-offset="12090">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_compile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="17" selection-start="1468" selection-end="1468" vertical-scroll-proportion="0.4918434" vertical-offset="147" max-vertical-offset="7920">
+        <state line="47" column="0" selection-start="1519" selection-end="1519" vertical-scroll-proportion="0.0" vertical-offset="274" max-vertical-offset="1500">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/observer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1245">
-          <folding>
-            <element signature="e#148#159#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_neuralnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="0" selection-start="4675" selection-end="4675" vertical-scroll-proportion="0.0" vertical-offset="1707" max-vertical-offset="6270">
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_ginstrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="64" selection-start="1301" selection-end="1301" vertical-scroll-proportion="0.0" vertical-offset="64" max-vertical-offset="1710">
+        <state line="22" column="0" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1230">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ginplayer.py">
+    <entry file="file://$PROJECT_DIR$/test_helpers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="0" selection-start="2787" selection-end="2787" vertical-scroll-proportion="0.0" vertical-offset="1105" max-vertical-offset="2370">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ginstrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="36" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
+        <state line="74" column="17" selection-start="1211" selection-end="1211" vertical-scroll-proportion="0.0" vertical-offset="1110" max-vertical-offset="2130">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="219" column="43" selection-start="7371" selection-end="7371" vertical-scroll-proportion="0.0" vertical-offset="2577" max-vertical-offset="4410">
+        <state line="293" column="51" selection-start="10211" selection-end="10211" vertical-scroll-proportion="0.0" vertical-offset="3229" max-vertical-offset="4485">
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ginhand.py">
+    <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="2083" selection-end="2083" vertical-scroll-proportion="0.888" vertical-offset="0" max-vertical-offset="6870">
+        <state line="29" column="35" selection-start="807" selection-end="807" vertical-scroll-proportion="0.0" vertical-offset="2134" max-vertical-offset="3360">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gintable.py">
+    <entry file="file://$PROJECT_DIR$/ginstrategy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="0" selection-start="2553" selection-end="2566" vertical-scroll-proportion="0.8248" vertical-offset="169" max-vertical-offset="1455">
-          <folding>
-            <element signature="e#138#161#0" expanded="true" />
-          </folding>
+        <state line="18" column="47" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_gintable.py">
+    <entry file="file://$PROJECT_DIR$/ginmatch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="2601" selection-end="2601" vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="1335">
+        <state line="185" column="25" selection-start="6671" selection-end="6671" vertical-scroll-proportion="0.0" vertical-offset="2537" max-vertical-offset="4920">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="0" selection-start="7067" selection-end="7067" vertical-scroll-proportion="0.9388254" vertical-offset="1819" max-vertical-offset="3090">
+        <state line="117" column="0" selection-start="4119" selection-end="4249" vertical-scroll-proportion="0.0" vertical-offset="1339" max-vertical-offset="3090">
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/playground.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="422" selection-end="422" vertical-scroll-proportion="0.24469821" vertical-offset="0" max-vertical-offset="1226">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginplayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="39" selection-start="3644" selection-end="3644" vertical-scroll-proportion="0.0" vertical-offset="1352" max-vertical-offset="2580">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginhand.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="35" selection-start="1828" selection-end="1828" vertical-scroll-proportion="0.0" vertical-offset="334" max-vertical-offset="6855">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/neuralnet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="252" column="4" selection-start="8899" selection-end="8899" vertical-scroll-proportion="0.9755302" vertical-offset="2554" max-vertical-offset="5175">
+          <folding />
         </state>
       </provider>
     </entry>

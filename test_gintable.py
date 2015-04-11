@@ -82,3 +82,15 @@ class TestGinTable(unittest.TestCase):
 
         self.assertIsInstance(card, GinCard)
         self.assertTrue(card.ranking() not in [x.ranking() for x in self.t.discard_pile])
+
+    def test_refresh_deck(self):
+        first_deck = self.t.deck.cards.__repr__()
+        self.t.discard_pile.append(self.t.deck.deal_a_card())
+
+        # refresh and make sure the deck isn't the same (this fails every so often)
+        self.t.refresh_deck()
+        self.assertEqual(52, len(self.t.deck.cards))
+        second_deck = self.t.deck.cards.__repr__()
+        self.assertEqual(0, len(self.t.discard_pile))
+
+        self.assertNotEqual(first_deck, second_deck)

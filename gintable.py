@@ -63,6 +63,11 @@ class GinTable(Observable):
 
         return data
 
+    @notify_observers_after
+    def refresh_deck(self):
+        self.deck = GinDeck()
+        self.discard_pile = []
+
     # pop a card from the deck and return it
     @notify_observers_after
     def deal_a_card(self):

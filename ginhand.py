@@ -452,4 +452,3 @@ class GinHand(GinCardGroup):
                         # if our rank is one more than the highest of the meld, we lay it off
                         elif c.rank == gcg.cards[-1].rank + 1:
                             self.discard(c)
-
