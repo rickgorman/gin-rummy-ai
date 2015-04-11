@@ -8,7 +8,7 @@
 # base neural networking classes
 
 from math import exp
-from utility import indent_print
+from utility import indent_print, flatten
 from texttable import *
 
 # TODO: we need to punish a network for doing something bad, i.e discarding at 10 cards or drawing at 11 cards.
@@ -16,15 +16,15 @@ from texttable import *
 
 class NeuralNet(object):
     # take in an array of sensors, a dict of lists of weights (weights[input]=[0.1,0.2,...]) and an array of output_keys
-    def __init__(self, sensors, weights, output_keys):
+    def __init__(self, sensors, weightset, output_keys):
         assert len(sensors) > 0, 'must have at least one sensor'
-        assert len(weights) > 0, 'must have non-empty weights dict'
+        assert len(weightset.weights) > 0, 'must have non-empty weights dict'
         assert len(output_keys) > 0, 'must have at least one output_key'
 
-#        self.validate_weights()
-
         self.sensors = sensors
-        self.weights = weights
+
+        self.weightset = weightset
+
         self.outputs = {}
         for key in output_keys:
             self.outputs[key] = None
@@ -37,35 +37,22 @@ class NeuralNet(object):
         self.create_hidden_layer()    # a list of Perceptrons
         self.create_output_layer()    # a list of {output_key:Perceptron} dicts
 
+        self.validate_weights()
+
     def validate_weights(self):
         # ensure we have an input, hidden and output key
-        assert 'input'  in self.weights, "no input  weights"
-        assert 'hidden' in self.weights, "no hidden weights"
-        assert 'output' in self.weights, "no output weights"
+        assert 'input'  in self.weightset.weights, "no input  weights"
+        assert 'hidden' in self.weightset.weights, "no hidden weights"
+        assert 'output' in self.weightset.weights, "no output weights"
 
-        # ensure we have exactly one input weight per sensor buffer item
+        # calculate how many inputs we have
         expected_input_count = 0
         for sensor in self.sensors:
             for _ in sensor.buffer.keys():
                 expected_input_count += 1
-        assert len(self.weights['input']) == expected_input_count, "input weight mismatch"
 
-        # ensure we have exactly one hidden list per hidden
-        assert self.calculate_hidden_count() == len(self.weights['hidden']), "hidden weight key mismatch"
-
-        # ensure each hidden list has length equal to number of input neurons
-        for i in range(self.calculate_hidden_count()):
-            assert len(self.weights['hidden'][i]) == expected_input_count, "hidden weight count mismatch"
-
-        # ensure we have exactly one output list per output
-        assert len(self.outputs) == len(self.weights['output']), "output weight key mismatch"
-
-        # ensure each output list has length equal to number of hidden neurons
-        for i in range(len(self.outputs)):
-            assert len(self.weights['output'][i]) == self.calculate_hidden_count(), "output weight count mismatch"
-
-        # as long as we made it this far, we're good
-        return True
+        # offload the work to the weightset
+        return self.weightset.validate(expected_input_count, self.calculate_hidden_count(), len(self.outputs))
 
     def calculate_hidden_count(self):
         return int((len(self.input_layer) + len(self.outputs)) * 2/3)
@@ -74,7 +61,7 @@ class NeuralNet(object):
         for sensor in self.sensors:
             for key in sensor.buffer.keys():
                 # take advantage of the buffer key indexing (0, 1, ...) to match up with the appropriate weight
-                weight = self.weights['input'][key]
+                weight = self.weightset.weights['input'][key]
                 # create a uniqueish id
                 myid = sensor.__class__.__name__ + '-' + str(sensor.id) + '-' + str(key)
                 self.input_layer.append(InputPerceptron(sensor, weight=weight, myid=myid, index=key))
@@ -83,7 +70,7 @@ class NeuralNet(object):
     def create_hidden_layer(self):
         count = self.calculate_hidden_count()
         for i in range(count):
-            hp = HiddenPerceptron(self.input_layer, self.weights['hidden'][i])
+            hp = HiddenPerceptron(self.input_layer, self.weightset.weights['hidden'][i])
             self.hidden_layer.append(hp)
 
     # create output neurons and attach them to each of our hidden neurons using the weights in weights['hidden']
@@ -91,7 +78,7 @@ class NeuralNet(object):
         count = len(self.outputs)
         for i in range(count):
             key = self.outputs.keys()[i]
-            op = OutputPerceptron(self.hidden_layer, self.weights['output'][i], key)
+            op = OutputPerceptron(self.hidden_layer, self.weightset.weights['output'][i], key)
             self.output_layer.append({key: op})
 
     # pulse the neural net and store the output for later use
@@ -281,3 +268,71 @@ class OutputPerceptron(MultiInputPerceptron):
     def __init__(self, input_neurons, neuron_weights, output_key, myid=None):
         super(OutputPerceptron, self).__init__(input_neurons, neuron_weights, myid=myid)
         self.output_key = output_key
+
+
+# wrapper class for geneset that exposes the genes as an arrangement of weights
+class WeightSet(object):
+    def __init__(self, gene_set, num_inputs=None, num_hidden=None, num_outputs=None):
+        # ensure correct args
+        assert num_inputs is not None and num_hidden is not None and num_outputs is not None, "empty args"
+        assert len(gene_set.genes) >= num_inputs + num_hidden + num_outputs, "not enough genes to fill up our weights"
+
+        # create structure
+        self.weights = {'input': [], 'hidden': [], 'output': []}
+
+        # fill input layer with weights
+        for _ in range(num_inputs):
+            self.weights['input'].append(gene_set.genes.pop())
+
+        # fill hidden layer with weights connecting to input layer
+        for i in range(num_hidden):
+            self.weights['hidden'].append([])
+            for _ in range(num_inputs):
+                self.weights['hidden'][i].append(gene_set.genes.pop())
+
+        # fill output layer with weights connecting to input layer
+        for i in range(num_outputs):
+            self.weights['output'].append([])
+            for _ in range(num_hidden):
+                self.weights['output'][i].append(gene_set.genes.pop())
+
+    # cut out junk genes
+    def prune(self, num_inputs, num_hidden, num_outputs):
+        # input layer
+        self.weights['input'] = self.weights['input'][:num_inputs]
+
+        # hidden layer
+        self.weights['hidden'] = self.weights['hidden'][:num_hidden]
+        for i in range(len(self.weights['hidden'])):
+            self.weights['hidden'][i] = self.weights['hidden'][i][:num_inputs]
+
+        # output layer
+        self.weights['output'] = self.weights['output'][:num_inputs]
+        for i in range(len(self.weights['output'])):
+            self.weights['output'][i] = self.weights['output'][i][:num_hidden]
+
+    def validate(self, expected_input_count, expected_hidden_count, expected_output_count):
+        # ensure we have an input, hidden and output key
+        assert 'input'  in self.weights, "no input  weights"
+        assert 'hidden' in self.weights, "no hidden weights"
+        assert 'output' in self.weights, "no output weights"
+
+        # ensure we have exactly one input weight per expected
+        assert expected_input_count == len(self.weights['input']), "input weight mismatch"
+
+        # ensure we have exactly one hidden list per expected
+        assert expected_hidden_count == len(self.weights['hidden']), "hidden weight key mismatch"
+
+        # ensure each hidden list has length equal to number of input neurons
+        for i in range(expected_hidden_count):
+            assert expected_input_count == len(self.weights['hidden'][i]), "hidden weight count mismatch"
+
+        # ensure we have exactly one output list per output
+        assert expected_output_count == len(self.weights['output']), "output weight key mismatch"
+
+        # ensure each output list has length equal to number of hidden neurons
+        for i in range(expected_output_count):
+            assert expected_hidden_count == len(self.weights['output'][i]), "output weight count mismatch"
+
+        # as long as we made it this far, we're good
+        return True

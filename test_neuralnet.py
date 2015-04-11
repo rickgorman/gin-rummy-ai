@@ -3,6 +3,7 @@ from neuralnet import *
 from observer import *
 from ginplayer import *
 from gintable import *
+from genetic_algorithm import GeneSet, GinGeneSet
 
 
 # noinspection PyMissingConstructor
@@ -11,8 +12,8 @@ class MockSensor(Observer):
         super(MockSensor, self).__init__(obj)
         self.buffer = [obj.value]
 
-    # def sense(self):
-    #     return self.target.value
+        # def sense(self):
+        #     return self.target.value
 
 
 class MockObservable(Observable):
@@ -34,7 +35,6 @@ class MockNeuralNetwork(object):
 
 # noinspection PyDictCreation
 class TestNeuralNet(unittest.TestCase):
-
     @staticmethod
     def clear_all_layers(nn):
         assert isinstance(nn, NeuralNet)
@@ -50,66 +50,51 @@ class TestNeuralNet(unittest.TestCase):
             self.p.draw()
         self.obs = Observer(self.p)
 
-        self.sensors = [self.obs]
         self.output_keys = ['action', 'index', 'accept-improper-knock']
-        self.weights = {'input': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97],
+
+        self.sensors = [self.obs]
+
+        # rig up a custom-numbered weightset
+        self.weightset = WeightSet(GeneSet(400), 11, 9, 3)
+        self.weightset.weights = {'input': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97],
                         'hidden': [],
                         'output': []}
         # set up the same set of weights for each hidden neuron (9 neurons, 11 weights per neuron)
         for _ in range(9):
-            self.weights['hidden'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.96, 0.97])
+            self.weightset.weights['hidden'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.96, 0.97])
 
         # set up the same set of weights for each output neuron (3 neurons, 9 weights per neuron)
         for _ in range(3):
-            self.weights['output'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
+            self.weightset.weights['output'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
+
+        # rig up an invalid weightset
+        self.invalid_weightset = WeightSet(GeneSet(400), 11, 9, 3)
+        self.invalid_weightset.weights = {}
 
     def test___init__(self):
         invalid_weights = {'input': [0.5], 'output': []}
         # require at least one sensor, one weight and one output
-        self.assertRaises(AssertionError, NeuralNet, [], invalid_weights, self.output_keys)
-        self.assertRaises(AssertionError, NeuralNet, self.sensors, {}, self.output_keys)
-        self.assertRaises(AssertionError, NeuralNet, self.sensors, invalid_weights, [])
+        self.assertRaises(AssertionError, NeuralNet, [],           self.weightset,         self.output_keys)
+        self.assertRaises(AssertionError, NeuralNet, self.sensors, self.invalid_weightset, self.output_keys)
+        self.assertRaises(AssertionError, NeuralNet, self.sensors, self.weightset,         [])
 
     def test_validate_weights(self):
-        self.nn = NeuralNet(self.sensors, self.weights, self.output_keys)
+        # note: most of the validation code exists in WeightSet.validate
+        self.nn = NeuralNet(self.sensors, self.weightset, self.output_keys)
         self.assertTrue(self.nn.validate_weights())
 
-        # remove an input weight
-        self.weights['input'].pop()
-        self.assertRaises(AssertionError, self.nn.validate_weights)
-
-        # add it back, remove a whole hidden neuron of weights
-        self.weights['input'].append(0.97)
-        self.assertTrue(self.nn.validate_weights())
-        borrow = self.weights['hidden'].pop()
-        self.assertRaises(AssertionError, self.nn.validate_weights)
-
-        # add it back, remove a single weight from one hidden
-        self.weights['hidden'].append(borrow)
-        self.assertTrue(self.nn.validate_weights())
-        borrow = self.weights['hidden'][0].pop()
-        self.assertRaises(AssertionError, self.nn.validate_weights)
-
-        # add it back, remove the entire output list
-        self.weights['hidden'][0].append(borrow)
-        self.assertTrue(self.nn.validate_weights())
-        borrow = self.weights.pop('output', None)
-        self.assertRaises(AssertionError, self.nn.validate_weights)
-
-        # add it back, remove a single weight from one output neuron
-        self.weights['output'] = borrow
-        self.assertTrue(self.nn.validate_weights())
-        self.weights['output'][0].pop()
         with self.assertRaises(AssertionError):
-            self.nn.validate_weights()
+            self.nn = NeuralNet(self.sensors, self.weightset, self.output_keys)
+            self.nn.weightset.weights = {}
+            self.assertTrue(self.nn.validate_weights())
 
     def test_calculate_hidden_count(self):
         # one example should be good enough to test the math
-        self.nn = NeuralNet(self.sensors, self.weights, self.output_keys)
+        self.nn = NeuralNet(self.sensors, self.weightset, self.output_keys)
         self.assertEqual(9, self.nn.calculate_hidden_count())
 
     def test_create_input_layer(self):
-        self.nn = NeuralNet(self.sensors, self.weights, self.output_keys)
+        self.nn = NeuralNet(self.sensors, self.weightset, self.output_keys)
         # wipe the input_layer and ensure it has been recreated with the correct number of input neurons
         TestNeuralNet.clear_all_layers(self.nn)
         self.nn.create_input_layer()
@@ -119,7 +104,7 @@ class TestNeuralNet(unittest.TestCase):
         self.test_create_input_layer()
         self.nn.create_hidden_layer()
         # make sure we have the right number of hidden neurons
-        self.assertEqual(len(self.nn.hidden_layer), int((len(self.nn.input_layer) + len(self.output_keys)) * 2/3))
+        self.assertEqual(len(self.nn.hidden_layer), int((len(self.nn.input_layer) + len(self.output_keys)) * 2 / 3))
 
         # ensure that each hidden neuron has each input neuron in its inputs
         for hn in self.nn.hidden_layer:
@@ -330,3 +315,97 @@ class TestOutputPerceptron(unittest.TestCase):
         output_key = 'testing'
         self.op = OutputPerceptron(self.inputs, self.neuron_weights, output_key)
         self.assertEqual(self.op.output_key, output_key)
+
+
+class TestWeightSet(unittest.TestCase):
+    def test___init__(self):
+        # create a WeightSet (with some junk genes)
+        num_inputs = 10
+        num_hidden = 15
+        num_outputs = 3
+        required_num_genes = num_inputs + num_hidden * num_inputs + num_outputs * num_hidden
+
+        # test the class assertions
+        with self.assertRaises(AssertionError):
+            gs1 = GeneSet(required_num_genes)
+            WeightSet(gs1, required_num_genes, 1, 1)
+        with self.assertRaises(AssertionError):
+            gs1 = GeneSet(required_num_genes)
+            WeightSet(gs1)
+
+        # test the structure
+        gs1 = GeneSet(required_num_genes)
+        w = WeightSet(gs1, num_inputs, num_hidden, num_outputs)
+        self.assertIsInstance(w.weights, dict)
+        self.assertIsInstance(w.weights['input'], list)
+        self.assertIsInstance(w.weights['hidden'], list)
+        self.assertIsInstance(w.weights['hidden'][0], list)
+        self.assertIsInstance(w.weights['output'], list)
+        self.assertIsInstance(w.weights['output'][0], list)
+
+        self.assertGreaterEqual(len(w.weights['input']), num_inputs)
+        self.assertGreaterEqual(len(w.weights['hidden'][0]), num_inputs)
+        self.assertGreaterEqual(len(w.weights['output'][0]), num_hidden)
+
+    def test_prune(self):
+        num_inputs = 10
+        num_hidden = 15
+        num_outputs = 3
+        required_num_genes = num_inputs + num_hidden * num_inputs + num_outputs * num_hidden
+
+        # create a larger-than-needed weight set
+        gs1 = GeneSet(1000)
+        w = WeightSet(gs1, num_inputs, num_hidden, num_outputs)
+
+        # prune down to size
+        w.prune(num_inputs, num_hidden, num_outputs)
+
+        pruned_length = len(flatten(w.weights['input'])) + len(flatten(w.weights['hidden'])) + len(
+            flatten(w.weights['output']))
+
+        self.assertEqual(required_num_genes, pruned_length)
+
+    def test_validate(self):
+        # create a larger-than-needed weight set
+        num_inputs = 10
+        num_hidden = 15
+        num_outputs = 3
+        gs1 = GeneSet(1000)
+        w = WeightSet(gs1, num_inputs, num_hidden, num_outputs)
+
+        # prune down to size and validate
+        w.prune(num_inputs, num_hidden, num_outputs)
+        self.assertTrue(w.validate(num_inputs, num_hidden, num_outputs))
+
+        # remove an input weight
+        with self.assertRaises(AssertionError):
+            w.weights['input'].pop()
+            w.validate(num_inputs, num_hidden, num_outputs)
+
+        # add it back, remove a whole hidden neuron of weights
+        w.weights['input'].append(0.97)
+        self.assertTrue(w.validate(num_inputs, num_hidden, num_outputs))
+        borrow = w.weights['hidden'].pop()
+        with self.assertRaises(AssertionError):
+            w.validate(num_inputs, num_hidden, num_outputs)
+
+        # add it back, remove a single weight from one hidden
+        w.weights['hidden'].append(borrow)
+        self.assertTrue(w.validate(num_inputs, num_hidden, num_outputs))
+        borrow = w.weights['hidden'][0].pop()
+        with self.assertRaises(AssertionError):
+            w.validate(num_inputs, num_hidden, num_outputs)
+
+        # add it back, remove the entire output list
+        w.weights['hidden'][0].append(borrow)
+        self.assertTrue(w.validate(num_inputs, num_hidden, num_outputs))
+        borrow = w.weights.pop('output', None)
+        with self.assertRaises(AssertionError):
+            w.validate(num_inputs, num_hidden, num_outputs)
+
+        # add it back, remove a single weight from one output neuron
+        w.weights['output'] = borrow
+        self.assertTrue(w.validate(num_inputs, num_hidden, num_outputs))
+        w.weights['output'][0].pop()
+        with self.assertRaises(AssertionError):
+            w.validate(num_inputs, num_hidden, num_outputs)()
