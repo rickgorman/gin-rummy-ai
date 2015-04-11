@@ -102,12 +102,13 @@ class TestNeuralGinStrategy(Helper):
             self.strat.nn.outputs['action'] = signal_strength
             self.assertEqual(action, self.strat.decode_best_action(phase='end'))
 
+    # return the index of the card we wish to toss
     def test_decode_index(self):
-        signals = {0: 1, 0.03: 2, 0.05: 3, 0.1875: 10, 0.997: 52}  # signal:card_id
+        signals = {0: 0.08, 1: 0.18, 2: 0.25, 3: 0.34, 4: 0.43, 9: 0.88, 10: 0.97}  # card_index:signal
 
-        for signal, card_id in signals.items():
+        for card_index, signal in signals.items():
             self.nn.outputs['index'] = signal
-            self.assertEqual(card_id, self.strat.decode_index())
+            self.assertEqual(card_index, self.strat.decode_index())
 
     def test_determine_best_action(self):
         # we test most of this in the above two tests

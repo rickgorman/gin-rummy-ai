@@ -103,6 +103,7 @@ class GinPlayer(Observable):
     # here we act on the advice we received from the strategy
     @notify_observers_after
     def execute_strategy(self):
+        card = None
         if not self.action:
             raise StrategyExecutionException('no action to execute!')
         else:
@@ -122,6 +123,8 @@ class GinPlayer(Observable):
                 index = self.action[1]
                 card = self.hand.get_card_at_index(index)
                 self.knock_gin(card)
+
+        logging.debug("\t\t{0}  \t{1}".format(self.action[0], card))
 
     # consult the strategy and perform the action suggested
     def take_turn(self):

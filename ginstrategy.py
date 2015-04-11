@@ -63,7 +63,7 @@ class NeuralGinStrategy(GinStrategy):
 
     # step function for the index output neuron
     def decode_index(self):
-        return NeuralGinStrategy.decode_signal(self.nn.outputs['index'], 52) + 1
+        return NeuralGinStrategy.decode_signal(self.nn.outputs['index'], 11)
 
     # return our best action to an external caller
     def determine_best_action(self, phase=None):
