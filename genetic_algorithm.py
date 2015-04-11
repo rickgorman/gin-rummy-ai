@@ -10,6 +10,9 @@
 import random
 from texttable import *
 from utility import *
+from ginmatch import *
+from neuralnet import *
+from ginstrategy import *
 
 
 class GeneSet(object):
@@ -44,7 +47,7 @@ class GeneSet(object):
 
         # do the cross
         for i in range(len(small_partner.genes)):
-            if int(random.random()*2) == 0:
+            if int(random.random() * 2) == 0:
                 child.genes[i] = small_partner.genes[i]
             else:
                 child.genes[i] = big_partner.genes[i]
@@ -74,7 +77,101 @@ class Population(object):
 
         # create the initial genes
         for i in range(population_size):
-            self.members[GeneSet(gene_size)] = {'wins': 0, 'losses':0, 'generation': 0}
+            self.add_member(GeneSet(gene_size), 0)
+
+    # add a member with a given generation
+    def add_member(self, geneset, generation):
+        self.members[geneset] = {'wins': 0, 'losses': 0, 'generation': generation}
+
+    # return the top N specimens of the population. our ranking method is as follows:
+    #
+    #                    number of wins
+    #      ranking  =  -----------------
+    #                  generations_lived
+    #
+    # the rationale here is that while we do want to retain elders who have done well in the past, we don't want
+    # them to stick around due to a huge number of wins over a huge number of generations.
+    def get_top_members(self, count):
+        # see unutbu's answer at http://stackoverflow.com/questions/4690416
+        top_list = sorted(self.members.items(),
+                          key=lambda (k, v): v['wins'] / (v['generation'] + 1 - self.current_generation), reverse=True)
+
+        top_list = top_list[:count]
+
+        # separate out our keys
+        top_keys = []
+        [top_keys.append(top_list[i][0]) for i in range(len(top_list))]
+
+        return top_keys
+
+    # engage each member in competition with each other member, recording the results
+    def fitness_test(self):
+        for challenger_geneset in self.members:
+            for defender_geneset in self.members:
+                if challenger_geneset is not defender_geneset:
+                    # create physical representations for these gene_sets
+                    challenger_player = GinPlayer()
+                    defender_player   = GinPlayer()
+
+                    match = GinMatch(challenger_player, defender_player)
+                    output_keys = ['action', 'index', 'accept_improper_knock']
+                    num_inputs  = 11 + 5 + 33
+                    num_outputs = 3
+                    num_hidden  = int((num_inputs + num_outputs) * (2.0/3.0))
+
+                    challenger_weightset = WeightSet(challenger_geneset, num_inputs, num_hidden, num_outputs)
+                    defender_weightset   = WeightSet(defender_geneset,   num_inputs, num_hidden, num_outputs)
+
+                    challenger_observers = [Observer(challenger_player), Observer(match.table), Observer(match)]
+                    defender_observers   = [Observer(defender_player),   Observer(match.table), Observer(match)]
+
+                    challenger_neuralnet = NeuralNet(challenger_observers, challenger_weightset, output_keys)
+                    defender_neuralnet   = NeuralNet(defender_observers,   defender_weightset,   output_keys)
+
+                    challenger_strategy  = NeuralGinStrategy(challenger_player, defender_player,  match,
+                                                             challenger_neuralnet)
+                    defender_strategy    = NeuralGinStrategy(defender_player,   challenger_player, match,
+                                                             defender_neuralnet)
+
+                    challenger_player.strategy = challenger_strategy
+                    defender_player.strategy   = defender_strategy
+
+                    winner = match.run()
+
+                    if winner is challenger_geneset:
+                        self.members[challenger_geneset]['wins'] += 1
+                        self.members[defender_geneset]['losses'] += 1
+                    elif winner is defender_geneset:
+                        self.members[defender_geneset]['wins'] += 1
+                        self.members[challenger_geneset]['losses'] += 1
+
+    # remove members from prior generations, sparing the top N specimens
+    def cull(self, survivor_count):
+        # find the top N specimens
+        survivor_list = sorted(self.members.items(), key=lambda (k, v): v['wins'], reverse=True)[:survivor_count]
+
+        # separate our survivor keys
+        survivor_keys = []
+        [survivor_keys.append(survivor_list[i][0]) for i in range(len(survivor_list))]
+
+        # the culling
+        for key in self.members.keys():
+            if key not in survivor_keys:
+                del self.members[key]
+
+    # breed the top N individuals against each other, sexually (no asexual reproduction)
+    def cross_over(self, breeder_count):
+        breeders = self.get_top_members(breeder_count)
+
+        for breeder in breeders:
+            for mate in breeders:
+                # prevent asexual reproduction (this will cause result in clone wars)
+                if mate is not breeder:
+                    newborn = breeder.cross(mate)
+                    self.add_member(newborn, self.current_generation + 1)
+
+        # advance the generation counter
+        self.current_generation += 1
 
     def draw(self):
         # Table 1: print leaderboard
@@ -103,7 +200,7 @@ class Population(object):
 
         # collect the top 10 rankings
         for i in range(11):
-            rows.append([i+1, data_rows[i][0], data_rows[i][1], data_rows[i][2], data_rows[i][3]])
+            rows.append([i + 1, data_rows[i][0], data_rows[i][1], data_rows[i][2], data_rows[i][3]])
         input_table.add_rows(rows[:11])
 
         print "\n" + "                     LEADERBOARD FOR GENERATION #{0}".format(str(self.current_generation))

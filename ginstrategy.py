@@ -38,9 +38,11 @@ class NeuralGinStrategy(GinStrategy):
 
     def consider_accepting_improper_knock(self):
         self.nn.pulse()
-        return self.nn.outputs['accept_improper_knock']
+        possibilities = [False, True]
+        index = NeuralGinStrategy.decode_signal(self.nn.outputs['accept_improper_knock'], len(possibilities))
+        return possibilities[index]
 
-    # split a given a signal in [0, 1] into n buckets, returning the index of the bucket (starting at 1)
+    # split a given a signal in [0, 1] into n buckets, returning the index of the bucket (starting at 0)
     @staticmethod
     def decode_signal(signal, buckets):
         if signal == 1:
@@ -48,10 +50,25 @@ class NeuralGinStrategy(GinStrategy):
         else:
             return int(float(signal) * float(buckets))
 
-    # step function for the output neuron
-    def decode_best_action(self):
-        actions = ['DISCARD', 'DRAW', 'KNOCK', 'KNOCK-GIN', 'PICKUP-FROM-DISCARD']
+    # step function for the action output neuron
+    def decode_best_action(self, phase=None):
+        assert phase is not None, "a phase of 'start' or 'end' is required"
+        if phase == 'start':
+            actions = ['DRAW', 'PICKUP-FROM-DISCARD']
+        else:
+            actions = ['DISCARD', 'KNOCK', 'KNOCK-GIN']
 
-        index = NeuralGinStrategy.decode_signal(self.nn.outputs['action'], len(actions))
+        idx = NeuralGinStrategy.decode_signal(self.nn.outputs['action'], len(actions))
+        return actions[idx]
 
-        return actions[index]
+    # step function for the index output neuron
+    def decode_index(self):
+        return NeuralGinStrategy.decode_signal(self.nn.outputs['index'], 52) + 1
+
+    # return our best action to an external caller
+    def determine_best_action(self, phase=None):
+        assert phase is not None, "a phase of 'start' or 'end' is required"
+        self.nn.pulse()
+        action = self.decode_best_action(phase)
+        index  = self.decode_index()
+        return [action, index]

@@ -72,6 +72,10 @@ class TestObserver(unittest.TestCase):
         # ensure we have registered both of our callbacks with the observed player
         self.assertEqual(2, len(self.p._observers))
 
+        # remember our width
+        obs3 = Observer(self.p)
+        self.assertEqual(11, obs3.width)
+
     def test_register(self):
         # remove callbacks which were added during obs.__init__()
         self.p._observers = []

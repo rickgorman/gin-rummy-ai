@@ -1,4 +1,5 @@
 from operator import itemgetter
+import gc
 
 # configure application-wide logging
 import logging

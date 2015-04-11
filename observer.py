@@ -8,6 +8,8 @@
 # classes to implement observer pattern and observe changes that occur in specific classes
 
 import uuid
+from utility import *
+
 
 # Provide an Observable base class for any class meeting this criteria:
 # - must contain a organize_data() function which prepares and returns an array of ints
@@ -58,6 +60,8 @@ class Observer(object):
 
         # fill the buffer
         self._observed.noop_notify()
+
+        self.width = obj.observable_width
 
     def register(self, obj):
         obj.register_observer(self)

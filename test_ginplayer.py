@@ -145,9 +145,9 @@ class TestGinPlayer(unittest.TestCase):
         strat = MockGinStrategy(['DISCARD', 0])
         self.p.strategy = strat
 
-        # ensure the mock strategy give us exactly one action to perform
+        # ensure the mock strategy gives us exactly one action to perform
         self.assertEqual(False, self.p.action)
-        self.p.consult_strategy()
+        self.p.consult_strategy(phase='end')
         self.assertEqual('DISCARD', self.p.action[0])
         self.assertEqual(0, self.p.action[1])
 
@@ -159,7 +159,7 @@ class TestGinPlayer(unittest.TestCase):
         self.p.hand.add(4, 'c')
 
         # run the strategy, which should cause us to discard our first card
-        self.p.consult_strategy()
+        self.p.consult_strategy(phase='end')
         self.p.execute_strategy()
         self.assertEqual(0, self.p.hand.size())
 
@@ -175,7 +175,7 @@ class TestGinPlayer(unittest.TestCase):
         self.assertEqual(0, self.p.hand.size())
         self.assertEqual(52, len(self.p.table.deck.cards))
 
-        self.p.consult_strategy()
+        self.p.consult_strategy(phase='start')
         self.p.execute_strategy()
 
         self.assertEqual(1, self.p.hand.size())
@@ -197,7 +197,7 @@ class TestGinPlayer(unittest.TestCase):
         self.assertEqual(0, self.p.hand.size())
         self.assertEqual(49, len(self.p.table.deck.cards))
 
-        self.p.consult_strategy()
+        self.p.consult_strategy(phase='start')
         self.p.execute_strategy()
 
         self.assertEqual(1, self.p.hand.size())
@@ -217,7 +217,7 @@ class TestGinPlayer(unittest.TestCase):
         self.p.hand.add_card(card_1)
 
         # run strategy
-        self.p.consult_strategy()
+        self.p.consult_strategy(phase='end')
         self.p.execute_strategy()
 
         # verify we discard card 0 into the discard pile AND the listener receives a knock
@@ -239,7 +239,7 @@ class TestGinPlayer(unittest.TestCase):
         self.p.hand.add_card(card_1)
 
         # run strategy
-        self.p.consult_strategy()
+        self.p.consult_strategy(phase='end')
         self.p.execute_strategy()
 
         # verify we discard card 0 into the discard pile AND the listener receives a knock

@@ -24,6 +24,9 @@ class GinTable(Observable):
         # also create a discard pile
         self.discard_pile = []
 
+        # we have 33 interesting points to export: 32 discards + size of deck
+        self.observable_width = 33
+
     # seat a player at the table. take special care to not let the same player sit at the table twice.
     def seat_player(self, player):
         # if player is already sitting at this table, throw an error
@@ -74,8 +77,16 @@ class GinTable(Observable):
     # pop a card from the discard pile and return it
     @notify_observers_after
     def pickup_from_discard_pile(self):
-        return self.discard_pile.pop()
+        try:
+            card = self.discard_pile.pop()
+        except IndexError:
+            raise InvalidPlayError("tried to pickup on the first move (with 11 cards)")
+        return card
 
 
 class TableSeatingError(Exception):
+    pass
+
+
+class InvalidPlayError(Exception):
     pass

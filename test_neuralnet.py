@@ -7,9 +7,9 @@ from genetic_algorithm import GeneSet, GinGeneSet
 
 
 # noinspection PyMissingConstructor
-class MockSensor(Observer):
+class MockObserver(Observer):
     def __init__(self, obj):
-        super(MockSensor, self).__init__(obj)
+        super(MockObserver, self).__init__(obj)
         self.buffer = [obj.value]
 
         # def sense(self):
@@ -19,6 +19,7 @@ class MockSensor(Observer):
 class MockObservable(Observable):
     def __init__(self, val):
         self.value = val
+        self.observable_width = 1
         super(MockObservable, self).__init__()
 
     def organize_data(self):
@@ -52,7 +53,7 @@ class TestNeuralNet(unittest.TestCase):
 
         self.output_keys = ['action', 'index', 'accept-improper-knock']
 
-        self.sensors = [self.obs]
+        self.observers = [self.obs]
 
         # rig up a custom-numbered weightset
         self.weightset = WeightSet(GeneSet(400), 11, 9, 3)
@@ -73,32 +74,32 @@ class TestNeuralNet(unittest.TestCase):
 
     def test___init__(self):
         invalid_weights = {'input': [0.5], 'output': []}
-        # require at least one sensor, one weight and one output
+        # require at least one observer, one weight and one output
         self.assertRaises(AssertionError, NeuralNet, [],           self.weightset,         self.output_keys)
-        self.assertRaises(AssertionError, NeuralNet, self.sensors, self.invalid_weightset, self.output_keys)
-        self.assertRaises(AssertionError, NeuralNet, self.sensors, self.weightset,         [])
+        self.assertRaises(AssertionError, NeuralNet, self.observers, self.invalid_weightset, self.output_keys)
+        self.assertRaises(AssertionError, NeuralNet, self.observers, self.weightset,         [])
 
     def test_validate_weights(self):
         # note: most of the validation code exists in WeightSet.validate
-        self.nn = NeuralNet(self.sensors, self.weightset, self.output_keys)
+        self.nn = NeuralNet(self.observers, self.weightset, self.output_keys)
         self.assertTrue(self.nn.validate_weights())
 
         with self.assertRaises(AssertionError):
-            self.nn = NeuralNet(self.sensors, self.weightset, self.output_keys)
+            self.nn = NeuralNet(self.observers, self.weightset, self.output_keys)
             self.nn.weightset.weights = {}
             self.assertTrue(self.nn.validate_weights())
 
     def test_calculate_hidden_count(self):
         # one example should be good enough to test the math
-        self.nn = NeuralNet(self.sensors, self.weightset, self.output_keys)
+        self.nn = NeuralNet(self.observers, self.weightset, self.output_keys)
         self.assertEqual(9, self.nn.calculate_hidden_count())
 
     def test_create_input_layer(self):
-        self.nn = NeuralNet(self.sensors, self.weightset, self.output_keys)
+        self.nn = NeuralNet(self.observers, self.weightset, self.output_keys)
         # wipe the input_layer and ensure it has been recreated with the correct number of input neurons
         TestNeuralNet.clear_all_layers(self.nn)
         self.nn.create_input_layer()
-        self.assertEqual(len(self.nn.input_layer), sum([len(s.buffer.keys()) for s in self.sensors]))
+        self.assertEqual(len(self.nn.input_layer), sum([len(s.buffer.keys()) for s in self.observers]))
 
     def test_create_hidden_layer(self):
         self.test_create_input_layer()
@@ -217,8 +218,8 @@ class TestPerceptron(unittest.TestCase):
         mo1_val = 5
         mo2_val = 8
 
-        ms1 = MockSensor(MockObservable(mo1_val))
-        ms2 = MockSensor(MockObservable(mo2_val))
+        ms1 = MockObserver(MockObservable(mo1_val))
+        ms2 = MockObserver(MockObservable(mo2_val))
 
         # arbitrary weights
         i1_weight = 1       # the by-hand calculations below rely on a weight of 1.0 for inputs.
@@ -260,14 +261,14 @@ class TestInputPerceptron(unittest.TestCase):
     def setUp(self):
         self.c = GinCard(5, 'd')
         self.p = GinPlayer()
-        self.sensor = Observer(self.p)
+        self.observer = Observer(self.p)
         self.weight = 0.2
-        self.ip = InputPerceptron(self.sensor, weight=self.weight, myid='self.ip', index=0)
+        self.ip = InputPerceptron(self.observer, weight=self.weight, myid='self.ip', index=0)
 
     def test__init__(self):
-        # ensure we store our sensor
-        self.assertEqual(self.ip.sensor, self.sensor)
-        self.assertIsInstance(self.ip.sensor, Observer)
+        # ensure we store our observer
+        self.assertEqual(self.ip.observer, self.observer)
+        self.assertIsInstance(self.ip.observer, Observer)
 
     def test_sense(self):
         # ensure we sense an input properly
@@ -285,10 +286,10 @@ class TestInputPerceptron(unittest.TestCase):
 class TestMultiInputPerceptron(unittest.TestCase):
     def setUp(self):
         self.p = GinPlayer()
-        self.sensor = Observer(self.p)
+        self.observer = Observer(self.p)
         self.neuron_weights = [0.5, 0.3]
-        self.ip1 = InputPerceptron(self.sensor, weight=self.neuron_weights[0], myid='self.ip1', index=0)
-        self.ip2 = InputPerceptron(self.sensor, weight=self.neuron_weights[1], myid='self.ip2', index=1)
+        self.ip1 = InputPerceptron(self.observer, weight=self.neuron_weights[0], myid='self.ip1', index=0)
+        self.ip2 = InputPerceptron(self.observer, weight=self.neuron_weights[1], myid='self.ip2', index=1)
         self.inputs = [self.ip1, self.ip2]
 
     def test___init__(self):
@@ -305,9 +306,9 @@ class TestMultiInputPerceptron(unittest.TestCase):
 class TestOutputPerceptron(unittest.TestCase):
     def setUp(self):
         self.p = GinPlayer()
-        self.sensor = Observer(self.p)
+        self.observer = Observer(self.p)
         self.neuron_weights = [0.5]
-        self.ip1 = InputPerceptron(self.sensor, weight=self.neuron_weights[0], myid='self.ip1', index=0)
+        self.ip1 = InputPerceptron(self.observer, weight=self.neuron_weights[0], myid='self.ip1', index=0)
         self.inputs = [self.ip1]
 
     def test___init__(self):

@@ -131,3 +131,70 @@ class TestPopulation(unittest.TestCase):
 
     def test_draw(self):
         self.p.draw()
+
+    def test_cull(self):
+        # rig up 4 winners
+        rig_count = 0
+        for key in self.p.members.keys():
+            if rig_count > 4:
+                break
+            self.p.members[key]['wins'] = 10
+            self.p.members[key]['generation'] = 0
+            rig_count += 1
+
+        # go to the future
+        self.p.current_generation = 1
+
+        # we expect to retain only 4 members from generation 0
+        self.p.cull(4)
+
+        self.assertEqual(4, len(self.p.members.keys()))
+
+    def test_get_top_members(self):
+        # rig up 4 winners
+        rig_count = 0
+        for key in self.p.members.keys():
+            if rig_count > 4:
+                break
+            self.p.members[key]['wins'] = 10
+            self.p.members[key]['generation'] = 0
+            rig_count += 1
+
+        # ensure they are returned
+        top_keys = self.p.get_top_members(4)
+        for key in top_keys:
+            self.assertEqual(self.p.members[key]['wins'], 10)
+
+    def test_cross_over(self):
+        breeder_count = 20
+        self.p.cross_over(breeder_count)
+
+        # we expect the population size to grow by 20^2 (self-mating NOT allowed)
+        self.assertEqual(len(self.p.members), breeder_count*(breeder_count - 1) + self.population_size)
+
+    def test_add_member(self):
+        generation = 2
+        self.p.members = {}
+        self.p.add_member(GeneSet(40), generation)
+
+        self.assertEqual(1, len(self.p.members))
+        self.assertEqual(2, self.p.members.items()[0][1]['generation'])
+
+    def test_fitness_test(self):
+        # start with two members
+        self.p.members = {}
+        self.p.add_member(GeneSet(5000), 0)
+        self.p.add_member(GeneSet(5000), 0)
+
+        # run the fitness test and ensure one member has a win, and one has a loss
+        self.p.fitness_test()
+        p1_won = self.p.members.items()[0][1]['wins']
+        p2_won = self.p.members.items()[0][1]['wins']
+        p1_lost = self.p.members.items()[0][1]['losses']
+        p2_lost = self.p.members.items()[0][1]['losses']
+        self.assertEqual(1, p1_won + p2_won)
+        self.assertEqual(1, p1_lost + p2_lost)
+
+    def test_evolve_indefinitely(self):
+        self.fail("not implemented")
+

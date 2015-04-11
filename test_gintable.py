@@ -73,7 +73,7 @@ class TestGinTable(unittest.TestCase):
 
     def test_pickup_from_discard_pile(self):
         # first, from empty discard pile
-        with self.assertRaises(IndexError):
+        with self.assertRaises(InvalidPlayError):
             card = self.t.pickup_from_discard_pile()
 
         # now, safely

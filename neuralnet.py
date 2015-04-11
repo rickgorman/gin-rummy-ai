@@ -15,13 +15,14 @@ from texttable import *
 
 
 class NeuralNet(object):
-    # take in an array of sensors, a dict of lists of weights (weights[input]=[0.1,0.2,...]) and an array of output_keys
-    def __init__(self, sensors, weightset, output_keys):
-        assert len(sensors) > 0, 'must have at least one sensor'
+    # take in an array of observers, a dict of lists of weights (weights[input]=[0.1,0.2,...]) and an array
+    # of output_keys
+    def __init__(self, observers, weightset, output_keys):
+        assert len(observers) > 0, 'must have at least one observer'
         assert len(weightset.weights) > 0, 'must have non-empty weights dict'
         assert len(output_keys) > 0, 'must have at least one output_key'
 
-        self.sensors = sensors
+        self.observers = observers
 
         self.weightset = weightset
 
@@ -47,9 +48,8 @@ class NeuralNet(object):
 
         # calculate how many inputs we have
         expected_input_count = 0
-        for sensor in self.sensors:
-            for _ in sensor.buffer.keys():
-                expected_input_count += 1
+        for observer in self.observers:
+            expected_input_count += observer.width
 
         # offload the work to the weightset
         return self.weightset.validate(expected_input_count, self.calculate_hidden_count(), len(self.outputs))
@@ -58,13 +58,13 @@ class NeuralNet(object):
         return int((len(self.input_layer) + len(self.outputs)) * 2/3)
 
     def create_input_layer(self):
-        for sensor in self.sensors:
-            for key in sensor.buffer.keys():
+        for observer in self.observers:
+            for key in range(observer.width):
                 # take advantage of the buffer key indexing (0, 1, ...) to match up with the appropriate weight
                 weight = self.weightset.weights['input'][key]
                 # create a uniqueish id
-                myid = sensor.__class__.__name__ + '-' + str(sensor.id) + '-' + str(key)
-                self.input_layer.append(InputPerceptron(sensor, weight=weight, myid=myid, index=key))
+                myid = observer.__class__.__name__ + '-' + str(observer.id) + '-' + str(key)
+                self.input_layer.append(InputPerceptron(observer, weight=weight, myid=myid, index=key))
 
     # create hidden neurons and attach them to each of our input neurons using the weights in weights['hidden']
     def create_hidden_layer(self):
@@ -219,8 +219,8 @@ class Perceptron(object):
 
 
 class InputPerceptron(Perceptron):
-    def __init__(self, environment_sensor, weight=None, myid=None, index=None):
-        self.sensor = environment_sensor
+    def __init__(self, observer, weight=None, myid=None, index=None):
+        self.observer = observer
         if index is None:
             raise AssertionError("no index supplied")
         else:
@@ -236,7 +236,7 @@ class InputPerceptron(Perceptron):
     def generate_output(self, indent_level=0):
         func_debug = 0
 
-        # ask the sensor for its current sense of the world, weight it, and then run it through the sigmoid function
+        # ask the observer for its current sense of the world, weight it, and then run it through the sigmoid function
         sigmoided = Perceptron.sigmoid(self.sense() * self.weight)
 
         if func_debug:
@@ -245,9 +245,9 @@ class InputPerceptron(Perceptron):
 
         return sigmoided
 
-    # probe the sensor
+    # probe the observer
     def sense(self):
-        return self.sensor.get_value_by_index(self.index)
+        return self.observer.get_value_by_index(self.index)
 
 
 class MultiInputPerceptron(Perceptron):

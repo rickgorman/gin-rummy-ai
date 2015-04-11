@@ -42,6 +42,9 @@ class GinPlayer(Observable):
         self._knock_listeners = []
         self._knock_gin_listeners = []
 
+        # at most, we have 11 interesting things to offer our observer
+        self.observable_width = 11
+
     # listen for knocks
     def register_knock_listener(self, listener):
         if not listener in self._knock_listeners:
@@ -91,11 +94,11 @@ class GinPlayer(Observable):
             raise DrawException(self)
         else:
             card = self.table.deal_a_card()
-            self.hand.add_card(card)
+            self._add_card(card)
             return card
 
-    def consult_strategy(self):
-        self.action = self.strategy.determine_best_action()
+    def consult_strategy(self, phase):
+        self.action = self.strategy.determine_best_action(phase)
 
     # here we act on the advice we received from the strategy
     @notify_observers_after
@@ -127,10 +130,10 @@ class GinPlayer(Observable):
 
         # if we have 10 cards, we do this twice. otherwise (we have 11 cards), we do it once.
         if self.hand.size() == 10:
-            self.consult_strategy()
+            self.consult_strategy(phase='start')
             self.execute_strategy()
 
-        self.consult_strategy()
+        self.consult_strategy(phase='end')
         self.execute_strategy()
 
     def pickup_discard(self):

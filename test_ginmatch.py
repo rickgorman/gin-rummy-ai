@@ -143,7 +143,7 @@ class TestGinMatch(Helper):
         self.assertTrue(self.gm.gameover)
         someone_knocked = self.gm.player_who_knocked != False
         someone_knocked_gin = self.gm.player_who_knocked_gin != False
-        # use an xor to ensure we only had one knock
+        # use an xor to ensure we o nly had one knock
         self.assertTrue(someone_knocked ^ someone_knocked_gin)
 
     def test_end_with_knock_invalid(self):

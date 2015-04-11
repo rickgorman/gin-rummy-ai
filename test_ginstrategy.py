@@ -14,7 +14,7 @@ class MockGinStrategy(GinStrategy):
         else:
             self.action = mockaction
 
-    def determine_best_action(self):
+    def determine_best_action(self, phase):
         # by default, we discard the first card
         return self.action
 
@@ -36,11 +36,11 @@ class TestGinStrategy(Helper):
         with self.assertRaises(AssertionError):
             GinStrategy(self.p1, self.p1, self.gm)
 
-    def test_best_action(self):
+    def test_determine_best_action(self):
         strat = MockGinStrategy(['DISCARD', 0])
 
         # ensure mock strategy tells us to discard our first card
-        self.assertEqual(strat.determine_best_action(), ['DISCARD', 0])
+        self.assertEqual(strat.determine_best_action(phase='end'), ['DISCARD', 0])
 
 
 class TestNeuralGinStrategy(Helper):
@@ -49,12 +49,12 @@ class TestNeuralGinStrategy(Helper):
         self.p2 = GinPlayer()
         self.gm = GinMatch(self.p1, self.p2)
 
-        self.nn = MockNeuralNetwork(None, None, accept_improper_knock=True)
+        self.nn = MockNeuralNetwork(None, None, accept_improper_knock=0.9)
         self.strat = NeuralGinStrategy(self.p1, self.p2, self.gm, self.nn)
 
     def test_consider_accepting_improper_knock(self):
         # verify that we return the mock's output
-        self.assertTrue(self.strat.consider_accepting_improper_knock())
+        self.assertTrue(True is self.strat.consider_accepting_improper_knock())
 
     def test_decode_signal(self):
         # ensure we are returning the proper signal for a given neural network's output.
@@ -88,9 +88,27 @@ class TestNeuralGinStrategy(Helper):
             decoded = NeuralGinStrategy.decode_signal(invalue, buckets=num_buckets)
             self.assertEqual(expected, decoded)
 
-    def test_decode_best_action(self):
-        signals = {'DISCARD': 0.1, 'DRAW': 0.3, 'KNOCK': 0.5, 'KNOCK-GIN': 0.7, 'PICKUP-FROM-DISCARD': 0.9}
+    def test_decode_best_action_phase_start(self):
+        signals = {'DRAW': 0.3, 'PICKUP-FROM-DISCARD': 0.9}
 
         for action, signal_strength in signals.items():
             self.strat.nn.outputs['action'] = signal_strength
-            self.assertEqual(action, self.strat.decode_best_action())
+            self.assertEqual(action, self.strat.decode_best_action(phase='start'))
+
+    def test_decode_best_action_phase_end(self):
+        signals = {'DISCARD': 0.1, 'KNOCK': 0.5, 'KNOCK-GIN': 0.7}
+
+        for action, signal_strength in signals.items():
+            self.strat.nn.outputs['action'] = signal_strength
+            self.assertEqual(action, self.strat.decode_best_action(phase='end'))
+
+    def test_decode_index(self):
+        signals = {0: 1, 0.03: 2, 0.05: 3, 0.1875: 10, 0.997: 52}  # signal:card_id
+
+        for signal, card_id in signals.items():
+            self.nn.outputs['index'] = signal
+            self.assertEqual(card_id, self.strat.decode_index())
+
+    def test_determine_best_action(self):
+        # we test most of this in the above two tests
+        pass

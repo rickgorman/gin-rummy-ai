@@ -66,6 +66,9 @@ class GinMatch(Observable):
         self.p2.register_knock_listener(self)
         self.p2.register_knock_gin_listener(self)
 
+        # we have 5 interesting points to offer observers
+        self.observable_width = 5
+
         # initial update for listeners
         self.noop_notify()
 
@@ -128,6 +131,7 @@ class GinMatch(Observable):
     @notify_observers_after
     def play_game(self):
 
+        logging.debug("  garbage collector's garbage size: {0}".format(len(gc.garbage)))
         logging.debug("============== beginning new game between {0} and {1} ============".format(self.p1, self.p2))
 
         # clear game states
