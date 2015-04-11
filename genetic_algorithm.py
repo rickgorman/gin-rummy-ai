@@ -8,6 +8,8 @@
 # everything required to create a population, perform cross-overs and mutations and run fitness tests
 
 import random
+from texttable import *
+from utility import *
 
 
 class GeneSet(object):
@@ -63,3 +65,46 @@ class GinGeneSet(GeneSet):
     @staticmethod
     def make_geneset(*args, **kwargs):
         return GinGeneSet(*args, **kwargs)
+
+
+class Population(object):
+    def __init__(self, gene_size, population_size):
+        self.members = {}
+        self.current_generation = 0
+
+        # create the initial genes
+        for i in range(population_size):
+            self.members[GeneSet(gene_size)] = {'wins': 0, 'losses':0, 'generation': 0}
+
+    def draw(self):
+        # Table 1: print leaderboard
+        input_table = Texttable()
+        input_table.set_deco(Texttable.HEADER | Texttable.BORDER)
+        rows = []
+        data_rows = []
+
+        # header row
+        rows.append(["ranking", "win rate (%)", "number of wins", "number of losses", "generation"])
+
+        # gather data on our population
+        for key in self.members.keys():
+            wins, losses = self.members[key]['wins'], self.members[key]['losses']
+            try:
+                winrate = round(float(wins) / float(wins + losses), 3) * 100
+                break
+            except ZeroDivisionError:
+                winrate = 0.000
+
+            generation = self.members[key]['generation']
+            data_rows.append([winrate, wins, losses, generation])
+
+        # sort by winrate
+        data_rows.sort(key=itemgetter(0), reverse=True)
+
+        # collect the top 10 rankings
+        for i in range(11):
+            rows.append([i+1, data_rows[i][0], data_rows[i][1], data_rows[i][2], data_rows[i][3]])
+        input_table.add_rows(rows[:11])
+
+        print "\n" + "                     LEADERBOARD FOR GENERATION #{0}".format(str(self.current_generation))
+        print input_table.draw()

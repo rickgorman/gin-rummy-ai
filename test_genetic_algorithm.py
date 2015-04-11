@@ -108,3 +108,26 @@ class TestGinGeneSet(unittest.TestCase):
         ggs = GinGeneSet(5)
         factory_gs = ggs.make_geneset(5)
         self.assertIsInstance(factory_gs, GinGeneSet)
+
+
+class TestPopulation(unittest.TestCase):
+    def setUp(self):
+        self.gene_size = 100
+        self.population_size = 100
+        self.p = Population(self.gene_size, self.population_size)
+
+    def test___init__(self):
+        # test generation counter
+        self.assertEqual(0, self.p.current_generation)
+
+        # test structure
+        first_member = self.p.members.keys()[0]
+        self.assertEqual(self.population_size, len(self.p.members.keys()))
+        self.assertIsInstance(self.p.members, dict)
+        self.assertIsInstance(first_member, GeneSet)
+        self.assertIsInstance(self.p.members[first_member]['wins'], int)
+        self.assertIsInstance(self.p.members[first_member]['losses'], int)
+        self.assertIsInstance(self.p.members[first_member]['generation'], int)
+
+    def test_draw(self):
+        self.p.draw()
