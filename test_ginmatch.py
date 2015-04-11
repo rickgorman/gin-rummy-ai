@@ -154,7 +154,7 @@ class TestGinMatch(Helper):
         self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
         # if the knock was INVALID, ensure we penalize the player by exposing his cards
-        self.gm.end_with_knock(self.p1)
+        self.gm.process_knock(self.p1)
         self.assertTrue(self.gm.p1_knocked_improperly)
         self.assertFalse(self.gm.player_who_knocked)
 
@@ -170,7 +170,7 @@ class TestGinMatch(Helper):
         self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
         # if the knock was VALID, ensure we mark the game as over
-        self.gm.end_with_knock(self.p2)
+        self.gm.process_knock(self.p2)
         self.assertFalse(self.gm.p2_knocked_improperly)
         self.assertTrue(self.gm.gameover)
         self.assertEqual(self.gm.player_who_knocked, self.p2)
@@ -183,7 +183,7 @@ class TestGinMatch(Helper):
         self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
         # if the knock was INVALID, ensure we penalize the player by exposing the cards (also, gameover is not yet set)
-        self.gm.end_with_knock_gin(self.p1)
+        self.gm.process_knock_gin(self.p1)
         self.assertTrue(self.gm.p1_knocked_improperly)
         self.assertFalse(self.gm.player_who_knocked)
 
@@ -195,7 +195,7 @@ class TestGinMatch(Helper):
         self.p2.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
 
         # if the knock was VALID, ensure we penalize the player and that the game continues
-        self.gm.end_with_knock_gin(self.p2)
+        self.gm.process_knock_gin(self.p2)
         self.assertFalse(self.gm.p2_knocked_improperly)
         self.assertEqual(self.gm.player_who_knocked_gin, self.p2)
         self.assertTrue(self.gm.gameover)
@@ -260,7 +260,8 @@ class TestGinMatch(Helper):
 
         # we force p2 to ACCEPT the knock
         self.p2.strategy.accept_improper_knock = self.return_true
-        self.gm.offer_to_accept_improper_knock(self.p2)
+        result = self.gm.offer_to_accept_improper_knock(self.p2)
+        self.assertTrue(result)
 
         # ensure the game HAS been marked as over
         self.assertTrue(self.gm.gameover)
@@ -290,7 +291,12 @@ class TestGinMatch(Helper):
 
         # we instruct p2 to REJECT the knock
         self.p2.accept_improper_knock = self.return_false
-        self.gm.offer_to_accept_improper_knock(self.p2)
+        result = self.gm.offer_to_accept_improper_knock(self.p2)
+        self.assertFalse(result)
 
         # ensure the game has NOT been marked as over
         self.assertFalse(self.gm.gameover)
+
+    def test_get_player_string(self):
+        self.assertEqual(self.gm.get_player_string(self.p1), "player 1")
+        self.assertEqual(self.gm.get_player_string(self.p2), "player 2")

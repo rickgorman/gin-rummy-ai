@@ -27,6 +27,7 @@
 
 from gintable import *
 from ginplayer import *
+from utility import *
 
 
 class GinMatch(Observable):
@@ -87,16 +88,26 @@ class GinMatch(Observable):
         self.p1_score += 20 * self.p1_matches_won
         self.p2_score += 20 * self.p2_matches_won
 
+        logging.debug("--GAME OVER--"
+                      "Final scores: "
+                      "Player 1: {0}".format(self.p1_score) +
+                      "Player 2: {0}".format(self.p2_score))
+
         # return winner
         if self.p1_score > self.p2_score:
+            logging.debug("Player 1 Wins!")
             return self.p1
         elif self.p2_score > self.p1_score:
+            logging.debug("Player 2 Wins!")
             return self.p2
         else:
+            logging.debug("We have a tie!")
             # tie: flip a coin to determine winner
             if random.random() < 0.5:
+                logging.debug("Player 1 wins the coin flip!")
                 return self.p1
             else:
+                logging.debug("Player 2 wins the coin flip!")
                 return self.p2
 
     def notify_of_knock(self, knocker):
@@ -116,6 +127,8 @@ class GinMatch(Observable):
     # play one game of gin
     @notify_observers_after
     def play_game(self):
+
+        logging.debug("============== beginning new game between {0} and {1} ============".format(self.p1, self.p2))
 
         # clear game states
         self.gameover = False
@@ -139,6 +152,9 @@ class GinMatch(Observable):
         # deal an 11th card to first player
         self.p1.draw()
 
+        logging.debug("player 1 is dealt: {0}".format(self.p1.hand))
+        logging.debug("player 2 is dealt: {0}".format(self.p2.hand))
+
     # alternate play between each player
     def take_turns(self):
         # beginning with p1, take turns until a valid knock/gin is called OR we have only two cards remaining
@@ -148,27 +164,14 @@ class GinMatch(Observable):
                 # exit condition
                 if not self.gameover:
                     p.take_turn()
+                    self.log_gamestate()
 
                     # validate the knock or reset the knock state and penalize the knocker
                     if self.player_who_knocked:
-                        if p.hand.deadwood_count() <= 10:
-                            self.end_with_knock(p)
-                        else:
-                            self.player_who_knocked = False
-                            if p == self.p1:
-                                self.p1_knocked_improperly = True
-                            elif p == self.p2:
-                                self.p2_knocked_improperly = True
+                        self.process_knock(p)
                     # validate the knock_gin or penalize the knocker and reset the knock state
                     elif self.player_who_knocked_gin:
-                        if p.hand.deadwood_count != 0:
-                            self.end_with_knock_gin(p)
-                        else:
-                            self.player_who_knocked_gin = False
-                            if p == self.p1:
-                                self.p1_knocked_improperly = True
-                            elif p == self.p2:
-                                self.p2_knocked_improperly = True
+                        self.process_knock_gin(p)
 
     # award deadwood scoring and gin bonuses
     @notify_observers_after
@@ -217,35 +220,57 @@ class GinMatch(Observable):
                 elif knocker == self.p2:
                     self.p2_score += score_delta
 
-    def end_with_knock(self, knocker):
+        logging.debug("updated scores:"
+                      "  player 1 score: ".format(self.p1_score) +
+                      "  player 1 matches won: ".format(self.p1_matches_won) +
+                      "  player 2 score: ".format(self.p2_score) +
+                      "  player 2 matches won: ".format(self.p2_matches_won))
+
+    def process_knock(self, knocker):
         """@type knocker: GinPlayer"""
+        logging.debug("{0} knocked...".format(self.get_player_string(knocker)))
 
         # first, handle invalid knocks with a penalty of the hand now being played face-up
         if knocker.hand.deadwood_count() > 10:
+            logging.debug("   the knock was improper.")
             if knocker == self.p1:
                 self.p1_knocked_improperly = True
-                self.offer_to_accept_improper_knock(self.p2)
+                if self.offer_to_accept_improper_knock(self.p2):
+                    logging.debug("   {0} accepts the improper knock".format(self.get_player_string(knocker)))
+                else:
+                    logging.debug("   {0} does not accept the improper knock".format(self.get_player_string(knocker)))
             elif knocker == self.p2:
                 self.p2_knocked_improperly = True
-                self.offer_to_accept_improper_knock(self.p1)
+                if self.offer_to_accept_improper_knock(self.p1):
+                    logging.debug("   {0} accepts the improper knock".format(self.get_player_string(knocker)))
+                else:
+                    logging.debug("   {0} does not accept the improper knock".format(self.get_player_string(knocker)))
         else:
             # next, handle a knock that is actually a gin (the AI will be dumb about this)
             if knocker.hand.deadwood_count() == 0:
-                self.end_with_knock_gin(knocker)
+                logging.debug("   the knock was actually a gin.")
+                self.process_knock_gin(knocker)
             # finally, handle valid knocks
             else:
                 self.gameover = True
                 self.player_who_knocked = knocker
 
-    def end_with_knock_gin(self, knocker):
+    def process_knock_gin(self, knocker):
         # first, handle invalid knocks with a penalty of the hand now being played face-up
         if knocker.hand.deadwood_count() != 0:
+            logging.debug("   the knock_gin was improper.")
             if knocker == self.p1:
                 self.p1_knocked_improperly = True
-                self.offer_to_accept_improper_knock(self.p2)
+                if self.offer_to_accept_improper_knock(self.p2):
+                    logging.debug("   {0} accepts the improper gin".format(self.get_player_string(knocker)))
+                else:
+                    logging.debug("   {0} does not accept the improper gin".format(self.get_player_string(knocker)))
             elif knocker == self.p2:
                 self.p2_knocked_improperly = True
-                self.offer_to_accept_improper_knock(self.p1)
+                if self.offer_to_accept_improper_knock(self.p1):
+                    logging.debug("   {0} accepts the improper gin".format(self.get_player_string(knocker)))
+                else:
+                    logging.debug("   {0} does not accept the improper gin".format(self.get_player_string(knocker)))
         else:
             self.gameover = True
             self.player_who_knocked_gin = knocker
@@ -256,3 +281,24 @@ class GinMatch(Observable):
         if accepter.hand.deadwood_count() <= self.knocking_point:
             if accepter.accept_improper_knock():
                 self.gameover = True
+                return True
+            else:
+                return False
+        else:
+            return False
+
+    # return a string representation for a given player
+    def get_player_string(self, player):
+        if player == self.p1:
+            return "player 1"
+        elif player == self.p2:
+            return "player 2"
+        else:
+            raise Exception("player string requested for a player not in this match")
+
+    def log_gamestate(self):
+        logging.debug("----next turn-------")
+        logging.debug("player 1 holds: {0}".format(self.p1.hand))
+        logging.debug("player 2 holds: {0}".format(self.p2.hand))
+        logging.debug("discard pile: {0}".format(self.table.discard_pile))
+        logging.debug("deck height: {0}".format(len(self.table.deck.cards)))
