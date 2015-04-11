@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/genetic_algorithm.py" afterPath="$PROJECT_DIR$/genetic_algorithm.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginhand.py" afterPath="$PROJECT_DIR$/ginhand.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginmatch.py" afterPath="$PROJECT_DIR$/ginmatch.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginplayer.py" afterPath="$PROJECT_DIR$/ginplayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gintable.py" afterPath="$PROJECT_DIR$/gintable.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neuralnet.py" afterPath="$PROJECT_DIR$/neuralnet.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/playground.py" afterPath="$PROJECT_DIR$/playground.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginplayer.py" afterPath="$PROJECT_DIR$/test_ginplayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_gintable.py" afterPath="$PROJECT_DIR$/test_gintable.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginstrategy.py" afterPath="$PROJECT_DIR$/ginstrategy.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_genetic_algorithm.py" afterPath="$PROJECT_DIR$/test_genetic_algorithm.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_ginstrategy.py" afterPath="$PROJECT_DIR$/test_ginstrategy.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -139,7 +136,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_clean_meld_group.coverage" NAME="Unittest TestGinHand.test_clean_meld_group Coverage Results" MODIFIED="1395242103171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_get_card_at_index.coverage" NAME="Unittest TestGinHand.test_get_card_at_index Coverage Results" MODIFIED="1426416528046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_new_ginplayer.coverage" NAME="Unittest TestGinPlayer.test_new_ginplayer Coverage Results" MODIFIED="1428472442098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittest_TestPopulation_test_fitness_test.coverage" NAME="Unittest TestPopulation.test_fitness_test Coverage Results" MODIFIED="1428752029590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestPopulation_test_fitness_test.coverage" NAME="Unittest TestPopulation.test_fitness_test Coverage Results" MODIFIED="1428784521961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestPerceptron_test_generate_output.coverage" NAME="Unittest TestPerceptron.test_generate_output Coverage Results" MODIFIED="1427808414635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_test_discard_not_holding_said_card.coverage" NAME="Unittest TestGinHand.test_discard_not_holding_said_card Coverage Results" MODIFIED="1392629809570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinHand_testDeadwoodCount.coverage" NAME="Unittest TestGinHand.testDeadwoodCount Coverage Results" MODIFIED="1390373776661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -262,7 +259,7 @@
             <file leaf-file-name="test_ginstrategy.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_ginstrategy.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="55" column="49" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="1800">
+                  <state line="87" column="25" selection-start="2853" selection-end="2853" vertical-scroll-proportion="0.0" vertical-offset="499" max-vertical-offset="1725">
                     <folding />
                   </state>
                 </provider>
@@ -280,7 +277,7 @@
             <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="117" column="0" selection-start="4119" selection-end="4249" vertical-scroll-proportion="0.0" vertical-offset="1339" max-vertical-offset="3090">
+                  <state line="197" column="0" selection-start="7089" selection-end="7089" vertical-scroll-proportion="0.0" vertical-offset="1864" max-vertical-offset="3150">
                     <folding>
                       <element signature="e#0#15#0" expanded="true" />
                     </folding>
@@ -288,10 +285,10 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="playground.py" pinned="false" current="false" current-in-tab="true">
+            <file leaf-file-name="playground.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/playground.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="20" column="0" selection-start="422" selection-end="422" vertical-scroll-proportion="0.24469821" vertical-offset="0" max-vertical-offset="1226">
+                  <state line="21" column="8" selection-start="431" selection-end="431" vertical-scroll-proportion="0.25693312" vertical-offset="0" max-vertical-offset="1226">
                     <folding />
                   </state>
                 </provider>
@@ -309,9 +306,11 @@
             <file leaf-file-name="test_ginplayer.py" pinned="false" current="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="293" column="51" selection-start="10211" selection-end="10211" vertical-scroll-proportion="0.0" vertical-offset="3229" max-vertical-offset="4485">
+                  <state line="293" column="51" selection-start="10235" selection-end="10235" vertical-scroll-proportion="0.0" vertical-offset="3229" max-vertical-offset="4485">
                     <folding>
                       <element signature="e#0#22#0" expanded="true" />
+                      <marker date="1428754294000" expanded="true" signature="605:10235" placeholder="..." />
+                      <marker date="1428754294000" expanded="true" signature="10079:10235" placeholder="..." />
                     </folding>
                   </state>
                 </provider>
@@ -366,10 +365,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="35" selection-start="807" selection-end="807" vertical-scroll-proportion="0.0" vertical-offset="2134" max-vertical-offset="3360">
+            <state line="137" column="49" selection-start="5141" selection-end="5141" vertical-scroll-proportion="0.53833604" vertical-offset="1320" max-vertical-offset="3480">
               <folding />
             </state>
           </provider>
@@ -379,7 +378,10 @@
         <entry file="file://$PROJECT_DIR$/ginplayer.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="123" column="39" selection-start="3644" selection-end="3644" vertical-scroll-proportion="0.0" vertical-offset="1352" max-vertical-offset="2580">
-              <folding />
+              <folding>
+                <marker date="1428752029000" expanded="true" signature="4796:5118" placeholder="..." />
+                <marker date="1428752029000" expanded="true" signature="5175:5205" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -396,8 +398,10 @@
       <file leaf-file-name="ginmatch.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginmatch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="185" column="25" selection-start="6671" selection-end="6671" vertical-scroll-proportion="0.0" vertical-offset="2537" max-vertical-offset="4920">
-              <folding />
+            <state line="109" column="43" selection-start="3944" selection-end="3944" vertical-scroll-proportion="0.0" vertical-offset="1142" max-vertical-offset="5280">
+              <folding>
+                <element signature="e#1313#1335#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -405,16 +409,16 @@
       <file leaf-file-name="ginstrategy.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginstrategy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="47" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
+            <state line="30" column="71" selection-start="744" selection-end="744" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="neuralnet.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="neuralnet.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/neuralnet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="252" column="4" selection-start="8899" selection-end="8899" vertical-scroll-proportion="0.9755302" vertical-offset="2554" max-vertical-offset="5175">
+            <state line="211" column="56" selection-start="7362" selection-end="7362" vertical-scroll-proportion="0.0" vertical-offset="2554" max-vertical-offset="5175">
               <folding />
             </state>
           </provider>
@@ -424,7 +428,10 @@
         <entry file="file://$PROJECT_DIR$/gintable.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="47" column="0" selection-start="1519" selection-end="1519" vertical-scroll-proportion="0.0" vertical-offset="274" max-vertical-offset="1500">
-              <folding />
+              <folding>
+                <marker date="1428750733000" expanded="true" signature="1548:2123" placeholder="..." />
+                <marker date="1428750733000" expanded="true" signature="2180:2241" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -459,19 +466,19 @@
         <option value="$PROJECT_DIR$/utility.py" />
         <option value="$PROJECT_DIR$/test_neuralnet.py" />
         <option value="$PROJECT_DIR$/test_observer.py" />
-        <option value="$PROJECT_DIR$/test_genetic_algorithm.py" />
         <option value="$PROJECT_DIR$/observer.py" />
-        <option value="$PROJECT_DIR$/ginstrategy.py" />
-        <option value="$PROJECT_DIR$/test_ginstrategy.py" />
         <option value="$PROJECT_DIR$/gintable.py" />
         <option value="$PROJECT_DIR$/test_gintable.py" />
         <option value="$PROJECT_DIR$/ginhand.py" />
         <option value="$PROJECT_DIR$/test_ginplayer.py" />
-        <option value="$PROJECT_DIR$/genetic_algorithm.py" />
-        <option value="$PROJECT_DIR$/ginmatch.py" />
         <option value="$PROJECT_DIR$/ginplayer.py" />
         <option value="$PROJECT_DIR$/playground.py" />
         <option value="$PROJECT_DIR$/neuralnet.py" />
+        <option value="$PROJECT_DIR$/ginstrategy.py" />
+        <option value="$PROJECT_DIR$/test_ginstrategy.py" />
+        <option value="$PROJECT_DIR$/ginmatch.py" />
+        <option value="$PROJECT_DIR$/genetic_algorithm.py" />
+        <option value="$PROJECT_DIR$/test_genetic_algorithm.py" />
       </list>
     </option>
   </component>
@@ -535,7 +542,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -546,29 +553,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="neural" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="neural" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="neural" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="32" />
@@ -1267,7 +1252,11 @@
       <created>1428743704716</created>
       <updated>1428743704716</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Worked on the random initialization of genesets&#10;Added limit to number of turns to be taken, as gen=0 specimens like to trade the same discard back and forth forever&#10;We now properly clean up the playing space after a game via Player.empty_hand(), GinTable.refresh_deck()&#10;Cleaner Logging&#10;Fixed a bug where Player.organize_data() only returned 10 indexes when we expected 11&#10;Added some profiling code in playground.py">
+      <created>1428754295104</created>
+      <updated>1428754295104</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1296,21 +1285,21 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24397905" sideWeight="0.49943882" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299817" sideWeight="0.4995005" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23221266" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291634" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291634" sideWeight="0.4985015" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="-100" y="-2160" width="1917" height="536" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29632527" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21861924" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17696334" sideWeight="0.49944383" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.49944383" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23221266" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.117154814" sideWeight="0.6708075" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15794979" sideWeight="0.67083657" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="-100" y="-2160" width="1917" height="536" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21861924" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29632527" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.22513089" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1619" width="956" height="1348" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17696334" sideWeight="0.49944383" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.22513089" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="-1061" y="-1619" width="956" height="1348" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="127" y="-1145" width="501" height="130" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.49944383" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.7419355" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1350,7 +1339,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Renamed 'Wrapper' to 'Observable'&#10;Settled on an Observer paradigm using Observer.observe() and .register() and Observable.register_observer()&#10;Added and Passed tests for Observer.register(), Observable.register_observer()" />
     <MESSAGE value="Moved __repr__() and ranking() from GinCard into Card&#10;Added GinCard.ranking()" />
     <MESSAGE value="Added test for Player.organize_data()&#10;Changed behavior of Observable to now be a base class. notify_observer() is now a decorator which will wrap a method with notifications to observers.&#10;Removed __getattr__ and __setattr__ wrapper behavior&#10;Passed all tests." />
     <MESSAGE value="Added notify_observer decorators to GinPlayer" />
@@ -1375,7 +1363,8 @@
     <MESSAGE value="Added debug logging for GinMatch to watch a game.&#10;Added get_player_string" />
     <MESSAGE value="Changed naming for 'sensors' to 'observers' for clarity&#10;Modified consult_strategy() to take a phase parameter to split potential actions between phases of turn. We could evolve smartness about this, but it makes testing rougher. It also allows the start/end strategies to more finely tune their own weights.&#10;Added an observable_width requirement to Observables in order to more accurately line up weights&#10;Changed the player's draw() to use a method that will notify observers&#10;Added InvalidPlayError for when a player tries to pickup on the first turn with 11 cards&#10;Added Population.cull(), .add_member(), .cross_over(), .get_top_members(), .fitness_test(). Passed all but .fitness_test()&#10;Added GinStrategy.decode_index&#10;Began observing the gc" />
     <MESSAGE value="Cleaned up some logging messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up some logging messages" />
+    <MESSAGE value="Worked on the random initialization of genesets&#10;Added limit to number of turns to be taken, as gen=0 specimens like to trade the same discard back and forth forever&#10;We now properly clean up the playing space after a game via Player.empty_hand(), GinTable.refresh_deck()&#10;Cleaner Logging&#10;Fixed a bug where Player.organize_data() only returned 10 indexes when we expected 11&#10;Added some profiling code in playground.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Worked on the random initialization of genesets&#10;Added limit to number of turns to be taken, as gen=0 specimens like to trade the same discard back and forth forever&#10;We now properly clean up the playing space after a game via Player.empty_hand(), GinTable.refresh_deck()&#10;Cleaner Logging&#10;Fixed a bug where Player.organize_data() only returned 10 indexes when we expected 11&#10;Added some profiling code in playground.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1400,18 +1389,8 @@
           <option name="timeStamp" value="255" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/ginmatch.py</url>
-          <line>257</line>
-          <option name="timeStamp" value="257" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/test_ginplayer.py</url>
           <option name="timeStamp" value="258" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/ginstrategy.py</url>
-          <line>60</line>
-          <option name="timeStamp" value="259" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1424,17 +1403,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="260" />
+      <option name="time" value="265" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test_ginmatch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="0" selection-start="3975" selection-end="3975" vertical-scroll-proportion="0.0" vertical-offset="2115" max-vertical-offset="4605">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utility.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="9" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1050">
@@ -1461,7 +1433,10 @@
     <entry file="file://$PROJECT_DIR$/gintable.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="0" selection-start="1519" selection-end="1519" vertical-scroll-proportion="0.0" vertical-offset="274" max-vertical-offset="1500">
-          <folding />
+          <folding>
+            <marker date="1428750733000" expanded="true" signature="1548:2123" placeholder="..." />
+            <marker date="1428750733000" expanded="true" signature="2180:2241" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1481,54 +1456,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_ginplayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="293" column="51" selection-start="10211" selection-end="10211" vertical-scroll-proportion="0.0" vertical-offset="3229" max-vertical-offset="4485">
+        <state line="293" column="51" selection-start="10235" selection-end="10235" vertical-scroll-proportion="0.0" vertical-offset="3229" max-vertical-offset="4485">
           <folding>
             <element signature="e#0#22#0" expanded="true" />
+            <marker date="1428754294000" expanded="true" signature="605:10235" placeholder="..." />
+            <marker date="1428754294000" expanded="true" signature="10079:10235" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="35" selection-start="807" selection-end="807" vertical-scroll-proportion="0.0" vertical-offset="2134" max-vertical-offset="3360">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ginstrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="47" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ginmatch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="185" column="25" selection-start="6671" selection-end="6671" vertical-scroll-proportion="0.0" vertical-offset="2537" max-vertical-offset="4920">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="0" selection-start="4119" selection-end="4249" vertical-scroll-proportion="0.0" vertical-offset="1339" max-vertical-offset="3090">
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/playground.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="422" selection-end="422" vertical-scroll-proportion="0.24469821" vertical-offset="0" max-vertical-offset="1226">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ginplayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="39" selection-start="3644" selection-end="3644" vertical-scroll-proportion="0.0" vertical-offset="1352" max-vertical-offset="2580">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1541,7 +1474,63 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/neuralnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="252" column="4" selection-start="8899" selection-end="8899" vertical-scroll-proportion="0.9755302" vertical-offset="2554" max-vertical-offset="5175">
+        <state line="211" column="56" selection-start="7362" selection-end="7362" vertical-scroll-proportion="0.0" vertical-offset="2554" max-vertical-offset="5175">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginplayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="39" selection-start="3644" selection-end="3644" vertical-scroll-proportion="0.0" vertical-offset="1352" max-vertical-offset="2580">
+          <folding>
+            <marker date="1428752029000" expanded="true" signature="4796:5118" placeholder="..." />
+            <marker date="1428752029000" expanded="true" signature="5175:5205" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_ginstrategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="25" selection-start="2853" selection-end="2853" vertical-scroll-proportion="0.0" vertical-offset="499" max-vertical-offset="1725">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginstrategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="71" selection-start="744" selection-end="744" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ginmatch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="43" selection-start="3944" selection-end="3944" vertical-scroll-proportion="0.0" vertical-offset="1142" max-vertical-offset="5280">
+          <folding>
+            <element signature="e#1313#1335#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="137" column="49" selection-start="5141" selection-end="5141" vertical-scroll-proportion="0.53833604" vertical-offset="1320" max-vertical-offset="3480">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="197" column="0" selection-start="7089" selection-end="7089" vertical-scroll-proportion="0.0" vertical-offset="1864" max-vertical-offset="3150">
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/playground.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="8" selection-start="431" selection-end="431" vertical-scroll-proportion="0.25693312" vertical-offset="0" max-vertical-offset="1226">
           <folding />
         </state>
       </provider>

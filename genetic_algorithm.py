@@ -23,15 +23,15 @@ class GeneSet(object):
         if isinstance(genes, int):
             # create genome of the requested size.
             # for the random seed values, we want to try to pick smart values.
-            # let's make 10% of the weights significant and the rest small randoms
+            # let's make 2% of the weights significant and the rest small randoms
             self.genes = []
             default_length = genes
             possible_means = [0.0, 0.05, 0.1, 0.2]
             shuffle(possible_means)
             mean = possible_means[0]
 
-            [self.genes.append(abs(random.gauss(0.3, 0.2))) for _ in range(int(0.05 * default_length))]
-            [self.genes.append(abs(random.gauss(mean, 0.01))) for _ in range(int(0.95 * default_length))]
+            [self.genes.append(abs(random.gauss(0.3, 0.2))) for _ in range(int(0.02 * default_length))]
+            [self.genes.append(abs(random.gauss(mean, 0.01))) for _ in range(int(0.98 * default_length))]
             shuffle(self.genes)
 
             # make sure the integer rounding doesn't lose us a gene or two
@@ -122,42 +122,50 @@ class Population(object):
 
     # engage each member in competition with each other member, recording the results
     def fitness_test(self):
+        logging.debug("BEGINNING FITNESS TEST")
+        already_tested = []
         for challenger_geneset in self.members:
             for defender_geneset in self.members:
                 if challenger_geneset is not defender_geneset:
+                    # do not test both A vs B AND B vs A. Just test them once.
+                    if (challenger_geneset, defender_geneset) in already_tested or (
+                        defender_geneset, challenger_geneset) in already_tested:
+                        continue
+                    already_tested.append((challenger_geneset, defender_geneset))
+
                     # create physical representations for these gene_sets
                     challenger_player = GinPlayer()
-                    defender_player   = GinPlayer()
+                    defender_player = GinPlayer()
 
                     match = GinMatch(challenger_player, defender_player)
                     output_keys = ['action', 'index', 'accept_improper_knock']
-                    num_inputs  = 11 + 5 + 33
+                    num_inputs = 11 + 5 + 33
                     num_outputs = 3
-                    num_hidden  = int((num_inputs + num_outputs) * (2.0/3.0))
+                    num_hidden = int((num_inputs + num_outputs) * (2.0 / 3.0))
 
                     challenger_weightset = WeightSet(challenger_geneset, num_inputs, num_hidden, num_outputs)
-                    defender_weightset   = WeightSet(defender_geneset,   num_inputs, num_hidden, num_outputs)
+                    defender_weightset = WeightSet(defender_geneset, num_inputs, num_hidden, num_outputs)
 
                     challenger_observers = [Observer(challenger_player), Observer(match.table), Observer(match)]
-                    defender_observers   = [Observer(defender_player),   Observer(match.table), Observer(match)]
+                    defender_observers = [Observer(defender_player), Observer(match.table), Observer(match)]
 
                     challenger_neuralnet = NeuralNet(challenger_observers, challenger_weightset, output_keys)
-                    defender_neuralnet   = NeuralNet(defender_observers,   defender_weightset,   output_keys)
+                    defender_neuralnet = NeuralNet(defender_observers, defender_weightset, output_keys)
 
-                    challenger_strategy  = NeuralGinStrategy(challenger_player, defender_player,  match,
-                                                             challenger_neuralnet)
-                    defender_strategy    = NeuralGinStrategy(defender_player,   challenger_player, match,
-                                                             defender_neuralnet)
+                    challenger_strategy = NeuralGinStrategy(challenger_player, defender_player, match,
+                                                            challenger_neuralnet)
+                    defender_strategy = NeuralGinStrategy(defender_player, challenger_player, match,
+                                                          defender_neuralnet)
 
                     challenger_player.strategy = challenger_strategy
-                    defender_player.strategy   = defender_strategy
+                    defender_player.strategy = defender_strategy
 
                     winner = match.run()
 
-                    if winner is challenger_geneset:
+                    if winner is challenger_player:
                         self.members[challenger_geneset]['wins'] += 1
                         self.members[defender_geneset]['losses'] += 1
-                    elif winner is defender_geneset:
+                    elif winner is defender_player:
                         self.members[defender_geneset]['wins'] += 1
                         self.members[challenger_geneset]['losses'] += 1
 

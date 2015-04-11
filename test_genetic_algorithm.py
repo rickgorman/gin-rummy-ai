@@ -185,15 +185,19 @@ class TestPopulation(unittest.TestCase):
         self.p.members = {}
         self.p.add_member(GeneSet(5000), 0)
         self.p.add_member(GeneSet(5000), 0)
+        self.p.add_member(GeneSet(5000), 0)
 
         # run the fitness test and ensure one member has a win, and one has a loss
         self.p.fitness_test()
         p1_won = self.p.members.items()[0][1]['wins']
-        p2_won = self.p.members.items()[0][1]['wins']
+        p2_won = self.p.members.items()[1][1]['wins']
+        p3_won = self.p.members.items()[2][1]['wins']
         p1_lost = self.p.members.items()[0][1]['losses']
-        p2_lost = self.p.members.items()[0][1]['losses']
-        self.assertEqual(1, p1_won + p2_won)
-        self.assertEqual(1, p1_lost + p2_lost)
+        p2_lost = self.p.members.items()[1][1]['losses']
+        p3_lost = self.p.members.items()[2][1]['losses']
+
+        self.assertEqual(3, p1_won  + p2_won  + p3_won)
+        self.assertEqual(3, p1_lost + p2_lost + p3_lost)
 
     def test_evolve_indefinitely(self):
         self.fail("not implemented")

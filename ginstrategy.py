@@ -54,9 +54,9 @@ class NeuralGinStrategy(GinStrategy):
     def decode_best_action(self, phase=None):
         assert phase is not None, "a phase of 'start' or 'end' is required"
         if phase == 'start':
-            actions = ['DRAW', 'PICKUP-FROM-DISCARD']
+            actions = ['PICKUP-FROM-DISCARD', 'DRAW']
         else:
-            actions = ['DISCARD', 'KNOCK', 'KNOCK-GIN']
+            actions = ['KNOCK', 'DISCARD', 'KNOCK-GIN']
 
         idx = NeuralGinStrategy.decode_signal(self.nn.outputs['action'], len(actions))
         return actions[idx]

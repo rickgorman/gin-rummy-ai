@@ -89,14 +89,14 @@ class TestNeuralGinStrategy(Helper):
             self.assertEqual(expected, decoded)
 
     def test_decode_best_action_phase_start(self):
-        signals = {'DRAW': 0.3, 'PICKUP-FROM-DISCARD': 0.9}
+        signals = {'PICKUP-FROM-DISCARD': 0.3, 'DRAW': 0.9}
 
         for action, signal_strength in signals.items():
             self.strat.nn.outputs['action'] = signal_strength
             self.assertEqual(action, self.strat.decode_best_action(phase='start'))
 
     def test_decode_best_action_phase_end(self):
-        signals = {'DISCARD': 0.1, 'KNOCK': 0.5, 'KNOCK-GIN': 0.7}
+        signals = {'KNOCK': 0.1, 'DISCARD': 0.5, 'KNOCK-GIN': 0.7}
 
         for action, signal_strength in signals.items():
             self.strat.nn.outputs['action'] = signal_strength

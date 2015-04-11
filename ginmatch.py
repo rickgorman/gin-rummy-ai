@@ -28,6 +28,7 @@
 from gintable import *
 from ginplayer import *
 from utility import *
+import random
 
 
 class GinMatch(Observable):
@@ -38,7 +39,7 @@ class GinMatch(Observable):
         super(GinMatch, self).__init__()
 
         # rules
-        self.maximum_turns = 100
+        self.maximum_turns = 60  # 30 discards possible, so each player discards each card twice
         self.turns_taken = 0
         self.knocking_point = 10
 
@@ -93,10 +94,10 @@ class GinMatch(Observable):
         self.p1_score += 20 * self.p1_matches_won
         self.p2_score += 20 * self.p2_matches_won
 
-        logging.debug("--MATCH COMPLETE--")
-        logging.debug("Final scores: ")
-        logging.debug("Player 1: {0}".format(self.p1_score))
-        logging.debug("Player 2: {0}".format(self.p2_score))
+        logging.debug("\t--MATCH COMPLETE--")
+        logging.debug("\tFinal scores: ")
+        logging.debug("\tPlayer 1: {0}".format(self.p1_score))
+        logging.debug("\tPlayer 2: {0}".format(self.p2_score))
 
         # return winner
         if self.p1_score > self.p2_score:
@@ -135,6 +136,10 @@ class GinMatch(Observable):
 
         logging.debug("")
         logging.debug("========================================================================================")
+        logging.debug("========================================================================================")
+        logging.debug("========================================================================================")
+        logging.debug("========================================================================================")
+        logging.debug("========================================================================================")
         logging.debug("\tbeginning new game between {0} and {1}".format(self.p1, self.p2))
 
         # clear game states
@@ -172,17 +177,28 @@ class GinMatch(Observable):
         logging.debug("")
         logging.debug("\tplayer 1 is dealt: {0}".format(self.p1.hand))
         logging.debug("\tplayer 2 is dealt: {0}".format(self.p2.hand))
+        logging.debug("")
 
     # alternate play between each player
     def take_turns(self):
         # beginning with p1, take turns until a valid knock/gin is called OR we have only two cards remaining
-        while not self.gameover and len(self.table.deck.cards) >= 2 and self.turns_taken < self.maximum_turns:
+        while not self.gameover and len(self.table.deck.cards) >= 2:
+            # if the game has gone on too long, fake an ending. we use knock_gin as it won't give us negative points
+            if self.turns_taken == self.maximum_turns:
+                self.gameover = True
+                if random.random() < 0.5:
+                    logging.debug("\tPlayer 1 wins the game-ending coin flip!")
+                    self.player_who_knocked_gin = self.p1
+                else:
+                    logging.debug("\tPlayer 2 wins the game-ending coin flip!")
+                    self.player_who_knocked_gin = self.p2
+
             # both players get a chance to play, respecting knocks and end-of-game notifications
             for p in (self.p1, self.p2):
                 # exit condition
                 if not self.gameover:
-                    logging.debug("")
-                    logging.debug("\tIt is {0}'s turn:".format(self.get_player_string(p)))
+                    logging.debug(
+                        "\tTurn {0}. It is {1}'s turn:".format(self.turns_taken + 1, self.get_player_string(p)))
                     p.take_turn()
 
                     # validate the knock or reset the knock state and penalize the knocker
@@ -221,8 +237,10 @@ class GinMatch(Observable):
             # update score tallies
             if knocker == self.p1:
                 self.p1_score += score_delta
+                self.p1_matches_won += 1
             elif knocker == self.p2:
                 self.p2_score += score_delta
+                self.p2_matches_won += 1
 
         # for knocks, allow lay-offs
         elif self.player_who_knocked:
@@ -235,20 +253,24 @@ class GinMatch(Observable):
                 score_delta += 25
                 if knocker == self.p1:
                     self.p2_score += score_delta
+                    self.p2_matches_won += 1
                 elif knocker == self.p2:
                     self.p1_score += score_delta
+                    self.p1_matches_won += 1
             # regular knocks
             else:
                 if knocker == self.p1:
                     self.p1_score += score_delta
+                    self.p1_matches_won += 1
                 elif knocker == self.p2:
                     self.p2_score += score_delta
+                    self.p2_matches_won += 1
 
-        logging.debug("\t\tupdated scores:")
-        logging.debug("\t\tplayer 1 score: ".format(self.p1_score))
-        logging.debug("\t\tplayer 1 matches won: ".format(self.p1_matches_won))
-        logging.debug("\t\tplayer 2 score: ".format(self.p2_score))
-        logging.debug("\t\tplayer 2 matches won: ".format(self.p2_matches_won))
+        logging.debug("\t\tEnd-of-game scores:")
+        logging.debug("\t\t  player 1 score: {0}".format(self.p1_score))
+        logging.debug("\t\t  player 1 matches won: {0}".format(self.p1_matches_won))
+        logging.debug("\t\t  player 2 score: {0}".format(self.p2_score))
+        logging.debug("\t\t  player 2 matches won: {0}".format(self.p2_matches_won))
 
     def process_knock(self, knocker):
         """@type knocker: GinPlayer"""
