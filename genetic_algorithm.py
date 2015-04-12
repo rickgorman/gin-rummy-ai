@@ -122,7 +122,6 @@ class Population(object):
 
     # engage each member in competition with each other member, recording the results
     def fitness_test(self):
-        logging.debug("BEGINNING FITNESS TEST")
         already_tested = []
         for challenger_geneset in self.members:
             for defender_geneset in self.members:
@@ -136,6 +135,7 @@ class Population(object):
                     # create physical representations for these gene_sets
                     challenger_player = GinPlayer()
                     defender_player = GinPlayer()
+                    logging.debug("Testing: {0}  {1}".format(challenger_geneset, defender_geneset))
 
                     match = GinMatch(challenger_player, defender_player)
                     output_keys = ['action', 'index', 'accept_improper_knock']
@@ -161,6 +161,7 @@ class Population(object):
                     defender_player.strategy = defender_strategy
 
                     winner = match.run()
+                    #winner = challenger_player
 
                     if winner is challenger_player:
                         self.members[challenger_geneset]['wins'] += 1

@@ -186,6 +186,9 @@ class Perceptron(object):
         else:
             self.id = myid
 
+        # memoization caching
+        self.memo = False
+
     # uplink to an upstream perceptron, storing the connection's weight in a dict
     def add_input(self, target, weight):
         self.inputs[target] = weight
@@ -199,27 +202,33 @@ class Perceptron(object):
         return 1 / (1 + exp(-num))
 
     # return the sigmoid of: the sum of our inputs multiplied by their respective weights
-    def generate_output(self, indent_level=0):
-        func_debug = 0
-        weighted = 0
-        sigmoided = 0
+    def generate_output(self, indent_level=0, getlast=True):
+        # use our cache, if available
+        if getlast is True and self.memo is not False:
+            return self.memo
+        else:
+            func_debug = 0
+            weighted = 0
+            sigmoided = 0
 
-        if func_debug:
-            indent_print(indent_level, "running generate_output() for: " + self.id)
-
-        for each_input in self.inputs.keys():
-            output = each_input.generate_output(indent_level=indent_level+1)
-            weighted += self.inputs[each_input] * output
-            sigmoided = Perceptron.sigmoid(weighted)
-            # debug output
             if func_debug:
-                indent_print(indent_level+1, "looking at connection from " + each_input.id + " to " + self.id)
-                indent_print(indent_level+2, "input weight: " + str(self.inputs[each_input]))
-                indent_print(indent_level+2, "output: " + str(output))
-                indent_print(indent_level+2, "weighted: " + str(weighted))
-                indent_print(indent_level+2, "sigmoided: " + str(round(sigmoided, 4)))
+                indent_print(indent_level, "running generate_output() for: " + self.id)
 
-        return sigmoided
+            for each_input in self.inputs.keys():
+                output = each_input.generate_output(indent_level=indent_level+1, getlast=getlast)
+                weighted += self.inputs[each_input] * output
+                sigmoided = Perceptron.sigmoid(weighted)
+                # debug output
+                if func_debug:
+                    indent_print(indent_level+1, "looking at connection from " + each_input.id + " to " + self.id)
+                    indent_print(indent_level+2, "input weight: " + str(self.inputs[each_input]))
+                    indent_print(indent_level+2, "output: " + str(output))
+                    indent_print(indent_level+2, "weighted: " + str(weighted))
+                    indent_print(indent_level+2, "sigmoided: " + str(round(sigmoided, 4)))
+
+            self.memo = sigmoided
+
+            return sigmoided
 
 
 class InputPerceptron(Perceptron):
@@ -237,7 +246,7 @@ class InputPerceptron(Perceptron):
 
         Perceptron.__init__(self, myid)
 
-    def generate_output(self, indent_level=0):
+    def generate_output(self, indent_level=0, getlast=False):
         func_debug = 0
 
         # ask the observer for its current sense of the world, weight it, and then run it through the sigmoid function
@@ -251,6 +260,8 @@ class InputPerceptron(Perceptron):
 
     # probe the observer
     def sense(self):
+        # nuke our caching
+        self.memo = False
         return self.observer.get_value_by_index(self.index)
 
 
@@ -279,26 +290,32 @@ class WeightSet(object):
     def __init__(self, gene_set, num_inputs=None, num_hidden=None, num_outputs=None):
         # ensure correct args
         assert num_inputs is not None and num_hidden is not None and num_outputs is not None, "empty args"
-        assert len(gene_set.genes) >= num_inputs + num_hidden + num_outputs, "not enough genes to fill up our weights"
+        assert len(gene_set.genes) >= num_inputs + num_hidden * num_inputs + num_outputs * num_hidden, \
+            "not enough genes to fill up our weights"
 
         # create structure
         self.weights = {'input': [], 'hidden': [], 'output': []}
 
+        gene_index = 0
+
         # fill input layer with weights
         for _ in range(num_inputs):
-            self.weights['input'].append(gene_set.genes.pop())
+            self.weights['input'].append(gene_set.genes[gene_index])
+            gene_index += 1
 
         # fill hidden layer with weights connecting to input layer
         for i in range(num_hidden):
             self.weights['hidden'].append([])
             for _ in range(num_inputs):
-                self.weights['hidden'][i].append(gene_set.genes.pop())
+                self.weights['hidden'][i].append(gene_set.genes[gene_index])
+                gene_index += 1
 
         # fill output layer with weights connecting to input layer
         for i in range(num_outputs):
             self.weights['output'].append([])
             for _ in range(num_hidden):
-                self.weights['output'][i].append(gene_set.genes.pop())
+                self.weights['output'][i].append(gene_set.genes[gene_index])
+                gene_index += 1
 
     # cut out junk genes
     def prune(self, num_inputs, num_hidden, num_outputs):

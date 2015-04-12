@@ -181,23 +181,25 @@ class TestPopulation(unittest.TestCase):
         self.assertEqual(2, self.p.members.items()[0][1]['generation'])
 
     def test_fitness_test(self):
-        # start with two members
+        member_count = 5
         self.p.members = {}
-        self.p.add_member(GeneSet(5000), 0)
-        self.p.add_member(GeneSet(5000), 0)
-        self.p.add_member(GeneSet(5000), 0)
+        for _ in range(member_count):
+            self.p.add_member(GeneSet(2000), 0)
 
-        # run the fitness test and ensure one member has a win, and one has a loss
+        # calculate number of matches as triangular series
+        expected_games_played = (member_count * (member_count - 1)) / 2
+
+        # run the fitness test and ensure one member has a win, and one has a loss, for each game played
         self.p.fitness_test()
-        p1_won = self.p.members.items()[0][1]['wins']
-        p2_won = self.p.members.items()[1][1]['wins']
-        p3_won = self.p.members.items()[2][1]['wins']
-        p1_lost = self.p.members.items()[0][1]['losses']
-        p2_lost = self.p.members.items()[1][1]['losses']
-        p3_lost = self.p.members.items()[2][1]['losses']
+        games_won = 0
+        games_lost = 0
 
-        self.assertEqual(3, p1_won  + p2_won  + p3_won)
-        self.assertEqual(3, p1_lost + p2_lost + p3_lost)
+        for member in self.p.members.items():
+            games_won += member[1]['wins']
+            games_lost += member[1]['losses']
+
+        self.assertEqual(expected_games_played, games_won)
+        self.assertEqual(expected_games_played, games_lost)
 
     def test_evolve_indefinitely(self):
         self.fail("not implemented")
