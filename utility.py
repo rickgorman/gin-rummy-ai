@@ -96,6 +96,12 @@ def memoized(f):
                 self.last_args = None
                 return ret
 
+        # http://stackoverflow.com/a/3296318/2023776
+        def __get__(self, obj, objtype):
+            """Support instance methods."""
+            import functools
+            return functools.partial(self.__call__, obj)
+
         @staticmethod
         def make_key(args):
             hash_string = ""

@@ -10,6 +10,7 @@
 from ginplayer import *
 from gindeck import *
 from observer import *
+from utility import *
 
 
 class GinTable(Observable):
@@ -46,6 +47,7 @@ class GinTable(Observable):
         else:
             raise TableSeatingError("gintable is full")
 
+    @memoized
     def organize_data(self):
         # we start with the current height of the drawing deck
         data = {0: len(self.deck.cards)}

@@ -34,15 +34,7 @@ class Card(object):
 
     # compare by rank. if equal, then compare by suit
     def __cmp__(self, other):
-
-        suit_rankings = ['c', 'd', 'h', 's']
-
-        r = self.rank.__cmp__(other.rank)
-        # if rank is equal
-        if not r:
-            return suit_rankings.index(self.suit) - suit_rankings.index(other.suit)
-        else:
-            return r
+        return self.ranking() - other.ranking()
 
     # return a ranking of 1-52
     # - Ac=1, 2c=2, ..., Ad=14, 2d=15, ..., Qs=51, Ks=52

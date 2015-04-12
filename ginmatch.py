@@ -289,6 +289,8 @@ class GinMatch(Observable):
             # next, handle a knock that is actually a gin (the AI will be dumb about this)
             if knocker.hand.deadwood_count() == 0:
                 log_debug("\t\tthe knock was actually a gin.")
+                self.player_who_knocked = False
+                self.player_who_knocked_gin = True
                 self.process_knock_gin(knocker)
             # finally, handle valid knocks
             else:

@@ -121,14 +121,15 @@ class Helper(unittest.TestCase):
         for meld_definition in control_definitions:
             agcg_control.append(GinCardGroup(meld_definition))
 
+        for gcg in agcg_control:
+            gcg.sort()
+        for gcg in agcg_test:
+            gcg.sort()
+
         # the number of GCG's must be the same
         self.assertEqual(len(agcg_control), len(agcg_test))
 
-        # compare each expected/generated pair by value
-        for i in range(0, len(agcg_test)):
-            for j in range(0, len(agcg_test[i].cards)):
-                self.assertEqual(agcg_test[i].cards[j].rank, agcg_control[i].cards[j].rank)
-                self.assertEqual(agcg_test[i].cards[j].suit, agcg_control[i].cards[j].suit)
+        self.assertEqual(0, len(list(set(agcg_test) - set(agcg_control))))
 
     def return_false(self):
         return False

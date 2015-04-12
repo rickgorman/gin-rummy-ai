@@ -11,6 +11,7 @@ from deck import *
 from operator import attrgetter, itemgetter
 from gindeck import *
 from utility import *
+import bisect
 
 
 # card organization and management. takes as input an array of card tuples. maintains objects internally as GinCards
@@ -46,11 +47,15 @@ class GinCardGroup:
     def __hash__(self):
         return hash(self.cards.__repr__())
 
-    # add a card. guarantee sort.
+    # add a card
     def add_card(self, card):
         assert isinstance(card, Card), "trying to add something that isn't a card"
-        self.cards.append(card)
-        self.sort()
+        # first card goes in by itself
+        if len(self.cards) == 0:
+            self.cards.append(card)
+        # we retain the order of the list
+        else:
+            bisect.insort_left(self.cards, card)
 
     # discard a Card
     def discard(self, requested):
@@ -175,77 +180,74 @@ class GinCardGroup:
         all_sets = self.enumerate_all_sets()
 
         everything = all_melds + all_sets
-        GinCardGroup.sort_melds(everything)
+        #        GinCardGroup.sort_melds(everything)
 
         return everything
 
-    @staticmethod
-    @memoized
-    def _memoized_enumerate_all_melds(hand):
-        agcg_all_melds = list()
-
-        # First, check for exact 3-melds
-        if hand.size() >= 3:
-            hand.sort(by_suit=True)
-            for i in range(0, len(hand.cards) - 3 + 1):
-                first_card = hand.cards[i]
-                second_card = hand.cards[i + 1]
-                third_card = hand.cards[i + 2]
-                if first_card.suit == second_card.suit == third_card.suit:
-                    if first_card.rank + 1 == second_card.rank and second_card.rank + 1 == third_card.rank:
-                        agcg_all_melds.append(GinCardGroup([first_card, second_card, third_card]))
-
-        # Next, check for exact 4-melds
-        if hand.size() >= 4:
-            for i in range(0, len(hand.cards) - 4 + 1):
-                first_card = hand.cards[i]
-                second_card = hand.cards[i + 1]
-                third_card = hand.cards[i + 2]
-                fourth_card = hand.cards[i + 3]
-                if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit:
-                    if (first_card.rank + 1 == second_card.rank and
-                                    second_card.rank + 1 == third_card.rank and
-                                    third_card.rank + 1 == fourth_card.rank):
-                        agcg_all_melds.append(GinCardGroup([first_card, second_card, third_card, fourth_card]))
-
-        # Finally, check for exact 5-melds
-        if hand.size() >= 5:
-            for i in range(0, len(hand.cards) - 5 + 1):
-                first_card = hand.cards[i]
-                second_card = hand.cards[i + 1]
-                third_card = hand.cards[i + 2]
-                fourth_card = hand.cards[i + 3]
-                fifth_card = hand.cards[i + 4]
-                if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit == fifth_card.suit:
-                    if (first_card.rank + 1 == second_card.rank and
-                                    second_card.rank + 1 == third_card.rank and
-                                    third_card.rank + 1 == fourth_card.rank and
-                                    fourth_card.rank + 1 == fifth_card.rank):
-                        agcg_all_melds.append(
-                            GinCardGroup([first_card, second_card, third_card, fourth_card, fifth_card]))
-
-        agcg_all_melds_deduped = GinCardGroup.uniqsort_cardgroups(agcg_all_melds)
-
-        return agcg_all_melds_deduped
-
     # return an array of GinCardGroups of all melds that can be built with the cards in this hand
+    @memoized
     def enumerate_all_melds(self):
         # easy out. we must have at least 3 cards to have a meld.
         if self.size() < 3:
             return GinCardGroup()
         else:
-            return GinHand._memoized_enumerate_all_melds(self)
+            agcg_all_melds = list()
 
-    @staticmethod
+            # First, check for exact 3-melds
+            if self.size() >= 3:
+                self.sort(by_suit=True)
+                for i in range(0, len(self.cards) - 3 + 1):
+                    first_card = self.cards[i]
+                    second_card = self.cards[i + 1]
+                    third_card = self.cards[i + 2]
+                    if first_card.suit == second_card.suit == third_card.suit:
+                        if first_card.rank + 1 == second_card.rank and second_card.rank + 1 == third_card.rank:
+                            agcg_all_melds.append(GinCardGroup([first_card, second_card, third_card]))
+
+            # Next, check for exact 4-melds
+            if self.size() >= 4:
+                for i in range(0, len(self.cards) - 4 + 1):
+                    first_card = self.cards[i]
+                    second_card = self.cards[i + 1]
+                    third_card = self.cards[i + 2]
+                    fourth_card = self.cards[i + 3]
+                    if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit:
+                        if (first_card.rank + 1 == second_card.rank and
+                                        second_card.rank + 1 == third_card.rank and
+                                        third_card.rank + 1 == fourth_card.rank):
+                            agcg_all_melds.append(GinCardGroup([first_card, second_card, third_card, fourth_card]))
+
+            # Finally, check for exact 5-melds
+            if self.size() >= 5:
+                for i in range(0, len(self.cards) - 5 + 1):
+                    first_card = self.cards[i]
+                    second_card = self.cards[i + 1]
+                    third_card = self.cards[i + 2]
+                    fourth_card = self.cards[i + 3]
+                    fifth_card = self.cards[i + 4]
+                    if first_card.suit == second_card.suit == third_card.suit == fourth_card.suit == fifth_card.suit:
+                        if (first_card.rank + 1 == second_card.rank and
+                                        second_card.rank + 1 == third_card.rank and
+                                        third_card.rank + 1 == fourth_card.rank and
+                                        fourth_card.rank + 1 == fifth_card.rank):
+                            agcg_all_melds.append(
+                                GinCardGroup([first_card, second_card, third_card, fourth_card, fifth_card]))
+
+            agcg_all_melds_deduped = GinCardGroup.uniqsort_cardgroups(agcg_all_melds)
+
+            return agcg_all_melds_deduped
+
+
+    # return a sorted array of GinCardGroups, one containing each set
     @memoized
-    def _memoized_enumerate_all_sets(hand):
+    def enumerate_all_sets(self):
         agcg_all_sets = list()
 
         # we need at least 3 cards to make a set
-        if hand.size() >= 3:
-            for c in hand.cards:
+        if self.size() >= 3:
+            for c in self.cards:
                 # First, check for 4-sets
-                if hand._is_in_a_4set(c):
+                if self._is_in_a_4set(c):
                     quad_cards = []
                     # enumerate all cards in the 4-set for ease of use
                     for s in c.all_suits():
@@ -260,17 +262,13 @@ class GinCardGroup:
                     agcg_all_sets.append(GinCardGroup([quad_cards[2], quad_cards[3], quad_cards[0]]))
                     agcg_all_sets.append(GinCardGroup([quad_cards[3], quad_cards[0], quad_cards[1]]))
                 # Next, check for 3-sets (reminder: here we check for 3sets exclusive of 4sets)
-                elif hand._is_in_a_3set(c):
-                    set_cards = [x for x in hand.cards if x.rank == c.rank]
+                elif self._is_in_a_3set(c):
+                    set_cards = [x for x in self.cards if x.rank == c.rank]
                     agcg_all_sets.append(GinCardGroup(set_cards))
 
         agcg_all_sets_deduped = GinCardGroup.uniqsort_cardgroups(agcg_all_sets)
 
         return agcg_all_sets_deduped
-
-    # return a sorted array of GinCardGroups, one containing each set
-    def enumerate_all_sets(self):
-        return GinHand._memoized_enumerate_all_sets(self)
 
     # return a GCG containing our deadwood cards
     def deadwood_cards(self):
@@ -282,18 +280,17 @@ class GinCardGroup:
 
         return deadwood
 
-    @staticmethod
     @memoized
-    def _memoized_deadwood_count(hand):
+    def deadwood_count(self):
         debug_func = False
         # begin with worst case: entire hand is deadwood.
-        worst_case = hand.points()
+        worst_case = self.points()
 
         # optimization step: we remove all cards not part of a set or a meld
         specimen = GinCardGroup()
         early_deadwood = GinCardGroup()
-        for card in hand.cards:
-            if hand._is_in_a_meld(card) or hand._is_in_a_3set(card) or hand._is_in_a_4set(card):
+        for card in self.cards:
+            if self._is_in_a_meld(card) or self._is_in_a_3set(card) or self._is_in_a_4set(card):
                 specimen.add_card(card)
             else:
                 early_deadwood.add_card(card)
@@ -306,7 +303,7 @@ class GinCardGroup:
                 print '\t' + ''.join((x.to_s() + '\t') for x in meld.cards)
 
         # recursion. add smallest discovered deadwood count to early_deadwood count
-        explored_case = hand._examine_melds(specimen) + early_deadwood.points()
+        explored_case = self._examine_melds(specimen) + early_deadwood.points()
 
         lowest_deadwood = min(worst_case, explored_case)
 
@@ -315,8 +312,6 @@ class GinCardGroup:
 
         return lowest_deadwood
 
-    def deadwood_count(self):
-        return GinHand._memoized_deadwood_count(self)
 
     # our recursive call for deadwood_count
     # parameters:

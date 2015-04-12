@@ -20,8 +20,8 @@ class TestCard(unittest.TestCase):
             Card(100, 'c')
 
     def test___cmp__(self):
-        card1 = Card(5, 'd')
-        card2 = Card(6, 'c')
+        card1 = Card(6, 'c')
+        card2 = Card(5, 'd')
         card3 = Card(6, 's')
 
         self.assertLessEqual(card1.__cmp__(card2), -1)
