@@ -107,7 +107,7 @@ class Helper(unittest.TestCase):
     def generate_gincardgroup_from_card_data(cdata):
         cg = GinCardGroup()
         for c in cdata:
-            cg.add(c[0], c[1])
+            cg.add_card(GinCard(c[0], c[1]))
         return cg
 
     # we pass in a control array (array of meld definitions like [(1, 'c'), (2, 'c'), (3, 'c')]) and

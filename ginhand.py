@@ -46,12 +46,7 @@ class GinCardGroup:
     def __hash__(self):
         return hash(self.cards.__repr__())
 
-    # add a card by value. guarantee sort.
-    def add(self, rank, suit):
-        self.cards.append(GinCard(rank, suit))
-        self.sort()
-
-    # add a card by copy. guarantee sort.
+    # add a card. guarantee sort.
     def add_card(self, card):
         assert isinstance(card, Card), "trying to add something that isn't a card"
         self.cards.append(card)
@@ -241,15 +236,16 @@ class GinCardGroup:
         else:
             return GinHand._memoized_enumerate_all_melds(self)
 
-    # return a sorted array of GinCardGroups, one containing each set
-    def enumerate_all_sets(self):
+    @staticmethod
+    @memoized
+    def _memoized_enumerate_all_sets(hand):
         agcg_all_sets = list()
 
         # we need at least 3 cards to make a set
-        if self.size() >= 3:
-            for c in self.cards:
+        if hand.size() >= 3:
+            for c in hand.cards:
                 # First, check for 4-sets
-                if self._is_in_a_4set(c):
+                if hand._is_in_a_4set(c):
                     quad_cards = []
                     # enumerate all cards in the 4-set for ease of use
                     for s in c.all_suits():
@@ -264,13 +260,17 @@ class GinCardGroup:
                     agcg_all_sets.append(GinCardGroup([quad_cards[2], quad_cards[3], quad_cards[0]]))
                     agcg_all_sets.append(GinCardGroup([quad_cards[3], quad_cards[0], quad_cards[1]]))
                 # Next, check for 3-sets (reminder: here we check for 3sets exclusive of 4sets)
-                elif self._is_in_a_3set(c):
-                    set_cards = [x for x in self.cards if x.rank == c.rank]
+                elif hand._is_in_a_3set(c):
+                    set_cards = [x for x in hand.cards if x.rank == c.rank]
                     agcg_all_sets.append(GinCardGroup(set_cards))
 
         agcg_all_sets_deduped = GinCardGroup.uniqsort_cardgroups(agcg_all_sets)
 
         return agcg_all_sets_deduped
+
+    # return a sorted array of GinCardGroups, one containing each set
+    def enumerate_all_sets(self):
+        return GinHand._memoized_enumerate_all_sets(self)
 
     # return a GCG containing our deadwood cards
     def deadwood_cards(self):

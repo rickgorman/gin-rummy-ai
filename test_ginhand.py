@@ -62,7 +62,7 @@ class TestGinCardGroup(Helper):
 
     def test_add(self):
         cg = GinCardGroup()
-        cg.add(9, 'c')
+        cg.add_card(GinCard(9, 'c'))
         self.assertEqual(1, len(cg.cards))
         self.assertEqual(9, cg.cards[0].rank)
         self.assertEqual('c', cg.cards[0].suit)
@@ -175,7 +175,7 @@ class TestGinCardGroup(Helper):
     def test_size(self):
         cg = GinCardGroup()
         self.assertEqual(0, cg.size())
-        cg.add(2, 'd')
+        cg.add_card(GinCard(2, 'd'))
         self.assertEqual(1, cg.size())
 
     def test_contains(self):
@@ -196,10 +196,10 @@ class TestGinCardGroup(Helper):
         cg1 = GinCardGroup()
         self.assertEqual(0, cg1.points())
 
-        cg1.add(9, 'c')
+        cg1.add_card(GinCard(9, 'c'))
         self.assertEqual(9, cg1.points())
 
-        cg1.add(11, 'c')
+        cg1.add_card(GinCard(11, 'c'))
         self.assertEqual(19, cg1.points())
 
         # test something bigger
@@ -215,7 +215,7 @@ class TestGinCardGroup(Helper):
         for row in expected_melds_data:
             gcg = GinCardGroup()
             for card in row:
-                gcg.add(card[0], card[1])
+                gcg.add_card(GinCard(card[0], card[1]))
             expected_melds_gcg.append(gcg)
         return expected_melds_gcg
 

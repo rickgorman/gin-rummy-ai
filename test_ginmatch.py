@@ -135,7 +135,7 @@ class TestGinMatch(Helper):
 
         self.p1.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
         # give p1 an 11th card for discarding
-        self.p1.hand.add(1, 'h')
+        self.p1.hand.add_card(GinCard(1, 'h'))
         self.p2.hand = self.generate_ginhand_from_card_data(self.knock_worthy_hand_data)
 
         # after turn taking is done, we should reach the gameover state and have exactly one knocker

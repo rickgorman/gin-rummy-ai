@@ -157,7 +157,7 @@ class TestGinPlayer(Helper):
         self.p.strategy = strat
 
         # monkey-load a card into the player's hand
-        self.p.hand.add(4, 'c')
+        self.p.hand.add_card(GinCard(4, 'c'))
 
         # run the strategy, which should cause us to discard our first card
         self.p.consult_strategy(phase='end')
