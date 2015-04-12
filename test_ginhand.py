@@ -3,21 +3,21 @@ from test_helpers import *
 from ginhand import *
 
 
-# noinspection PyProtectedMember
+# noinspection PyProtectedMember,PyMethodMayBeStatic
 class TestGinCardGroup(Helper):
     maxDiff = None
 
     def test___repr__(self):
-        card_list = [(1, 'c'), (2, 'd'), (3, 's')]
+        card_list = [GinCard(1, 'c'), GinCard(2, 'd'), GinCard(3, 's')]
         gcg = GinCardGroup(card_list)
 
         self.assertEqual("1c 2d 3s", gcg.__repr__())
 
     def test___cmp_(self):
-        card_group_first  = GinCardGroup([(1, 'c'), (1, 'd'), (1, 'h')])
-        card_group_second = GinCardGroup([(1, 'c'), (2, 'c'), (3, 'c')])
-        card_group_third  = GinCardGroup([(2, 'c'), (3, 'c'), (4, 'c')])
-        card_group_fourth = GinCardGroup([(2, 'c'), (3, 'c'), (4, 'c'), (5, 'c')])
+        card_group_first  = GinCardGroup([GinCard(1, 'c'), GinCard(1, 'd'), GinCard(1, 'h')])
+        card_group_second = GinCardGroup([GinCard(1, 'c'), GinCard(2, 'c'), GinCard(3, 'c')])
+        card_group_third  = GinCardGroup([GinCard(2, 'c'), GinCard(3, 'c'), GinCard(4, 'c')])
+        card_group_fourth = GinCardGroup([GinCard(2, 'c'), GinCard(3, 'c'), GinCard(4, 'c'), GinCard(5, 'c')])
 
         # test equality
         self.assertEqual(card_group_first.__cmp__(card_group_first), 0)
@@ -40,7 +40,7 @@ class TestGinCardGroup(Helper):
 
     def test_iterable(self):
         gcg_catcher = GinCardGroup()
-        gcg_control = GinCardGroup(self.card_data1)
+        gcg_control = self.generate_gincardgroup_from_card_data(self.card_data1)
         for c in gcg_control:
             gcg_catcher.add_card(c)
 
@@ -52,7 +52,7 @@ class TestGinCardGroup(Helper):
             self.assertEqual(0, gcg_catcher.cards[index].__cmp__(card))
 
     def test_new_gincardgroup(self):
-        cg = GinCardGroup(self.card_data1)
+        cg = self.generate_gincardgroup_from_card_data(self.card_data1)
 
         self.assertEqual(10, len(cg.cards))
 
@@ -179,12 +179,12 @@ class TestGinCardGroup(Helper):
         self.assertEqual(1, cg.size())
 
     def test_contains(self):
-        cg = GinCardGroup(self.card_data1)
+        cg = self.generate_gincardgroup_from_card_data(self.card_data1)
         self.assertEqual(True, cg.contains(5, 'c'))
         self.assertEqual(False, cg.contains(5, 'd'))
 
     def test_contains_card(self):
-        cg = GinCardGroup(self.card_data1)
+        cg = self.generate_gincardgroup_from_card_data(self.card_data1)
         card_yes = GinCard(5, 'c')
         card_no  = GinCard(5, 'd')
 
@@ -203,12 +203,21 @@ class TestGinCardGroup(Helper):
         self.assertEqual(19, cg1.points())
 
         # test something bigger
-        cg2 = GinCardGroup(self.card_data1)
+        cg2 = self.generate_gincardgroup_from_card_data(self.card_data1)
         self.assertEqual(92, cg2.points())
 
     def test_sum_points_zero(self):
         cg = GinCardGroup()
         self.assertEqual(0, cg.points())
+
+    def build_meldgroup_list_from_data(self, expected_melds_data):
+        expected_melds_gcg = []
+        for row in expected_melds_data:
+            gcg = GinCardGroup()
+            for card in row:
+                gcg.add(card[0], card[1])
+            expected_melds_gcg.append(gcg)
+        return expected_melds_gcg
 
     def test_enumerate_all_melds_and_sets(self):
         expected_melds_data = [[(9,  'c'), (9,  'h'), (9,  's')],
@@ -221,10 +230,12 @@ class TestGinCardGroup(Helper):
                                 [(13, 'c'), (13, 'h'), (13, 's')],
                                ]
 
+        expected_melds = self.build_meldgroup_list_from_data(expected_melds_data)
+
         g = self.generate_gincardgroup_from_card_data(self.card_data1)
         generated_melds = g.enumerate_all_melds_and_sets()
 
-        self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
+        self.compare_arrays_of_cardgroups(expected_melds, generated_melds)
 
     def test_enumerate_all_melds_and_sets_quads(self):
         expected_melds_data = [[(9,  'c'), (9,  'd'), (9,  'h')],
@@ -241,10 +252,12 @@ class TestGinCardGroup(Helper):
                           [(13, 'c'), (13, 'h'), (13, 's')],
                           ]
 
+        expected_melds = self.build_meldgroup_list_from_data(expected_melds_data)
+
         g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_melds_and_sets()
 
-        self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
+        self.compare_arrays_of_cardgroups(expected_melds, generated_melds)
 
     def test_enumerate_all_melds(self):
         expected_melds_data = [[(9,  's'), (10, 's'), (11, 's')],
@@ -255,10 +268,12 @@ class TestGinCardGroup(Helper):
                           [(11, 's'), (12, 's'), (13, 's')],
                           ]
 
+        expected_melds = self.build_meldgroup_list_from_data(expected_melds_data)
+
         g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_melds()
 
-        self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
+        self.compare_arrays_of_cardgroups(expected_melds, generated_melds)
 
     def test_enumerate_all_sets(self):
         expected_melds_data = [[(9,  'c'), (9,  'd'), (9,  'h')],
@@ -269,10 +284,12 @@ class TestGinCardGroup(Helper):
                           [(13, 'c'), (13, 'h'), (13, 's')],
                           ]
 
+        expected_melds = self.build_meldgroup_list_from_data(expected_melds_data)
+
         g = self.generate_gincardgroup_from_card_data(self.card_data2)
         generated_melds = g.enumerate_all_sets()
 
-        self.compare_arrays_of_cardgroups(expected_melds_data, generated_melds)
+        self.compare_arrays_of_cardgroups(expected_melds, generated_melds)
 
     def test__is_in_a_meld(self):
         cgroup = self.generate_gincardgroup_from_card_data(self.card_data1)
@@ -321,12 +338,14 @@ class TestGinCardGroup(Helper):
                                 [(11, 's'), (12, 's'), (13, 's')],
                                ]
 
+        expected_melds = self.build_meldgroup_list_from_data(expected_melds_data)
+
         test_melds = g.enumerate_all_melds()
         shuffle(test_melds)
 
         sorted_melds = GinCardGroup.sort_melds(test_melds)
 
-        self.compare_arrays_of_cardgroups(expected_melds_data, sorted_melds)
+        self.compare_arrays_of_cardgroups(expected_melds, sorted_melds)
 
     def test_sort_melds__melds_and_sets(self):
         g = self.generate_gincardgroup_from_card_data(self.card_data2)
@@ -345,18 +364,20 @@ class TestGinCardGroup(Helper):
                           [(13, 'c'), (13, 'h'), (13, 's')],
                           ]
 
+        expected_melds = self.build_meldgroup_list_from_data(expected_melds_data)
+
         test_melds = g.enumerate_all_melds_and_sets()
         shuffle(test_melds)
 
         sorted_melds = GinCardGroup.sort_melds(test_melds)
 
-        self.compare_arrays_of_cardgroups(expected_melds_data, sorted_melds)
+        self.compare_arrays_of_cardgroups(expected_melds, sorted_melds)
 
     def test_uniqsort_cardgroups(self):
         # starting with an unsorted aGCG with a duplicate AND a GCG with an out-of-order cards array
-        agcg = [GinCardGroup([(1, 'c'), (2, 'c'), (3, 'c')]),
-                GinCardGroup([(2, 'd'), (2, 'c'), (2, 'h')]),
-                GinCardGroup([(1, 'c'), (2, 'c'), (3, 'c')])]
+        agcg = [GinCardGroup([GinCard(1, 'c'), GinCard(2, 'c'), GinCard(3, 'c')]),
+                GinCardGroup([GinCard(2, 'd'), GinCard(2, 'c'), GinCard(2, 'h')]),
+                GinCardGroup([GinCard(1, 'c'), GinCard(2, 'c'), GinCard(3, 'c')])]
 
         cleaned = GinCardGroup.uniqsort_cardgroups(agcg)
 
@@ -388,17 +409,17 @@ class TestGinCardGroup(Helper):
         self.assertEqual(7, gh.deadwood_cards().size())
 
     def test__prune_meld_group(self):
-        a = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
-        b = GinCardGroup([(9, 'c'), (9,  'h'), (9,  's')])
-        c = GinCardGroup([(1, 'c'), (2,  'c'), (3,  'c')])
-        p = GinCardGroup([(9, 'c')])
+        a = GinCardGroup([GinCard(9, 'c'), GinCard(10, 'c'), GinCard(11, 'c')])
+        b = GinCardGroup([GinCard(9, 'c'), GinCard(9,  'h'), GinCard(9,  's')])
+        c = GinCardGroup([GinCard(1, 'c'), GinCard(2,  'c'), GinCard(3,  'c')])
+        p = GinCardGroup([GinCard(9, 'c')])
         melds = [a, b, c]
 
         pruned = GinCardGroup._prune_meld_group(melds, p)
         self.assertEqual(1, len(pruned))
 
         # something bigger
-        pruner_meld = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
+        pruner_meld = GinCardGroup([GinCard(9, 'c'), GinCard(10, 'c'), GinCard(11, 'c')])
 
         meld_data = [[(9,  'c'), (9,  'd'), (9,  'h')],
                           [(9,  'c'), (9,  'd'), (9,  'h'), (9, 's')],
@@ -415,17 +436,20 @@ class TestGinCardGroup(Helper):
                          ]
 
         melds = []
-        for data in meld_data:
-            melds.append(GinCardGroup(data))
+        for data_row in meld_data:
+            card_list = []
+            for data in data_row:
+                card_list.append(GinCard(data[0], data[1]))
+            melds.append(GinCardGroup(card_list))
 
         cleaned = GinCardGroup._prune_meld_group(melds, pruner_meld)
 
         self.assertEqual(8, len(cleaned))
 
     def test__prune_meld_group_empty_pruner(self):
-        a = GinCardGroup([(9, 'c'), (10, 'c'), (11, 'c')])
-        b = GinCardGroup([(9, 'c'), (9,  'h'), (9,  's')])
-        c = GinCardGroup([(1, 'c'), (2,  'c'), (3,  'c')])
+        a = GinCardGroup([GinCard(9, 'c'), GinCard(10, 'c'), GinCard(11, 'c')])
+        b = GinCardGroup([GinCard(9, 'c'), GinCard(9,  'h'), GinCard(9,  's')])
+        c = GinCardGroup([GinCard(1, 'c'), GinCard(2,  'c'), GinCard(3,  'c')])
         p = GinCardGroup()
         melds = [a, b, c]
 

@@ -131,7 +131,7 @@ class GinPlayer(Observable):
                 card = self.hand.get_card_at_index(index)
                 self.knock_gin(card)
 
-        logging.debug("\t\tAction taken: {0}  \t{1}".format(self.action[0], card))
+        log_debug("\t\tAction taken: {0}  \t{1}".format(self.action[0], card))
 
     # consult the strategy and perform the action suggested
     def take_turn(self):

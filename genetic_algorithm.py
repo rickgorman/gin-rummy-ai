@@ -135,7 +135,7 @@ class Population(object):
                     # create physical representations for these gene_sets
                     challenger_player = GinPlayer()
                     defender_player = GinPlayer()
-                    logging.debug("Testing: {0}  {1}".format(challenger_geneset, defender_geneset))
+                    log_debug("Testing: {0}  {1}".format(challenger_geneset, defender_geneset))
 
                     match = GinMatch(challenger_player, defender_player)
                     output_keys = ['action', 'index', 'accept_improper_knock']

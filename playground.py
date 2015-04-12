@@ -13,7 +13,7 @@ from genetic_algorithm import *
 class Runner(object):
     def __init__(self):
         self.population_size = 4
-        self.gene_size = 7000
+        self.gene_size = 2000
         self.p = Population(self.gene_size, self.population_size)
 
         self.p.members = {}
@@ -23,4 +23,5 @@ class Runner(object):
         # run the fitness test and ensure one member has a win, and one has a loss
         self.p.fitness_test()
 
-Runner()
+for _ in range(4):
+    Runner()

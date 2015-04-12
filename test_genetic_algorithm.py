@@ -181,7 +181,7 @@ class TestPopulation(unittest.TestCase):
         self.assertEqual(2, self.p.members.items()[0][1]['generation'])
 
     def test_fitness_test(self):
-        member_count = 5
+        member_count = 2
         self.p.members = {}
         for _ in range(member_count):
             self.p.add_member(GeneSet(2000), 0)
