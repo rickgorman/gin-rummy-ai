@@ -5,13 +5,19 @@ import gc
 import logging
 
 logging.basicConfig(filename='debug.log.txt', level=logging.DEBUG)
-disable_logging = True
+disable_logging_debug = True
+disable_logging_info = False
 
 
 # wrapper that respects toggling debug on/off
 def log_debug(msg):
-    if not disable_logging:
-        log_debug(msg)
+    if not disable_logging_debug:
+        logging.debug(msg)
+
+
+def log_info(msg):
+    if not disable_logging_info:
+        logging.info(msg)
 
 
 def indent_print(indent_level, str):
@@ -73,44 +79,52 @@ class Singleton:
     def __instancecheck__(self, inst):
         return isinstance(inst, self._decorated)
 
+
 import cPickle
+from pylru import lrucache
+from functools import wraps
+
+# TODO: fix memory leaks. memodict will hold all values indefinitely, blocking GC from doing its job
+#   Ideas:
+#   - cap the number of objects cached
+#   - clear every so often (possibly with call to cull()
+#   -
 
 
-def memoized(f):
+class memoized(object):
     """ Memoization decorator for functions taking one or more arguments. """
-    class memodict(dict):
-        def __init__(self, func):
-            self.func = func
-            self.last_args = None
 
-        def __call__(self, *args):
-            self.last_args = args
-            hash_key = memodict.make_key(args)
-            return self[hash_key]
+    def __init__(self, maxsize=128):
+        self.cache = lrucache(maxsize)
 
-        def __missing__(self, hash_key):
-            if self.last_args is None:
-                raise Exception("no stored args to work with")
-            else:
-                ret = self[hash_key] = self.func(*self.last_args)
-                self.last_args = None
-                return ret
+    def __call__(self, func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            key = memoized.make_key(args, kwargs)
+            try:
+                return self.cache[key]
+            except KeyError:
+                pass
 
-        # http://stackoverflow.com/a/3296318/2023776
-        def __get__(self, obj, objtype):
-            """Support instance methods."""
-            import functools
-            return functools.partial(self.__call__, obj)
+            value = func(*args, **kwargs)
+            self.cache[key] = value
+            return value
 
-        @staticmethod
-        def make_key(args):
-            hash_string = ""
-            for arg in args:
-                try:
-                    hash_string += arg.__repr__()
-                except:
-                    hash_string += cPickle.dumps(arg)
+        return wrapper
 
-            return hash(hash_string)
+    @staticmethod
+    def make_key(args, kwargs):
+        hash_string = ""
+        for arg in args:
+            try:
+                hash_string += arg.__repr__()
+            except:
+                hash_string += cPickle.dumps(arg)
 
-    return memodict(f)
+        for key in sorted(kwargs.keys()):
+            try:
+                hash_string += key + kwargs[key].__repr__()
+            except:
+                hash_string += key + cPickle.dumps(kwargs[key])
+
+        return hash(hash_string)

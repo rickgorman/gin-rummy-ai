@@ -3,14 +3,19 @@ import unittest
 
 
 class TestGinTable(unittest.TestCase):
-    def test__init__(self):
-        pass
-
     def setUp(self):
         self.t = GinTable()
         self.p1 = GinPlayer()
         self.p2 = GinPlayer()
         self.p3 = GinPlayer()
+
+    def test__init__(self):
+        pass
+
+    def test___repr__(self):
+        self.assertRegexpMatches(self.t.__repr__(), "^<gintable\.GinTable object at 0x.*?>")
+        self.assertRegexpMatches(self.t.__repr__(), "> height:\d+ ")
+        self.assertRegexpMatches(self.t.__repr__(), "discard_pile:\[.*?]$")
 
     # seat two players normally, rejecting a third
     def test_seat_player_normal(self):

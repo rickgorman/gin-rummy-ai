@@ -185,7 +185,7 @@ class GinCardGroup:
         return everything
 
     # return an array of GinCardGroups of all melds that can be built with the cards in this hand
-    @memoized
+    @memoized(500)
     def enumerate_all_melds(self):
         # easy out. we must have at least 3 cards to have a meld.
         if self.size() < 3:
@@ -239,7 +239,7 @@ class GinCardGroup:
 
 
     # return a sorted array of GinCardGroups, one containing each set
-    @memoized
+    @memoized(500)
     def enumerate_all_sets(self):
         agcg_all_sets = list()
 
@@ -280,7 +280,7 @@ class GinCardGroup:
 
         return deadwood
 
-    @memoized
+    @memoized(500)
     def deadwood_count(self):
         debug_func = False
         # begin with worst case: entire hand is deadwood.

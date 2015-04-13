@@ -16,7 +16,7 @@ class Card(object):
         # sanity checks
         if rank < 1 or rank > 13:
             raise(AttributeError("rank out of range: %d" % rank))
-        if suit not in ['c', 'h', 'd', 's']:
+        if suit not in Card.all_suits():
             raise(AttributeError("suit not valid: %s" % suit))
 
         self.rank = rank

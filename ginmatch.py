@@ -140,7 +140,7 @@ class GinMatch(Observable):
         log_debug("========================================================================================")
         log_debug("========================================================================================")
         log_debug("========================================================================================")
-        log_debug("\tbeginning new game between {0} and {1}".format(self.p1, self.p2))
+        log_info("\tbeginning new game between {0} and {1}".format(self.p1, self.p2))
 
         # clear game states
         self.gameover = False
@@ -162,7 +162,7 @@ class GinMatch(Observable):
 
         log_debug("")
         log_debug("\tGame over")
-        log_debug("  garbage collector's garbage size: {0}".format(len(gc.garbage)))
+        log_info("  garbage collector's garbage size: {0}".format(len(gc.garbage)))
 
     # deal out 11 cards to p1 and 10 cards to p2
     def deal_cards(self):
@@ -182,36 +182,44 @@ class GinMatch(Observable):
     # alternate play between each player
     def take_turns(self):
         # beginning with p1, take turns until a valid knock/gin is called OR we have only two cards remaining
-        while not self.gameover and len(self.table.deck.cards) >= 2:
-            # if the game has gone on too long, fake an ending. we use knock_gin as it won't give us negative points
-            if self.turns_taken == self.maximum_turns:
+        #  OR we have taken too many turns
+        while not self.gameover:
+            # if we only have two cards remaining, we bail and coinflip
+            if len(self.table.deck.cards) <= 2:
                 self.gameover = True
-                if random.random() < 0.5:
-                    log_debug("\tPlayer 1 wins the game-ending coin flip!")
-                    self.player_who_knocked_gin = self.p1
-                else:
-                    log_debug("\tPlayer 2 wins the game-ending coin flip!")
-                    self.player_who_knocked_gin = self.p2
+                self.end_game_with_coinflip()
+            # if the game has gone on too long, fake an ending. we use knock_gin as it won't give us negative points
+            elif self.turns_taken == self.maximum_turns:
+                self.gameover = True
+                self.end_game_with_coinflip()
+            else:
+                # both players get a chance to play, respecting knocks and end-of-game notifications
+                for p in (self.p1, self.p2):
+                    # exit condition
+                    if not self.gameover:
+                        log_debug(
+                            "\tTurn {0}. It is {1}'s turn:".format(self.turns_taken + 1, self.get_player_string(p)))
+                        p.take_turn()
 
-            # both players get a chance to play, respecting knocks and end-of-game notifications
-            for p in (self.p1, self.p2):
-                # exit condition
-                if not self.gameover:
-                    log_debug(
-                        "\tTurn {0}. It is {1}'s turn:".format(self.turns_taken + 1, self.get_player_string(p)))
-                    p.take_turn()
+                        # validate the knock or reset the knock state and penalize the knocker
+                        if self.player_who_knocked:
+                            self.process_knock(p)
+                        # validate the knock_gin or penalize the knocker and reset the knock state
+                        elif self.player_who_knocked_gin:
+                            self.process_knock_gin(p)
 
-                    # validate the knock or reset the knock state and penalize the knocker
-                    if self.player_who_knocked:
-                        self.process_knock(p)
-                    # validate the knock_gin or penalize the knocker and reset the knock state
-                    elif self.player_who_knocked_gin:
-                        self.process_knock_gin(p)
+                        self.log_gamestate()
 
-                    self.log_gamestate()
+                        # count turns
+                        self.turns_taken += 1
 
-                    # count turns
-                    self.turns_taken += 1
+    def end_game_with_coinflip(self):
+        if random.random() < 0.5:
+            log_info("\t\tPlayer 1 wins the game-ending coin flip!")
+            self.player_who_knocked_gin = self.p1
+        else:
+            log_info("\t\tPlayer 2 wins the game-ending coin flip!")
+            self.player_who_knocked_gin = self.p2
 
     # award deadwood scoring and gin bonuses
     @notify_observers_after
@@ -296,6 +304,7 @@ class GinMatch(Observable):
             else:
                 self.gameover = True
                 self.player_who_knocked = knocker
+                log_info("\t\tGame won by knock by {0}".format(self.get_player_string(knocker)))
 
     def process_knock_gin(self, knocker):
         # first, handle invalid knocks with a penalty of the hand now being played face-up
@@ -306,9 +315,11 @@ class GinMatch(Observable):
             elif knocker == self.p2:
                 self.p2_knocked_improperly = True
                 self.offer_to_accept_improper_knock(self.p1)
+        # handle valid knock_gins
         else:
             self.gameover = True
             self.player_who_knocked_gin = knocker
+            log_info("\t\tGame won by knock by {0}".format(self.get_player_string(knocker)))
 
     # we offer the accepter a chance to accept an improper knock (provided they have a knock-worthy hand themselves)
     def offer_to_accept_improper_knock(self, accepter):
@@ -318,7 +329,7 @@ class GinMatch(Observable):
         if accepter.hand.deadwood_count() <= self.knocking_point:
             log_debug("\t\t\t{0} is eligible for the option".format(self.get_player_string(accepter)))
             if accepter.accept_improper_knock():
-                log_debug("\t\t\t{0} accepts the invalid knock".format(self.get_player_string(accepter)))
+                log_info("\t\t\t{0} accepts the invalid knock".format(self.get_player_string(accepter)))
                 self.gameover = True
                 return True
             else:
@@ -338,7 +349,7 @@ class GinMatch(Observable):
             raise Exception("player string requested for a player not in this match")
 
     def log_gamestate(self):
-        if disable_logging is False:
+        if disable_logging_debug is False:
             log_debug("")
             log_debug("\t+---next turn---------------------------------------------")
             log_debug("\t| player 1 holds: {0} \tdeadwood: {1}".format(self.p1.hand, self.p1.hand.deadwood_count()))

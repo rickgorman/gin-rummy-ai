@@ -11,6 +11,8 @@ from ginplayer import *
 from gindeck import *
 from observer import *
 from utility import *
+from pylru import lrudecorator
+import line_profiler
 
 
 class GinTable(Observable):
@@ -27,6 +29,12 @@ class GinTable(Observable):
 
         # we have 33 interesting points to export: 32 discards + size of deck
         self.observable_width = 33
+
+    def __repr__(self):
+        its_repr = "<gintable.GinTable object at " + hex(id(self)) + ">"
+        its_repr += " height:" + str(len(self.deck.cards))
+        its_repr += " discard_pile:" + str(self.discard_pile)
+        return its_repr
 
     # seat a player at the table. take special care to not let the same player sit at the table twice.
     def seat_player(self, player):
@@ -47,7 +55,7 @@ class GinTable(Observable):
         else:
             raise TableSeatingError("gintable is full")
 
-    @memoized
+    @memoized(1)
     def organize_data(self):
         # we start with the current height of the drawing deck
         data = {0: len(self.deck.cards)}
