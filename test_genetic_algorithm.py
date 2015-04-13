@@ -1,5 +1,6 @@
 import unittest
 from genetic_algorithm import *
+import utility
 
 
 class TestGeneSet(unittest.TestCase):
@@ -113,21 +114,21 @@ class TestGinGeneSet(unittest.TestCase):
 class TestPopulation(unittest.TestCase):
     def setUp(self):
         self.gene_size = 100
-        self.population_size = 100
-        self.p = Population(self.gene_size, self.population_size)
+        self.initial_population_size = 100
+        self.p = Population(self.gene_size, self.initial_population_size)
 
     def test___init__(self):
         # test generation counter
         self.assertEqual(0, self.p.current_generation)
 
         # test structure
-        first_member = self.p.members.keys()[0]
-        self.assertEqual(self.population_size, len(self.p.members.keys()))
-        self.assertIsInstance(self.p.members, dict)
+        first_member = self.p.member_genes.keys()[0]
+        self.assertEqual(self.initial_population_size, len(self.p.member_genes.keys()))
+        self.assertIsInstance(self.p.member_genes, dict)
         self.assertIsInstance(first_member, GeneSet)
-        self.assertIsInstance(self.p.members[first_member]['wins'], int)
-        self.assertIsInstance(self.p.members[first_member]['losses'], int)
-        self.assertIsInstance(self.p.members[first_member]['generation'], int)
+        self.assertIsInstance(self.p.member_genes[first_member]['wins'], int)
+        self.assertIsInstance(self.p.member_genes[first_member]['losses'], int)
+        self.assertIsInstance(self.p.member_genes[first_member]['generation'], int)
 
     def test_draw(self):
         self.p.draw()
@@ -135,54 +136,60 @@ class TestPopulation(unittest.TestCase):
     def test_cull(self):
         # rig up 4 winners
         rig_count = 0
-        for key in self.p.members.keys():
+        for key in self.p.member_genes.keys():
             if rig_count > 4:
                 break
-            self.p.members[key]['wins'] = 10
-            self.p.members[key]['generation'] = 0
+            self.p.member_genes[key]['wins'] = 10
+            self.p.member_genes[key]['generation'] = 0
             rig_count += 1
 
         # go to the future
         self.p.current_generation = 1
 
         # we expect to retain only 4 members from generation 0
-        self.p.cull(4)
+        self.p.retain_best = 4
+        self.p.cull()
 
-        self.assertEqual(4, len(self.p.members.keys()))
+        members_in_gen0 = 0
+        for item in self.p.member_genes.items():
+            if item[1]['generation'] == 0:
+                members_in_gen0 += 1
+
+        self.assertEqual(4, members_in_gen0)
 
     def test_get_top_members(self):
         # rig up 4 winners
         rig_count = 0
-        for key in self.p.members.keys():
+        for key in self.p.member_genes.keys():
             if rig_count > 4:
                 break
-            self.p.members[key]['wins'] = 10
-            self.p.members[key]['generation'] = 0
+            self.p.member_genes[key]['wins'] = 10
+            self.p.member_genes[key]['generation'] = 0
             rig_count += 1
 
         # ensure they are returned
         top_keys = self.p.get_top_members(4)
         for key in top_keys:
-            self.assertEqual(self.p.members[key]['wins'], 10)
+            self.assertEqual(self.p.member_genes[key]['wins'], 10)
 
     def test_cross_over(self):
         breeder_count = 20
         self.p.cross_over(breeder_count)
 
         # we expect the population size to grow by 20^2 (self-mating NOT allowed)
-        self.assertEqual(len(self.p.members), breeder_count*(breeder_count - 1) + self.population_size)
+        self.assertEqual(len(self.p.member_genes), breeder_count*(breeder_count - 1) + self.initial_population_size)
 
     def test_add_member(self):
         generation = 2
-        self.p.members = {}
+        self.p.member_genes = {}
         self.p.add_member(GeneSet(40), generation)
 
-        self.assertEqual(1, len(self.p.members))
-        self.assertEqual(2, self.p.members.items()[0][1]['generation'])
+        self.assertEqual(1, len(self.p.member_genes))
+        self.assertEqual(2, self.p.member_genes.items()[0][1]['generation'])
 
     def test_fitness_test(self):
         member_count = 4
-        self.p.members = {}
+        self.p.member_genes = {}
         for _ in range(member_count):
             self.p.add_member(GeneSet(2000), 0)
 
@@ -194,13 +201,53 @@ class TestPopulation(unittest.TestCase):
         games_won = 0
         games_lost = 0
 
-        for member in self.p.members.items():
+        for member in self.p.member_genes.items():
             games_won += member[1]['wins']
             games_lost += member[1]['losses']
 
         self.assertEqual(expected_games_played, games_won)
         self.assertEqual(expected_games_played, games_lost)
 
-    def test_evolve_indefinitely(self):
-        self.fail("not implemented")
+    def test_generate_next_generation(self):
+        self.gene_size = 2000
+        self.initial_population_size = 6
+        self.retain_best = 3
+        self.p = Population(self.gene_size, self.initial_population_size, retain_best=self.retain_best)
 
+        self.p.generate_next_generation()
+
+        # advance the generation counter
+        self.assertEqual(1, self.p.current_generation)
+
+        # we expect to keep the best N from the past generation and still have a fixed population size
+        expected_offspring = self.retain_best*(self.retain_best-1)
+        self.assertEqual(self.retain_best + expected_offspring, len(self.p.member_genes))
+        generations = [self.p.member_genes[x]['generation'] for x in self.p.member_genes.keys()]
+        self.assertEqual(self.initial_population_size - self.retain_best, generations.count(0))
+        self.assertEqual(self.retain_best, generations.count(0))
+
+        # do it again and verify our population size has grown
+        self.p.generate_next_generation()
+        self.p.generate_next_generation()
+        self.p.generate_next_generation()
+
+    def funking_around(self):
+        self.population_size = 16
+        self.gene_size = 2000
+        self.p = Population(self.gene_size, self.population_size, retain_best=4)
+
+        for _ in range(100):
+            self.p.generate_next_generation()
+
+        # get top two and watch a couple games
+        best_genes = self.p.get_top_members(2)
+
+        self.p2 = Population(2000, 2)
+        self.p2.member_genes = {}
+        self.p2.add_member(best_genes[0], 0)
+        self.p2.add_member(best_genes[1], 0)
+
+        utility.enable_logging_debug = True
+        utility.enable_logging_info = True
+
+        self.p2.fitness_test()

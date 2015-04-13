@@ -5,19 +5,26 @@ import gc
 import logging
 
 logging.basicConfig(filename='debug.log.txt', level=logging.DEBUG)
-disable_logging_debug = True
-disable_logging_info = False
+
+enable_logging_debug = False
+enable_logging_info = False
+enable_logging_warn = True
 
 
 # wrapper that respects toggling debug on/off
 def log_debug(msg):
-    if not disable_logging_debug:
+    if enable_logging_debug:
         logging.debug(msg)
 
 
 def log_info(msg):
-    if not disable_logging_info:
+    if enable_logging_info:
         logging.info(msg)
+
+
+def log_warn(msg):
+    if enable_logging_warn:
+        logging.warn(msg)
 
 
 def indent_print(indent_level, str):
@@ -83,12 +90,6 @@ class Singleton:
 import cPickle
 from pylru import lrucache
 from functools import wraps
-
-# TODO: fix memory leaks. memodict will hold all values indefinitely, blocking GC from doing its job
-#   Ideas:
-#   - cap the number of objects cached
-#   - clear every so often (possibly with call to cull()
-#   -
 
 
 class memoized(object):

@@ -71,7 +71,9 @@ class GeneSet(object):
         return child
 
     # destructively mutate our genes (independently) at a given probability
-    def mutate(self, probability):
+    def mutate(self, probability=None):
+        if probability is None:
+            probability = 0.001
         for i in range(len(self.genes)):
             if random.random() > 1 - probability:
                 self.genes[i] = random.random()
@@ -87,17 +89,37 @@ class GinGeneSet(GeneSet):
 
 
 class Population(object):
-    def __init__(self, gene_size, population_size):
-        self.members = {}
+    def __init__(self, gene_size, population_size, retain_best=None):
+        self.member_genes = {}
         self.current_generation = 0
+
+        if retain_best is None:
+            # by default, keep at least 2 and at most best 10%
+            self.retain_best = max(2, int(len(self.member_genes) * 0.10))
+        else:
+            self.retain_best = retain_best
 
         # create the initial genes
         for i in range(population_size):
             self.add_member(GeneSet(gene_size), 0)
 
+    # iterate through one generation
+    def generate_next_generation(self):
+        # test the current generation
+        self.fitness_test()
+
+        log_warn(self.draw())
+
+        self.cross_over(self.retain_best)
+
+        # cull the meek elders
+        self.cull()
+
+        self.current_generation += 1
+
     # add a member with a given generation
     def add_member(self, geneset, generation):
-        self.members[geneset] = {'wins': 0, 'losses': 0, 'generation': generation}
+        self.member_genes[geneset] = {'wins': 0, 'losses': 0, 'generation': generation}
 
     # return the top N specimens of the population. our ranking method is as follows:
     #
@@ -109,8 +131,9 @@ class Population(object):
     # them to stick around due to a huge number of wins over a huge number of generations.
     def get_top_members(self, count):
         # see unutbu's answer at http://stackoverflow.com/questions/4690416
-        top_list = sorted(self.members.items(),
-                          key=lambda (k, v): v['wins'] / (v['generation'] + 1 - self.current_generation), reverse=True)
+        # the +2 starts us with generation=0 represented numerically as generation=1
+        top_list = sorted(self.member_genes.items(),
+                          key=lambda (k, v): v['wins'] / (self.current_generation + 2 - v['generation']), reverse=True)
 
         top_list = top_list[:count]
 
@@ -123,8 +146,8 @@ class Population(object):
     # engage each member in competition with each other member, recording the results
     def fitness_test(self):
         already_tested = []
-        for challenger_geneset in self.members:
-            for defender_geneset in self.members:
+        for challenger_geneset in self.member_genes:
+            for defender_geneset in self.member_genes:
                 if challenger_geneset is not defender_geneset:
                     # do not test both A vs B AND B vs A. Just test them once.
                     if (challenger_geneset, defender_geneset) in already_tested or (
@@ -164,25 +187,21 @@ class Population(object):
                     #winner = challenger_player
 
                     if winner is challenger_player:
-                        self.members[challenger_geneset]['wins'] += 1
-                        self.members[defender_geneset]['losses'] += 1
+                        self.member_genes[challenger_geneset]['wins'] += 1
+                        self.member_genes[defender_geneset]['losses'] += 1
                     elif winner is defender_player:
-                        self.members[defender_geneset]['wins'] += 1
-                        self.members[challenger_geneset]['losses'] += 1
+                        self.member_genes[defender_geneset]['wins'] += 1
+                        self.member_genes[challenger_geneset]['losses'] += 1
 
     # remove members from prior generations, sparing the top N specimens
-    def cull(self, survivor_count):
+    def cull(self):
         # find the top N specimens
-        survivor_list = sorted(self.members.items(), key=lambda (k, v): v['wins'], reverse=True)[:survivor_count]
-
-        # separate our survivor keys
-        survivor_keys = []
-        [survivor_keys.append(survivor_list[i][0]) for i in range(len(survivor_list))]
+        survivor_list = self.get_top_members(self.retain_best)
 
         # the culling
-        for key in self.members.keys():
-            if key not in survivor_keys:
-                del self.members[key]
+        for key in self.member_genes.keys():
+            if key not in survivor_list and self.member_genes[key]['generation'] <= self.current_generation:
+                del self.member_genes[key]
 
     # breed the top N individuals against each other, sexually (no asexual reproduction)
     def cross_over(self, breeder_count):
@@ -193,10 +212,8 @@ class Population(object):
                 # prevent asexual reproduction (this will cause result in clone wars)
                 if mate is not breeder:
                     newborn = breeder.cross(mate)
+                    newborn.mutate()
                     self.add_member(newborn, self.current_generation + 1)
-
-        # advance the generation counter
-        self.current_generation += 1
 
     def draw(self):
         # Table 1: print leaderboard
@@ -209,24 +226,25 @@ class Population(object):
         rows.append(["ranking", "win rate (%)", "number of wins", "number of losses", "generation"])
 
         # gather data on our population
-        for key in self.members.keys():
-            wins, losses = self.members[key]['wins'], self.members[key]['losses']
+        for key in self.member_genes.keys():
+            wins, losses = self.member_genes[key]['wins'], self.member_genes[key]['losses']
             try:
-                winrate = round(float(wins) / float(wins + losses), 3) * 100
-                break
+                winrate = (float(wins) / float(wins + losses))
             except ZeroDivisionError:
-                winrate = 0.000
+                winrate = 0.00
 
-            generation = self.members[key]['generation']
+            generation = self.member_genes[key]['generation']
             data_rows.append([winrate, wins, losses, generation])
 
         # sort by winrate
         data_rows.sort(key=itemgetter(0), reverse=True)
 
-        # collect the top 10 rankings
-        for i in range(11):
+        # collect the top min(10, self.population_size)
+        for i in range(min(10, len(data_rows))):
             rows.append([i + 1, data_rows[i][0], data_rows[i][1], data_rows[i][2], data_rows[i][3]])
         input_table.add_rows(rows[:11])
 
-        print "\n" + "                     LEADERBOARD FOR GENERATION #{0}".format(str(self.current_generation))
-        print input_table.draw()
+        output_text = "\n" + "                     LEADERBOARD FOR GENERATION #{0}".format(self.current_generation)
+        output_text += "\n" + input_table.draw()
+
+        return output_text

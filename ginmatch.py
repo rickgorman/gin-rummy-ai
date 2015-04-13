@@ -62,6 +62,7 @@ class GinMatch(Observable):
         self.player_who_knocked_gin = False
         self.p1_knocked_improperly = False
         self.p2_knocked_improperly = False
+        self.player_who_won_coinflip = False
 
         # coordinate knocks with each player
         self.p1.register_knock_listener(self)
@@ -122,7 +123,7 @@ class GinMatch(Observable):
     def notify_of_knock_gin(self, knocker):
         self.player_who_knocked_gin = knocker
 
-    # imple ment the Observable criteria. return a list of ints representing our game state
+    # implement the Observable criteria. return a list of ints representing our game state
     def organize_data(self):
         return {0: self.knocking_point,
                 1: self.p1_score,
@@ -149,6 +150,7 @@ class GinMatch(Observable):
         self.player_who_knocked = False
         self.p1_knocked_improperly = False
         self.p2_knocked_improperly = False
+        self.player_who_won_coinflip = False
 
         # play one game
         self.deal_cards()
@@ -162,7 +164,6 @@ class GinMatch(Observable):
 
         log_debug("")
         log_debug("\tGame over")
-        log_info("  garbage collector's garbage size: {0}".format(len(gc.garbage)))
 
     # deal out 11 cards to p1 and 10 cards to p2
     def deal_cards(self):
@@ -216,63 +217,72 @@ class GinMatch(Observable):
     def end_game_with_coinflip(self):
         if random.random() < 0.5:
             log_info("\t\tPlayer 1 wins the game-ending coin flip!")
-            self.player_who_knocked_gin = self.p1
+            self.player_who_won_coinflip = self.p1
         else:
             log_info("\t\tPlayer 2 wins the game-ending coin flip!")
-            self.player_who_knocked_gin = self.p2
+            self.player_who_won_coinflip = self.p2
 
     # award deadwood scoring and gin bonuses
     @notify_observers_after
     def update_score(self):
         score_delta = 0
 
-        # track the 'defender' of the knock/gin
-        if self.p1 == self.player_who_knocked:
-            defender = self.p2
-            knocker = self.p1
+        # first, handle any games won by coinflips by awarding 25 points
+        if self.player_who_won_coinflip == self.p1:
+            self.p1_score += 25
+            self.p1_matches_won += 1
+        elif self.player_who_won_coinflip == self.p2:
+            self.p2_score += 25
+            self.p2_matches_won += 1
+        # handle non-coinflip wins
         else:
-            defender = self.p1
-            knocker = self.p2
-
-        # for gin, no lay-offs
-        if self.player_who_knocked_gin:
-            # points for defender's deadwood
-            score_delta += defender.hand.deadwood_count()
-
-            # 25 bonus points for gin
-            score_delta += 25
-
-            # update score tallies
-            if knocker == self.p1:
-                self.p1_score += score_delta
-                self.p1_matches_won += 1
-            elif knocker == self.p2:
-                self.p2_score += score_delta
-                self.p2_matches_won += 1
-
-        # for knocks, allow lay-offs
-        elif self.player_who_knocked:
-            defender_deadwood = defender.hand.deadwood_count()
-            knocker_deadwood = knocker.hand.deadwood_count()
-            score_delta = abs(knocker_deadwood - defender_deadwood)
-
-            # check for undercuts
-            if defender_deadwood <= knocker_deadwood:
-                score_delta += 25
-                if knocker == self.p1:
-                    self.p2_score += score_delta
-                    self.p2_matches_won += 1
-                elif knocker == self.p2:
-                    self.p1_score += score_delta
-                    self.p1_matches_won += 1
-            # regular knocks
+            # track the 'defender' of the knock/gin
+            if self.p1 == self.player_who_knocked or self.p1 == self.player_who_knocked_gin:
+                defender = self.p2
+                knocker = self.p1
             else:
+                defender = self.p1
+                knocker = self.p2
+
+            # for gin, no lay-offs
+            if self.player_who_knocked_gin:
+                # points for defender's deadwood
+                score_delta += defender.hand.deadwood_count()
+
+                # 25 bonus points for gin
+                score_delta += 25
+
+                # update score tallies
                 if knocker == self.p1:
                     self.p1_score += score_delta
                     self.p1_matches_won += 1
                 elif knocker == self.p2:
                     self.p2_score += score_delta
                     self.p2_matches_won += 1
+
+            # for knocks, allow lay-offs
+            elif self.player_who_knocked:
+                defender_deadwood = defender.hand.deadwood_count()
+                knocker_deadwood = knocker.hand.deadwood_count()
+                score_delta = abs(knocker_deadwood - defender_deadwood)
+
+                # check for undercuts
+                if defender_deadwood <= knocker_deadwood:
+                    score_delta += 25
+                    if knocker == self.p1:
+                        self.p2_score += score_delta
+                        self.p2_matches_won += 1
+                    elif knocker == self.p2:
+                        self.p1_score += score_delta
+                        self.p1_matches_won += 1
+                # regular knocks
+                else:
+                    if knocker == self.p1:
+                        self.p1_score += score_delta
+                        self.p1_matches_won += 1
+                    elif knocker == self.p2:
+                        self.p2_score += score_delta
+                        self.p2_matches_won += 1
 
         log_debug("\t\tEnd-of-game scores:")
         log_debug("\t\t  player 1 score: {0}".format(self.p1_score))
@@ -349,12 +359,13 @@ class GinMatch(Observable):
             raise Exception("player string requested for a player not in this match")
 
     def log_gamestate(self):
-        if disable_logging_debug is False:
+        if enable_logging_debug is False:
             log_debug("")
             log_debug("\t+---next turn---------------------------------------------")
             log_debug("\t| player 1 holds: {0} \tdeadwood: {1}".format(self.p1.hand, self.p1.hand.deadwood_count()))
             log_debug("\t| player 2 holds: {0} \tdeadwood: {1}".format(self.p2.hand, self.p2.hand.deadwood_count()))
-            log_debug("\t| deck height: {0}  discard pile: {1}".format(len(self.table.deck.cards),
+            log_debug("\t| deck height: {0}  next_card: {1}  \n\t| discard pile: {2}".format(len(self.table.deck.cards),
+                                                                                       self.table.deck.cards[-1],
                                                                            self.table.discard_pile))
             log_debug("\t|")
             log_debug("\t+----------------------------------------------------------")
