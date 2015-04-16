@@ -143,7 +143,7 @@ class TestGinPlayer(Helper):
         self.assertRaises(DrawException, self.p.draw)
 
     def test_consult_strategy(self):
-        strat = MockGinStrategy(['DISCARD', 0])
+        strat = MockGinStrategy({'end': ['DISCARD', 0]})
         self.p.strategy = strat
 
         # ensure the mock strategy gives us exactly one action to perform
@@ -153,7 +153,7 @@ class TestGinPlayer(Helper):
         self.assertEqual(0, self.p.action[1])
 
     def test_execute_strategy_discard(self):
-        strat = MockGinStrategy(['DISCARD', 0])
+        strat = MockGinStrategy({'end': ['DISCARD', 0]})
         self.p.strategy = strat
 
         # monkey-load a card into the player's hand
@@ -165,7 +165,7 @@ class TestGinPlayer(Helper):
         self.assertEqual(0, self.p.hand.size())
 
     def test_execute_strategy_draw(self):
-        strat = MockGinStrategy(['DRAW'])
+        strat = MockGinStrategy({'start': ['DRAW']})
         self.p.strategy = strat
 
         # monkey-patching in a table
@@ -184,7 +184,7 @@ class TestGinPlayer(Helper):
         self.assertEqual(51, len(self.p.table.deck.cards))
 
     def test_execute_strategy_pickup_discard(self):
-        strat = MockGinStrategy(['PICKUP-FROM-DISCARD'])
+        strat = MockGinStrategy({'start': ['PICKUP-FROM-DISCARD']})
         self.p.strategy = strat
 
         # monkey-patching in a table and a discard pile of depth 3
@@ -208,7 +208,7 @@ class TestGinPlayer(Helper):
     def test_execute_strategy_knock(self):
         self.p.register_knock_listener(self.l)
 
-        strat = MockGinStrategy(['KNOCK', 0])
+        strat = MockGinStrategy({'end': ['KNOCK', 0]})
         self.p.strategy = strat
 
         # load up a fake hand. note these cards are chosen to be sorted into slots 0 and 1
@@ -230,7 +230,7 @@ class TestGinPlayer(Helper):
     def test_execute_strategy_knock_gin(self):
         self.p.register_knock_gin_listener(self.l)
 
-        strat = MockGinStrategy(['KNOCK-GIN', 0])
+        strat = MockGinStrategy({'end': ['KNOCK-GIN', 0]})
         self.p.strategy = strat
 
         # load up a fake hand. note these cards are chosen to be sorted into slots 0 and 1
@@ -251,7 +251,7 @@ class TestGinPlayer(Helper):
         self.assertEqual(True, self.l.did_it_knock_gin)
 
     def test_take_turn(self):
-        strat = MockGinStrategy(['DRAW'])
+        strat = MockGinStrategy({'end': ['DRAW']})
         self.p.strategy = strat
 
         self.p.hand = GinHand()
@@ -285,7 +285,7 @@ class TestGinPlayer(Helper):
 
     def test_accept_improper_knock(self):
         # verify that we return whatever the mock strategy says to return
-        self.p.strategy = MockGinStrategy(['WHATEVER'])
+        self.p.strategy = MockGinStrategy({'start': ['WHATEVER']})
         self.assertTrue(self.p.accept_improper_knock())
 
     def test_empty_hand(self):

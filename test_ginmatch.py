@@ -52,7 +52,7 @@ class TestGinMatch(Helper):
         self.gm = GinMatch(self.p1, self.p2)
         self.c = GinCard(2, 'c')
 
-        self.p2.strategy = MockGinStrategy(['DRAW'])
+        self.p2.strategy = MockGinStrategy()
 
     def test__init__(self):
         # assign them to a match
@@ -108,12 +108,41 @@ class TestGinMatch(Helper):
     def test_run(self):
         # rig the horse with rockets
         self.gm.p1_score = 100
+        self.gm.p1_games_won = 1
 
         # run the match and return the winner.
-        winner = self.gm.run()
+        match_result = self.gm.run()
+        winner                    = match_result['winner']
+        p1_wins                   = match_result['p1_games_won']
+        p1_wins_by_coinflip       = match_result['p1_games_won_by_coinflip']
+        p1_losses                 = match_result['p1_games_lost']
+        p2_wins                   = match_result['p2_games_won']
+        p2_wins_by_coinflip       = match_result['p2_games_won_by_coinflip']
+        p2_losses                 = match_result['p2_games_lost']
 
         # make sure the winner is our horse
         self.assertEqual(winner, self.p1)
+        self.assertEqual(p1_wins_by_coinflip, 0)
+        self.assertEqual(p2_wins_by_coinflip, 0)
+
+        self.assertEqual(p1_losses, 0)
+        self.assertEqual(p2_losses, 1)
+
+        # give strategies that guarantee a coinflip ending
+        self.gm = GinMatch(self.p1, self.p2)
+        strat_code = {'start': ['DRAW'], 'end': ['DISCARD', 0]}
+        self.p1.strategy = MockGinStrategy(strat_code)
+        self.p2.strategy = MockGinStrategy(strat_code)
+
+        match_result = self.gm.run()
+        winner                    = match_result['winner']
+        p1_wins                   = match_result['p1_games_won']
+        p1_wins_by_coinflip       = match_result['p1_games_won_by_coinflip']
+        p1_losses                 = match_result['p1_games_lost']
+        p2_wins                   = match_result['p2_games_won']
+        p2_wins_by_coinflip       = match_result['p2_games_won_by_coinflip']
+        p2_losses                 = match_result['p2_games_lost']
+        self.assertTrue(p1_wins_by_coinflip + p2_wins_by_coinflip >= 2)
 
     def test_play_game(self):
         # all play_game does is reset some flags and call other methods. leaving it blank.
@@ -131,7 +160,7 @@ class TestGinMatch(Helper):
         self.p1 = GinPlayer()
         self.p2 = GinPlayer()
         self.gm = GinMatch(self.p1, self.p2)
-        self.p1.strategy = MockGinStrategy(['KNOCK', 10])
+        self.p1.strategy = MockGinStrategy({'end': ['KNOCK', 10]})
 
         self.p1.hand = self.generate_ginhand_from_card_data(self.gin_worthy_hand_data)
         # give p1 an 11th card for discarding
@@ -199,6 +228,14 @@ class TestGinMatch(Helper):
         self.assertFalse(self.gm.p2_knocked_improperly)
         self.assertEqual(self.gm.player_who_knocked_gin, self.p2)
         self.assertTrue(self.gm.gameover)
+
+    def test_end_game_with_coinflip(self):
+        self.assertEqual(0, self.gm.p1_wins_by_coinflip + self.gm.p2_wins_by_coinflip)
+        self.assertFalse(self.gm.player_who_won_coinflip)
+        self.gm.end_game_with_coinflip()
+        self.gm.update_score()
+        self.assertEqual(1, self.gm.p1_wins_by_coinflip + self.gm.p2_wins_by_coinflip)
+        self.assertTrue(self.gm.player_who_won_coinflip)
 
     def test_update_score_for_gin(self):
         # morbidly awful hand with deadwood = 55

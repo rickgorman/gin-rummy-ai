@@ -41,13 +41,13 @@ class GinMatch(Observable):
         # rules
         self.maximum_turns = 60  # 30 discards possible, so each player discards each card twice
         self.turns_taken = 0
-        self.knocking_point = 10
+        self.knocking_point = 20
 
         # set up score board
         self.p1_score = 0
         self.p2_score = 0
-        self.p1_matches_won = 0
-        self.p2_matches_won = 0
+        self.p1_games_won = 0
+        self.p2_games_won = 0
 
         # seat players (not randomly)
         self.table = GinTable()
@@ -63,6 +63,8 @@ class GinMatch(Observable):
         self.p1_knocked_improperly = False
         self.p2_knocked_improperly = False
         self.player_who_won_coinflip = False
+        self.p1_wins_by_coinflip = 0
+        self.p2_wins_by_coinflip = 0
 
         # coordinate knocks with each player
         self.p1.register_knock_listener(self)
@@ -79,7 +81,7 @@ class GinMatch(Observable):
     # run the match until a winner is declared
     def run(self):
         # continue playing games until one player reaches 100
-        while self.p1_score < 100 and self.p2_score < 100:
+        while self.p1_score < 1 and self.p2_score < 1:
             self.play_game()
 
         # perform final scoring
@@ -88,34 +90,49 @@ class GinMatch(Observable):
             self.p1_score += 100
         elif self.p2_score >= 100:
             self.p2_score += 100
-        else:
-            raise ValueError("score must be 100+ for endgame. scores are p1:%s p2:%s" % self.p1_score, self.p2_score)
+        #else:
+        #    raise ValueError("score must be 100+ for endgame. scores are p1:%s p2:%s" % self.p1_score, self.p2_score)
 
         # - calculate line bonus
-        self.p1_score += 20 * self.p1_matches_won
-        self.p2_score += 20 * self.p2_matches_won
+        self.p1_score += 20 * self.p1_games_won
+        self.p2_score += 20 * self.p2_games_won
 
         log_debug("\t--MATCH COMPLETE--")
         log_debug("\tFinal scores: ")
         log_debug("\tPlayer 1: {0}".format(self.p1_score))
         log_debug("\tPlayer 2: {0}".format(self.p2_score))
 
+        winner = None
         # return winner
         if self.p1_score > self.p2_score:
             log_debug("Player 1 Wins!")
-            return self.p1
+            winner = self.p1
         elif self.p2_score > self.p1_score:
             log_debug("Player 2 Wins!")
-            return self.p2
+            winner = self.p2
         else:
             log_debug("We have a tie!")
             # tie: flip a coin to determine winner
             if random.random() < 0.5:
                 log_debug("Player 1 wins the coin flip!")
-                return self.p1
+                winner = self.p1
             else:
                 log_debug("Player 2 wins the coin flip!")
-                return self.p2
+                winner = self.p2
+
+        # calculate losses
+        p1_games_lost = self.p2_games_won
+        p2_games_lost = self.p1_games_won
+
+        result = {'winner': winner,
+                  'p1_games_won': self.p1_games_won,
+                  'p1_games_won_by_coinflip': self.p1_wins_by_coinflip,
+                  'p1_games_lost': p1_games_lost,
+                  'p2_games_won': self.p2_games_won,
+                  'p2_games_won_by_coinflip': self.p2_wins_by_coinflip,
+                  'p2_games_lost': p2_games_lost}
+
+        return result
 
     def notify_of_knock(self, knocker):
         self.player_who_knocked = knocker
@@ -128,8 +145,8 @@ class GinMatch(Observable):
         return {0: self.knocking_point,
                 1: self.p1_score,
                 2: self.p2_score,
-                3: self.p1_matches_won,
-                4: self.p2_matches_won}
+                3: self.p1_games_won,
+                4: self.p2_games_won}
 
     # play one game of gin
     @notify_observers_after
@@ -185,13 +202,8 @@ class GinMatch(Observable):
         # beginning with p1, take turns until a valid knock/gin is called OR we have only two cards remaining
         #  OR we have taken too many turns
         while not self.gameover:
-            # if we only have two cards remaining, we bail and coinflip
-            if len(self.table.deck.cards) <= 2:
-                self.gameover = True
-                self.end_game_with_coinflip()
-            # if the game has gone on too long, fake an ending. we use knock_gin as it won't give us negative points
-            elif self.turns_taken == self.maximum_turns:
-                self.gameover = True
+            # if we only have two cards remaining or have reached our turn limit, we coinflip for the win
+            if not len(self.table.deck.cards) > 2 or not self.turns_taken < self.maximum_turns:
                 self.end_game_with_coinflip()
             else:
                 # both players get a chance to play, respecting knocks and end-of-game notifications
@@ -215,11 +227,13 @@ class GinMatch(Observable):
                         self.turns_taken += 1
 
     def end_game_with_coinflip(self):
+        self.gameover = True
+
         if random.random() < 0.5:
-            log_info("\t\tPlayer 1 wins the game-ending coin flip!")
+            log_info("\t\tPlayer 1 wins the game by coin flip.")
             self.player_who_won_coinflip = self.p1
         else:
-            log_info("\t\tPlayer 2 wins the game-ending coin flip!")
+            log_info("\t\tPlayer 2 wins the game by coin flip.")
             self.player_who_won_coinflip = self.p2
 
     # award deadwood scoring and gin bonuses
@@ -227,13 +241,15 @@ class GinMatch(Observable):
     def update_score(self):
         score_delta = 0
 
-        # first, handle any games won by coinflips by awarding 25 points
+        # first, handle any games won by coin flips by awarding 25 points
         if self.player_who_won_coinflip == self.p1:
             self.p1_score += 25
-            self.p1_matches_won += 1
+            self.p1_games_won += 1
+            self.p1_wins_by_coinflip += 1
         elif self.player_who_won_coinflip == self.p2:
             self.p2_score += 25
-            self.p2_matches_won += 1
+            self.p2_games_won += 1
+            self.p2_wins_by_coinflip += 1
         # handle non-coinflip wins
         else:
             # track the 'defender' of the knock/gin
@@ -255,10 +271,10 @@ class GinMatch(Observable):
                 # update score tallies
                 if knocker == self.p1:
                     self.p1_score += score_delta
-                    self.p1_matches_won += 1
+                    self.p1_games_won += 1
                 elif knocker == self.p2:
                     self.p2_score += score_delta
-                    self.p2_matches_won += 1
+                    self.p2_games_won += 1
 
             # for knocks, allow lay-offs
             elif self.player_who_knocked:
@@ -271,31 +287,34 @@ class GinMatch(Observable):
                     score_delta += 25
                     if knocker == self.p1:
                         self.p2_score += score_delta
-                        self.p2_matches_won += 1
+                        self.p2_games_won += 1
                     elif knocker == self.p2:
                         self.p1_score += score_delta
-                        self.p1_matches_won += 1
+                        self.p1_games_won += 1
                 # regular knocks
                 else:
                     if knocker == self.p1:
                         self.p1_score += score_delta
-                        self.p1_matches_won += 1
+                        self.p1_games_won += 1
                     elif knocker == self.p2:
                         self.p2_score += score_delta
-                        self.p2_matches_won += 1
+                        self.p2_games_won += 1
+
+        assert self.p1_games_won >= self.p1_wins_by_coinflip, "bad p1 score"
+        assert self.p2_games_won >= self.p2_wins_by_coinflip, "bad p2 score"
 
         log_debug("\t\tEnd-of-game scores:")
         log_debug("\t\t  player 1 score: {0}".format(self.p1_score))
-        log_debug("\t\t  player 1 matches won: {0}".format(self.p1_matches_won))
+        log_debug("\t\t  player 1 matches won: {0}".format(self.p1_games_won))
         log_debug("\t\t  player 2 score: {0}".format(self.p2_score))
-        log_debug("\t\t  player 2 matches won: {0}".format(self.p2_matches_won))
+        log_debug("\t\t  player 2 matches won: {0}".format(self.p2_games_won))
 
     def process_knock(self, knocker):
         """@type knocker: GinPlayer"""
         log_debug("\tValidating knock...".format(self.get_player_string(knocker)))
 
         # first, handle invalid knocks with a penalty of the hand now being played face-up
-        if knocker.hand.deadwood_count() > 10:
+        if knocker.hand.deadwood_count() > self.knocking_point:
             log_debug("\t\tthe knock was improper.")
             if knocker == self.p1:
                 self.p1_knocked_improperly = True

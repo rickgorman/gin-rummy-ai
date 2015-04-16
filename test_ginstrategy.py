@@ -10,13 +10,17 @@ from test_neuralnet import MockNeuralNetwork
 class MockGinStrategy(GinStrategy):
     def __init__(self, mockaction=None):
         if mockaction is None:
-            self.action = ['DISCARD', 0]
+            self.action = {'start': ['DRAW'], 'end': ['DISCARD', 0]}
         else:
             self.action = mockaction
 
     def determine_best_action(self, phase):
-        # by default, we discard the first card
-        return self.action
+        if phase == 'start':
+            return self.action['start']
+        elif phase == 'end':
+            return self.action['end']
+        else:
+            return self.action['end']
 
     def consider_accepting_improper_knock(self):
         return True
@@ -37,7 +41,7 @@ class TestGinStrategy(Helper):
             GinStrategy(self.p1, self.p1, self.gm)
 
     def test_determine_best_action(self):
-        strat = MockGinStrategy(['DISCARD', 0])
+        strat = MockGinStrategy()
 
         # ensure mock strategy tells us to discard our first card
         self.assertEqual(strat.determine_best_action(phase='end'), ['DISCARD', 0])

@@ -41,6 +41,7 @@
       <w>recurse</w>
       <w>sensable</w>
       <w>sensables</w>
+      <w>sigint</w>
       <w>sigmoided</w>
       <w>someval</w>
       <w>strat</w>
@@ -53,6 +54,7 @@
       <w>uplinks</w>
       <w>weightset</w>
       <w>winrate</w>
+      <w>wintype</w>
     </words>
   </dictionary>
 </component>

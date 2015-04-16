@@ -12,7 +12,6 @@ from gindeck import *
 from observer import *
 from utility import *
 from pylru import lrudecorator
-import line_profiler
 
 
 class GinTable(Observable):
