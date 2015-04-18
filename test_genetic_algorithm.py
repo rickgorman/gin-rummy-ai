@@ -180,7 +180,6 @@ class TestPopulation(unittest.TestCase):
         self.assertEqual(self.initial_population_size, len(self.p.member_genes))
         self.assertEqual(self.gene_size, len(self.p.member_genes.keys()[0].genes))
 
-
     def test_ranking_func(self):
         gene_item = {'game_wins': 4, 'coinflip_game_wins': 4, 'game_losses': 0, 'generation': 0}
         self.assertEqual(0, self.p.ranking_func(gene_item))
@@ -194,6 +193,7 @@ class TestPopulation(unittest.TestCase):
         gene_item = {'game_wins': 4, 'coinflip_game_wins': 2, 'game_losses': 0, 'generation': 0}
         self.p.current_generation = 1
         self.assertEqual(1, self.p.ranking_func(gene_item))
+
 
     def test_get_top_members(self):
         # rig up 4 winners, all of whom won by coinflip

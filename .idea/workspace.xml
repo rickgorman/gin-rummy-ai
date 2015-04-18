@@ -7,6 +7,7 @@
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/genetic_algorithm.py" afterPath="$PROJECT_DIR$/genetic_algorithm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginmatch.py" afterPath="$PROJECT_DIR$/ginmatch.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_genetic_algorithm.py" afterPath="$PROJECT_DIR$/test_genetic_algorithm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -81,7 +82,7 @@
     <SUITE FILE_PATH="coverage/neural$Unittest_TestPopulation_test_generate_next_generation.coverage" NAME="Unittest TestPopulation.test_generate_next_generation Coverage Results" MODIFIED="1429062402760" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestPopulation_test_cross_over.coverage" NAME="Unittest TestPopulation.test_cross_over Coverage Results" MODIFIED="1428727609460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_test_gindeck.coverage" NAME="Unittests in test_gindeck Coverage Results" MODIFIED="1426674101901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/neural$Unittest_TestPopulation_test_ranking_func.coverage" NAME="Unittest TestPopulation.test_ranking_func Coverage Results" MODIFIED="1429073995723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neural$Unittest_TestPopulation_test_ranking_func.coverage" NAME="Unittest TestPopulation.test_ranking_func Coverage Results" MODIFIED="1429318485705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test_draw.coverage" NAME="Unittest TestGinPlayer.test_draw Coverage Results" MODIFIED="1426460397382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittests_in_test_neuralnet.coverage" NAME="Unittests in test_neuralnet Coverage Results" MODIFIED="1428817893412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neural$Unittest_TestGinPlayer_test__notify_knock_listeners.coverage" NAME="Unittest TestGinPlayer.test__notify_knock_listeners Coverage Results" MODIFIED="1426459458696" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -262,10 +263,10 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="false" current-in-tab="true">
+            <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="32" column="52" selection-start="930" selection-end="930" vertical-scroll-proportion="0.41574278" vertical-offset="60" max-vertical-offset="4410">
+                  <state line="183" column="46" selection-start="6450" selection-end="6450" vertical-scroll-proportion="0.29933482" vertical-offset="2430" max-vertical-offset="4410">
                     <folding />
                   </state>
                 </provider>
@@ -363,10 +364,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="27" selection-start="5355" selection-end="5355" vertical-scroll-proportion="0.48931384" vertical-offset="1785" max-vertical-offset="5190">
+            <state line="148" column="0" selection-start="5089" selection-end="5089" vertical-scroll-proportion="0.28683916" vertical-offset="1875" max-vertical-offset="5175">
               <folding />
             </state>
           </provider>
@@ -375,7 +376,7 @@
       <file leaf-file-name="ginmatch.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ginmatch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="39" selection-start="2065" selection-end="2065" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="5895">
+            <state line="47" column="25" selection-start="1842" selection-end="1842" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="5895">
               <folding />
             </state>
           </provider>
@@ -484,8 +485,8 @@
         <option value="$PROJECT_DIR$/test_ginmatch.py" />
         <option value="$PROJECT_DIR$/gintable.py" />
         <option value="$PROJECT_DIR$/playground.py" />
-        <option value="$PROJECT_DIR$/test_genetic_algorithm.py" />
         <option value="$PROJECT_DIR$/ginmatch.py" />
+        <option value="$PROJECT_DIR$/test_genetic_algorithm.py" />
         <option value="$PROJECT_DIR$/genetic_algorithm.py" />
       </list>
     </option>
@@ -618,7 +619,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittest TestPopulation.test_draw">
+  <component name="RunManager" selected="Python tests.Unittest TestPopulation.test_ranking_func">
     <configuration default="false" name="Unittest TestPopulation.test_ranking_func" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -640,7 +641,9 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -937,9 +940,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_draw" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_persist" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_ranking_func" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_ranking_func" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_draw" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_persist" />
         <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestPopulation.test_generate_next_generation" />
         <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestGinMatch.test_run" />
       </list>
@@ -1321,7 +1324,11 @@
       <created>1429317857164</created>
       <updated>1429317857164</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="Temporarily fixed divbyzero problem by setting a minimum for the divisor in the ranking function">
+      <created>1429317978661</created>
+      <updated>1429317978661</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1355,7 +1362,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.117154814" sideWeight="0.6708075" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15794979" sideWeight="0.67083657" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="0" y="510" width="1680" height="536" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="0" y="510" width="1680" height="536" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21861924" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29632527" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.22439405" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="0" y="22" width="956" height="1024" />
@@ -1404,7 +1411,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Wrote and passed tests for NeuralNet.pulse()&#10;Created debugging tool NeuralNet.print_me()&#10;Changed output_layer to be a list of dicts with output_key as the key&#10;Created OutputPerceptron to hold an output_key&#10;" />
     <MESSAGE value="Cleaned up test_ginplayer, moving lots of things into setUp()&#10;Fixed a bug in GinPlayer.take_turn() where we weren't consulting the strategy twice when we had 10 cards.&#10;Added GinPlayer.accept_improper_knock&#10;Added NeuralGinStrategy class&#10;Added NeuralGinStrategy.consider_accepting_improper_knock() to communicate between neural net and player action&#10;Added and passed tests for handling the acceptance of improper knocking&#10;Added and passed testss for GinStrategy.decode_signal()&#10;Added some true/false return functions to Helper that can be monkey patched in&#10;Added MockNeuralNetwork&#10;Moved some mocks around and updated import statements" />
     <MESSAGE value="Fixed bug in decode_signal() where we were returning an out of bounds index for signal = 1.0&#10;Clarified action name to 'PICKUP-FROM-DISCARD'&#10;Added and passed tests for decode_best_action" />
     <MESSAGE value="Added and passed tests for GinMatch.organize_data()&#10;Added @notify_observers_after (also renamed existing @notify_observers to a higher-clarity @notify_observers_before)&#10;" />
@@ -1429,7 +1435,8 @@
     <MESSAGE value="Implemented local storage for Population&#10;Reworked ranking function to focus on non-coinflip wins as a percentage of games played&#10;More tracking of game stats&#10;Updated playground.py to have SIGINT handling for easier run/stop/analyze cycling&#10;Added test case to GinMatch.test_run to track our new game stats&#10;Changed MockGinStrategy definitions to have start/end strategies&#10;" />
     <MESSAGE value="Changed base mutation rate to 7.5%&#10;Moved static random seed into test cases" />
     <MESSAGE value="Fixed division by zero problem by correcting the divisor in the ranking function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed division by zero problem by correcting the divisor in the ranking function" />
+    <MESSAGE value="Temporarily fixed divbyzero problem by setting a minimum for the divisor in the ranking function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Temporarily fixed divbyzero problem by setting a minimum for the divisor in the ranking function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1468,6 +1475,11 @@
           <line>241</line>
           <option name="timeStamp" value="349" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_genetic_algorithm.py</url>
+          <line>187</line>
+          <option name="timeStamp" value="358" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -1480,7 +1492,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="358" />
+      <option name="time" value="359" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1575,23 +1587,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="52" selection-start="930" selection-end="930" vertical-scroll-proportion="0.41574278" vertical-offset="60" max-vertical-offset="4410">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ginmatch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="39" selection-start="2065" selection-end="2065" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="5895">
+        <state line="47" column="25" selection-start="1842" selection-end="1842" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="5895">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="27" selection-start="5355" selection-end="5355" vertical-scroll-proportion="0.48931384" vertical-offset="1785" max-vertical-offset="5190">
+        <state line="148" column="0" selection-start="5089" selection-end="5089" vertical-scroll-proportion="0.28683916" vertical-offset="1875" max-vertical-offset="5175">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="183" column="46" selection-start="6450" selection-end="6450" vertical-scroll-proportion="0.29933482" vertical-offset="2430" max-vertical-offset="4410">
           <folding />
         </state>
       </provider>

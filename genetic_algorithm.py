@@ -142,13 +142,12 @@ class Population(object):
         game_wins           = gene_item['game_wins']
         coinflip_game_wins  = gene_item['coinflip_game_wins']
         game_losses         = gene_item['game_losses']
-        age                 = self.current_generation - gene_item['generation']
+        age                 = float(self.current_generation - gene_item['generation'] + 1)
 
         # the only behavior we want to award is winning without a coinflip
-        real_wins           = game_wins - coinflip_game_wins
-        total_games         = gene_item['game_wins'] + gene_item['game_losses']
+        real_wins           = float(game_wins - coinflip_game_wins)
 
-        return float(real_wins) / min(1, float(total_games))
+        return real_wins / age
 
     # engage each member in competition with each other member, recording the results
     def fitness_test(self):
