@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/genetic_algorithm.py" afterPath="$PROJECT_DIR$/genetic_algorithm.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_genetic_algorithm.py" afterPath="$PROJECT_DIR$/test_genetic_algorithm.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/playground_check_intelligence.persist.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -262,10 +261,10 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="false" current-in-tab="true">
+            <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="186" column="77" selection-start="6639" selection-end="6639" vertical-scroll-proportion="0.36585367" vertical-offset="2415" max-vertical-offset="4395">
+                  <state line="182" column="32" selection-start="6403" selection-end="6403" vertical-scroll-proportion="0.29933482" vertical-offset="2415" max-vertical-offset="4395">
                     <folding />
                   </state>
                 </provider>
@@ -363,10 +362,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="342" column="28" selection-start="14051" selection-end="14051" vertical-scroll-proportion="0.89876264" vertical-offset="4241" max-vertical-offset="5130">
+            <state line="327" column="0" selection-start="13461" selection-end="13461" vertical-scroll-proportion="5.416198" vertical-offset="0" max-vertical-offset="5130">
               <folding />
             </state>
           </provider>
@@ -1335,7 +1334,11 @@
       <created>1429318563695</created>
       <updated>1429318563695</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="removed Population.to_JSON">
+      <created>1429320693371</created>
+      <updated>1429320693371</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1418,7 +1421,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Added and passed tests for GinMatch.organize_data()&#10;Added @notify_observers_after (also renamed existing @notify_observers to a higher-clarity @notify_observers_before)&#10;" />
     <MESSAGE value="Added and passed tests for GinTable.organize_data()" />
     <MESSAGE value="Corrected GinTable.organize_data() to not reveal the content of the undealt deck" />
     <MESSAGE value="Decoupled GinTable.deck from Player so we can properly observe changes in GinTable&#10;Removed all PlayerObservers and replaced with Observers (just naming semantic)" />
@@ -1443,7 +1445,8 @@
     <MESSAGE value="Temporarily fixed divbyzero problem by setting a minimum for the divisor in the ranking function" />
     <MESSAGE value="We now pass test_ranking_func. This should clear up the divbyzero error from earlier." />
     <MESSAGE value="Moved the knock_point back down to 10." />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved the knock_point back down to 10." />
+    <MESSAGE value="removed Population.to_JSON" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed Population.to_JSON" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1596,16 +1599,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
+    <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="186" column="77" selection-start="6639" selection-end="6639" vertical-scroll-proportion="0.36585367" vertical-offset="2415" max-vertical-offset="4395">
+        <state line="327" column="0" selection-start="13461" selection-end="13461" vertical-scroll-proportion="5.416198" vertical-offset="0" max-vertical-offset="5130">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
+    <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="342" column="28" selection-start="14051" selection-end="14051" vertical-scroll-proportion="0.89876264" vertical-offset="4241" max-vertical-offset="5130">
+        <state line="182" column="32" selection-start="6403" selection-end="6403" vertical-scroll-proportion="0.29933482" vertical-offset="2415" max-vertical-offset="4395">
           <folding />
         </state>
       </provider>
