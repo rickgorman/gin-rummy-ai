@@ -20,7 +20,7 @@ To get started, open a console and run:
 
 This will launch the algorithm. You may want to observe the output -- this can be done in a second console window like so:
 
-` tail -f playground_check_intelligence.persist.txt`
+` tail -f debug.log.txt`
 
 You can kill the script with Ctrl-C, which will trigger persistence handling and save the current generation to disk to be loaded again at next startup. As coded, it will then run a couple of games with the two best strategies and display the turn-by-turn output.
 
