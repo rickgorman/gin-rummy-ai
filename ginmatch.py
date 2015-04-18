@@ -41,7 +41,7 @@ class GinMatch(Observable):
         # rules
         self.maximum_turns = 60  # 30 discards possible, so each player discards each card twice
         self.turns_taken = 0
-        self.knocking_point = 15
+        self.knocking_point = 10
 
         # set up score board
         self.p1_score = 0

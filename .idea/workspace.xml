@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/genetic_algorithm.py" afterPath="$PROJECT_DIR$/genetic_algorithm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginmatch.py" afterPath="$PROJECT_DIR$/ginmatch.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_genetic_algorithm.py" afterPath="$PROJECT_DIR$/test_genetic_algorithm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -266,7 +264,7 @@
             <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="183" column="46" selection-start="6450" selection-end="6450" vertical-scroll-proportion="0.29933482" vertical-offset="2430" max-vertical-offset="4410">
+                  <state line="193" column="37" selection-start="7012" selection-end="7012" vertical-scroll-proportion="0.46563193" vertical-offset="2430" max-vertical-offset="4410">
                     <folding />
                   </state>
                 </provider>
@@ -1328,7 +1326,11 @@
       <created>1429317978661</created>
       <updated>1429317978661</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="We now pass test_ranking_func. This should clear up the divbyzero error from earlier.">
+      <created>1429318546909</created>
+      <updated>1429318546909</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1411,7 +1413,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Cleaned up test_ginplayer, moving lots of things into setUp()&#10;Fixed a bug in GinPlayer.take_turn() where we weren't consulting the strategy twice when we had 10 cards.&#10;Added GinPlayer.accept_improper_knock&#10;Added NeuralGinStrategy class&#10;Added NeuralGinStrategy.consider_accepting_improper_knock() to communicate between neural net and player action&#10;Added and passed tests for handling the acceptance of improper knocking&#10;Added and passed testss for GinStrategy.decode_signal()&#10;Added some true/false return functions to Helper that can be monkey patched in&#10;Added MockNeuralNetwork&#10;Moved some mocks around and updated import statements" />
     <MESSAGE value="Fixed bug in decode_signal() where we were returning an out of bounds index for signal = 1.0&#10;Clarified action name to 'PICKUP-FROM-DISCARD'&#10;Added and passed tests for decode_best_action" />
     <MESSAGE value="Added and passed tests for GinMatch.organize_data()&#10;Added @notify_observers_after (also renamed existing @notify_observers to a higher-clarity @notify_observers_before)&#10;" />
     <MESSAGE value="Added and passed tests for GinTable.organize_data()" />
@@ -1436,7 +1437,8 @@
     <MESSAGE value="Changed base mutation rate to 7.5%&#10;Moved static random seed into test cases" />
     <MESSAGE value="Fixed division by zero problem by correcting the divisor in the ranking function" />
     <MESSAGE value="Temporarily fixed divbyzero problem by setting a minimum for the divisor in the ranking function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Temporarily fixed divbyzero problem by setting a minimum for the divisor in the ranking function" />
+    <MESSAGE value="We now pass test_ranking_func. This should clear up the divbyzero error from earlier." />
+    <option name="LAST_COMMIT_MESSAGE" value="We now pass test_ranking_func. This should clear up the divbyzero error from earlier." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1603,7 +1605,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="183" column="46" selection-start="6450" selection-end="6450" vertical-scroll-proportion="0.29933482" vertical-offset="2430" max-vertical-offset="4410">
+        <state line="193" column="37" selection-start="7012" selection-end="7012" vertical-scroll-proportion="0.46563193" vertical-offset="2430" max-vertical-offset="4410">
           <folding />
         </state>
       </provider>
