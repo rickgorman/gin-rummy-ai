@@ -146,7 +146,7 @@ class Population(object):
 
         # the only behavior we want to award is winning without a coinflip
         real_wins           = game_wins - coinflip_game_wins
-        total_games         = gene_item['match_wins'] + gene_item['game_losses']
+        total_games         = gene_item['game_wins'] + gene_item['game_losses']
 
         return float(real_wins) / float(total_games)
 
