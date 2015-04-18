@@ -15,9 +15,6 @@ from neuralnet import *
 from ginstrategy import *
 import pickle
 
-# static seed for repeatability
-random.seed(0)
-
 
 class GeneSet(object):
     def __init__(self, genes=None):
@@ -244,7 +241,7 @@ class Population(object):
                 # prevent asexual reproduction (this will cause result in clone wars)
                 if mate is not breeder:
                     newborn = breeder.cross(mate)
-                    newborn.mutate(0.025)
+                    newborn.mutate(0.075)
                     self.add_member(newborn, self.current_generation + 1)
 
     # TODO: track # of each type of action

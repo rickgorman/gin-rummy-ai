@@ -3,6 +3,10 @@ from genetic_algorithm import *
 import utility
 import os
 
+# static seed for repeatability
+random.seed(0)
+
+
 class TestGeneSet(unittest.TestCase):
     def setUp(self):
         pass
