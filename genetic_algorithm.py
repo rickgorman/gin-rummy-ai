@@ -148,7 +148,7 @@ class Population(object):
         real_wins           = game_wins - coinflip_game_wins
         total_games         = gene_item['game_wins'] + gene_item['game_losses']
 
-        return float(real_wins) / float(total_games)
+        return float(real_wins) / min(1, float(total_games))
 
     # engage each member in competition with each other member, recording the results
     def fitness_test(self):
