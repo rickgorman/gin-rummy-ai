@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a08317-5020-4a8b-ae9a-cfc794a685db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ginmatch.py" afterPath="$PROJECT_DIR$/ginmatch.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/genetic_algorithm.py" afterPath="$PROJECT_DIR$/genetic_algorithm.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_genetic_algorithm.py" afterPath="$PROJECT_DIR$/test_genetic_algorithm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="neural.iws" />
@@ -261,10 +262,10 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="true" current-in-tab="true">
+            <file leaf-file-name="test_genetic_algorithm.py" pinned="false" current="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state line="193" column="37" selection-start="7012" selection-end="7012" vertical-scroll-proportion="0.46563193" vertical-offset="2430" max-vertical-offset="4410">
+                  <state line="186" column="77" selection-start="6639" selection-end="6639" vertical-scroll-proportion="0.36585367" vertical-offset="2415" max-vertical-offset="4395">
                     <folding />
                   </state>
                 </provider>
@@ -362,10 +363,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="false" current-in-tab="true">
+      <file leaf-file-name="genetic_algorithm.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="148" column="0" selection-start="5089" selection-end="5089" vertical-scroll-proportion="0.28683916" vertical-offset="1875" max-vertical-offset="5175">
+            <state line="342" column="28" selection-start="14051" selection-end="14051" vertical-scroll-proportion="0.89876264" vertical-offset="4241" max-vertical-offset="5130">
               <folding />
             </state>
           </provider>
@@ -1330,7 +1331,11 @@
       <created>1429318546909</created>
       <updated>1429318546909</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="Moved the knock_point back down to 10.">
+      <created>1429318563695</created>
+      <updated>1429318563695</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1364,7 +1369,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.117154814" sideWeight="0.6708075" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15794979" sideWeight="0.67083657" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="0" y="510" width="1680" height="536" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.35652855" sideWeight="0.83116883" order="3" side_tool="false" content_ui="tabs" x="0" y="510" width="1680" height="536" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21861924" sideWeight="0.3231162" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29632527" sideWeight="0.1694725" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.22439405" sideWeight="0.8305275" order="2" side_tool="false" content_ui="tabs" x="0" y="22" width="956" height="1024" />
@@ -1413,7 +1418,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Fixed bug in decode_signal() where we were returning an out of bounds index for signal = 1.0&#10;Clarified action name to 'PICKUP-FROM-DISCARD'&#10;Added and passed tests for decode_best_action" />
     <MESSAGE value="Added and passed tests for GinMatch.organize_data()&#10;Added @notify_observers_after (also renamed existing @notify_observers to a higher-clarity @notify_observers_before)&#10;" />
     <MESSAGE value="Added and passed tests for GinTable.organize_data()" />
     <MESSAGE value="Corrected GinTable.organize_data() to not reveal the content of the undealt deck" />
@@ -1438,7 +1442,8 @@
     <MESSAGE value="Fixed division by zero problem by correcting the divisor in the ranking function" />
     <MESSAGE value="Temporarily fixed divbyzero problem by setting a minimum for the divisor in the ranking function" />
     <MESSAGE value="We now pass test_ranking_func. This should clear up the divbyzero error from earlier." />
-    <option name="LAST_COMMIT_MESSAGE" value="We now pass test_ranking_func. This should clear up the divbyzero error from earlier." />
+    <MESSAGE value="Moved the knock_point back down to 10." />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved the knock_point back down to 10." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1469,18 +1474,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/test_genetic_algorithm.py</url>
-          <line>221</line>
+          <line>220</line>
           <option name="timeStamp" value="343" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/ginmatch.py</url>
           <line>241</line>
           <option name="timeStamp" value="349" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/test_genetic_algorithm.py</url>
-          <line>187</line>
-          <option name="timeStamp" value="358" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1596,16 +1596,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
+    <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="0" selection-start="5089" selection-end="5089" vertical-scroll-proportion="0.28683916" vertical-offset="1875" max-vertical-offset="5175">
+        <state line="186" column="77" selection-start="6639" selection-end="6639" vertical-scroll-proportion="0.36585367" vertical-offset="2415" max-vertical-offset="4395">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_genetic_algorithm.py">
+    <entry file="file://$PROJECT_DIR$/genetic_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="193" column="37" selection-start="7012" selection-end="7012" vertical-scroll-proportion="0.46563193" vertical-offset="2430" max-vertical-offset="4410">
+        <state line="342" column="28" selection-start="14051" selection-end="14051" vertical-scroll-proportion="0.89876264" vertical-offset="4241" max-vertical-offset="5130">
           <folding />
         </state>
       </provider>

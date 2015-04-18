@@ -194,7 +194,6 @@ class TestPopulation(unittest.TestCase):
         self.p.current_generation = 1
         self.assertEqual(1, self.p.ranking_func(gene_item))
 
-
     def test_get_top_members(self):
         # rig up 4 winners, all of whom won by coinflip
         rig_count = 0
