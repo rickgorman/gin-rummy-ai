@@ -119,12 +119,14 @@ class TestNeuralNet(unittest.TestCase):
         # make sure we have the right number of hidden neurons
         self.assertEqual(len(self.nn.hidden_layer), int((len(self.nn.input_layer) + len(self.output_keys)) * 2 / 3))
 
+        bias_neuron = 1
+
         # ensure that each hidden neuron has each input neuron in its inputs
         for hn in self.nn.hidden_layer:
             found = {}
             for n in hn.inputs.keys():
                 found[n] = True
-            self.assertEqual(len(found), len(self.obs.buffer))
+            self.assertEqual(len(found), len(self.obs.buffer) + bias_neuron)
 
     def test_create_jidden_layer(self):
         self.test_create_hidden_layer()
@@ -133,17 +135,21 @@ class TestNeuralNet(unittest.TestCase):
         # make sure we have the right number of jidden neurons
         self.assertEqual(len(self.nn.jidden_layer), self.nn.calculate_hidden_count())
 
+        bias_neuron = 1
+
         # ensure that each jidden neuron has each hidden neuron in its inputs
         for jn in self.nn.jidden_layer:
             found = {}
             for n in jn.inputs.keys():
                 found[n] = True
-            self.assertEqual(len(found), len(self.nn.hidden_layer))
+            self.assertEqual(len(found), len(self.nn.hidden_layer) + bias_neuron)
 
     def test_create_output_layer(self):
         self.test_create_hidden_layer()
         self.nn.create_output_layer()
         self.assertEqual(len(self.nn.output_layer), len(self.output_keys))
+
+        bias_neuron = 1
 
         # ensure that each output neuron has each jidden neuron in its inputs
         for o in self.nn.output_layer:
@@ -154,7 +160,7 @@ class TestNeuralNet(unittest.TestCase):
 
             for input_neuron in output_neuron.inputs.keys():
                 found[input_neuron] = True
-            self.assertEqual(len(found), len(self.nn.jidden_layer))
+            self.assertEqual(len(found), len(self.nn.jidden_layer) + bias_neuron)
 
     def test_pulse(self):
         # create invalid values for outputs
@@ -342,6 +348,17 @@ class TestOutputPerceptron(unittest.TestCase):
         output_key = 'testing'
         self.op = OutputPerceptron(self.inputs, self.neuron_weights, output_key)
         self.assertEqual(self.op.output_key, output_key)
+
+
+class TestBiasPerceptron(unittest.TestCase):
+    def test___init__(self):
+        someval = 5
+        bp = BiasPerceptron(someval)
+        self.assertEqual(someval, bp.bias)
+
+    def test_generate_output(self):
+        bp = BiasPerceptron(5)
+        self.assertEqual(5, bp.generate_output())
 
 
 class TestWeightSet(unittest.TestCase):

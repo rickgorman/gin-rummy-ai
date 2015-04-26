@@ -20,28 +20,30 @@ class GeneSet(object):
     def __init__(self, genes=None):
         if isinstance(genes, int):
             # create genome of the requested size.
-            # for the random seed values, we want to try to pick smart values.
-            # let's make 2% of the weights significant and the rest small randoms
+#            # for the random seed values, we want to try to pick smart values.
+#            # let's make 2% of the weights significant and the rest small randoms
             self.genes = []
             default_length = genes
-            possible_means = [0.0, 0.05, 0.1, 0.2]
-            shuffle(possible_means)
-            mean = possible_means[0]
+#            possible_means = [-2.0, -1.0, 0.0, 1.0, 2.0]
+#            shuffle(possible_means)
+#            mean = possible_means[0]
+            mean = 0
+            stdev = 1
 
-            [self.genes.append(abs(random.gauss(0.3, 0.2))) for _ in range(int(0.02 * default_length))]
-            [self.genes.append(abs(random.gauss(mean, 0.01))) for _ in range(int(0.98 * default_length))]
-            shuffle(self.genes)
+#            [self.genes.append(abs(random.gauss(0, 1))) for _ in range(int(0.02 * default_length))]
+#            [self.genes.append(abs(random.gauss(mean, 0.25))) for _ in range(int(0.98 * default_length))]
+            [self.genes.append(random.gauss(mean, stdev)) for _ in range(default_length)]
+#            shuffle(self.genes)
 
             # make sure the integer rounding doesn't lose us a gene or two
             for _ in range(genes - len(self.genes)):
-                self.genes.append(abs(random.gauss(0.0, 0.01)))
+                self.genes.append(abs(random.gauss(mean, stdev)))
 
         elif isinstance(genes, list):
             # store genome, ensuring genes are valid
             for gene in genes:
                 assert isinstance(gene, float)
-                assert 0 <= gene <= 1, "gene is not within [0,1]: {1}".format(gene)
-            self.genes = genes
+                self.genes = genes
         else:
             raise AssertionError("strange value passed in")
 

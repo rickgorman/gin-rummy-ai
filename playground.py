@@ -79,9 +79,6 @@ class RunCheckIntelligence(object):
         utility.enable_logging_info = True
 
         p2.fitness_test()
-        p2.fitness_test()
-        p2.fitness_test()
-        p2.fitness_test()
 
     def register_sigint(self):
         the_class = self

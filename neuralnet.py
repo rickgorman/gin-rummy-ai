@@ -71,12 +71,14 @@ class NeuralNet(object):
         count = self.calculate_hidden_count()
         for i in range(count):
             hp = HiddenPerceptron(self.input_layer, self.weightset.weights['hidden'][i])
+            hp.add_input(BiasPerceptron(1), 1)
             self.hidden_layer.append(hp)
 
     def create_jidden_layer(self):
         count = self.calculate_hidden_count()
         for i in range(count):
             jp = HiddenPerceptron(self.hidden_layer, self.weightset.weights['jidden'][i])
+            jp.add_input(BiasPerceptron(1), 1)
             self.jidden_layer.append(jp)
 
     # create output neurons and attach them to each of our hidden neurons using the weights in weights['hidden']
@@ -85,6 +87,7 @@ class NeuralNet(object):
         for i in range(count):
             key = self.outputs.keys()[i]
             op = OutputPerceptron(self.jidden_layer, self.weightset.weights['output'][i], key)
+            op.add_input(BiasPerceptron(1), 1)
             self.output_layer.append({key: op})
 
     # pulse the neural net and store the output for later use
@@ -202,6 +205,7 @@ class Perceptron(object):
         self.inputs[target] = weight
 
     # aggregate input weights
+    # TODO: either remove this function or do something with it
     def step_function(self):
         return sum(self.inputs.values())
 
@@ -291,6 +295,15 @@ class OutputPerceptron(MultiInputPerceptron):
     def __init__(self, input_neurons, neuron_weights, output_key, myid=None):
         super(OutputPerceptron, self).__init__(input_neurons, neuron_weights, myid=myid)
         self.output_key = output_key
+
+
+class BiasPerceptron(Perceptron):
+    def __init__(self, bias, myid=None):
+        super(BiasPerceptron, self).__init__(myid=myid)
+        self.bias = bias
+
+    def generate_output(self, indent_level=0, getlast=True):
+        return self.bias
 
 
 # wrapper class for geneset that exposes the genes as an arrangement of weights

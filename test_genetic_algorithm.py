@@ -12,13 +12,16 @@ class TestGeneSet(unittest.TestCase):
         pass
 
     def test___init__(self):
-        # ensure we have 500 float weights between [0,1] in our geneset
+        # ensure we have 500 float weights in our geneset, most between [-4, 4]
         expected_genome_size = 500
         gs = GeneSet(expected_genome_size)
         self.assertEqual(expected_genome_size, len(gs.genes))
+        counter = 0
         for gene in gs.genes:
-            self.assertGreaterEqual(gene, 0)
-            self.assertLessEqual(gene, 1)
+            if -4 < gene < 4:
+                counter += 1
+
+        self.assertGreaterEqual(counter, 480)
 
         # ensure we fail without being passed in an argument
         with self.assertRaises(AssertionError):
