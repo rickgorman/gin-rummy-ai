@@ -213,10 +213,10 @@ class TestPopulation(unittest.TestCase):
 
         # give another gene a lot of non-coinflip wins and ensure he is the top key
         key = self.p.member_genes.keys()[20]
-        self.p.member_genes[key]['match_wins'] = 1
-        self.p.member_genes[key]['game_wins'] = 4
+        self.p.member_genes[key]['match_wins'] = 20
+        self.p.member_genes[key]['game_wins'] = 20
         self.p.member_genes[key]['coinflip_game_wins'] = 0
-        self.p.member_genes[key]['generation'] = 2
+        self.p.member_genes[key]['generation'] = 0
 
         top_keys = self.p.get_top_members(5)
         self.assertTrue(key in top_keys)
@@ -240,7 +240,7 @@ class TestPopulation(unittest.TestCase):
         member_count = 4
         self.p.member_genes = {}
         for _ in range(member_count):
-            self.p.add_member(GeneSet(2000), 0)
+            self.p.add_member(GeneSet(4000), 0)
 
         # calculate number of matches as triangular series
         expected_games_played = (member_count * (member_count - 1)) / 2
@@ -258,7 +258,7 @@ class TestPopulation(unittest.TestCase):
         self.assertEqual(expected_games_played, matches_lost)
 
     def test_generate_next_generation(self):
-        self.gene_size = 2000
+        self.gene_size = 4000
         self.initial_population_size = 6
         self.retain_best = 3
         self.p = Population(self.gene_size, self.initial_population_size, retain_best=self.retain_best)
@@ -281,7 +281,7 @@ class TestPopulation(unittest.TestCase):
 
     def test_funking_around(self):
         self.population_size = 2
-        self.gene_size = 2000
+        self.gene_size = 4000
         self.max_generations = 1
         self.p = Population(self.gene_size, self.population_size, retain_best=4)
 

@@ -30,10 +30,12 @@ class NeuralNet(object):
 
         self.input_layer = []
         self.hidden_layer = []
+        self.jidden_layer = []
         self.output_layer = []
 
         self.create_input_layer()     # a list of Perceptrons
         self.create_hidden_layer()    # a list of Perceptrons
+        self.create_jidden_layer()    # a list of Perceptrons
         self.create_output_layer()    # a list of {output_key:Perceptron} dicts
 
         self.validate_weights()
@@ -71,12 +73,18 @@ class NeuralNet(object):
             hp = HiddenPerceptron(self.input_layer, self.weightset.weights['hidden'][i])
             self.hidden_layer.append(hp)
 
+    def create_jidden_layer(self):
+        count = self.calculate_hidden_count()
+        for i in range(count):
+            jp = HiddenPerceptron(self.hidden_layer, self.weightset.weights['jidden'][i])
+            self.jidden_layer.append(jp)
+
     # create output neurons and attach them to each of our hidden neurons using the weights in weights['hidden']
     def create_output_layer(self):
         count = len(self.outputs)
         for i in range(count):
             key = self.outputs.keys()[i]
-            op = OutputPerceptron(self.hidden_layer, self.weightset.weights['output'][i], key)
+            op = OutputPerceptron(self.jidden_layer, self.weightset.weights['output'][i], key)
             self.output_layer.append({key: op})
 
     # pulse the neural net and store the output for later use
@@ -294,7 +302,7 @@ class WeightSet(object):
             "not enough genes to fill up our weights"
 
         # create structure
-        self.weights = {'input': [], 'hidden': [], 'output': []}
+        self.weights = {'input': [], 'hidden': [], 'jidden': [], 'output': []}
 
         gene_index = 0
 
@@ -308,6 +316,13 @@ class WeightSet(object):
             self.weights['hidden'].append([])
             for _ in range(num_inputs):
                 self.weights['hidden'][i].append(gene_set.genes[gene_index])
+                gene_index += 1
+
+        # fill jidden layer with weights connecting to hidden layer
+        for i in range(num_hidden):
+            self.weights['jidden'].append([])
+            for _ in range(num_hidden):
+                self.weights['jidden'][i].append(gene_set.genes[gene_index])
                 gene_index += 1
 
         # fill output layer with weights connecting to input layer

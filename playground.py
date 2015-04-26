@@ -15,7 +15,7 @@ import utility
 class Runner(object):
     def __init__(self):
         self.population_size = 20
-        self.gene_size = 2000
+        self.gene_size = 4000
         self.p = Population(self.gene_size, self.population_size)
 
         for _ in range(10):
@@ -46,8 +46,8 @@ class RunCheckIntelligence(object):
         self.exhibit_winners = True
 
         self.population_size = 9
-        self.gene_size = 2000
-        self.max_generations = int(30 * 60 * 24)  # runs about 20 per minute, 30/min at 1game/match
+        self.gene_size = 4000
+        self.max_generations = int(20 * 60 * 24)  # one day of runtime: runs about 20 per minute
 
         local_storage = 'playground_check_intelligence.persist.txt'
 
@@ -70,7 +70,7 @@ class RunCheckIntelligence(object):
         # get top two and watch a couple games
         best_genes = self.p.get_top_members(2)
 
-        p2 = Population(2000, 2)
+        p2 = Population(4000, 2)
         p2.member_genes = {}
         p2.add_member(best_genes[0], 0)
         p2.add_member(best_genes[1], 0)

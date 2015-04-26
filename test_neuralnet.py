@@ -58,11 +58,16 @@ class TestNeuralNet(unittest.TestCase):
         # rig up a custom-numbered weightset
         self.weightset = WeightSet(GeneSet(400), 11, 9, 3)
         self.weightset.weights = {'input': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97],
-                        'hidden': [],
-                        'output': []}
+                                  'hidden': [],
+                                  'jidden': [],
+                                  'output': []}
         # set up the same set of weights for each hidden neuron (9 neurons, 11 weights per neuron)
         for _ in range(9):
             self.weightset.weights['hidden'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.96, 0.97])
+
+        # set up the same set of weights for each jidden neuron (9 neurons, 9 weights per neuron)
+        for _ in range(9):
+            self.weightset.weights['jidden'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
 
         # set up the same set of weights for each output neuron (3 neurons, 9 weights per neuron)
         for _ in range(3):
@@ -78,6 +83,13 @@ class TestNeuralNet(unittest.TestCase):
         self.assertRaises(AssertionError, NeuralNet, [],           self.weightset,         self.output_keys)
         self.assertRaises(AssertionError, NeuralNet, self.observers, self.invalid_weightset, self.output_keys)
         self.assertRaises(AssertionError, NeuralNet, self.observers, self.weightset,         [])
+
+        # create input, hidden, jidden and output layers
+        self.nn = NeuralNet(self.observers, self.weightset, self.output_keys)
+        self.assertEqual(len(self.p.organize_data()), len(self.nn.input_layer))
+        self.assertEqual(self.nn.calculate_hidden_count(), len(self.nn.hidden_layer))
+        self.assertEqual(self.nn.calculate_hidden_count(), len(self.nn.jidden_layer))
+        self.assertEqual(len(self.output_keys),  len(self.nn.output_layer))
 
     def test_validate_weights(self):
         # note: most of the validation code exists in WeightSet.validate
@@ -114,12 +126,26 @@ class TestNeuralNet(unittest.TestCase):
                 found[n] = True
             self.assertEqual(len(found), len(self.obs.buffer))
 
+    def test_create_jidden_layer(self):
+        self.test_create_hidden_layer()
+        self.nn.jidden_layer = []
+        self.nn.create_jidden_layer()
+        # make sure we have the right number of jidden neurons
+        self.assertEqual(len(self.nn.jidden_layer), self.nn.calculate_hidden_count())
+
+        # ensure that each jidden neuron has each hidden neuron in its inputs
+        for jn in self.nn.jidden_layer:
+            found = {}
+            for n in jn.inputs.keys():
+                found[n] = True
+            self.assertEqual(len(found), len(self.nn.hidden_layer))
+
     def test_create_output_layer(self):
         self.test_create_hidden_layer()
         self.nn.create_output_layer()
         self.assertEqual(len(self.nn.output_layer), len(self.output_keys))
 
-        # ensure that each output neuron has each hidden neuron in its inputs
+        # ensure that each output neuron has each jidden neuron in its inputs
         for o in self.nn.output_layer:
             found = {}
 
@@ -128,7 +154,7 @@ class TestNeuralNet(unittest.TestCase):
 
             for input_neuron in output_neuron.inputs.keys():
                 found[input_neuron] = True
-            self.assertEqual(len(found), len(self.nn.hidden_layer))
+            self.assertEqual(len(found), len(self.nn.jidden_layer))
 
     def test_pulse(self):
         # create invalid values for outputs
@@ -324,7 +350,8 @@ class TestWeightSet(unittest.TestCase):
         num_inputs = 10
         num_hidden = 15
         num_outputs = 3
-        required_num_genes = num_inputs + num_hidden * num_inputs + num_outputs * num_hidden
+        required_num_genes = num_inputs + (num_hidden * num_inputs) + (num_hidden * num_hidden) + \
+                             (num_outputs * num_hidden)
 
         # test the class assertions
         with self.assertRaises(AssertionError):
@@ -341,11 +368,14 @@ class TestWeightSet(unittest.TestCase):
         self.assertIsInstance(w.weights['input'], list)
         self.assertIsInstance(w.weights['hidden'], list)
         self.assertIsInstance(w.weights['hidden'][0], list)
+        self.assertIsInstance(w.weights['jidden'], list)
+        self.assertIsInstance(w.weights['jidden'][0], list)
         self.assertIsInstance(w.weights['output'], list)
         self.assertIsInstance(w.weights['output'][0], list)
 
         self.assertGreaterEqual(len(w.weights['input']), num_inputs)
         self.assertGreaterEqual(len(w.weights['hidden'][0]), num_inputs)
+        self.assertGreaterEqual(len(w.weights['jidden'][0]), num_inputs)
         self.assertGreaterEqual(len(w.weights['output'][0]), num_hidden)
 
     def test_prune(self):

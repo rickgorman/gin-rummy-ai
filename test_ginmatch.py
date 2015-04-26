@@ -142,7 +142,7 @@ class TestGinMatch(Helper):
         p2_wins                   = match_result['p2_games_won']
         p2_wins_by_coinflip       = match_result['p2_games_won_by_coinflip']
         p2_losses                 = match_result['p2_games_lost']
-        self.assertTrue(p1_wins_by_coinflip + p2_wins_by_coinflip >= 2)
+        self.assertGreaterEqual(p1_wins_by_coinflip + p2_wins_by_coinflip, 2)
 
     def test_play_game(self):
         # all play_game does is reset some flags and call other methods. leaving it blank.
