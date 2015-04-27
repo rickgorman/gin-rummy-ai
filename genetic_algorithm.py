@@ -70,13 +70,13 @@ class GeneSet(object):
 
         return child
 
-    # destructively mutate our genes (independently) at a given probability
+    # additively mutate our genes (independently) at a given probability
     def mutate(self, probability=None):
         if probability is None:
             probability = 0.001
         for i in range(len(self.genes)):
             if random.random() > 1 - probability:
-                self.genes[i] = random.random()
+                self.genes[i] += random.gauss(0, 0.5)
 
 
 class GinGeneSet(GeneSet):
@@ -126,7 +126,7 @@ class Population(object):
     # add a member with a given generation
     def add_member(self, geneset, generation):
         self.member_genes[geneset] = {'match_wins': 0, 'match_losses': 0, 'game_wins': 0, 'coinflip_game_wins': 0,
-                                      'game_losses': 0, 'generation': generation}
+                                      'game_losses': 0, 'game_points': 0, 'generation': generation}
 
     # return the top N specimens of the population
     def get_top_members(self, count):
@@ -144,12 +144,26 @@ class Population(object):
         game_wins           = gene_item['game_wins']
         coinflip_game_wins  = gene_item['coinflip_game_wins']
         game_losses         = gene_item['game_losses']
-        age                 = float(self.current_generation - gene_item['generation'] + 1)
+        age                 = max(1, float(self.current_generation - gene_item['generation'] + 1))
+
+        game_points         = gene_item['game_points']
+        points_per_generation = game_points / age
 
         # the only behavior we want to award is winning without a coinflip
         real_wins           = float(game_wins - coinflip_game_wins)
 
-        return real_wins / age
+        try:
+            winrate = (float(real_wins) / float(real_wins + game_losses))
+        except ZeroDivisionError:
+            winrate = 0
+
+#        return real_wins / age
+#        return points_per_generation * (1.0 - float((age-1)/100.0))
+        points_per_win = game_points / max(1, real_wins)
+#        old_age_debuff = (1.0 - float((age-1)/100.0))
+        old_age_debuff = 1
+        winrate_factor = 100 * winrate
+        return (points_per_win + winrate_factor) * old_age_debuff
 
     # engage each member in competition with each other member, recording the results
     def fitness_test(self):
@@ -169,19 +183,18 @@ class Population(object):
                     log_debug("Testing: {0}  {1}".format(challenger_geneset, defender_geneset))
 
                     match = GinMatch(challenger_player, defender_player)
-                    output_keys = ['action', 'index', 'accept_improper_knock']
                     num_inputs = 11 + 5 + 33
-                    num_outputs = 3
+                    num_outputs = 4
                     num_hidden = int((num_inputs + num_outputs) * (2.0 / 3.0))
 
                     challenger_weightset = WeightSet(challenger_geneset, num_inputs, num_hidden, num_outputs)
                     defender_weightset = WeightSet(defender_geneset, num_inputs, num_hidden, num_outputs)
 
                     challenger_observers = [Observer(challenger_player), Observer(match.table), Observer(match)]
-                    defender_observers = [Observer(defender_player), Observer(match.table), Observer(match)]
+                    defender_observers   = [Observer(defender_player), Observer(match.table), Observer(match)]
 
-                    challenger_neuralnet = NeuralNet(challenger_observers, challenger_weightset, output_keys)
-                    defender_neuralnet = NeuralNet(defender_observers, defender_weightset, output_keys)
+                    challenger_neuralnet = GinNeuralNet(challenger_observers, challenger_weightset)
+                    defender_neuralnet   = GinNeuralNet(defender_observers,   defender_weightset)
 
                     challenger_strategy = NeuralGinStrategy(challenger_player, defender_player, match,
                                                             challenger_neuralnet)
@@ -199,15 +212,18 @@ class Population(object):
                     defender_wins               = match_result['p2_games_won']
                     defender_wins_by_coinflip   = match_result['p2_games_won_by_coinflip']
                     defender_losses             = match_result['p2_games_lost']
+                    winner_point_delta          = match_result['winner_point_delta']
 
                     assert challenger_wins_by_coinflip <= challenger_wins, "bad challenger wins"
                     assert defender_wins_by_coinflip   <= defender_wins,   "bad defender wins"
 
                     # track match wins
                     if winner is challenger_player:
+                        self.member_genes[challenger_geneset]['game_points'] += winner_point_delta
                         self.member_genes[challenger_geneset]['match_wins'] += 1
                         self.member_genes[defender_geneset]['match_losses'] += 1
                     elif winner is defender_player:
+                        self.member_genes[defender_geneset]['game_points'] += winner_point_delta
                         self.member_genes[defender_geneset]['match_wins']     += 1
                         self.member_genes[challenger_geneset]['match_losses'] += 1
 
@@ -260,50 +276,65 @@ class Population(object):
                      "skill game wins",
                      "coinflip game wins",
                      "game losses",
-                     "match wins",
+                     "total points",
                      "match losses",
                      "age"])
 
         # gather data on our population
+        max_age = 0
+        max_score = 0
+        max_winrate = 0
         for item in self.member_genes.items():
             value = item[1]
             # collect values
             match_wins, match_losses = value['match_wins'], value['match_losses']
             coinflip_game_wins = value['coinflip_game_wins']
 
+            # track maximum score
             score = self.ranking_func(value)
+            if score > max_score:
+                max_score = score
+
 
             game_wins           = value['game_wins']
             coinflip_game_wins  = value['coinflip_game_wins']
             game_losses         = value['game_losses']
-            match_wins          = value['match_wins']
+            game_points         = value['game_points']
             match_losses        = value['match_losses']
 
             skill_game_wins = game_wins - coinflip_game_wins
 
-            # calculate win rate
+            # calculate and track win rate
             try:
                 winrate = (float(skill_game_wins) / float(skill_game_wins + game_losses))
             except ZeroDivisionError:
                 winrate = 0.00
 
-            age = self.current_generation - value['generation']
+            if winrate > max_winrate:
+                max_winrate = winrate
+
+            # track maximum age
+            age = self.current_generation - value['generation'] + 1
+            if age > max_age:
+                max_age = age
 
             # append values
-            data_rows.append([winrate, score, skill_game_wins, coinflip_game_wins, game_losses, match_wins, match_losses, age])
+            data_rows.append([winrate, score, skill_game_wins, coinflip_game_wins, game_losses, game_points, match_losses, age])
 
         # sort by winrate
         data_rows.sort(key=itemgetter(1), reverse=True)
 
         # collect the top min(10, self.population_size)
-        for i in range(min(10, len(data_rows))):
+#        for i in range(min(10, len(data_rows))):
+        for i in range(len(data_rows)):
             # what's our current ranking?
             one_row = [i + 1]
             # the other values defined in the header row
             for j in range(len(rows[0]) - 1):
                 one_row.append(data_rows[i][j])
             rows.append(one_row)
-        input_table.add_rows(rows[:11])
+#        input_table.add_rows(rows[:11])
+        input_table.add_rows(rows)
 
         output_text = "\n" + "                     LEADERBOARD FOR GENERATION #{0}  (population: {1}".format(
             self.current_generation, len(self.member_genes))
@@ -315,7 +346,7 @@ class Population(object):
             filename = self.local_storage + '.tally'
             with open(filename, 'a+') as the_file:
                 best_score = rows[1][2]
-                output = str(self.current_generation) + ',' + str(score) + ',' + str(winrate) + "\n"
+                output = str(self.current_generation) + ',' + str(max_score) + ',' + str(max_winrate) + ',' + str(max_age) + "\n"
                 the_file.write(output)
         except:
             pass

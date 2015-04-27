@@ -27,11 +27,51 @@ class MockObservable(Observable):
 
 
 class MockNeuralNetwork(object):
-    def __init__(self, action, index, accept_improper_knock):
-        self.outputs = {'action': action, 'index': index, 'accept_improper_knock': accept_improper_knock}
+    def __init__(self, action_start, action_end, index, accept_improper_knock):
+        self.outputs = {'action_start':             action_start,
+                        'action_end':               action_end,
+                        'index':                    index,
+                        'accept_improper_knock':    accept_improper_knock}
 
     def pulse(self):
         pass
+
+
+class NeuralNetTestHelper(unittest.TestCase):
+    @staticmethod
+    def generate_weightset(geneset, inputcount, hiddencount, outputcount):
+        weightset = WeightSet(geneset, inputcount, hiddencount, outputcount)
+        weightset.weights = {'input': [],
+                                  'hidden': [],
+                                  'jidden': [],
+                                  'output': []}
+
+        # add input neurons
+        for _ in range(inputcount):
+            weightset.weights['input'].append(0.1)
+
+        # set up the same set of weights for each hidden neuron
+        for _ in range(hiddencount):
+            weights = []
+            for x in range(inputcount):
+                weights.append(0.1)
+            weightset.weights['hidden'].append(weights)
+
+        # set up the same set of weights for each jidden neuron
+        for _ in range(hiddencount):
+            weights = []
+            for x in range(hiddencount):
+                weights.append(0.2)
+            weightset.weights['jidden'].append(weights)
+
+        # set up the same set of weights for each output neuron
+        for _ in range(outputcount):
+            weights = []
+            for x in range(hiddencount):
+                weights.append(0.3)
+            weightset.weights['output'].append(weights)
+
+        return weightset
 
 
 # noinspection PyDictCreation
@@ -51,27 +91,12 @@ class TestNeuralNet(unittest.TestCase):
             self.p.draw()
         self.obs = Observer(self.p)
 
-        self.output_keys = ['action', 'index', 'accept-improper-knock']
+        self.output_keys = ['action_start', 'action_end', 'index', 'accept-improper-knock']
 
         self.observers = [self.obs]
 
         # rig up a custom-numbered weightset
-        self.weightset = WeightSet(GeneSet(400), 11, 9, 3)
-        self.weightset.weights = {'input': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97],
-                                  'hidden': [],
-                                  'jidden': [],
-                                  'output': []}
-        # set up the same set of weights for each hidden neuron (9 neurons, 11 weights per neuron)
-        for _ in range(9):
-            self.weightset.weights['hidden'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.96, 0.97])
-
-        # set up the same set of weights for each jidden neuron (9 neurons, 9 weights per neuron)
-        for _ in range(9):
-            self.weightset.weights['jidden'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
-
-        # set up the same set of weights for each output neuron (3 neurons, 9 weights per neuron)
-        for _ in range(3):
-            self.weightset.weights['output'].append([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
+        self.weightset = NeuralNetTestHelper.generate_weightset(GeneSet(400), 11, 10, 4)
 
         # rig up an invalid weightset
         self.invalid_weightset = WeightSet(GeneSet(400), 11, 9, 3)
@@ -80,16 +105,19 @@ class TestNeuralNet(unittest.TestCase):
     def test___init__(self):
         invalid_weights = {'input': [0.5], 'output': []}
         # require at least one observer, one weight and one output
-        self.assertRaises(AssertionError, NeuralNet, [],           self.weightset,         self.output_keys)
+        self.assertRaises(AssertionError, NeuralNet, [], self.weightset, self.output_keys)
         self.assertRaises(AssertionError, NeuralNet, self.observers, self.invalid_weightset, self.output_keys)
-        self.assertRaises(AssertionError, NeuralNet, self.observers, self.weightset,         [])
+        self.assertRaises(AssertionError, NeuralNet, self.observers, self.weightset, [])
 
         # create input, hidden, jidden and output layers
         self.nn = NeuralNet(self.observers, self.weightset, self.output_keys)
         self.assertEqual(len(self.p.organize_data()), len(self.nn.input_layer))
         self.assertEqual(self.nn.calculate_hidden_count(), len(self.nn.hidden_layer))
         self.assertEqual(self.nn.calculate_hidden_count(), len(self.nn.jidden_layer))
-        self.assertEqual(len(self.output_keys),  len(self.nn.output_layer))
+        self.assertEqual(len(self.output_keys), len(self.nn.output_layer))
+
+        # ensure we have proper number of outputs
+        self.assertEqual(len(self.output_keys), 4)
 
     def test_validate_weights(self):
         # note: most of the validation code exists in WeightSet.validate
@@ -104,7 +132,7 @@ class TestNeuralNet(unittest.TestCase):
     def test_calculate_hidden_count(self):
         # one example should be good enough to test the math
         self.nn = NeuralNet(self.observers, self.weightset, self.output_keys)
-        self.assertEqual(9, self.nn.calculate_hidden_count())
+        self.assertEqual(10, self.nn.calculate_hidden_count())
 
     def test_create_input_layer(self):
         self.nn = NeuralNet(self.observers, self.weightset, self.output_keys)
@@ -169,7 +197,7 @@ class TestNeuralNet(unittest.TestCase):
             self.nn.outputs[key] = -1
 
         # change the first input weight of each output neuron to make each final output value unique
-        new_values = [0.02, 0.08, 0.55]
+        new_values = [0.02, 0.08, 0.55, 0.04]
         for item in self.nn.output_layer:
             neuron = item[item.keys()[0]]
             first_input = neuron.inputs.keys()[0]
@@ -188,6 +216,22 @@ class TestNeuralNet(unittest.TestCase):
             # ensure our output buffers have new values in (0, 1)
             self.assertGreaterEqual(value, 0)
             self.assertLessEqual(value, 1)
+
+
+class TestGinNeuralNet(unittest.TestCase):
+    def setUp(self):
+        self.p = GinPlayer()
+        self.t = GinTable()
+        self.p.table = self.t
+        for _ in range(11):
+            self.p.draw()
+        self.obs = Observer(self.p)
+        self.output_keys = ['action_start', 'action_end', 'index', 'accept_improper_knock']
+        self.weightset = NeuralNetTestHelper.generate_weightset(GeneSet(400), 11, 10, 4)
+        self.gnn = GinNeuralNet([self.obs], self.weightset)
+
+    def test___init__(self):
+        self.assertEqual(len(self.gnn.outputs), len(self.output_keys))
 
 
 class TestPerceptron(unittest.TestCase):

@@ -189,6 +189,12 @@ class NeuralNet(object):
         return output
 
 
+class GinNeuralNet(NeuralNet):
+    def __init__(self, observers, weightset):
+        output_keys = ['action_start', 'action_end', 'index', 'accept_improper_knock']
+        super(GinNeuralNet, self).__init__(observers, weightset, output_keys)
+
+
 class Perceptron(object):
     def __init__(self, myid=None):
         self.inputs = {}

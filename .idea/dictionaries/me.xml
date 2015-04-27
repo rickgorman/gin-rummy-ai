@@ -6,6 +6,7 @@
       <w>attribs</w>
       <w>cardgroups</w>
       <w>cgroup</w>
+      <w>debuff</w>
       <w>decksize</w>
       <w>dedupe</w>
       <w>deduped</w>
@@ -20,6 +21,8 @@
       <w>ginmatch</w>
       <w>ginplayer</w>
       <w>guid</w>
+      <w>hiddencount</w>
+      <w>inputcount</w>
       <w>invalue</w>
       <w>jidden</w>
       <w>keyvals</w>
@@ -33,6 +36,7 @@
       <w>mymath</w>
       <w>neuralnet</w>
       <w>noop</w>
+      <w>outputcount</w>
       <w>perceptron</w>
       <w>perceptrons</w>
       <w>pobs</w>

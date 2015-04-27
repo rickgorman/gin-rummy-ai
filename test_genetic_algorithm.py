@@ -184,16 +184,16 @@ class TestPopulation(unittest.TestCase):
         self.assertEqual(self.gene_size, len(self.p.member_genes.keys()[0].genes))
 
     def test_ranking_func(self):
-        gene_item = {'game_wins': 4, 'coinflip_game_wins': 4, 'game_losses': 0, 'generation': 0}
+        gene_item = {'game_wins': 4, 'coinflip_game_wins': 4, 'game_losses': 0, 'generation': 0, 'game_points': 0}
         self.assertEqual(0, self.p.ranking_func(gene_item))
 
-        gene_item = {'game_wins': 4, 'coinflip_game_wins': 0, 'game_losses': 0, 'generation': 0}
+        gene_item = {'game_wins': 4, 'coinflip_game_wins': 0, 'game_losses': 0, 'generation': 0, 'game_points': 0}
         self.assertEqual(4, self.p.ranking_func(gene_item))
 
-        gene_item = {'game_wins': 4, 'coinflip_game_wins': 2, 'game_losses': 0, 'generation': 0}
+        gene_item = {'game_wins': 4, 'coinflip_game_wins': 2, 'game_losses': 0, 'generation': 0, 'game_points': 0}
         self.assertEqual(2, self.p.ranking_func(gene_item))
 
-        gene_item = {'game_wins': 4, 'coinflip_game_wins': 2, 'game_losses': 0, 'generation': 0}
+        gene_item = {'game_wins': 4, 'coinflip_game_wins': 2, 'game_losses': 0, 'generation': 0, 'game_points': 0}
         self.p.current_generation = 1
         self.assertEqual(1, self.p.ranking_func(gene_item))
 

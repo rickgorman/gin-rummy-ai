@@ -32,7 +32,7 @@ class NeuralGinStrategy(GinStrategy):
 
         # ensure we have a neural net with our expected outputs
         self.nn = neural_net
-        required_outputs = ['action', 'index', 'accept_improper_knock']
+        required_outputs = ['action_start', 'action_end', 'index', 'accept_improper_knock']
         for output in required_outputs:
             assert output in self.nn.outputs.keys(), "we require a neural net with an '" + output + "' output neuron"
 
@@ -51,14 +51,15 @@ class NeuralGinStrategy(GinStrategy):
             return int(float(signal) * float(buckets))
 
     # step function for the action output neuron
-    def decode_best_action(self, phase=None):
+    def decode_action(self, phase=None):
         assert phase is not None, "a phase of 'start' or 'end' is required"
         if phase == 'start':
             actions = ['PICKUP-FROM-DISCARD', 'DRAW']
+            idx = NeuralGinStrategy.decode_signal(self.nn.outputs['action_start'], len(actions))
         else:
             actions = ['KNOCK', 'DISCARD', 'KNOCK-GIN']
+            idx = NeuralGinStrategy.decode_signal(self.nn.outputs['action_end'], len(actions))
 
-        idx = NeuralGinStrategy.decode_signal(self.nn.outputs['action'], len(actions))
         return actions[idx]
 
     # step function for the index output neuron
@@ -69,6 +70,6 @@ class NeuralGinStrategy(GinStrategy):
     def determine_best_action(self, phase=None):
         assert phase is not None, "a phase of 'start' or 'end' is required"
         self.nn.pulse()
-        action = self.decode_best_action(phase)
+        action = self.decode_action(phase)
         index  = self.decode_index()
         return [action, index]

@@ -80,22 +80,23 @@ class GinMatch(Observable):
 
     # run the match until a winner is declared
     def run(self):
-        # continue playing games until one player reaches 100
-        while self.p1_score < 1 and self.p2_score < 1:
+        # continue playing games until one player reaches 1  (normally 100)
+        while self.p1_games_won + self.p2_games_won < 1:
+#        while self.p1_score < 1 and self.p2_score < 1:
             self.play_game()
 
         # perform final scoring
         # - calculate game bonus
-        if self.p1_score >= 100:
-            self.p1_score += 100
-        elif self.p2_score >= 100:
-            self.p2_score += 100
+        #if self.p1_score >= 100:
+        #    self.p1_score += 100
+        #elif self.p2_score >= 100:
+        #    self.p2_score += 100
         #else:
         #    raise ValueError("score must be 100+ for endgame. scores are p1:%s p2:%s" % self.p1_score, self.p2_score)
 
         # - calculate line bonus
-        self.p1_score += 20 * self.p1_games_won
-        self.p2_score += 20 * self.p2_games_won
+        #self.p1_score += 20 * self.p1_games_won
+        #self.p2_score += 20 * self.p2_games_won
 
         log_debug("\t--MATCH COMPLETE--")
         log_debug("\tFinal scores: ")
@@ -124,13 +125,22 @@ class GinMatch(Observable):
         p1_games_lost = self.p2_games_won
         p2_games_lost = self.p1_games_won
 
+        # this only works for game_count = 1
+        if self.p1_wins_by_coinflip > 0 or self.p2_wins_by_coinflip > 0:
+            winner_point_delta = 0
+        elif winner == self.p1:
+            winner_point_delta = self.p1_score - self.p2_score
+        else:
+            winner_point_delta = self.p2_score - self.p1_score
+
         result = {'winner': winner,
                   'p1_games_won': self.p1_games_won,
                   'p1_games_won_by_coinflip': self.p1_wins_by_coinflip,
                   'p1_games_lost': p1_games_lost,
                   'p2_games_won': self.p2_games_won,
                   'p2_games_won_by_coinflip': self.p2_wins_by_coinflip,
-                  'p2_games_lost': p2_games_lost}
+                  'p2_games_lost': p2_games_lost,
+                  'winner_point_delta': winner_point_delta}
 
         return result
 
@@ -348,7 +358,7 @@ class GinMatch(Observable):
         else:
             self.gameover = True
             self.player_who_knocked_gin = knocker
-            log_info("\t\tGame won by knock by {0}".format(self.get_player_string(knocker)))
+            log_info("\t\tGame won by knock_gin by {0}".format(self.get_player_string(knocker)))
 
     # we offer the accepter a chance to accept an improper knock (provided they have a knock-worthy hand themselves)
     def offer_to_accept_improper_knock(self, accepter):

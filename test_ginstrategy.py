@@ -53,7 +53,7 @@ class TestNeuralGinStrategy(Helper):
         self.p2 = GinPlayer()
         self.gm = GinMatch(self.p1, self.p2)
 
-        self.nn = MockNeuralNetwork(None, None, accept_improper_knock=0.9)
+        self.nn = MockNeuralNetwork(None, None, None, accept_improper_knock=0.9)
         self.strat = NeuralGinStrategy(self.p1, self.p2, self.gm, self.nn)
 
     def test_consider_accepting_improper_knock(self):
@@ -96,15 +96,15 @@ class TestNeuralGinStrategy(Helper):
         signals = {'PICKUP-FROM-DISCARD': 0.3, 'DRAW': 0.9}
 
         for action, signal_strength in signals.items():
-            self.strat.nn.outputs['action'] = signal_strength
-            self.assertEqual(action, self.strat.decode_best_action(phase='start'))
+            self.strat.nn.outputs['action_start'] = signal_strength
+            self.assertEqual(action, self.strat.decode_action(phase='start'))
 
     def test_decode_best_action_phase_end(self):
         signals = {'KNOCK': 0.1, 'DISCARD': 0.5, 'KNOCK-GIN': 0.7}
 
         for action, signal_strength in signals.items():
-            self.strat.nn.outputs['action'] = signal_strength
-            self.assertEqual(action, self.strat.decode_best_action(phase='end'))
+            self.strat.nn.outputs['action_end'] = signal_strength
+            self.assertEqual(action, self.strat.decode_action(phase='end'))
 
     # return the index of the card we wish to toss
     def test_decode_index(self):
