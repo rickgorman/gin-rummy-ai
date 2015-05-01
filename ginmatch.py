@@ -103,15 +103,13 @@ class GinMatch(Observable):
         log_debug("\tPlayer 1: {0}".format(self.p1_score))
         log_debug("\tPlayer 2: {0}".format(self.p2_score))
 
-        winner = None
-        # return winner
-        if self.p1_score > self.p2_score:
-            log_debug("Player 1 Wins!")
-            winner = self.p1
-        elif self.p2_score > self.p1_score:
-            log_debug("Player 2 Wins!")
-            winner = self.p2
-        else:
+        winner, loser = None, None
+        winner_games_won, loser_games_won = 0, 0
+        winner_games_lost, loser_games_lost = 0, 0
+        winner_wins_by_coinflip, loser_wins_by_coinflip = 0, 0
+
+        # determine winner/loser
+        if self.p1_score == self.p2_score:
             log_debug("We have a tie!")
             # tie: flip a coin to determine winner
             if random.random() < 0.5:
@@ -120,10 +118,36 @@ class GinMatch(Observable):
             else:
                 log_debug("Player 2 wins the coin flip!")
                 winner = self.p2
+        elif self.p1_score > self.p2_score:
+            log_debug("Player 1 Wins!")
+            winner = self.p1
+            loser  = self.p2
+        elif self.p2_score > self.p1_score:
+            log_debug("Player 2 Wins!")
+            winner = self.p2
+            loser  = self.p1
+        else:
+            raise Exception("this should never happen")
 
-        # calculate losses
-        p1_games_lost = self.p2_games_won
-        p2_games_lost = self.p1_games_won
+        # calculate match result statistics
+        if winner == self.p1:
+            winner_games_won = self.p1_games_won
+            winner_games_lost = self.p2_games_won
+            winner_wins_by_coinflip = self.p1_wins_by_coinflip
+
+            loser_games_won = self.p2_games_won
+            loser_games_lost = self.p1_games_won
+            loser_wins_by_coinflip = self.p2_wins_by_coinflip
+        elif winner == self.p2:
+            winner_games_won = self.p2_games_won
+            winner_games_lost = self.p1_games_won
+            winner_wins_by_coinflip = self.p2_wins_by_coinflip
+
+            loser_games_won = self.p1_games_won
+            loser_games_lost = self.p2_games_won
+            loser_wins_by_coinflip = self.p1_wins_by_coinflip
+        else:
+            raise Exception("this should never happen")
 
         # this only works for game_count = 1
         if self.p1_wins_by_coinflip > 0 or self.p2_wins_by_coinflip > 0:
@@ -133,13 +157,15 @@ class GinMatch(Observable):
         else:
             winner_point_delta = self.p2_score - self.p1_score
 
+        # collect statistics
         result = {'winner': winner,
-                  'p1_games_won': self.p1_games_won,
-                  'p1_games_won_by_coinflip': self.p1_wins_by_coinflip,
-                  'p1_games_lost': p1_games_lost,
-                  'p2_games_won': self.p2_games_won,
-                  'p2_games_won_by_coinflip': self.p2_wins_by_coinflip,
-                  'p2_games_lost': p2_games_lost,
+                  'loser':                          loser,
+                  'winner_games_won':               winner_games_won,
+                  'winner_games_lost':              winner_games_lost,
+                  'winner_games_won_by_coinflip':   winner_wins_by_coinflip,
+                  'loser_games_won':                loser_games_won,
+                  'loser_games_lost':               loser_games_lost,
+                  'loser_games_won_by_coinflip':    loser_wins_by_coinflip,
                   'winner_point_delta': winner_point_delta}
 
         return result

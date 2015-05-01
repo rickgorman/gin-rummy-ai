@@ -123,6 +123,10 @@ class Population(object):
 
         self.current_generation += 1
 
+        # auto-save every so often
+        if self.local_storage and self.current_generation % 100 == 0:
+            self.persist(action='store')
+
     # add a member with a given generation
     def add_member(self, geneset, generation):
         self.member_genes[geneset] = {'match_wins': 0, 'match_losses': 0, 'game_wins': 0, 'coinflip_game_wins': 0,
@@ -157,16 +161,19 @@ class Population(object):
         except ZeroDivisionError:
             winrate = 0
 
-#        return real_wins / age
-#        return points_per_generation * (1.0 - float((age-1)/100.0))
         points_per_win = game_points / max(1, real_wins)
-#        old_age_debuff = (1.0 - float((age-1)/100.0))
-        old_age_debuff = 1
         winrate_factor = 100 * winrate
-        return (points_per_win + winrate_factor) * old_age_debuff
+
+        # over 100 games, vs an opponent who scores 25 points per game, how many points will we win (can be negative)
+        return 100 * (winrate * points_per_win - (1 - winrate) * 25)
 
     # engage each member in competition with each other member, recording the results
     def fitness_test(self):
+
+        # keep track of matches
+        matches = []
+        player_geneset_dict = {}
+
         already_tested = []
         for challenger_geneset in self.member_genes:
             for defender_geneset in self.member_genes:
@@ -180,7 +187,12 @@ class Population(object):
                     # create physical representations for these gene_sets
                     challenger_player = GinPlayer()
                     defender_player = GinPlayer()
-                    log_debug("Testing: {0}  {1}".format(challenger_geneset, defender_geneset))
+
+                    # store these in a lookup table
+                    player_geneset_dict[str(challenger_player.id)] = challenger_geneset
+                    player_geneset_dict[str(defender_player.id)]   = defender_geneset
+
+                    log_debug("Testing: {0} vs {1}".format(challenger_geneset, defender_geneset))
 
                     match = GinMatch(challenger_player, defender_player)
                     num_inputs = 11 + 5 + 33
@@ -204,40 +216,44 @@ class Population(object):
                     challenger_player.strategy = challenger_strategy
                     defender_player.strategy = defender_strategy
 
-                    match_result = match.run()
-                    winner                      = match_result['winner']
-                    challenger_wins             = match_result['p1_games_won']
-                    challenger_wins_by_coinflip = match_result['p1_games_won_by_coinflip']
-                    challenger_losses           = match_result['p1_games_lost']
-                    defender_wins               = match_result['p2_games_won']
-                    defender_wins_by_coinflip   = match_result['p2_games_won_by_coinflip']
-                    defender_losses             = match_result['p2_games_lost']
-                    winner_point_delta          = match_result['winner_point_delta']
+                    # send the match to a worker and store a handle for later use
+                    matches.append(match)
 
-                    assert challenger_wins_by_coinflip <= challenger_wins, "bad challenger wins"
-                    assert defender_wins_by_coinflip   <= defender_wins,   "bad defender wins"
+        # run matches and record output
+        for match in matches:
+            # run the match
+            match_result = match.run()
 
-                    # track match wins
-                    if winner is challenger_player:
-                        self.member_genes[challenger_geneset]['game_points'] += winner_point_delta
-                        self.member_genes[challenger_geneset]['match_wins'] += 1
-                        self.member_genes[defender_geneset]['match_losses'] += 1
-                    elif winner is defender_player:
-                        self.member_genes[defender_geneset]['game_points'] += winner_point_delta
-                        self.member_genes[defender_geneset]['match_wins']     += 1
-                        self.member_genes[challenger_geneset]['match_losses'] += 1
+            # update our records
+            winner                      = match_result['winner']
+            loser                       = match_result['loser']
+            winner_wins                 = match_result['winner_games_won']
+            winner_wins_by_coinflip     = match_result['winner_games_won_by_coinflip']
+            winner_losses               = match_result['winner_games_lost']
+            loser_wins                  = match_result['loser_games_won']
+            loser_wins_by_coinflip      = match_result['loser_games_won_by_coinflip']
+            loser_losses                = match_result['loser_games_lost']
+            winner_point_delta          = match_result['winner_point_delta']
 
-                    # track game wins
-                    self.member_genes[challenger_geneset]['game_wins']  += challenger_wins
-                    self.member_genes[defender_geneset]['game_wins']      += defender_wins
+            # track match wins
+            winner_geneset = player_geneset_dict[str(winner.id)]
+            loser_geneset  = player_geneset_dict[str(loser.id)]
 
-                    # track coinflip wins
-                    self.member_genes[challenger_geneset]['coinflip_game_wins'] += challenger_wins_by_coinflip
-                    self.member_genes[defender_geneset]['coinflip_game_wins']   += defender_wins_by_coinflip
+            self.member_genes[winner_geneset]['game_points']  += winner_point_delta
+            self.member_genes[winner_geneset]['match_wins']   += 1
+            self.member_genes[loser_geneset]['match_losses']  += 1
 
-                    # track game losses
-                    self.member_genes[challenger_geneset]['game_losses'] += challenger_losses
-                    self.member_genes[defender_geneset]['game_losses']     += defender_losses
+            # track game wins
+            self.member_genes[winner_geneset]['game_wins']    += winner_wins
+            self.member_genes[loser_geneset]['game_wins']     += loser_wins
+
+            # track coinflip wins
+            self.member_genes[winner_geneset]['coinflip_game_wins'] += winner_wins_by_coinflip
+            self.member_genes[loser_geneset]['coinflip_game_wins']  += loser_wins_by_coinflip
+
+            # track game losses
+            self.member_genes[winner_geneset]['game_losses'] += winner_losses
+            self.member_genes[loser_geneset]['game_losses']  += loser_losses
 
     # remove members from prior generations, sparing the top N specimens
     def cull(self):

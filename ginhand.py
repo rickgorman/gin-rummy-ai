@@ -23,7 +23,6 @@ class GinCardGroup:
             for card in card_list:
                 self.add_card(card)
 
-    # display contents while debugging
     def __repr__(self):
         description = ""
         for c in self.cards:
@@ -174,6 +173,7 @@ class GinCardGroup:
             return False
 
     # return an array of GinCardGroups of all melds and sets that can be built with the cards in this hand
+    @memoized(500)
     def enumerate_all_melds_and_sets(self):
 
         all_melds = self.enumerate_all_melds()
@@ -236,7 +236,6 @@ class GinCardGroup:
             agcg_all_melds_deduped = GinCardGroup.uniqsort_cardgroups(agcg_all_melds)
 
             return agcg_all_melds_deduped
-
 
     # return a sorted array of GinCardGroups, one containing each set
     @memoized(500)

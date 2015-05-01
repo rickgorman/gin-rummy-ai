@@ -113,21 +113,23 @@ class TestGinMatch(Helper):
         # run the match and return the winner.
         match_result = self.gm.run()
         winner                    = match_result['winner']
-        p1_wins                   = match_result['p1_games_won']
-        p1_wins_by_coinflip       = match_result['p1_games_won_by_coinflip']
-        p1_losses                 = match_result['p1_games_lost']
-        p2_wins                   = match_result['p2_games_won']
-        p2_wins_by_coinflip       = match_result['p2_games_won_by_coinflip']
-        p2_losses                 = match_result['p2_games_lost']
+        loser                     = match_result['loser']
+        winner_wins               = match_result['winner_games_won']
+        winner_wins_by_coinflip   = match_result['winner_games_won_by_coinflip']
+        winner_losses             = match_result['winner_games_lost']
+        loser_wins                = match_result['loser_games_won']
+        loser_wins_by_coinflip    = match_result['loser_games_won_by_coinflip']
+        loser_losses              = match_result['loser_games_lost']
         winner_point_delta        = match_result['winner_point_delta']
 
         # make sure the winner is our horse
         self.assertEqual(winner, self.p1)
-        self.assertEqual(p1_wins_by_coinflip, 0)
-        self.assertEqual(p2_wins_by_coinflip, 0)
+        self.assertEqual(loser,  self.p2)
+        self.assertEqual(winner_wins_by_coinflip, 0)
+        self.assertEqual(loser_wins_by_coinflip, 0)
 
-        self.assertEqual(p1_losses, 0)
-        self.assertEqual(p2_losses, 1)
+        self.assertEqual(winner_losses, 0)
+        self.assertEqual(loser_losses, 1)
 
         self.assertEqual(winner_point_delta, 220)
 
@@ -138,14 +140,9 @@ class TestGinMatch(Helper):
         self.p2.strategy = MockGinStrategy(strat_code)
 
         match_result = self.gm.run()
-        winner                    = match_result['winner']
-        p1_wins                   = match_result['p1_games_won']
-        p1_wins_by_coinflip       = match_result['p1_games_won_by_coinflip']
-        p1_losses                 = match_result['p1_games_lost']
-        p2_wins                   = match_result['p2_games_won']
-        p2_wins_by_coinflip       = match_result['p2_games_won_by_coinflip']
-        p2_losses                 = match_result['p2_games_lost']
-        self.assertGreaterEqual(p1_wins_by_coinflip + p2_wins_by_coinflip, 2)
+        winner_wins_by_coinflip      = match_result['winner_games_won_by_coinflip']
+        loser_wins_by_coinflip       = match_result['winner_games_won_by_coinflip']
+        self.assertGreaterEqual(winner_wins_by_coinflip + loser_wins_by_coinflip, 2)
 
 
     def test_play_game(self):

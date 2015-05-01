@@ -22,6 +22,11 @@ class Card(object):
         self.rank = rank
         self.suit = suit
 
+        self.suit_value = {'c': 0,
+                           'd': 13,
+                           'h': 26,
+                           's': 39}
+
     @staticmethod
     def all_suits():
         return ['c', 'h', 'd', 's']
@@ -39,11 +44,7 @@ class Card(object):
     # return a ranking of 1-52
     # - Ac=1, 2c=2, ..., Ad=14, 2d=15, ..., Qs=51, Ks=52
     def ranking(self):
-        suit_value = {'c': 0,
-                      'd': 13,
-                      'h': 26,
-                      's': 39}
-        return self.rank + suit_value[self.suit]
+        return self.rank + self.suit_value[self.suit]
 
 
 class Deck(object):

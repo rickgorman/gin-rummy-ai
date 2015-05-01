@@ -217,7 +217,12 @@ class Perceptron(object):
 
     @staticmethod
     def sigmoid(num):
-        return 1 / (1 + exp(-num))
+        if -num > 100:
+            return 0
+        elif -num < -100:
+            return 1
+        else:
+            return 1 / (1 + exp(-num))
 
     # return the sigmoid of: the sum of our inputs multiplied by their respective weights
     def generate_output(self, indent_level=0, getlast=True):
