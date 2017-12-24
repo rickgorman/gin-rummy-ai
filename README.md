@@ -67,7 +67,7 @@ Columns are explained as:
 
 ## Observables
 
-A pair of [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) decorators @notify_observers_before and @notify_observers_after are used to keep things DRY and efficient. This pattern allows a class to keep track of properties that will be exposed as inputs to the neural networks via an organize_data() method.
+A pair of [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) decorators `@notify_observers_before` and `@notify_observers_after` are used to keep things DRY and efficient. This pattern allows a class to keep track of properties that will be exposed as inputs to the neural networks via an organize_data() method.
 
 ## Todo
 * When a player knocks falsely, his hand should be exposed to the other player.
